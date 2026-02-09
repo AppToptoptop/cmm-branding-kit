@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; One Pager</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+/* PAGE - A4 centered */
+.page-wrap{max-width:780px;margin:0 auto;padding:5rem 1.5rem 3rem;position:relative;z-index:1;}
+
+/* HEADER */
+.op-header{text-align:center;padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2rem;}
+.op-badge{display:inline-block;font-family:'Sora',sans-serif;font-size:0.6rem;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;border:1px solid rgba(212,168,83,0.25);padding:0.3rem 1rem;border-radius:100px;background:rgba(212,168,83,0.06);margin-bottom:1.2rem;}
+.op-header h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,2.8rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:0.6rem;}
+.op-header h1 em{font-style:normal;color:var(--gold);}
+.op-tagline{color:var(--dim);font-size:1.05rem;max-width:480px;margin:0 auto;}
+
+/* 2-COL GRID */
+.op-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:2rem;}
+@media(max-width:650px){.op-grid{grid-template-columns:1fr;}}
+
+/* BLOCK */
+.op-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;position:relative;overflow:hidden;animation:fadeUp 0.5s ease both;}
+.op-block::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.op-block.gold::before{background:var(--gold);}
+.op-block.teal::before{background:var(--teal);}
+.op-block.orange::before{background:var(--orange);}
+.op-block.green::before{background:var(--green);}
+.op-block.red::before{background:var(--red);}
+
+.op-block-label{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;}
+.op-block h3{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-0.3px;margin-bottom:0.6rem;}
+.op-block p{font-size:0.82rem;color:var(--dim);line-height:1.6;}
+.op-block ul{list-style:none;padding:0;margin:0;}
+.op-block li{font-size:0.82rem;color:var(--dim);line-height:1.6;padding:0.2rem 0;padding-left:1.1rem;position:relative;}
+.op-block li::before{content:'';position:absolute;left:0;top:0.65rem;width:5px;height:5px;border-radius:50%;background:var(--gold);}
+
+/* FULL WIDTH BLOCK */
+.op-full{grid-column:1/-1;}
+
+/* STAT ROW */
+.stat-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:0.75rem;}
+.stat-item{flex:1;min-width:80px;text-align:center;background:rgba(0,0,0,0.2);border-radius:10px;padding:0.7rem 0.5rem;}
+.stat-num{font-family:'Sora',sans-serif;font-size:1.2rem;font-weight:800;}
+.stat-num.gold{color:var(--gold);}
+.stat-num.teal{color:var(--teal);}
+.stat-num.orange{color:var(--orange);}
+.stat-num.green{color:var(--green);}
+.stat-label{font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.1rem;}
+
+/* PRICING TABLE */
+.price-row{display:flex;gap:1rem;margin-top:0.75rem;flex-wrap:wrap;}
+.price-item{flex:1;min-width:100px;text-align:center;padding:0.8rem 0.5rem;border-radius:10px;border:1px solid var(--border);}
+.price-item.highlight{border-color:var(--gold);background:rgba(212,168,83,0.06);}
+.price-name{font-family:'Sora',sans-serif;font-size:0.7rem;font-weight:700;margin-bottom:0.3rem;text-transform:uppercase;letter-spacing:1px;}
+.price-val{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:800;}
+.price-item .crossed{text-decoration:line-through;color:var(--muted);font-size:0.85rem;}
+.price-item.highlight .price-val{color:var(--gold);}
+
+/* CHANNEL PILLS */
+.channel-row{display:flex;gap:0.5rem;margin-top:0.75rem;flex-wrap:wrap;}
+.ch-pill{display:flex;align-items:center;gap:0.4rem;padding:0.5rem 0.8rem;border-radius:10px;border:1px solid var(--border);font-size:0.78rem;color:var(--dim);flex:1;min-width:100px;justify-content:center;}
+.ch-pill .ch-icon{font-size:1.1rem;}
+.ch-pill.teal{border-color:rgba(0,212,170,0.3);color:var(--teal);}
+.ch-pill.gold{border-color:rgba(212,168,83,0.3);color:var(--gold);}
+.ch-pill.orange{border-color:rgba(244,125,49,0.3);color:var(--orange);}
+
+/* TEAM */
+.team-row{display:flex;gap:1.5rem;margin-top:0.75rem;flex-wrap:wrap;}
+.team-member{display:flex;align-items:center;gap:0.75rem;}
+.team-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-weight:800;font-size:0.85rem;color:var(--bg);}
+.team-avatar.av-gold{background:var(--gold);}
+.team-avatar.av-teal{background:var(--teal);}
+.team-name{font-family:'Sora',sans-serif;font-size:0.88rem;font-weight:700;}
+.team-role{font-size:0.72rem;color:var(--muted);}
+
+/* CONTACT ROW */
+.contact-row{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;justify-content:center;}
+.contact-btn{display:inline-flex;align-items:center;gap:0.5rem;padding:0.6rem 1.2rem;border-radius:10px;text-decoration:none;font-family:'Sora',sans-serif;font-size:0.78rem;font-weight:700;transition:all 0.3s;border:1px solid var(--border);color:var(--dim);}
+.contact-btn:hover{border-color:var(--dim);color:var(--text);transform:translateY(-2px);}
+.contact-btn.primary{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.contact-btn.primary:hover{background:#e0b45e;}
+
+/* PRINT */
+@media print{
+body{background:#fff;color:#111;}
+body::before{display:none;}
+.topbar{display:none;}
+.page-wrap{padding-top:1rem;}
+.op-block{border-color:#ddd;background:#f9f9f9;}
+.op-block::before{display:none;}
+.op-block p,.op-block li{color:#444;}
+.op-block-label{color:#888;}
+.stat-item{background:#f0f0f0;}
+.stat-num{color:#333 !important;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.op-grid .op-block:nth-child(1){animation-delay:0.05s;}
+.op-grid .op-block:nth-child(2){animation-delay:0.1s;}
+.op-grid .op-block:nth-child(3){animation-delay:0.15s;}
+.op-grid .op-block:nth-child(4){animation-delay:0.2s;}
+.op-grid .op-block:nth-child(5){animation-delay:0.25s;}
+.op-grid .op-block:nth-child(6){animation-delay:0.3s;}
+.op-grid .op-block:nth-child(7){animation-delay:0.35s;}
+.op-grid .op-block:nth-child(8){animation-delay:0.4s;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="javascript:window.print()" style="color:var(--gold);">&#128424; Print / PDF</a>
+    <a href="index.html">&larr; War Room</a>
+  </div>
+</div>
+
+<div class="page-wrap">
+
+<!-- HEADER -->
+<div class="op-header">
+  <div class="op-badge">One Pager &mdash; Feb 2026</div>
+  <h1>Call Me <em>Maybe</em></h1>
+  <p class="op-tagline">AI coaching that comes to you. Daily check-ins via message, voice note, or phone call. Weight loss first, then every goal.</p>
+</div>
+
+<div class="op-grid">
+
+  <!-- PROBLEM -->
+  <div class="op-block red" style="animation-delay:0.05s">
+    <div class="op-block-label">The Problem</div>
+    <h3>Fitness apps don't work</h3>
+    <ul>
+      <li>95% of diets fail &mdash; people quit within 3 weeks</li>
+      <li>Apps are passive: they wait for you to open them</li>
+      <li>Human coaches cost &euro;200&ndash;500/month</li>
+      <li>Noom charges &euro;70/mo with zero daily contact</li>
+      <li>No competitor combines daily AI contact + weight loss coaching in France</li>
+    </ul>
+  </div>
+
+  <!-- SOLUTION -->
+  <div class="op-block teal" style="animation-delay:0.1s">
+    <div class="op-block-label">Our Solution</div>
+    <h3>A coach that contacts you daily</h3>
+    <p>AI-powered coaching that reaches out every day via your preferred channel. Tracks food (photo logging), exercise, mood. Accountability proven 2.7x more effective than motivation alone.</p>
+    <div class="channel-row">
+      <div class="ch-pill teal"><span class="ch-icon">&#128172;</span> Message</div>
+      <div class="ch-pill gold"><span class="ch-icon">&#127908;</span> Voice Note</div>
+      <div class="ch-pill orange"><span class="ch-icon">&#128222;</span> Phone Call</div>
+    </div>
+  </div>
+
+  <!-- MARKET -->
+  <div class="op-block gold" style="animation-delay:0.15s">
+    <div class="op-block-label">Market Opportunity</div>
+    <h3>Massive &amp; underserved</h3>
+    <div class="stat-row">
+      <div class="stat-item"><div class="stat-num gold">$400M</div><div class="stat-label">Noom Revenue</div></div>
+      <div class="stat-item"><div class="stat-num teal">$68B</div><div class="stat-label">Corporate Wellness</div></div>
+      <div class="stat-item"><div class="stat-num orange">0</div><div class="stat-label">AI Call Competitors in France</div></div>
+    </div>
+    <p style="margin-top:0.75rem;">Weight loss market alone is $250B+ globally. France: 76% prefer voice channels, mental health is &laquo; Grande Cause Nationale &raquo; 2025&ndash;2026.</p>
+  </div>
+
+  <!-- COMPETITIVE EDGE -->
+  <div class="op-block green" style="animation-delay:0.2s">
+    <div class="op-block-label">Why We Win</div>
+    <h3>5 unfair advantages</h3>
+    <ul>
+      <li><strong>Outbound first:</strong> We contact users, not the other way around</li>
+      <li><strong>Multi-channel:</strong> Message + voice + calls (competitors do one)</li>
+      <li><strong>France monopoly:</strong> Zero AI daily coaching competitor for &lt;60</li>
+      <li><strong>Photo food logging:</strong> Snap a photo, AI analyzes macros instantly</li>
+      <li><strong>Streak system:</strong> Duolingo-style gamification &rarr; 5x retention</li>
+    </ul>
+  </div>
+
+  <!-- PRICING -->
+  <div class="op-block gold" style="animation-delay:0.25s">
+    <div class="op-block-label">Pricing vs Alternatives</div>
+    <h3>10x cheaper than human coaching</h3>
+    <div class="price-row">
+      <div class="price-item"><div class="price-name">Human Coach</div><div class="price-val crossed">&euro;300+/mo</div></div>
+      <div class="price-item"><div class="price-name">Noom</div><div class="price-val crossed">&euro;70/mo</div></div>
+      <div class="price-item highlight"><div class="price-name">Call Me Maybe</div><div class="price-val">&euro;15/mo</div></div>
+    </div>
+    <p style="margin-top:0.75rem;">3 tiers: &euro;9.90 (message only) / &euro;14.90 (+ voice) / &euro;24.90 (+ calls). Target LTV &euro;180+, CAC &lt;&euro;25, 85%+ gross margin.</p>
+  </div>
+
+  <!-- BUSINESS MODEL -->
+  <div class="op-block orange" style="animation-delay:0.3s">
+    <div class="op-block-label">Revenue Streams</div>
+    <h3>B2C + B2B + White-Label</h3>
+    <ul>
+      <li><strong>B2C subscriptions:</strong> Core revenue, 3 pricing tiers</li>
+      <li><strong>B2B corporate wellness:</strong> $68B market, per-employee pricing</li>
+      <li><strong>White-label:</strong> License to gyms (Basic-Fit 800+ clubs)</li>
+      <li><strong>Affiliate program:</strong> 30% recurring for referrals</li>
+    </ul>
+  </div>
+
+  <!-- TRACTION / MILESTONES -->
+  <div class="op-block teal op-full" style="animation-delay:0.35s">
+    <div class="op-block-label">Roadmap &amp; Milestones</div>
+    <h3>Path to &euro;50K MRR in 12 months</h3>
+    <div class="stat-row">
+      <div class="stat-item"><div class="stat-num teal">M1&ndash;3</div><div class="stat-label">100 Beta Users &bull; &euro;1K MRR</div></div>
+      <div class="stat-item"><div class="stat-num gold">M4&ndash;6</div><div class="stat-label">1K Users &bull; &euro;10K MRR</div></div>
+      <div class="stat-item"><div class="stat-num orange">M7&ndash;9</div><div class="stat-label">3K Users &bull; &euro;25K MRR</div></div>
+      <div class="stat-item"><div class="stat-num green">M10&ndash;12</div><div class="stat-label">5K+ Users &bull; &euro;50K MRR</div></div>
+    </div>
+    <p style="margin-top:0.75rem;">Go-to-market: TikTok (organic) &rarr; Instagram &rarr; Reddit &rarr; SEO &rarr; Podcast partnerships. Product Hunt launch Month 2. 30-day challenge campaign Month 3. B2B pilots Month 6+.</p>
+  </div>
+
+  <!-- TEAM -->
+  <div class="op-block gold op-full" style="animation-delay:0.4s">
+    <div class="op-block-label">Team</div>
+    <h3>Built by 2 founders, powered by AI</h3>
+    <div class="team-row">
+      <div class="team-member">
+        <div class="team-avatar av-gold">A</div>
+        <div>
+          <div class="team-name">Aaron</div>
+          <div class="team-role">Product / Marketing / Frontend</div>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar av-teal">A</div>
+        <div>
+          <div class="team-name">Ata</div>
+          <div class="team-role">Backend / Data / Infrastructure</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-row">
+      <a href="mailto:aaronbes2@gmail.com" class="contact-btn">&#9993; aaronbes2@gmail.com</a>
+      <a href="https://wa.me/33665395800" class="contact-btn primary">&#128172; WhatsApp</a>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+// staggered animation on scroll
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)';}});
+},{threshold:0.1});
+document.querySelectorAll('.op-block').forEach(b=>observer.observe(b));
+</script>
+</body>
+</html>

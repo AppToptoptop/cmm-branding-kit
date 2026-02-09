@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>We're building something — We need your take</title>
+<meta property="og:title" content="We're building something — We need your take">
+<meta property="og:description" content="An AI that calls you every morning to help you hit your goals. We need your honest feedback.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0d10;
+  --card: #131620;
+  --border: #1e2235;
+  --text: #eceae7;
+  --dim: #8b8fa0;
+  --muted: #555a6e;
+  --gold: #D4A853;
+  --orange: #F47D31;
+  --green: #4ade80;
+  --teal: #00d4aa;
+  --red: #ff4d6a;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+  line-height:1.7;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+.container{max-width:760px;margin:0 auto;padding:2rem;position:relative;z-index:1;}
+
+/* LANG SWITCH */
+.lang-switch{
+  position:fixed;top:1.5rem;right:1.5rem;z-index:10;
+  display:flex;gap:0.5rem;
+}
+.lang-switch a{
+  font-family:'Sora',sans-serif;font-size:0.7rem;
+  padding:0.4rem 0.9rem;border-radius:100px;
+  text-decoration:none;letter-spacing:1px;text-transform:uppercase;
+  transition:all 0.3s;
+}
+.lang-switch .active{
+  background:rgba(212,168,83,0.15);color:var(--gold);border:1px solid rgba(212,168,83,0.3);
+}
+.lang-switch .inactive{
+  background:rgba(255,255,255,0.03);color:var(--muted);border:1px solid var(--border);
+}
+.lang-switch .inactive:hover{color:var(--dim);border-color:var(--dim);}
+
+/* HERO */
+.hero{text-align:center;padding:5rem 0 3rem;}
+.hero-badge{
+  display:inline-block;font-family:'Sora',sans-serif;font-size:0.7rem;
+  color:var(--gold);border:1px solid rgba(212,168,83,0.3);
+  padding:0.4rem 1.2rem;border-radius:100px;letter-spacing:2px;
+  text-transform:uppercase;background:rgba(212,168,83,0.08);margin-bottom:2rem;
+}
+.hero h1{
+  font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,3rem);
+  font-weight:700;letter-spacing:-1.5px;line-height:1.2;margin-bottom:1rem;
+}
+.hero h1 span{color:var(--gold);}
+.hero .sub{color:var(--dim);font-size:1.05rem;max-width:520px;margin:0 auto;}
+
+/* SECTIONS */
+.section{margin:3.5rem 0;}
+.section-label{
+  font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--gold);
+  text-transform:uppercase;letter-spacing:3px;margin-bottom:0.75rem;
+}
+.section h2{
+  font-family:'Sora',sans-serif;font-size:1.5rem;font-weight:700;
+  letter-spacing:-0.5px;margin-bottom:1rem;
+}
+.section p{color:var(--dim);font-size:0.95rem;margin-bottom:1rem;}
+.section p strong{color:var(--text);}
+
+/* CARDS */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.75rem;margin-bottom:1rem;
+}
+
+/* STAT ROW */
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin:1.5rem 0;}
+.stat-block{text-align:center;padding:1.25rem 0.75rem;}
+.stat-value{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;margin-bottom:0.25rem;}
+.stat-label{font-size:0.72rem;color:var(--dim);line-height:1.4;}
+
+/* TEAM */
+.team{display:flex;gap:1rem;margin:1.5rem 0;}
+.team-member{
+  flex:1;background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:1.5rem;text-align:center;
+}
+.team-avatar{
+  width:56px;height:56px;border-radius:50%;display:flex;
+  align-items:center;justify-content:center;font-family:'Sora',sans-serif;
+  font-weight:700;font-size:1.1rem;margin:0 auto 0.75rem;
+}
+.team-name{font-family:'Sora',sans-serif;font-weight:600;font-size:1rem;margin-bottom:0.15rem;}
+.team-role{font-size:0.8rem;color:var(--dim);}
+
+/* HOW IT WORKS */
+.steps{display:flex;flex-direction:column;gap:0.75rem;margin:1.5rem 0;}
+.step{
+  display:flex;align-items:flex-start;gap:1rem;
+  background:var(--card);border:1px solid var(--border);
+  border-radius:12px;padding:1.25rem 1.5rem;
+}
+.step-num{
+  font-family:'Sora',sans-serif;font-weight:700;font-size:1.5rem;
+  color:var(--gold);min-width:36px;line-height:1;
+}
+.step-text{font-size:0.9rem;color:var(--dim);}
+.step-text strong{color:var(--text);}
+
+/* COMPETITOR TABLE */
+.comp-table{width:100%;border-collapse:separate;border-spacing:0 0.4rem;margin:1.5rem 0;}
+.comp-table th{
+  font-family:'Sora',sans-serif;font-size:0.6rem;text-transform:uppercase;
+  letter-spacing:1.5px;color:var(--muted);text-align:left;padding:0.5rem 0.75rem;
+  border-bottom:1px solid var(--border);
+}
+.comp-table td{
+  padding:0.65rem 0.75rem;background:var(--card);font-size:0.8rem;color:var(--dim);
+}
+.comp-table tr td:first-child{border-radius:8px 0 0 8px;}
+.comp-table tr td:last-child{border-radius:0 8px 8px 0;}
+.comp-table tr.us td{background:rgba(0,212,170,0.06);color:var(--teal);}
+.tag{display:inline-block;font-size:0.62rem;font-weight:600;padding:0.15rem 0.5rem;border-radius:100px;text-transform:uppercase;letter-spacing:0.5px;}
+.tag-high{background:rgba(0,212,170,0.15);color:var(--teal);}
+.tag-med{background:rgba(255,209,102,0.15);color:#ffd166;}
+.tag-low{background:rgba(255,77,106,0.15);color:var(--red);}
+
+/* COLORS */
+.color-options{display:flex;gap:1rem;margin:1.5rem 0;flex-wrap:wrap;}
+.color-option{
+  flex:1;min-width:180px;border-radius:14px;overflow:hidden;
+  border:1px solid var(--border);transition:all 0.3s;cursor:default;
+}
+.color-preview{height:120px;display:flex;align-items:center;justify-content:center;}
+.color-preview .brand{font-family:'Sora',sans-serif;font-size:1.6rem;font-weight:700;}
+.color-info{padding:1rem 1.25rem;background:var(--card);}
+.color-name{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:600;}
+.color-desc{font-size:0.78rem;color:var(--dim);margin-top:0.2rem;}
+.color-feeling{
+  font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1px;margin-top:0.5rem;
+}
+
+/* NAMING */
+.name-direction{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:14px;padding:2rem;margin:1.5rem 0;
+}
+.name-direction h3{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:0.75rem;}
+.name-examples{display:flex;flex-wrap:wrap;gap:0.5rem;margin:1rem 0;}
+.name-tag{
+  font-family:'Sora',sans-serif;font-size:0.85rem;padding:0.5rem 1rem;
+  border-radius:8px;background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  color:var(--text);
+}
+.name-why{font-size:0.85rem;color:var(--dim);margin-top:1rem;line-height:1.6;}
+
+/* PERSONA MINI */
+.persona-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1.5rem 0;}
+.persona-mini{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:1.25rem;text-align:center;position:relative;overflow:hidden;
+}
+.persona-mini::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.persona-mini.rec::before{background:var(--teal);}
+.persona-mini.drill::before{background:var(--red);}
+.persona-mini.hype::before{background:#ffd166;}
+.persona-emoji{font-size:1.5rem;margin-bottom:0.5rem;}
+.persona-name{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:600;margin-bottom:0.25rem;}
+.persona-desc-mini{font-size:0.72rem;color:var(--dim);line-height:1.4;}
+
+/* TIMELINE MINI */
+.timeline-mini{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem;margin:1.5rem 0;position:relative;}
+.timeline-mini::before{
+  content:'';position:absolute;top:18px;left:5%;right:5%;height:2px;
+  background:linear-gradient(90deg,var(--teal),var(--blue),var(--purple),var(--orange));
+}
+.phase{position:relative;padding-top:2.25rem;}
+.phase::before{
+  content:'';position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:12px;height:12px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);z-index:1;
+}
+.phase:nth-child(2)::before{border-color:var(--blue);}
+.phase:nth-child(3)::before{border-color:var(--purple);}
+.phase:nth-child(4)::before{border-color:var(--orange);}
+.phase-label{
+  font-family:'Sora',sans-serif;font-size:0.55rem;letter-spacing:1.5px;
+  text-transform:uppercase;text-align:center;margin-bottom:0.4rem;color:var(--teal);
+}
+.phase:nth-child(2) .phase-label{color:var(--blue);}
+.phase:nth-child(3) .phase-label{color:var(--purple);}
+.phase:nth-child(4) .phase-label{color:var(--orange);}
+.phase-card{
+  background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem;
+}
+.phase-title{font-family:'Sora',sans-serif;font-size:0.8rem;font-weight:600;margin-bottom:0.3rem;}
+.phase-target{font-family:'Sora',sans-serif;font-size:0.7rem;color:var(--teal);margin-top:0.5rem;}
+.phase:nth-child(2) .phase-target{color:var(--blue);}
+.phase:nth-child(3) .phase-target{color:var(--purple);}
+.phase:nth-child(4) .phase-target{color:var(--orange);}
+.phase-desc{font-size:0.7rem;color:var(--dim);line-height:1.4;}
+
+/* QUESTION FORM */
+.question-box{
+  background:linear-gradient(135deg,rgba(212,168,83,0.06),rgba(0,212,170,0.04));
+  border:1px solid rgba(212,168,83,0.2);border-radius:16px;
+  padding:2.5rem;margin:3rem 0;
+}
+.question-box h2{
+  font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:700;margin-bottom:0.5rem;text-align:center;
+}
+.question-box > p{color:var(--dim);font-size:0.95rem;text-align:center;margin-bottom:2rem;}
+
+.q-group{margin-bottom:2rem;}
+.q-label{
+  font-size:0.9rem;color:var(--text);margin-bottom:0.6rem;display:flex;gap:0.75rem;
+}
+.q-num{color:var(--gold);font-family:'Sora',sans-serif;font-weight:700;min-width:24px;}
+
+textarea, input[type="text"]{
+  width:100%;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;padding:0.85rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;
+  font-size:0.88rem;resize:vertical;transition:border-color 0.3s;
+}
+textarea:focus, input[type="text"]:focus{outline:none;border-color:var(--gold);}
+textarea{min-height:70px;}
+
+.radio-group{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem;}
+.radio-option{position:relative;cursor:pointer;}
+.radio-option input{position:absolute;opacity:0;width:0;height:0;}
+.radio-option label{
+  display:block;font-family:'Sora',sans-serif;font-size:0.8rem;
+  padding:0.5rem 1rem;border-radius:8px;border:1px solid var(--border);
+  background:var(--card);color:var(--dim);cursor:pointer;transition:all 0.3s;
+}
+.radio-option input:checked + label{
+  border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,0.08);
+}
+.radio-option label:hover{border-color:var(--dim);}
+
+.name-input-row{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:0.5rem;}
+.name-chip{position:relative;cursor:pointer;}
+.name-chip input{position:absolute;opacity:0;width:0;height:0;}
+.name-chip label{
+  display:block;font-family:'Sora',sans-serif;font-size:0.82rem;
+  padding:0.45rem 0.9rem;border-radius:8px;border:1px solid var(--border);
+  background:rgba(255,255,255,0.04);color:var(--text);cursor:pointer;transition:all 0.3s;
+}
+.name-chip input:checked + label{
+  border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,0.1);
+}
+.name-chip label:hover{border-color:var(--dim);}
+
+.send-row{display:flex;gap:0.75rem;margin-top:2rem;flex-wrap:wrap;justify-content:center;}
+.btn{
+  font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:600;
+  padding:0.75rem 1.5rem;border-radius:100px;border:none;cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;
+  transition:all 0.3s;
+}
+.btn-gold{background:var(--gold);color:#0c0d10;}
+.btn-gold:hover{background:#e0b45e;transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--dim);border:1px solid var(--border);}
+.btn-outline:hover{color:var(--text);border-color:var(--dim);}
+.btn-green{background:#25D366;color:#fff;}
+.btn-green:hover{background:#20c05c;transform:translateY(-1px);}
+
+.sent-msg{
+  display:none;text-align:center;padding:1.5rem;font-size:0.9rem;color:var(--teal);
+}
+
+/* INSIGHT BOX */
+.insight{
+  background:linear-gradient(135deg,rgba(0,212,170,0.06),rgba(77,166,255,0.04));
+  border:1px solid rgba(0,212,170,0.15);border-radius:12px;
+  padding:1.5rem;margin:1.5rem 0;
+}
+.insight-label{
+  font-family:'Sora',sans-serif;font-size:0.6rem;color:var(--teal);
+  text-transform:uppercase;letter-spacing:2px;margin-bottom:0.5rem;
+}
+.insight-title{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;}
+.insight-text{font-size:0.85rem;color:var(--dim);line-height:1.6;}
+
+/* ECON ROW */
+.econ-mini{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:1.5rem 0;}
+.econ-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.econ-header{padding:0.85rem 1rem;border-bottom:1px solid var(--border);font-weight:600;font-size:0.85rem;}
+.econ-row{display:flex;justify-content:space-between;align-items:center;padding:0.55rem 1rem;font-size:0.8rem;}
+.econ-row:last-child{border-top:1px solid var(--border);background:rgba(0,212,170,0.04);}
+.econ-val{font-family:'Sora',sans-serif;font-weight:700;font-size:0.82rem;}
+
+/* FOOTER */
+footer{
+  text-align:center;padding:3rem 0;font-size:0.75rem;color:var(--muted);
+  border-top:1px solid var(--border);margin-top:3rem;
+}
+
+/* DIVIDER */
+.divider{height:1px;margin:2rem 0;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .team{flex-direction:column;}
+  .color-options{flex-direction:column;}
+  .container{padding:1rem;}
+  .lang-switch{top:1rem;right:1rem;}
+  .stat-row{grid-template-columns:1fr 1fr;}
+  .persona-row{grid-template-columns:1fr;}
+  .timeline-mini{grid-template-columns:1fr 1fr;}
+  .econ-mini{grid-template-columns:1fr;}
+  .comp-table{font-size:0.7rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- LANG SWITCH -->
+<div class="lang-switch">
+  <a href="pitch.html" class="inactive">FR</a>
+  <a href="pitch-en.html" class="active">EN</a>
+  <a href="logos.html" class="inactive" style="margin-left:8px;">LOGOS</a>
+</div>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Work in progress</div>
+    <h1>You already know <span>what to do.</span> We make sure you <span>actually do it.</span></h1>
+    <p class="sub">Every morning, your AI coach reaches out. You reply by message, send a voice note, or pick up the phone. 5 minutes. Then you go crush it.</p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="section">
+    <div class="section-label">The problem</div>
+    <h2>You've tried every app. You used them for a week. They're still sending notifications you swipe away.</h2>
+    <p>We all do it. <strong>92% of resolutions fail.</strong> Fitness apps, diet trackers, habit apps -- they all wait for you to open them. And you don't.</p>
+    <p>The problem was never knowledge. <strong>It was follow-through.</strong> What if instead of another app you forget, something actually reached out to you -- a message, a voice note, or even a phone call -- every single day?</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- THE SOLUTION -->
+  <div class="section">
+    <div class="section-label">What we're building</div>
+    <h2>It reaches out. You respond. You move forward.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text"><strong>Pick your goal</strong> -- lose weight, get fit, get better at a sport, build a habit, or hit any personal objective.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text"><strong>Pick how you want to interact</strong> -- reply to a <strong>Telegram or WhatsApp message</strong>, send a <strong>voice note</strong>, or go all-in with a live <strong>phone call</strong>. Your choice, your time.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>3-5 minutes, every day</strong> -- the coach reviews yesterday, asks the right questions, adjusts your plan. It learns your patterns, your triggers, your weak spots. Day 30, it knows you better than you know yourself.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text"><strong>You act</strong> -- summary, streak, progress graph. The longer you use it, the more personalized it gets. Perfect memory, zero judgment.</div>
+      </div>
+    </div>
+
+    <p style="margin-top:1rem;">The idea: <strong>it's not another app you open -- it's a daily conversation that comes to you.</strong> Whether you type a quick reply, send a voice note, or pick up a real phone call -- you show up every day. That's 2.7x more effective than any app you've ever downloaded.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WHY IT WORKS -->
+  <div class="section">
+    <div class="section-label">Why it works</div>
+    <h2>The numbers behind the intuition.</h2>
+
+    <div class="stat-row">
+      <div class="card stat-block"><div class="stat-value" style="color:var(--gold)">2.7x</div><div class="stat-label">Accountability is 2.7x more effective than encouragement</div></div>
+      <div class="card stat-block"><div class="stat-value" style="color:var(--orange)">5x</div><div class="stat-label">Streaks multiply retention by 5 (Duolingo data)</div></div>
+      <div class="card stat-block"><div class="stat-value" style="color:var(--green)">0</div><div class="stat-label">Competitors with daily AI calls for weight loss</div></div>
+      <div class="card stat-block"><div class="stat-value" style="color:var(--teal)">76%</div><div class="stat-label">Of French users prefer voice over traditional apps</div></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COMPETITORS -->
+  <div class="section">
+    <div class="section-label">The market</div>
+    <h2>We mapped every competitor. Nobody does this.</h2>
+    <p>11 competitors mapped worldwide. <strong>Zero combine daily AI outreach (message, voice note, or call) + personalized coaching + French market.</strong></p>
+
+    <div style="overflow-x:auto;">
+      <table class="comp-table">
+        <thead>
+          <tr><th>Product</th><th>Price/mo</th><th>Focus</th><th>Limitation</th><th>Threat</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Noom</strong></td><td>$70</td><td>Weight loss</td><td style="color:var(--dim)">App only, easy to ignore</td><td><span class="tag tag-med">Adj.</span></td></tr>
+          <tr><td><strong>Glow Health</strong></td><td>?</td><td>Weight loss + calls</td><td style="color:var(--dim)">US only, no funding</td><td><span class="tag tag-low">High</span></td></tr>
+          <tr><td><strong>CoachCall.ai</strong></td><td>?</td><td>General accountability</td><td style="color:var(--dim)">No funding, too broad</td><td><span class="tag tag-med">Med</span></td></tr>
+          <tr><td><strong>Replika</strong></td><td>$20</td><td>AI companion</td><td style="color:var(--dim)">No proactive calls</td><td><span class="tag tag-high">Low</span></td></tr>
+          <tr><td><strong>Petit Bambou</strong></td><td>~$7</td><td>Meditation (FR)</td><td style="color:var(--dim)">Passive content, no coaching</td><td><span class="tag tag-high">Low</span></td></tr>
+          <tr class="us"><td><strong>Us</strong></td><td>$15-30</td><td>Goals + daily AI coach</td><td style="color:var(--teal)">The only one in France</td><td><span class="tag tag-high" style="background:rgba(0,212,170,0.2);color:var(--teal)">--</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">Key insight</div>
+      <div class="insight-title">Human coach = $200-500/mo. Noom = $70/mo. Us = $15-30/mo.</div>
+      <div class="insight-text">A real daily call for a fraction of a human coach's price. And unlike apps, you can't swipe away a ringing phone.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PERSONAS -->
+  <div class="section">
+    <div class="section-label">The coach's voice</div>
+    <h2>3 persona types. Which one fits you best?</h2>
+    <p>Users choose their coach "personality" at signup. We can offer several options.</p>
+
+    <div class="persona-row">
+      <div class="persona-mini rec">
+        <div class="persona-emoji">&#127942;</div>
+        <div class="persona-name" style="color:var(--teal)">Warm Coach with Teeth</div>
+        <div class="persona-desc-mini">Celebrates wins but doesn't let excuses slide. The sweet spot.</div>
+      </div>
+      <div class="persona-mini drill">
+        <div class="persona-emoji">&#127894;</div>
+        <div class="persona-name">The Drill Sergeant</div>
+        <div class="persona-desc-mini">Direct, no-nonsense. For those who thrive under pressure.</div>
+      </div>
+      <div class="persona-mini hype">
+        <div class="persona-emoji">&#9889;</div>
+        <div class="persona-name">The Hype Coach</div>
+        <div class="persona-desc-mini">High energy, turns every morning into a launch pad.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- UNIT ECONOMICS -->
+  <div class="section">
+    <div class="section-label">The business</div>
+    <h2>Profitable from month one.</h2>
+
+    <div class="econ-mini">
+      <div class="econ-card">
+        <div class="econ-header">Cost per user / month</div>
+        <div class="econ-row"><span>LLM (AI)</span><span class="econ-val" style="color:var(--orange)">$0.90</span></div>
+        <div class="econ-row"><span>Voice (TTS)</span><span class="econ-val" style="color:var(--orange)">$9.00</span></div>
+        <div class="econ-row"><span>Telephony</span><span class="econ-val" style="color:var(--orange)">$2.10</span></div>
+        <div class="econ-row"><span style="font-weight:600;color:var(--text)">Total COGS</span><span class="econ-val" style="color:var(--teal)">~$13.50</span></div>
+      </div>
+      <div class="econ-card">
+        <div class="econ-header">Revenue targets</div>
+        <div class="econ-row"><span>$1K MRR</span><span class="econ-val">50-70 users</span></div>
+        <div class="econ-row"><span>$10K MRR</span><span class="econ-val">400 users</span></div>
+        <div class="econ-row"><span>$50K MRR</span><span class="econ-val">2,000 users</span></div>
+        <div class="econ-row"><span style="font-weight:600;color:var(--text)">$120K MRR (M12)</span><span class="econ-val" style="color:var(--teal)">6-8K users</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TIMELINE -->
+  <div class="section">
+    <div class="section-label">The roadmap</div>
+    <h2>From 0 to $120K MRR in 12 months.</h2>
+
+    <div class="timeline-mini">
+      <div class="phase">
+        <div class="phase-label">Pre-launch</div>
+        <div class="phase-card">
+          <div class="phase-title">Waitlist 500-1K</div>
+          <div class="phase-desc">TikTok, build in public, landing page, demo calls</div>
+          <div class="phase-target">Budget: $0</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Month 1-3</div>
+        <div class="phase-card">
+          <div class="phase-title">100 to 500 users</div>
+          <div class="phase-desc">Product Hunt, 30-day challenge, referral program</div>
+          <div class="phase-target">$7.5K MRR</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Month 4-6</div>
+        <div class="phase-card">
+          <div class="phase-title">500 to 2K users</div>
+          <div class="phase-desc">Micro-influencers, B2B pilot, paid ads</div>
+          <div class="phase-target">$30K MRR</div>
+        </div>
+      </div>
+      <div class="phase">
+        <div class="phase-label">Month 7-12</div>
+        <div class="phase-card">
+          <div class="phase-title">2K to 8K users</div>
+          <div class="phase-desc">EN launch, US expansion, B2B scale, SEO</div>
+          <div class="phase-target">$120K MRR</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <div class="insight-label">Content strategy</div>
+      <div class="insight-title">The product IS the TikTok content</div>
+      <div class="insight-text">Phone ringing, you pick up, live AI conversation, your reaction. 30-60 seconds. "My AI called me at 6am this morning -- here's what happened." No other product can do this.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- KILLER FEATURES -->
+  <div class="section">
+    <div class="section-label">The 5 key features</div>
+    <h2>Not just a call. A complete system.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="color:var(--gold);">&#128222;</div>
+        <div class="step-text"><strong>The daily AI check-in</strong> -- Your phone actually rings (or you get a Telegram/WhatsApp message). The AI asks 3 questions: what did you eat? Did you move? How are you feeling? Phone calls increase adherence by <strong>78%</strong> vs control groups.</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="color:var(--green);">&#127908;</div>
+        <div class="step-text"><strong>Voice food logging</strong> -- "I had a chicken salad and a coffee" -- the AI understands, parses, and logs it. Zero friction. <strong>The #1 problem</strong> with MyFitnessPal and Noom is manual logging. We eliminate it.</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="color:var(--red);">&#128680;</div>
+        <div class="step-text"><strong>The SOS button</strong> -- You're standing in front of the vending machine. One tap, the AI calls you back in 5 seconds. "Hey, what's happening right now? Let's talk." In-the-moment intervention. NoFap's emergency button gets <strong>50K monthly visitors</strong> -- the demand is massive.</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="color:var(--blue);">&#128200;</div>
+        <div class="step-text"><strong>Weight loss timeline predictor</strong> -- "You'll reach 75kg by July 14th, 2026." A graph with weekly milestones, updated with your real results. This is Noom's highest-converting screen (<strong>+40% conversion</strong>).</div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="color:var(--orange);">&#128293;</div>
+        <div class="step-text"><strong>Streak system with forgiveness</strong> -- Call streak, goal streak, partner streak. One free streak freeze per month. Users with 7+ day streaks are <strong>3.6x more likely</strong> to stay. Duolingo's streak freeze reduced churn by 21%.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- THE TEAM -->
+  <div class="section">
+    <div class="section-label">The team</div>
+    <h2>Two guys, one product, zero investors.</h2>
+    <p>We're bootstrapping. No fundraising, no bullshit decks for VCs. A product that works, real users, and organic growth.</p>
+
+    <div class="team">
+      <div class="team-member">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--gold),#b8912e);color:#0c0d10;">AB</div>
+        <div class="team-name">Aaron</div>
+        <div class="team-role">Product / Marketing / Frontend</div>
+      </div>
+      <div class="team-member">
+        <div class="team-avatar" style="background:linear-gradient(135deg,var(--teal),#00a885);color:#0c0d10;">AT</div>
+        <div class="team-name">Ata</div>
+        <div class="team-role">Backend / Data / Infra</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="section-label">Visual identity</div>
+    <h2>3 color directions. Which one speaks to you?</h2>
+    <p>We want a brand that feels <strong>human, warm, and credible.</strong> Not cold and techy. Not too "wellness hippie" either.</p>
+
+    <div class="color-options">
+      <div class="color-option">
+        <div class="color-preview" style="background:linear-gradient(145deg,#0D1117,#132429);">
+          <div class="brand" style="color:#D4A853;">Coach</div>
+        </div>
+        <div class="color-info">
+          <div class="color-name" style="color:var(--gold);">Warm Gold + Teal</div>
+          <div class="color-desc">Premium, warm, human. The golden light of morning.</div>
+          <div class="color-feeling">Trust &middot; Premium &middot; Human</div>
+        </div>
+      </div>
+
+      <div class="color-option">
+        <div class="color-preview" style="background:linear-gradient(145deg,#1a2e1a,#0f2318);">
+          <div class="brand" style="color:#4ade80;">Coach</div>
+        </div>
+        <div class="color-info">
+          <div class="color-name" style="color:var(--green);">Nature Green</div>
+          <div class="color-desc">Growth, health, coaching. AI that feels human.</div>
+          <div class="color-feeling">Health &middot; Growth &middot; Natural</div>
+        </div>
+      </div>
+
+      <div class="color-option">
+        <div class="color-preview" style="background:linear-gradient(145deg,#1a1008,#201510);">
+          <div class="brand" style="color:#F47D31;">Coach</div>
+        </div>
+        <div class="color-info">
+          <div class="color-name" style="color:var(--orange);">Energy Orange</div>
+          <div class="color-desc">Motivating, accessible, community-driven. Morning energy.</div>
+          <div class="color-feeling">Energy &middot; Motivation &middot; Social</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- NAME / IDENTITY -->
+  <div class="section">
+    <div class="section-label">The name</div>
+    <h2>We want a name that sounds like a person. Not a startup.</h2>
+    <p>When your phone rings and you see the name, you should <strong>want to pick up</strong>. Like a coach you respect. Not "AppFitBot3000".</p>
+
+    <div class="name-direction">
+      <h3>The direction we're exploring:</h3>
+      <p class="name-why">A name that sounds like <strong>a real human identity</strong>. Someone warm but firm. Someone you listen to. Someone you don't want to disappoint.</p>
+
+      <p style="color:var(--dim);font-size:0.85rem;margin-top:1rem;">Some ideas to give you the vibe:</p>
+      <div class="name-examples">
+        <div class="name-tag">Marco</div>
+        <div class="name-tag">Noa</div>
+        <div class="name-tag">Elio</div>
+        <div class="name-tag">Alma</div>
+        <div class="name-tag">Soren</div>
+        <div class="name-tag">Luca</div>
+        <div class="name-tag">Zara</div>
+        <div class="name-tag">Enzo</div>
+        <div class="name-tag">Mila</div>
+        <div class="name-tag">Axel</div>
+        <div class="name-tag">Sol</div>
+        <div class="name-tag">Leo</div>
+      </div>
+      <p class="name-why">We're looking for a name that works in <strong>both French and English</strong>. Short, easy to pronounce, inspiring trust and gentle authority.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- INTERACTIVE QUESTIONS -->
+  <div class="question-box" id="formSection">
+    <h2>We need your honest take.</h2>
+    <p>3 minutes. For real. It actually helps us. Answer here and send.</p>
+
+    <form id="feedbackForm">
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">1.</span><span>How would you prefer your daily AI coach to reach you?</span></div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="q1" id="q1a" value="Text message (Telegram/WhatsApp) I reply to"><label for="q1a">&#128172; Text message I reply to</label></div>
+          <div class="radio-option"><input type="radio" name="q1" id="q1b" value="Voice note exchange"><label for="q1b">&#127908; Voice note exchange</label></div>
+          <div class="radio-option"><input type="radio" name="q1" id="q1c" value="Real phone call"><label for="q1c">&#128222; Real phone call</label></div>
+          <div class="radio-option"><input type="radio" name="q1" id="q1d" value="Mix of all depending on the day"><label for="q1d">&#128260; Mix of all</label></div>
+        </div>
+        <textarea name="q1_detail" placeholder="Would you actually respond every day? Be honest. (optional)" rows="2" style="margin-top:0.5rem;min-height:50px;"></textarea>
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">2.</span><span>Imagine you receive a message from your AI coach. Which color feels right?</span></div>
+        <div style="display:flex;gap:0.75rem;margin:0.75rem 0;flex-wrap:wrap;">
+          <div style="flex:1;min-width:200px;background:linear-gradient(145deg,#0D1117,#132429);border-radius:12px;padding:1.25rem;border:2px solid transparent;cursor:pointer;transition:all 0.3s;" onclick="document.getElementById('q2a').checked=true;this.style.borderColor='var(--gold)';this.parentElement.children[1].style.borderColor='transparent';this.parentElement.children[2].style.borderColor='transparent';">
+            <div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;">7:00 AM</div>
+            <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:#D4A853;">Coach</div>
+            <div style="font-size:0.8rem;color:var(--dim);margin-top:0.4rem;line-height:1.4;">"Good morning. You hit your protein target yesterday. Let's keep that streak going. What's the plan today?"</div>
+            <div style="margin-top:0.6rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Warm Gold &middot; Trust &middot; Premium</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:linear-gradient(145deg,#0f1a0f,#0f2318);border-radius:12px;padding:1.25rem;border:2px solid transparent;cursor:pointer;transition:all 0.3s;" onclick="document.getElementById('q2b').checked=true;this.style.borderColor='var(--green)';this.parentElement.children[0].style.borderColor='transparent';this.parentElement.children[2].style.borderColor='transparent';">
+            <div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;">7:00 AM</div>
+            <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:#4ade80;">Coach</div>
+            <div style="font-size:0.8rem;color:var(--dim);margin-top:0.4rem;line-height:1.4;">"Good morning. You hit your protein target yesterday. Let's keep that streak going. What's the plan today?"</div>
+            <div style="margin-top:0.6rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Nature Green &middot; Health &middot; Growth</div>
+          </div>
+          <div style="flex:1;min-width:200px;background:linear-gradient(145deg,#1a1008,#201510);border-radius:12px;padding:1.25rem;border:2px solid transparent;cursor:pointer;transition:all 0.3s;" onclick="document.getElementById('q2c').checked=true;this.style.borderColor='var(--orange)';this.parentElement.children[0].style.borderColor='transparent';this.parentElement.children[1].style.borderColor='transparent';">
+            <div style="font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:0.5rem;">7:00 AM</div>
+            <div style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;color:#F47D31;">Coach</div>
+            <div style="font-size:0.8rem;color:var(--dim);margin-top:0.4rem;line-height:1.4;">"Good morning. You hit your protein target yesterday. Let's keep that streak going. What's the plan today?"</div>
+            <div style="margin-top:0.6rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Energy Orange &middot; Motivation &middot; Social</div>
+          </div>
+        </div>
+        <div class="radio-group" style="display:none;">
+          <div class="radio-option"><input type="radio" name="q2" id="q2a" value="Warm Gold"><label for="q2a">Warm Gold</label></div>
+          <div class="radio-option"><input type="radio" name="q2" id="q2b" value="Nature Green"><label for="q2b">Nature Green</label></div>
+          <div class="radio-option"><input type="radio" name="q2" id="q2c" value="Energy Orange"><label for="q2c">Energy Orange</label></div>
+        </div>
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">3.</span><span>If the AI coach had a name, which one would you choose?</span></div>
+        <p style="font-size:0.78rem;color:var(--muted);margin-bottom:0.5rem;">Human-sounding names:</p>
+        <div class="name-input-row">
+          <div class="name-chip"><input type="radio" name="q3" id="n1" value="Marco"><label for="n1">Marco</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n2" value="Noa"><label for="n2">Noa</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n3" value="Elio"><label for="n3">Elio</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n4" value="Alma"><label for="n4">Alma</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n5" value="Luca"><label for="n5">Luca</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n6" value="Enzo"><label for="n6">Enzo</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n7" value="Mila"><label for="n7">Mila</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n8" value="Axel"><label for="n8">Axel</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n9" value="Leo"><label for="n9">Leo</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n10" value="Sol"><label for="n10">Sol</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n11" value="Zara"><label for="n11">Zara</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n12" value="Soren"><label for="n12">Soren</label></div>
+        </div>
+        <p style="font-size:0.78rem;color:var(--muted);margin:0.75rem 0 0.5rem;">Brand-style names:</p>
+        <div class="name-input-row">
+          <div class="name-chip"><input type="radio" name="q3" id="n13" value="Call Me Coach"><label for="n13">Call Me Coach</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n14" value="FitCall"><label for="n14">FitCall</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n15" value="FitVox"><label for="n15">FitVox</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n16" value="Call Me Baby"><label for="n16">Call Me Baby</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n17" value="Reveilla"><label for="n17">Reveilla</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n18" value="Appello"><label for="n18">Appello</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n19" value="Allore"><label for="n19">Allore</label></div>
+          <div class="name-chip"><input type="radio" name="q3" id="n20" value="Declic"><label for="n20">D&eacute;clic</label></div>
+        </div>
+        <input type="text" name="q3_other" placeholder="Or suggest your own name..." style="margin-top:0.5rem;">
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">4.</span><span>How much would you pay per month?</span></div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="q4" id="q4a" value="$5"><label for="q4a">$5</label></div>
+          <div class="radio-option"><input type="radio" name="q4" id="q4b" value="$10"><label for="q4b">$10</label></div>
+          <div class="radio-option"><input type="radio" name="q4" id="q4c" value="$15"><label for="q4c">$15</label></div>
+          <div class="radio-option"><input type="radio" name="q4" id="q4d" value="$25"><label for="q4d">$25</label></div>
+          <div class="radio-option"><input type="radio" name="q4" id="q4e" value="Never"><label for="q4e">Never</label></div>
+        </div>
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">5.</span><span>What's the one goal where you'd most need a daily kick in the ass?</span></div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="q5" id="q5a" value="Lose weight"><label for="q5a">&#9878; Lose weight</label></div>
+          <div class="radio-option"><input type="radio" name="q5" id="q5b" value="Get fit"><label for="q5b">&#128170; Get fit</label></div>
+          <div class="radio-option"><input type="radio" name="q5" id="q5c" value="A specific goal (padel, boxing, marathon...)"><label for="q5c">&#127919; A specific goal (padel, boxing, marathon...)</label></div>
+        </div>
+        <textarea name="q5_detail" placeholder="Tell us more (optional)" rows="2" style="margin-top:0.5rem;min-height:50px;"></textarea>
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">6.</span><span>Which persona type would motivate you most?</span></div>
+        <div class="radio-group">
+          <div class="radio-option"><input type="radio" name="q6" id="q6a" value="Warm Coach with Teeth"><label for="q6a">&#127942; Warm but firm</label></div>
+          <div class="radio-option"><input type="radio" name="q6" id="q6b" value="Drill Sergeant"><label for="q6b">&#127894; Drill Sergeant</label></div>
+          <div class="radio-option"><input type="radio" name="q6" id="q6c" value="Hype Coach"><label for="q6c">&#9889; Hype Coach</label></div>
+        </div>
+      </div>
+
+      <div class="q-group">
+        <div class="q-label"><span class="q-num">7.</span><span>Any last thoughts, ideas, or criticism?</span></div>
+        <textarea name="q7" placeholder="Let it rip..." rows="3"></textarea>
+      </div>
+
+      <div class="send-row">
+        <button type="button" class="btn btn-green" onclick="sendWhatsApp()">&#128172; Send via WhatsApp</button>
+        <button type="button" class="btn btn-gold" onclick="sendEmail()">&#9993; Send via email</button>
+        <button type="button" class="btn btn-outline" onclick="copyToClipboard()">&#128203; Copy answers</button>
+      </div>
+
+      <div class="sent-msg" id="sentMsg">Thanks! Your answers have been copied / sent.</div>
+    </form>
+  </div>
+
+  <footer>
+    Made with love by Aaron & Ata -- February 2026<br>
+    <span style="color:var(--gold);margin-top:0.5rem;display:inline-block;">Reply by text, voice note, or just tell us to our face.</span>
+  </footer>
+
+</div>
+
+<script>
+function gatherAnswers() {
+  const form = document.getElementById('feedbackForm');
+  const data = new FormData(form);
+  let text = "FEEDBACK PITCH - Call Me Maybe\n\n";
+
+  const q1 = data.get('q1') || 'No answer';
+  const q1d = data.get('q1_detail') || '';
+  text += "1. Would you pick up? " + q1 + (q1d ? " - " + q1d : "") + "\n\n";
+
+  text += "2. Favorite color: " + (data.get('q2') || 'No answer') + "\n\n";
+
+  const q3 = data.get('q3') || '';
+  const q3o = data.get('q3_other') || '';
+  text += "3. Coach name: " + (q3o || q3 || 'No answer') + "\n\n";
+
+  text += "4. Budget/month: " + (data.get('q4') || 'No answer') + "\n\n";
+
+  const q5 = data.get('q5') || 'No answer';
+  const q5d = data.get('q5_detail') || '';
+  text += "5. Goal: " + q5 + (q5d ? " - " + q5d : "") + "\n\n";
+
+  text += "6. Persona: " + (data.get('q6') || 'No answer') + "\n\n";
+
+  text += "7. Comment: " + (data.get('q7') || 'None') + "\n";
+
+  return text;
+}
+
+function sendWhatsApp() {
+  const text = gatherAnswers();
+  const encoded = encodeURIComponent(text);
+  window.open('https://wa.me/33665395800?text=' + encoded, '_blank');
+  showSent();
+}
+
+function sendEmail() {
+  const text = gatherAnswers();
+  const subject = encodeURIComponent("Feedback Pitch - Call Me Maybe");
+  const body = encodeURIComponent(text);
+  window.open('mailto:aaronbes2@gmail.com?subject=' + subject + '&body=' + body, '_blank');
+  showSent();
+}
+
+function copyToClipboard() {
+  const text = gatherAnswers();
+  navigator.clipboard.writeText(text).then(() => showSent());
+}
+
+function showSent() {
+  document.getElementById('sentMsg').style.display = 'block';
+  setTimeout(() => { document.getElementById('sentMsg').style.display = 'none'; }, 4000);
+}
+</script>
+
+</body>
+</html>

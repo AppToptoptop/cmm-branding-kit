@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo Exploration — Brand Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0e;
+  --surface: #12141a;
+  --border: #1e2028;
+  --text: #e8e8ec;
+  --muted: #8a8a9a;
+  --gold: #D4A853;
+  --green: #4ade80;
+  --orange: #F47D31;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 1;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+  z-index: 2;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeUp 0.8s ease;
+}
+
+.header h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header .badge {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.legend-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+
+.concept-section {
+  margin-bottom: 64px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.concept-section:nth-child(1) { animation-delay: 0.2s; }
+.concept-section:nth-child(2) { animation-delay: 0.3s; }
+.concept-section:nth-child(3) { animation-delay: 0.4s; }
+
+.concept-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.concept-number {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 4px;
+}
+
+.concept-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.concept-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  padding-left: 0;
+  max-width: 700px;
+}
+
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.logo-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.logo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-card[data-color="gold"]::before { background: var(--gold); }
+.logo-card[data-color="green"]::before { background: var(--green); }
+.logo-card[data-color="orange"]::before { background: var(--orange); }
+
+.logo-card:hover {
+  border-color: #2a2c36;
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+}
+
+.logo-card:hover::before { opacity: 1; }
+
+.logo-card svg {
+  display: block;
+  margin: 0 auto 16px;
+  max-width: 100%;
+}
+
+.logo-card .name-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.logo-card .color-label {
+  font-size: 0.7rem;
+  color: #555;
+  margin-top: 4px;
+}
+
+.vote-section {
+  margin-top: 60px;
+  text-align: center;
+  animation: fadeUp 0.8s ease 0.5s both;
+}
+
+.vote-section h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.vote-section p {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.selected-logos {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  min-height: 40px;
+}
+
+.selected-chip {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.selected-chip:hover { border-color: #f44; color: #f44; }
+.selected-chip .x { font-size: 0.7rem; opacity: 0.6; }
+
+.vote-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-gold { background: var(--gold); color: #000; }
+.btn-gold:hover { background: #e0b563; transform: translateY(-2px); }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { border-color: var(--muted); transform: translateY(-2px); }
+.btn-green { background: var(--green); color: #000; }
+.btn-green:hover { background: #5eef95; transform: translateY(-2px); }
+
+.toast {
+  position: fixed; bottom: 30px; left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--green); color: #000;
+  padding: 14px 28px; border-radius: 12px;
+  font-weight: 600; font-size: 0.9rem;
+  z-index: 100; transition: transform 0.4s ease;
+  pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+.nav-link {
+  position: fixed; top: 20px; left: 20px; z-index: 50;
+  color: var(--muted); text-decoration: none; font-size: 0.85rem;
+  padding: 8px 16px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); transition: all 0.2s ease;
+}
+.nav-link:hover { color: var(--text); border-color: var(--muted); }
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s ease 0.15s both;
+}
+
+.filter-btn {
+  padding: 8px 18px; border-radius: 20px; font-size: 0.8rem;
+  font-weight: 600; cursor: pointer; border: 1px solid var(--border);
+  background: transparent; color: var(--muted); transition: all 0.2s ease;
+  font-family: 'DM Sans', sans-serif;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--text); color: var(--text); background: rgba(255,255,255,0.05);
+}
+
+@media (max-width: 600px) {
+  .container { padding: 20px 16px 60px; }
+  .logo-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .logo-card { padding: 20px 12px; }
+  .legend { gap: 16px; }
+  .concept-title { font-size: 1.2rem; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<a href="index.html" class="nav-link">&larr; War Room</a>
+
+<div class="container">
+
+<div class="header">
+  <h1>Logo Exploration</h1>
+  <p>8 names &times; 3 concepts &times; 3 colors = 72 directions to explore. Click your favorites to shortlist them.</p>
+  <div class="badge">Brand Identity Sprint</div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div> Gold</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Green</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--orange)"></div> Orange</div>
+  <div class="legend-item" style="margin-left:16px;padding-left:16px;border-left:1px solid var(--border)">
+    <span style="font-size:1rem;">&#9312;</span> Dot Smile
+  </div>
+  <div class="legend-item"><span style="font-size:1rem;">&#9313;</span> Before&rarr;After</div>
+  <div class="legend-item"><span style="font-size:1rem;">&#9314;</span> Voice Wave</div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterCards('all')">All (72)</button>
+  <button class="filter-btn" onclick="filterCards('name','callmecoach')">Call Me Coach</button>
+  <button class="filter-btn" onclick="filterCards('name','fitcall')">FitCall</button>
+  <button class="filter-btn" onclick="filterCards('name','fitvox')">FitVox</button>
+  <button class="filter-btn" onclick="filterCards('name','callmebaby')">Call Me Baby</button>
+  <button class="filter-btn" onclick="filterCards('name','reveilla')">Reveilla</button>
+  <button class="filter-btn" onclick="filterCards('name','appello')">Appello</button>
+  <button class="filter-btn" onclick="filterCards('name','allore')">Allore</button>
+  <button class="filter-btn" onclick="filterCards('name','declic')">D&eacute;clic</button>
+  <button class="filter-btn" onclick="filterCards('color','gold')" style="color:var(--gold)">Gold</button>
+  <button class="filter-btn" onclick="filterCards('color','green')" style="color:var(--green)">Green</button>
+  <button class="filter-btn" onclick="filterCards('color','orange')" style="color:var(--orange)">Orange</button>
+</div>
+
+<div id="concepts-container"></div>
+
+<div class="vote-section">
+  <h2>Your Shortlist</h2>
+  <p>Click any logo card above to add it. Click a chip below to remove it.</p>
+  <div class="selected-logos" id="selected-logos"></div>
+  <div class="vote-actions">
+    <button class="btn btn-gold" onclick="sendWhatsApp()">Send via WhatsApp</button>
+    <button class="btn btn-outline" onclick="sendEmail()">Send via Email</button>
+    <button class="btn btn-green" onclick="copyToClipboard()">Copy to Clipboard</button>
+  </div>
+</div>
+
+</div>
+
+<div class="toast" id="toast">Copied to clipboard!</div>
+
+<script>
+const NAMES = [
+  { id: 'callmecoach', display: 'Call Me Coach' },
+  { id: 'fitcall', display: 'FitCall' },
+  { id: 'fitvox', display: 'FitVox' },
+  { id: 'callmebaby', display: 'Call Me Baby' },
+  { id: 'reveilla', display: 'Reveilla' },
+  { id: 'appello', display: 'Appello' },
+  { id: 'allore', display: 'Allore' },
+  { id: 'declic', display: 'D\u00e9clic' }
+];
+
+const COLORS = [
+  { id: 'gold', hex: '#D4A853', label: 'Gold' },
+  { id: 'green', hex: '#4ade80', label: 'Green' },
+  { id: 'orange', hex: '#F47D31', label: 'Orange' }
+];
+
+const CONCEPTS = [
+  {
+    num: 1,
+    title: 'Dot Smile',
+    desc: 'Dots arranged in a gentle upward curve beneath the wordmark \u2014 like a voice visualization forming a smile. Each dot pulses with energy. Friendly, minimal, memorable.',
+    render: renderDotSmile
+  },
+  {
+    num: 2,
+    title: 'Before \u2192 After',
+    desc: 'A larger circle transforming into a smaller one, integrated subtly. Represents the physical transformation journey \u2014 visual storytelling in a single mark.',
+    render: renderBeforeAfter
+  },
+  {
+    num: 3,
+    title: 'Voice Wave',
+    desc: 'A sound waveform that tapers from wide to narrow \u2014 representing both voice (the product) and transformation (getting stronger). Two meanings, one icon.',
+    render: renderVoiceWave
+  }
+];
+
+const selected = new Set();
+
+function renderDotSmile(name, color, w, h) {
+  const textY = h * 0.45;
+  const fontSize = name.display.length > 10 ? 21 : 28;
+  const dots = 7;
+  const baseY = h * 0.76;
+  const startX = w * 0.2;
+  const endX = w * 0.8;
+  const spread = endX - startX;
+
+  let dotsHtml = '';
+  for (let i = 0; i < dots; i++) {
+    const t = i / (dots - 1);
+    const x = startX + t * spread;
+    // smile: edges higher, center lower -> forms upward curve at sides
+    const smileOffset = 7 * Math.pow(2 * t - 1, 2);
+    const y = baseY - smileOffset;
+    // dots slightly larger at edges for vocal energy feel
+    const r = 3.2 + 1.2 * Math.abs(2 * t - 1);
+    const op = 0.6 + 0.4 * Math.abs(2 * t - 1);
+    dotsHtml += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(1) + '" fill="' + color.hex + '" opacity="' + op.toFixed(2) + '"/>';
+  }
+
+  return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<text x="' + (w/2) + '" y="' + textY + '" text-anchor="middle" font-family="\'Sora\',sans-serif" font-size="' + fontSize + '" font-weight="700" fill="' + color.hex + '" letter-spacing="-0.5">' + name.display + '</text>' +
+    dotsHtml +
+    '</svg>';
+}
+
+function renderBeforeAfter(name, color, w, h) {
+  const textY = h * 0.45;
+  const fontSize = name.display.length > 10 ? 21 : 27;
+  const cx1 = w * 0.3;
+  const cx2 = w * 0.7;
+  const cy = h * 0.72;
+  return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<text x="' + (w/2) + '" y="' + textY + '" text-anchor="middle" font-family="\'Sora\',sans-serif" font-size="' + fontSize + '" font-weight="700" fill="' + color.hex + '" letter-spacing="-0.5">' + name.display + '</text>' +
+    '<circle cx="' + cx1 + '" cy="' + cy + '" r="14" fill="none" stroke="' + color.hex + '" stroke-width="2" opacity="0.4"/>' +
+    '<line x1="' + (cx1+18) + '" y1="' + cy + '" x2="' + (cx2-14) + '" y2="' + cy + '" stroke="' + color.hex + '" stroke-width="1.5" opacity="0.3" stroke-dasharray="4 3"/>' +
+    '<polygon points="' + (cx2-6) + ',' + (cy-3) + ' ' + (cx2-6) + ',' + (cy+3) + ' ' + (cx2-1) + ',' + cy + '" fill="' + color.hex + '" opacity="0.5"/>' +
+    '<circle cx="' + cx2 + '" cy="' + cy + '" r="8" fill="' + color.hex + '" opacity="0.85"/>' +
+    '</svg>';
+}
+
+function renderVoiceWave(name, color, w, h) {
+  const textY = h * 0.42;
+  const fontSize = name.display.length > 10 ? 21 : 27;
+  const baseY = h * 0.72;
+  const bars = 9;
+  const barW = 4;
+  const gap = (w * 0.5) / bars;
+  const startX = w * 0.25;
+
+  let barsHtml = '';
+  for (let i = 0; i < bars; i++) {
+    const progress = i / (bars - 1);
+    const maxH = 24 * (1 - progress * 0.7);
+    const h2 = maxH * (0.5 + 0.5 * Math.sin(i * 1.8 + 0.5));
+    const barH = Math.max(4, h2);
+    const x = startX + i * gap;
+    const op = 1 - progress * 0.3;
+    barsHtml += '<rect x="' + x.toFixed(1) + '" y="' + (baseY - barH/2).toFixed(1) + '" width="' + barW + '" height="' + barH.toFixed(1) + '" rx="2" fill="' + color.hex + '" opacity="' + op.toFixed(2) + '"/>';
+  }
+
+  return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<text x="' + (w/2) + '" y="' + textY + '" text-anchor="middle" font-family="\'Sora\',sans-serif" font-size="' + fontSize + '" font-weight="700" fill="' + color.hex + '" letter-spacing="-0.5">' + name.display + '</text>' +
+    barsHtml +
+    '</svg>';
+}
+
+function buildCards() {
+  const container = document.getElementById('concepts-container');
+  let html = '';
+
+  CONCEPTS.forEach(function(concept) {
+    html += '<div class="concept-section">' +
+      '<div class="concept-header">' +
+      '<span class="concept-number">Concept ' + concept.num + '</span>' +
+      '<h2 class="concept-title">' + concept.title + '</h2>' +
+      '</div>' +
+      '<p class="concept-desc">' + concept.desc + '</p>' +
+      '<div class="logo-grid">';
+
+    NAMES.forEach(function(name) {
+      COLORS.forEach(function(color) {
+        var cardId = concept.num + '-' + name.id + '-' + color.id;
+        var label = name.display + ' / ' + concept.title + ' / ' + color.label;
+        var svg = concept.render(name, color, 240, 100);
+        html += '<div class="logo-card" data-id="' + cardId + '" data-name="' + name.id + '" data-color="' + color.id + '" data-concept="' + concept.num + '" data-label="' + label + '" onclick="toggleSelect(this)">' +
+          svg +
+          '<div class="name-label">' + name.display + '</div>' +
+          '<div class="color-label">' + color.label + '</div>' +
+          '</div>';
+      });
+    });
+
+    html += '</div></div>';
+  });
+
+  container.innerHTML = html;
+}
+
+function toggleSelect(card) {
+  var id = card.dataset.id;
+  if (selected.has(id)) {
+    selected.delete(id);
+    card.style.outline = '';
+    card.style.outlineOffset = '';
+  } else {
+    selected.add(id);
+    var color = card.dataset.color;
+    var hex = color === 'gold' ? 'var(--gold)' : color === 'green' ? 'var(--green)' : 'var(--orange)';
+    card.style.outline = '2px solid ' + hex;
+    card.style.outlineOffset = '-2px';
+  }
+  renderSelected();
+}
+
+function renderSelected() {
+  var container = document.getElementById('selected-logos');
+  if (selected.size === 0) {
+    container.innerHTML = '<span style="color:var(--muted);font-size:0.85rem;">No logos selected yet</span>';
+    return;
+  }
+  var html = '';
+  selected.forEach(function(id) {
+    var card = document.querySelector('[data-id="' + id + '"]');
+    if (card) {
+      html += '<div class="selected-chip" onclick="removeSelected(\'' + id + '\')">' +
+        card.dataset.label + ' <span class="x">&times;</span></div>';
+    }
+  });
+  container.innerHTML = html;
+}
+
+function removeSelected(id) {
+  selected.delete(id);
+  var card = document.querySelector('[data-id="' + id + '"]');
+  if (card) {
+    card.style.outline = '';
+    card.style.outlineOffset = '';
+  }
+  renderSelected();
+}
+
+function getSelectionText() {
+  if (selected.size === 0) return 'No logos selected.';
+  var text = 'LOGO SHORTLIST\n\n';
+  var i = 1;
+  selected.forEach(function(id) {
+    var card = document.querySelector('[data-id="' + id + '"]');
+    if (card) {
+      text += i + '. ' + card.dataset.label + '\n';
+      i++;
+    }
+  });
+  text += '\nTotal: ' + selected.size + ' favorites';
+  return text;
+}
+
+function sendWhatsApp() {
+  var text = getSelectionText();
+  window.open('https://wa.me/33665395800?text=' + encodeURIComponent(text), '_blank');
+}
+
+function sendEmail() {
+  var text = getSelectionText();
+  window.open('mailto:aaronbes2@gmail.com?subject=' + encodeURIComponent('Logo Shortlist') + '&body=' + encodeURIComponent(text), '_blank');
+}
+
+function copyToClipboard() {
+  var text = getSelectionText();
+  navigator.clipboard.writeText(text).then(function() {
+    var toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 2500);
+  });
+}
+
+function filterCards(type, value) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.logo-card').forEach(function(card) {
+    if (type === 'all') {
+      card.style.display = '';
+    } else if (type === 'name') {
+      card.style.display = card.dataset.name === value ? '' : 'none';
+    } else if (type === 'color') {
+      card.style.display = card.dataset.color === value ? '' : 'none';
+    }
+  });
+}
+
+buildCards();
+renderSelected();
+</script>
+</body>
+</html>

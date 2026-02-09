@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; TikTok Scripts</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--pink:#ff6b9d;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.w{max-width:800px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+
+/* NAV */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+/* HERO */
+.hero{text-align:center;padding:7rem 0 3rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--pink);border:1px solid rgba(255,107,157,0.25);padding:0.35rem 1rem;border-radius:100px;letter-spacing:2px;text-transform:uppercase;background:rgba(255,107,157,0.06);margin-bottom:1.5rem;}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:1rem;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero .sub{color:var(--dim);font-size:1rem;max-width:520px;margin:0 auto;}
+
+/* FILTER */
+.filter-bar{display:flex;gap:0.5rem;flex-wrap:wrap;justify-content:center;margin:2.5rem 0 2rem;position:sticky;top:50px;z-index:50;background:rgba(12,13,16,0.9);backdrop-filter:blur(10px);padding:0.8rem 0;border-radius:12px;}
+.filter-btn{font-family:'Sora',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);padding:0.4rem 0.9rem;border-radius:100px;cursor:pointer;transition:all 0.25s;}
+.filter-btn:hover{border-color:var(--dim);color:var(--dim);}
+.filter-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,0.08);}
+
+/* SCRIPT CARD */
+.script-card{background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:1.25rem;overflow:hidden;transition:all 0.3s;animation:fadeUp 0.5s ease both;}
+.script-card:hover{border-color:#2a2c36;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.script-header{display:flex;align-items:center;gap:1rem;padding:1.25rem 1.5rem;cursor:pointer;user-select:none;}
+.script-number{font-family:'Sora',sans-serif;font-weight:800;font-size:1.6rem;color:var(--gold);min-width:36px;}
+.script-meta{flex:1;}
+.script-title{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-0.3px;margin-bottom:0.2rem;}
+.script-tags{display:flex;gap:0.4rem;flex-wrap:wrap;}
+.script-tag{font-size:0.6rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:0.15rem 0.5rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);}
+.script-tag.hook{border-color:var(--red);color:var(--red);}
+.script-tag.trend{border-color:var(--teal);color:var(--teal);}
+.script-tag.story{border-color:var(--orange);color:var(--orange);}
+.script-tag.pov{border-color:var(--pink);color:var(--pink);}
+.script-tag.compare{border-color:var(--gold);color:var(--gold);}
+.script-dur{font-family:'Sora',sans-serif;font-size:0.7rem;color:var(--muted);font-weight:600;white-space:nowrap;}
+.script-toggle{font-size:1.2rem;color:var(--muted);transition:transform 0.3s;margin-left:0.5rem;}
+.script-card.open .script-toggle{transform:rotate(180deg);}
+
+.script-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.script-card.open .script-body{max-height:800px;}
+.script-inner{padding:0 1.5rem 1.5rem;}
+
+.script-section{margin-bottom:1rem;}
+.script-section-label{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;}
+.script-section-label.lbl-hook{color:var(--red);}
+.script-section-label.lbl-content{color:var(--teal);}
+.script-section-label.lbl-cta{color:var(--gold);}
+.script-section-label.lbl-visual{color:var(--dim);}
+.script-text{font-size:0.88rem;color:var(--dim);line-height:1.6;font-style:italic;}
+.script-text strong{color:var(--text);font-style:normal;}
+
+.visual-notes{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:10px;padding:0.8rem 1rem;font-size:0.78rem;color:var(--muted);line-height:1.5;}
+
+.hashtags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.75rem;}
+.hashtag{font-size:0.7rem;color:var(--teal);font-weight:500;}
+
+/* TIPS */
+.tips-section{margin:3rem 0 2rem;padding:2rem;background:linear-gradient(135deg,rgba(212,168,83,0.05),rgba(0,212,170,0.03));border:1px solid rgba(212,168,83,0.12);border-radius:16px;}
+.tips-title{font-family:'Sora',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:1rem;}
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+.tip-card{background:rgba(0,0,0,0.2);border:1px solid var(--border);border-radius:10px;padding:1rem;}
+.tip-icon{font-size:1.5rem;margin-bottom:0.5rem;}
+.tip-title{font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;margin-bottom:0.3rem;}
+.tip-desc{font-size:0.75rem;color:var(--dim);line-height:1.5;}
+
+/* FOOTER */
+.footer{text-align:center;padding:2.5rem 0;border-top:1px solid var(--border);margin-top:2rem;color:var(--muted);font-size:0.78rem;}
+.footer a{color:var(--dim);text-decoration:none;}
+.footer a:hover{color:var(--text);}
+
+@media(max-width:600px){
+.hero{padding:5rem 0 2rem;}
+.script-header{flex-wrap:wrap;gap:0.5rem;}
+.script-number{font-size:1.2rem;}
+.tips-grid{grid-template-columns:1fr;}
+.filter-bar{gap:0.3rem;}
+.filter-btn{font-size:0.6rem;padding:0.3rem 0.6rem;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <a href="index.html">&larr; War Room</a>
+</div>
+
+<div class="w">
+
+<div class="hero">
+  <div class="hero-pill">&#9654; Content Factory</div>
+  <h1>TikTok <em>Scripts</em></h1>
+  <p>10 scripts pr&ecirc;ts &agrave; tourner. Hook &rarr; Content &rarr; CTA. Chaque vid&eacute;o cible le march&eacute; perte de poids / coaching / accountability.</p>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="filterScripts('all')">Tous</button>
+  <button class="filter-btn" onclick="filterScripts('hook')">Hook Choc</button>
+  <button class="filter-btn" onclick="filterScripts('trend')">Trend</button>
+  <button class="filter-btn" onclick="filterScripts('story')">Storytelling</button>
+  <button class="filter-btn" onclick="filterScripts('pov')">POV</button>
+  <button class="filter-btn" onclick="filterScripts('compare')">Comparaison</button>
+</div>
+
+<!-- SCRIPT 1 -->
+<div class="script-card" data-cat="hook">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">01</div>
+    <div class="script-meta">
+      <div class="script-title">&laquo; J'ai remplac&eacute; mon coach &agrave; 300&euro;/mois &raquo;</div>
+      <div class="script-tags"><span class="script-tag hook">Hook Choc</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">30s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>J'ai vir&eacute; mon coach &agrave; 300&euro; par mois.</strong> Et j'ai perdu plus de poids depuis. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (20s)</div>
+        <div class="script-text">&laquo; Tous les matins &agrave; 8h, je re&ccedil;ois un message. Pas une notif de merde. Un <strong>vrai message perso</strong> qui me demande ce que j'ai mang&eacute; hier, si j'ai fait ma s&eacute;ance, et ce que je pr&eacute;vois aujourd'hui. Si je r&eacute;ponds pas, il me relance. Si je mens, il le sait. C'est comme un coach priv&eacute;... mais &agrave; <strong>15&euro; par mois</strong>. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; Link in bio pour la waitlist. Les 100 premiers ont <strong>1 mois offert</strong>. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Face cam&eacute;ra, parler vite. Montrer le t&eacute;l&eacute;phone avec le message du coach. Cut rapide entre face cam et &eacute;cran du t&eacute;l&eacute;phone. Texte overlay &laquo; 300&euro; &rarr; 15&euro; &raquo; en gros.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#coachIA</span>
+        <span class="hashtag">#fitness</span>
+        <span class="hashtag">#motivation</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 2 -->
+<div class="script-card" data-cat="pov">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">02</div>
+    <div class="script-meta">
+      <div class="script-title">POV : Ton coach t'appelle &agrave; 7h du mat</div>
+      <div class="script-tags"><span class="script-tag pov">POV</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">25s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text"><strong>POV : T'as dit que tu voulais perdre 10 kg.</strong> Ton coach IA t'appelle &agrave; 7h.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (17s)</div>
+        <div class="script-text">[Sonnerie de t&eacute;l&eacute;phone. On d&eacute;croche, voix chaleureuse :]<br><br>&laquo; Salut ! Alors, hier t'avais pr&eacute;vu une s&eacute;ance jambes. T'as r&eacute;ussi ? ... Ok, et c&ocirc;t&eacute; nutrition, t'as tenu tes prot&eacute;ines ? ... Bon, aujourd'hui on vise 120g de prot&eacute;ines et 30 min de marche. T'es chaud ? &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">Texte overlay : <strong>&laquo; Un coach qui t'appelle tous les jours. 15&euro;/mois. Link in bio. &raquo;</strong></div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Filmer du r&eacute;veil : alarme, prendre le t&eacute;l&eacute;phone, d&eacute;crocher. Voix synth&eacute;tique chaleureuse en fond. Sous-titres dynamiques. Finir sur l'&eacute;cran du t&eacute;l&eacute;phone montrant le r&eacute;sum&eacute; du jour.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#pov</span>
+        <span class="hashtag">#coachpersonnel</span>
+        <span class="hashtag">#routine</span>
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 3 -->
+<div class="script-card" data-cat="compare">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">03</div>
+    <div class="script-meta">
+      <div class="script-title">Noom vs Coach humain vs Nous</div>
+      <div class="script-tags"><span class="script-tag compare">Comparaison</span><span class="script-tag">30-45s</span></div>
+    </div>
+    <div class="script-dur">40s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>70&euro;/mois pour Noom. 300&euro; pour un coach. 0&euro; pour les applis gratuites.</strong> Et tu tiens combien de temps ? &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (30s)</div>
+        <div class="script-text">[Montrer 3 colonnes &agrave; l'&eacute;cran]<br><br>&laquo; <strong>Appli gratuite</strong> : t'ouvres 3 jours, t'oublies. Aucun suivi. <strong>Noom</strong> : des quiz et des articles. 70&euro;/mois. Personne te contacte. <strong>Coach humain</strong> : g&eacute;nial mais 300-500&euro;. Qui peut se le permettre ?<br><br>Maintenant imagine : un coach IA qui t'envoie un message <strong>tous les jours</strong>, analyse ce que tu manges en photo, et te rappelle si tu disparais. <strong>15&euro;/mois.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; On ouvre la waitlist cette semaine. <strong>Link in bio</strong>, les 100 premiers sont gratuits. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Split screen vertical 3 colonnes avec prix en overlay. Animation : les 2 premi&egrave;res colonnes se barrent, la 3&egrave;me reste avec glow dor&eacute;. Sous-titres larges en bas.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#noom</span>
+        <span class="hashtag">#vs</span>
+        <span class="hashtag">#coachIA</span>
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 4 -->
+<div class="script-card" data-cat="story">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">04</div>
+    <div class="script-meta">
+      <div class="script-title">Le probl&egrave;me c'est pas la motivation</div>
+      <div class="script-tags"><span class="script-tag story">Storytelling</span><span class="script-tag">30-60s</span></div>
+    </div>
+    <div class="script-dur">45s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>Le probl&egrave;me c'est pas la motivation. C'est que personne te demande des comptes.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (35s)</div>
+        <div class="script-text">&laquo; Tu sais quoi manger. Tu sais qu'il faut bouger. T'as d&eacute;j&agrave; 12 applis fitness install&eacute;es. Le probl&egrave;me c'est que <strong>mardi soir tu commandes un Uber Eats</strong> et personne dit rien.<br><br>Les &eacute;tudes montrent que quand quelqu'un te <strong>demande des comptes quotidiennement</strong>, t'as 2.7x plus de chances de tenir. Pas besoin de motivation surhumaine. Juste quelqu'un qui te dit : &laquo; alors, t'as fait quoi aujourd'hui ? &raquo;<br><br>C'est exactement ce qu'on construit. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; Waitlist ouverte. <strong>Link in bio.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Face cam, ton sinc&egrave;re. Insert de B-roll : quelqu'un qui scroll son t&eacute;l&eacute;phone sur le canap&eacute;, livraison Uber Eats, applis ignor&eacute;es. Stat &laquo; 2.7x &raquo; en gros &agrave; l'&eacute;cran.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#accountability</span>
+        <span class="hashtag">#mindset</span>
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#discipline</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 5 -->
+<div class="script-card" data-cat="trend">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">05</div>
+    <div class="script-meta">
+      <div class="script-title">Tu photographs ton plat, l'IA calcule tout</div>
+      <div class="script-tags"><span class="script-tag trend">Trend</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">25s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>J'ai arr&ecirc;t&eacute; de compter mes calories manuellement.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (17s)</div>
+        <div class="script-text">&laquo; Je prends une photo de mon plat. <strong>2 secondes.</strong> L'IA analyse tout : calories, prot&eacute;ines, glucides, lipides. Elle me dit si je suis dans ma cible ou pas. Le soir elle me fait un bilan de la journ&eacute;e et me propose des ajustements pour demain. Z&eacute;ro prise de t&ecirc;te. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; En b&ecirc;ta bient&ocirc;t. <strong>Lien en bio</strong> pour la waitlist. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Montrer le geste : poser l'assiette, prendre la photo. Overlay anim&eacute; avec les macros qui apparaissent sur la photo (style AR). Transition vers le message r&eacute;cap du soir.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#caloriecounting</span>
+        <span class="hashtag">#nutrition</span>
+        <span class="hashtag">#IA</span>
+        <span class="hashtag">#foodlog</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 6 -->
+<div class="script-card" data-cat="hook">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">06</div>
+    <div class="script-meta">
+      <div class="script-title">95% des r&eacute;gimes &eacute;chouent (et pourquoi)</div>
+      <div class="script-tags"><span class="script-tag hook">Hook Choc</span><span class="script-tag">30-45s</span></div>
+    </div>
+    <div class="script-dur">35s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>95% des r&eacute;gimes &eacute;chouent.</strong> Pas parce que t'es faible. Parce que t'es seul. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (25s)</div>
+        <div class="script-text">&laquo; Les gens qui r&eacute;ussissent &agrave; perdre du poids durablement ont <strong>un point commun</strong> : quelqu'un qui les suit. Un coach, un partenaire, un groupe. Le probl&egrave;me c'est que 99% des gens n'ont pas les moyens de se payer un coach.<br><br>Alors on en a cr&eacute;&eacute; un qui est dispo <strong>24h/24, co&ucirc;te 15&euro;/mois</strong>, et qui te contacte tous les jours. Pas une app que t'ouvres quand t'y penses. Un coach qui vient &agrave; toi. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; <strong>Link in bio</strong>. Arr&ecirc;te de recommencer lundi. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">D&eacute;but face cam s&eacute;rieux. Insert stat &laquo; 95% &raquo; en gros chiffre. B-roll : personnes qui mangent seules, scroll d'applis ignor&eacute;es. Fin : &eacute;cran du t&eacute;l&eacute;phone avec le message du coach.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#r&eacute;gime</span>
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#coaching</span>
+        <span class="hashtag">#solitude</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 7 -->
+<div class="script-card" data-cat="pov">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">07</div>
+    <div class="script-meta">
+      <div class="script-title">POV : T'as cass&eacute; ton streak de 30 jours</div>
+      <div class="script-tags"><span class="script-tag pov">POV</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">25s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text"><strong>POV : Tu viens de casser ton streak de 30 jours.</strong> Ton coach IA te contacte.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (17s)</div>
+        <div class="script-text">[Message vocal chaleureux :]<br><br>&laquo; Hey. J'ai vu que t'as pas log&eacute; hier. C'est pas grave. 30 jours c'est d&eacute;j&agrave; <strong>incroyable</strong>. On reprend pas &agrave; z&eacute;ro, on reprend &agrave; 30. Un faux pas c'est pas un &eacute;chec. T'es toujours dans la course. On se parle demain matin ? &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">Texte overlay : <strong>&laquo; Un coach qui te juge pas. Link in bio. &raquo;</strong></div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Notification sur &eacute;cran noir. On ouvre le message vocal. Onde sonore qui d&eacute;file pendant qu'on &eacute;coute. &Eacute;motionnel, pas agressif. Musique douce en fond.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#streak</span>
+        <span class="hashtag">#motivation</span>
+        <span class="hashtag">#bienveillance</span>
+        <span class="hashtag">#coaching</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 8 -->
+<div class="script-card" data-cat="trend">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">08</div>
+    <div class="script-meta">
+      <div class="script-title">Duolingo mais pour ta sant&eacute;</div>
+      <div class="script-tags"><span class="script-tag trend">Trend</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">25s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>Duolingo t'a appris l'espagnol avec des streaks.</strong> On fait pareil pour ta sant&eacute;. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (17s)</div>
+        <div class="script-text">&laquo; Tu connais le syst&egrave;me de streaks Duolingo ? <strong>5x plus de r&eacute;tention.</strong> On a pris le m&ecirc;me principe et on l'applique au coaching sant&eacute;. Chaque jour tu r&eacute;ponds &agrave; ton coach : ta bouffe, ton sport, ton &eacute;nergie. Ton streak monte. Si tu l&acirc;ches, ton coach te rattrape. Comme Duolingo... mais en <strong>100x plus utile</strong>. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; Waitlist ouverte. <strong>Link in bio.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Split : &agrave; gauche Duolingo (screenshot), &agrave; droite notre app (mockup). Animation du compteur de streak qui monte. Notification push &laquo; Jour 15 ! &#128293; &raquo;</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#duolingo</span>
+        <span class="hashtag">#streaks</span>
+        <span class="hashtag">#gamification</span>
+        <span class="hashtag">#sant&eacute;</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 9 -->
+<div class="script-card" data-cat="story">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">09</div>
+    <div class="script-meta">
+      <div class="script-title">Pourquoi on a cr&eacute;&eacute; &ccedil;a (founder story)</div>
+      <div class="script-tags"><span class="script-tag story">Storytelling</span><span class="script-tag">45-60s</span></div>
+    </div>
+    <div class="script-dur">55s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>J'ai essay&eacute; 6 applis de fitness en un an.</strong> J'ai tenu maximum 3 semaines &agrave; chaque fois. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (45s)</div>
+        <div class="script-text">&laquo; Myfitnesspal. Freeletics. Noom. Yazio. J'ai tout essay&eacute;. &Agrave; chaque fois le m&ecirc;me sc&eacute;nario : <strong>semaine 1 motiv&eacute;</strong>, semaine 2 je ralentis, semaine 3 j'oublie d'ouvrir l'app.<br><br>Le probl&egrave;me c'&eacute;tait pas l'app. C'est que <strong>l'app m'attendait</strong>. Moi je voulais quelqu'un qui <strong>vienne me chercher</strong>.<br><br>Alors avec mon associ&eacute; on a construit un coach IA qui te contacte. Par message, par vocal, ou par appel. Toi tu choisis ton canal. Mais c'est <strong>lui qui fait le premier pas</strong>. Tous les jours. Sans exception.<br><br>On est 2 founders. On cherche nos 100 premiers b&ecirc;ta-testeurs. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; Si t'en as marre de recommencer &agrave; z&eacute;ro, <strong>link in bio</strong>. &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Face cam intimiste. Montrer les vraies applis install&eacute;es sur le t&eacute;l. Ambiance &laquo; storytime &raquo;. Fin : les 2 founders c&ocirc;te &agrave; c&ocirc;te, sourire confiant.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#founderstory</span>
+        <span class="hashtag">#startup</span>
+        <span class="hashtag">#pertedepoids</span>
+        <span class="hashtag">#fr</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT 10 -->
+<div class="script-card" data-cat="compare">
+  <div class="script-header" onclick="toggleScript(this)">
+    <div class="script-number">10</div>
+    <div class="script-meta">
+      <div class="script-title">Appli qui attend vs Coach qui vient</div>
+      <div class="script-tags"><span class="script-tag compare">Comparaison</span><span class="script-tag">15-30s</span></div>
+    </div>
+    <div class="script-dur">30s</div>
+    <div class="script-toggle">&#9660;</div>
+  </div>
+  <div class="script-body">
+    <div class="script-inner">
+      <div class="script-section">
+        <div class="script-section-label lbl-hook">&#9889; Hook (3s)</div>
+        <div class="script-text">&laquo; <strong>Il y a 2 types de coaching.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-content">&#128172; Contenu (20s)</div>
+        <div class="script-text">[Split screen]<br><br><strong>C&ocirc;t&eacute; gauche &laquo; L'appli &raquo; :</strong> notification ignor&eacute;e, badge 47, pas ouverte depuis 2 semaines, r&eacute;sultat = 0.<br><br><strong>C&ocirc;t&eacute; droit &laquo; Le coach IA &raquo; :</strong> message perso &agrave; 8h, r&eacute;ponse en 30s, photo du repas analys&eacute;e, streak jour 23, r&eacute;sultat = -4 kg.</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-cta">&#128640; CTA (5s)</div>
+        <div class="script-text">&laquo; Tu veux quel c&ocirc;t&eacute; ? <strong>Link in bio.</strong> &raquo;</div>
+      </div>
+      <div class="script-section">
+        <div class="script-section-label lbl-visual">&#127916; Direction visuelle</div>
+        <div class="visual-notes">Split screen vertical, c&ocirc;t&eacute; gauche gris/terne, c&ocirc;t&eacute; droit color&eacute;/vivant. Animations d&eacute;cal&eacute;es. Le c&ocirc;t&eacute; droit &laquo; gagne &raquo; visuellement. Point final : le c&ocirc;t&eacute; droit envahit tout l'&eacute;cran.</div>
+      </div>
+      <div class="hashtags">
+        <span class="hashtag">#vs</span>
+        <span class="hashtag">#fitness</span>
+        <span class="hashtag">#coaching</span>
+        <span class="hashtag">#transformation</span>
+        <span class="hashtag">#callmemaybe</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="tips-section">
+  <div class="tips-title">&#128161; Tips pour le tournage</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">&#128247;</div>
+      <div class="tip-title">Lumi&egrave;re</div>
+      <div class="tip-desc">Lumi&egrave;re naturelle face au visage. Ring light en backup. &Eacute;viter le contre-jour.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#128266;</div>
+      <div class="tip-title">Audio</div>
+      <div class="tip-desc">Micro-cravate ou AirPods. L'audio c'est 50% de la r&eacute;tention. Sous-titres TOUJOURS.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#9200;</div>
+      <div class="tip-title">Rythme</div>
+      <div class="tip-desc">Hook en 3 secondes max. Couper les silences. Parler 1.2x plus vite que la normale.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#128200;</div>
+      <div class="tip-title">Format</div>
+      <div class="tip-desc">9:16 vertical. 15-30s pour d&eacute;buter, 45-60s quand audience &eacute;tablie. Poster 2x/jour min.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#127911;</div>
+      <div class="tip-title">Musique</div>
+      <div class="tip-desc">Utiliser les sons trending du moment. V&eacute;rifier l'onglet &laquo; D&eacute;couvrir &raquo; chaque matin.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">&#128197;</div>
+      <div class="tip-title">Calendrier</div>
+      <div class="tip-desc">Lundi = motivation, Mercredi = comparaison, Vendredi = POV/story. Week-end = behind the scenes.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Call Me Maybe &copy; 2026 &mdash; <a href="index.html">War Room</a></p>
+</div>
+
+<script>
+function toggleScript(el){el.closest('.script-card').classList.toggle('open');}
+function filterScripts(cat){
+  document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase().includes(cat==='all'?'tous':cat));});
+  document.querySelectorAll('.script-card').forEach(c=>{
+    if(cat==='all'){c.style.display='';}
+    else{c.style.display=c.dataset.cat===cat?'':'none';}
+  });
+}
+// open first script by default
+document.querySelector('.script-card').classList.add('open');
+</script>
+</body>
+</html>

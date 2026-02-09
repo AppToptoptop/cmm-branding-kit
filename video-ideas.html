@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; Video Ideas &amp; AI Concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--pink:#ff6b9d;--purple:#b388ff;--blue:#4da6ff;--cyan:#22d3ee;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.w{max-width:900px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+.hero{text-align:center;padding:7rem 0 2.5rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--pink);border:1px solid rgba(255,107,157,0.25);padding:0.35rem 1rem;border-radius:100px;letter-spacing:2px;text-transform:uppercase;background:rgba(255,107,157,0.06);margin-bottom:1.5rem;}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:0.8rem;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero .sub{color:var(--dim);font-size:0.95rem;max-width:560px;margin:0 auto;}
+
+/* NAV TABS */
+.tab-bar{display:flex;gap:0.4rem;justify-content:center;margin:2rem 0;flex-wrap:wrap;position:sticky;top:42px;z-index:50;background:rgba(12,13,16,0.92);backdrop-filter:blur(10px);padding:0.7rem 0;border-radius:12px;}
+.tab-btn{font-family:'Sora',sans-serif;font-size:0.68rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);padding:0.4rem 0.9rem;border-radius:100px;cursor:pointer;transition:all 0.25s;}
+.tab-btn:hover{border-color:var(--dim);color:var(--dim);}
+.tab-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,0.08);}
+
+/* SECTION */
+.section{padding:2.5rem 0;border-top:1px solid var(--border);}
+.section:first-of-type{border-top:none;}
+.section-label{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.section h2{font-family:'Sora',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.5rem;}
+.section > .sub-desc{font-size:0.85rem;color:var(--dim);margin-bottom:1.5rem;max-width:600px;}
+
+/* VIDEO CARD */
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;margin:1rem 0;}
+.vid-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:all 0.3s;animation:fadeUp 0.5s ease both;}
+.vid-card:hover{border-color:#2e3044;transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+.vid-preview{height:150px;position:relative;display:flex;align-items:center;justify-content:center;font-size:3rem;overflow:hidden;}
+.vid-preview .bg-gradient{position:absolute;inset:0;opacity:0.3;}
+.vid-preview .emoji{position:relative;z-index:1;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.5));}
+.vid-preview .play-btn{position:absolute;bottom:10px;right:10px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;font-size:0.9rem;z-index:2;}
+.vid-body{padding:1.1rem 1.2rem;}
+.vid-title{font-family:'Sora',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:0.3rem;letter-spacing:-0.2px;}
+.vid-desc{font-size:0.78rem;color:var(--dim);line-height:1.55;margin-bottom:0.6rem;}
+.vid-tags{display:flex;gap:0.3rem;flex-wrap:wrap;}
+.vid-tag{font-family:'Sora',sans-serif;font-size:0.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0.15rem 0.45rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);}
+.vid-tag.t-funny{border-color:var(--pink);color:var(--pink);}
+.vid-tag.t-ai{border-color:var(--cyan);color:var(--cyan);}
+.vid-tag.t-site{border-color:var(--teal);color:var(--teal);}
+.vid-tag.t-social{border-color:var(--orange);color:var(--orange);}
+.vid-tag.t-emotional{border-color:var(--purple);color:var(--purple);}
+.vid-tag.t-demo{border-color:var(--gold);color:var(--gold);}
+
+/* PERSONA CARDS */
+.persona-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0;}
+.persona-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem;text-align:center;transition:all 0.3s;cursor:default;}
+.persona-card:hover{border-color:#2e3044;transform:translateY(-2px);}
+.persona-emoji{font-size:2.5rem;margin-bottom:0.6rem;}
+.persona-name{font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.2rem;}
+.persona-sub{font-size:0.7rem;color:var(--gold);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.5rem;}
+.persona-desc{font-size:0.75rem;color:var(--dim);line-height:1.5;}
+.persona-quote{font-size:0.78rem;color:var(--text);font-style:italic;margin-top:0.6rem;padding:0.5rem;background:rgba(255,255,255,0.02);border-radius:8px;border-left:2px solid var(--gold);}
+
+/* STORYBOARD */
+.storyboard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin:1rem 0;}
+.sb-title{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;}
+.sb-scenes{display:flex;gap:0.75rem;overflow-x:auto;padding-bottom:0.5rem;}
+.sb-scene{min-width:150px;max-width:150px;flex-shrink:0;}
+.sb-scene-num{font-family:'Sora',sans-serif;font-size:0.55rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.3rem;}
+.sb-scene-vis{height:85px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-bottom:0.4rem;}
+.sb-scene-text{font-size:0.68rem;color:var(--dim);line-height:1.4;}
+.sb-scene-dur{font-size:0.6rem;color:var(--muted);margin-top:0.2rem;}
+
+/* TOOLS SECTION */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0.75rem;margin:1rem 0;}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.9rem;text-align:center;transition:all 0.2s;}
+.tool-card:hover{border-color:#2e3044;}
+.tool-name{font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;margin-bottom:0.2rem;}
+.tool-use{font-size:0.7rem;color:var(--dim);}
+.tool-price{font-size:0.65rem;color:var(--gold);font-weight:600;margin-top:0.3rem;}
+
+.footer{text-align:center;padding:2.5rem 0;border-top:1px solid var(--border);margin-top:2rem;color:var(--muted);font-size:0.78rem;}
+.footer a{color:var(--dim);text-decoration:none;}
+.footer a:hover{color:var(--text);}
+
+@media(max-width:600px){
+.hero{padding:5rem 0 2rem;}
+.vid-grid{grid-template-columns:1fr;}
+.persona-grid{grid-template-columns:1fr 1fr;}
+.sb-scenes{gap:0.5rem;}
+.sb-scene{min-width:120px;max-width:120px;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.vid-card:nth-child(1){animation-delay:0.05s;}
+.vid-card:nth-child(2){animation-delay:0.1s;}
+.vid-card:nth-child(3){animation-delay:0.15s;}
+.vid-card:nth-child(4){animation-delay:0.2s;}
+.vid-card:nth-child(5){animation-delay:0.25s;}
+.vid-card:nth-child(6){animation-delay:0.3s;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <a href="index.html">&larr; War Room</a>
+</div>
+
+<div class="w">
+
+<div class="hero">
+  <div class="hero-pill">&#127916; Video Factory</div>
+  <h1>Video <em>Ideas</em></h1>
+  <p class="sub">AI-generated videos, website explainers, and social content. Multiple personas, funny tones, and ready-to-prompt concepts.</p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="filterVids('all')">All</button>
+  <button class="tab-btn" onclick="filterVids('ai')">AI Generated</button>
+  <button class="tab-btn" onclick="filterVids('site')">Website</button>
+  <button class="tab-btn" onclick="filterVids('social')">Social</button>
+  <button class="tab-btn" onclick="filterVids('funny')">Funny</button>
+  <button class="tab-btn" onclick="filterVids('demo')">Product Demo</button>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 1: COACH PERSONAS FOR VIDEO -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">01 / Video Personas</div>
+  <h2>Meet the Coaches</h2>
+  <p class="sub-desc">Each persona has a distinct voice, vibe, and video style. Use them across all content &mdash; TikTok, website, ads, demo videos.</p>
+
+  <div class="persona-grid">
+    <div class="persona-card">
+      <div class="persona-emoji">&#128170;</div>
+      <div class="persona-name">Coach Max</div>
+      <div class="persona-sub">The Brutally Honest Bro</div>
+      <div class="persona-desc">Gym rat energy. Calls you out with love. Zero bullshit. Uses slang, very direct, slightly chaotic.</div>
+      <div class="persona-quote">&laquo; Bro. You ate a PIZZA at 11pm and you're asking why the scale went up? Come on man. Tomorrow we fix this. &raquo;</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-emoji">&#129489;&#8205;&#127891;</div>
+      <div class="persona-name">Dr. Luna</div>
+      <div class="persona-sub">The Calm Scientist</div>
+      <div class="persona-desc">Evidence-based, measured, warm. Quotes studies. Never judges. Makes you feel smart about your choices.</div>
+      <div class="persona-quote">&laquo; Your cortisol is likely elevated from the short sleep. Today, focus on protein and a walk. Small wins compound. &raquo;</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-emoji">&#128131;</div>
+      <div class="persona-name">Mama Rosa</div>
+      <div class="persona-sub">The Italian Guilt Tripper</div>
+      <div class="persona-desc">Warm, overbearing, hilarious. Guilt trips you into compliance through sheer emotional manipulation (with love).</div>
+      <div class="persona-quote">&laquo; You skipped the gym AGAIN? And after I planned such a beautiful chicken recipe for you? You're breaking my heart. &raquo;</div>
+    </div>
+    <div class="persona-card">
+      <div class="persona-emoji">&#128526;</div>
+      <div class="persona-name">Zen</div>
+      <div class="persona-sub">The Unbothered Stoic</div>
+      <div class="persona-desc">Zero drama. Speaks in short sentences. Never stressed. Makes failing feel like data, not disaster.</div>
+      <div class="persona-quote">&laquo; You ate badly yesterday. That's information. Today is new. 120g protein. 30 min walk. Simple. &raquo;</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 2: AI GENERATED VIDEO IDEAS -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">02 / AI-Generated Videos</div>
+  <h2>Videos to Generate with AI Tools</h2>
+  <p class="sub-desc">Use Runway Gen-3, Kling, Pika, or Sora. These are prompts/concepts ready to generate. Funny, surreal, attention-grabbing.</p>
+
+  <div class="vid-grid">
+
+    <div class="vid-card" data-cat="ai funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a0a2e,#2d1b69);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 30% 70%,rgba(255,107,157,0.3),transparent);"></div>
+        <span class="emoji">&#128104;&#8205;&#127859;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">The Midnight Snack Intervention</div>
+        <div class="vid-desc">POV: You open the fridge at 2am. Your phone lights up. Coach Max's voice: &laquo; Put the cheese DOWN, bro. &raquo; The fridge door slowly closes by itself. Surreal, funny, shareable.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag t-social">TikTok</span>
+          <span class="vid-tag">15s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="ai funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a1628,#1a3a5c);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 70% 30%,rgba(34,211,238,0.3),transparent);"></div>
+        <span class="emoji">&#128241;&#128165;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Phone Notification Chaos</div>
+        <div class="vid-desc">Cinematic shot of a phone on a desk. A notification pops up: &laquo; Your coach is calling... &raquo; The person tries to ignore it. Phone starts vibrating aggressively. Camera zoom. They finally pick up. Voice: &laquo; There you are. Let's talk about that KFC. &raquo;</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">20s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="ai funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a0f0f,#3d1515);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 50% 50%,rgba(244,125,49,0.3),transparent);"></div>
+        <span class="emoji">&#127829;&#128680;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Mama Rosa's Guilt Trip</div>
+        <div class="vid-desc">AI-generated Italian kitchen. Mama Rosa (AI avatar) stares at camera, arms crossed. &laquo; You ordered Uber Eats? AGAIN? When I made you such a beautiful meal plan? Mamma mia... &raquo; She dramatically wipes a tear. End card: &laquo; Get a coach who actually cares. &raquo;</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag t-social">TikTok</span>
+          <span class="vid-tag">25s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="ai">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a1a0a,#1a3d1a);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 40% 60%,rgba(74,222,128,0.3),transparent);"></div>
+        <span class="emoji">&#127793;&#10024;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">The Growing Garden</div>
+        <div class="vid-desc">Time-lapse of a tiny seed growing into a lush garden as days pass. Each day the plant grows a little. When it blooms: &laquo; Day 30. You did it. &raquo; Beautiful, emotional, cinematic. For website hero or emotional TikTok.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-emotional">Emotional</span>
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag">15s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="ai funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a1a0a,#3d3d15);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 60% 40%,rgba(212,168,83,0.3),transparent);"></div>
+        <span class="emoji">&#128374;&#8205;&#9794;&#65039;&#128170;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Before &amp; After: The AI Coach Effect</div>
+        <div class="vid-desc">Split screen. LEFT: Person lying on couch, chips everywhere, 47 notification badges, Netflix autoplay. RIGHT: Same person, 30 days later, meal prepping, gym selfie, phone shows streak &laquo; Day 30 &#128293; &raquo;. Transition is a phone call being answered.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag">20s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="ai funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0f0a1a,#251569);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 30% 30%,rgba(179,136,255,0.3),transparent);"></div>
+        <span class="emoji">&#128564;&#9200;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">The 7am Wake-Up Call</div>
+        <div class="vid-desc">Person sleeping peacefully. Phone rings. Groggy hand picks up. Zen's voice: &laquo; Good morning. You said you'd run today. It's 7. The weather is 18&deg;C. Your shoes are by the door. No excuses. &raquo; Person groans but gets up. Cinematic morning light.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-ai">AI Gen</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">20s</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 3: WEBSITE VIDEOS -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">03 / Website Videos</div>
+  <h2>For the Landing Page &amp; Product Pages</h2>
+  <p class="sub-desc">Hero videos, explainers, feature demos, and social proof. These need to convert visitors into waitlist signups.</p>
+
+  <div class="vid-grid">
+
+    <div class="vid-card" data-cat="site demo">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0c0d10,#1a1d2e);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 50% 50%,rgba(212,168,83,0.2),transparent);"></div>
+        <span class="emoji">&#127909;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Hero Explainer (60s)</div>
+        <div class="vid-desc"><strong>For: landing page hero.</strong> Problem &rarr; Solution &rarr; How it works &rarr; CTA. Voiceover + screen mockups + text overlays. Tone: confident, slightly playful. End on &laquo; Join the waitlist &raquo; with email capture visible.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag t-demo">Product Demo</span>
+          <span class="vid-tag">60s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="site demo">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a1a1a,#153d3d);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 40% 60%,rgba(0,212,170,0.2),transparent);"></div>
+        <span class="emoji">&#128241;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Message Flow Demo (30s)</div>
+        <div class="vid-desc"><strong>For: solution section.</strong> Animated phone screen showing a real conversation: coach sends morning check-in, user replies with food photo, AI analyzes macros, coach gives feedback. Smooth scrolling animation. No voiceover &mdash; just text and ambient music.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag t-demo">Product Demo</span>
+          <span class="vid-tag">30s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="site">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a0a2e,#2d1b69);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 60% 40%,rgba(179,136,255,0.2),transparent);"></div>
+        <span class="emoji">&#127908;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Voice Note Preview (15s)</div>
+        <div class="vid-desc"><strong>For: channel section.</strong> Audio waveform animation with the coach's voice playing a real check-in message. Show the waveform morphing into text subtitles. Clean, minimal. Shows what a daily voice note actually sounds like.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag">15s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="site funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a1008,#3d2810);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 50% 50%,rgba(244,125,49,0.2),transparent);"></div>
+        <span class="emoji">&#128104;&#8205;&#128187;&#128105;&#8205;&#128187;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Fake Testimonials (Funny) (45s)</div>
+        <div class="vid-desc"><strong>For: social proof section.</strong> Since we don't have real users yet &mdash; create obviously fake, funny testimonials. &laquo; I lost 8kg and my Uber Eats driver doesn't recognize me anymore. &raquo; &laquo; My coach called me at 7am. I was furious. Then I lost 5kg. &raquo; Deadpan delivery.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">45s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="site demo">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a0a1a,#15153d);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 70% 30%,rgba(77,166,255,0.2),transparent);"></div>
+        <span class="emoji">&#128247;&#10145;&#128202;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Photo Food Logging Demo (20s)</div>
+        <div class="vid-desc"><strong>For: features section.</strong> Film a real plate of food. Take a photo. Animated overlay shows macros appearing (Calories: 520, Protein: 38g, Carbs: 45g, Fat: 22g). Green checkmark: &laquo; On track! &raquo; Clean, fast, satisfying.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag t-demo">Product Demo</span>
+          <span class="vid-tag">20s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="site">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0f1a0a,#1a3d15);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 30% 70%,rgba(74,222,128,0.2),transparent);"></div>
+        <span class="emoji">&#128293;23</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Streak Counter Animation (10s)</div>
+        <div class="vid-desc"><strong>For: gamification section.</strong> Looping animation of a streak counter going up: Day 1... Day 7... Day 14... Day 30. With confetti burst at milestones. Background goes from grey to vibrant as streak grows. Silent or subtle sound FX.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-site">Website</span>
+          <span class="vid-tag">Loop</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 4: SOCIAL CONTENT -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">04 / Social Content</div>
+  <h2>Short-Form for TikTok, Reels, Shorts</h2>
+  <p class="sub-desc">Funny, relatable, designed to go viral. Use AI avatars or film yourself with these concepts.</p>
+
+  <div class="vid-grid">
+
+    <div class="vid-card" data-cat="social funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a0a1a,#3d153d);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 50% 50%,rgba(255,107,157,0.3),transparent);"></div>
+        <span class="emoji">&#128104;&#8205;&#127859;&#128148;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Breaking Up with Uber Eats</div>
+        <div class="vid-desc">Filmed like a romantic breakup scene. &laquo; It's not you, it's me. Actually it's you. The calories, the sodium, the regret at 2am. I've met someone else... his name is Coach Max and he doesn't let me make bad decisions. &raquo; Dramatic music.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-social">Social</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">30s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="social funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a1a28,#153d5c);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 40% 40%,rgba(34,211,238,0.3),transparent);"></div>
+        <span class="emoji">&#128172;&#128172;&#128172;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">Things My AI Coach Says</div>
+        <div class="vid-desc">Series format. Each video = 1 ridiculous/accurate coach quote. Show notification on phone, read it, react. &laquo; I know you're looking at that brownie. Remember: you're 4 days from your longest streak ever. &raquo; &laquo; Good morning. No, you can't skip legs. &raquo;</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-social">Social</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">15s each</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="social funny">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#1a1005,#3d2810);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 60% 60%,rgba(212,168,83,0.3),transparent);"></div>
+        <span class="emoji">&#129300;&#128073;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">The Excuse Generator</div>
+        <div class="vid-desc">User: &laquo; I can't work out because... &raquo; [spins wheel of excuses: too tired, raining, legs day, Mercury retrograde, my cat needs me]. Coach responds to each one with deadpan one-liners. Quick cuts, meme energy.</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-social">Social</span>
+          <span class="vid-tag t-funny">Funny</span>
+          <span class="vid-tag">30s</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card" data-cat="social">
+      <div class="vid-preview" style="background:linear-gradient(135deg,#0a0f1a,#152040);">
+        <div class="bg-gradient" style="background:radial-gradient(circle at 50% 50%,rgba(0,212,170,0.2),transparent);"></div>
+        <span class="emoji">&#128200;&#127942;</span>
+        <div class="play-btn">&#9654;</div>
+      </div>
+      <div class="vid-body">
+        <div class="vid-title">30-Day Challenge Time-Lapse</div>
+        <div class="vid-desc">Daily selfies/clips condensed into 30 seconds. Show the daily coach messages as overlays. Streak counter increasing. Weight going down. Energy going up. End: &laquo; Day 30. Started as a dare. Now it's a lifestyle. &raquo;</div>
+        <div class="vid-tags">
+          <span class="vid-tag t-social">Social</span>
+          <span class="vid-tag t-emotional">Emotional</span>
+          <span class="vid-tag">30s</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 5: STORYBOARD EXAMPLE -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">05 / Storyboard</div>
+  <h2>Hero Explainer Video &mdash; Full Storyboard</h2>
+
+  <div class="storyboard">
+    <div class="sb-title">&#127916; Hero Explainer &mdash; 60 seconds</div>
+    <div class="sb-scenes">
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 1</div>
+        <div class="sb-scene-vis">&#128542;</div>
+        <div class="sb-scene-text"><strong>The Problem.</strong> Quick montage: notification badges, abandoned apps, person on couch.</div>
+        <div class="sb-scene-dur">0&ndash;8s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 2</div>
+        <div class="sb-scene-vis">&#128161;</div>
+        <div class="sb-scene-text"><strong>The Insight.</strong> &laquo; The problem isn't motivation. It's that nobody checks in on you. &raquo;</div>
+        <div class="sb-scene-dur">8&ndash;15s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 3</div>
+        <div class="sb-scene-vis">&#128222;</div>
+        <div class="sb-scene-text"><strong>The Solution.</strong> Phone rings. Coach message appears. 3 channels shown: message, voice, call.</div>
+        <div class="sb-scene-dur">15&ndash;25s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 4</div>
+        <div class="sb-scene-vis">&#128247;</div>
+        <div class="sb-scene-text"><strong>Features.</strong> Photo food log, streak counter, daily check-in, wearable sync.</div>
+        <div class="sb-scene-dur">25&ndash;38s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 5</div>
+        <div class="sb-scene-vis">&#128176;</div>
+        <div class="sb-scene-text"><strong>Pricing.</strong> Coach &euro;300 (crossed) &rarr; Noom &euro;70 (crossed) &rarr; Us &euro;15. Mic drop.</div>
+        <div class="sb-scene-dur">38&ndash;46s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 6</div>
+        <div class="sb-scene-vis">&#128293;</div>
+        <div class="sb-scene-text"><strong>Streak montage.</strong> Day 1 &rarr; 7 &rarr; 14 &rarr; 30. Plant growing. Energy up.</div>
+        <div class="sb-scene-dur">46&ndash;53s</div>
+      </div>
+      <div class="sb-scene">
+        <div class="sb-scene-num">Scene 7</div>
+        <div class="sb-scene-vis">&#128640;</div>
+        <div class="sb-scene-text"><strong>CTA.</strong> &laquo; Join the waitlist. 100 spots. Link below. &raquo; Email form appears.</div>
+        <div class="sb-scene-dur">53&ndash;60s</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 6: AI TOOLS -->
+<!-- ============================================ -->
+<div class="section">
+  <div class="section-label">06 / Tools &amp; Production</div>
+  <h2>Recommended AI Video Tools</h2>
+
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">Runway Gen-3</div>
+      <div class="tool-use">Cinematic AI video from text/image</div>
+      <div class="tool-price">$12/mo Starter</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Kling AI</div>
+      <div class="tool-use">Long-form AI video, realistic motion</div>
+      <div class="tool-price">Free tier available</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Pika</div>
+      <div class="tool-use">Quick AI clips, good for memes</div>
+      <div class="tool-price">Free tier available</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">HeyGen</div>
+      <div class="tool-use">AI avatar talking head videos</div>
+      <div class="tool-price">$24/mo</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">ElevenLabs</div>
+      <div class="tool-use">AI voice for coach personas</div>
+      <div class="tool-price">$5/mo Starter</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">CapCut</div>
+      <div class="tool-use">Edit, captions, trending templates</div>
+      <div class="tool-price">Free</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Canva</div>
+      <div class="tool-use">Thumbnails, text overlays, mockups</div>
+      <div class="tool-price">Free / $12.99/mo</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Descript</div>
+      <div class="tool-use">Edit video by editing text</div>
+      <div class="tool-price">$24/mo</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Call Me Maybe &copy; 2026 &mdash; <a href="index.html">War Room</a></p>
+</div>
+
+<script>
+function filterVids(cat){
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    const txt=b.textContent.toLowerCase();
+    b.classList.toggle('active',cat==='all'?txt==='all':txt===cat);
+  });
+  document.querySelectorAll('.vid-card').forEach(c=>{
+    if(cat==='all'){c.style.display='';}
+    else{c.style.display=c.dataset.cat.includes(cat)?'':'none';}
+  });
+}
+</script>
+</body>
+</html>

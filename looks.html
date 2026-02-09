@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Appello — 15 Brand Looks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&family=Sora:wght@300;400;600;700&family=Cormorant+Garamond:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Instrument+Serif&family=Archivo+Black&family=Libre+Baskerville:wght@400;700&family=Outfit:wght@300;400;600;700&family=Fraunces:wght@400;700&family=Manrope:wght@300;400;600;700&family=Crimson+Pro:wght@300;400;600;700&family=Inter+Tight:wght@300;400;600;700&family=Bricolage+Grotesque:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0b0e;
+  --text: #e8e6e3;
+  --text-dim: #8a8f98;
+  --border: #1e2030;
+  --teal: #00d4aa;
+  --gold: #D4A853;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; }
+
+body::before {
+  content:'';position:fixed;inset:0;
+  background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+
+.hero {
+  text-align:center;padding:6rem 2rem 3rem;position:relative;z-index:1;
+}
+.hero-badge {
+  font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--gold);
+  border:1px solid rgba(212,168,83,0.3);padding:0.4rem 1rem;border-radius:100px;
+  display:inline-block;margin-bottom:1.5rem;letter-spacing:2px;text-transform:uppercase;
+  background:rgba(212,168,83,0.08);
+}
+.hero h1 {
+  font-family:'Space Mono',monospace;font-size:clamp(2rem,5vw,3.5rem);font-weight:700;
+  letter-spacing:-2px;margin-bottom:1rem;
+}
+.hero h1 span { color:var(--gold); }
+.hero p { color:var(--text-dim);max-width:600px;margin:0 auto;font-size:1rem; }
+
+.grid {
+  max-width:1400px;margin:0 auto;padding:2rem;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(400px,1fr));gap:2rem;
+  position:relative;z-index:1;
+}
+
+/* EACH LOOK CARD */
+.look {
+  border-radius:16px;overflow:hidden;border:1px solid var(--border);
+  transition:all 0.3s;position:relative;
+}
+.look:hover { transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3); }
+
+.look-preview {
+  height:320px;padding:2.5rem;display:flex;flex-direction:column;
+  justify-content:space-between;position:relative;overflow:hidden;
+}
+
+.look-brand {font-size:2rem;font-weight:700;letter-spacing:-1px;}
+.look-tagline {font-size:0.9rem;opacity:0.8;margin-top:0.25rem;}
+.look-cta {
+  display:inline-block;padding:0.6rem 1.5rem;border-radius:8px;
+  font-size:0.85rem;font-weight:600;margin-top:auto;align-self:flex-start;
+  letter-spacing:0.5px;
+}
+
+.look-meta {
+  background:rgba(10,11,14,0.95);padding:1.25rem 2rem;
+  border-top:1px solid var(--border);
+}
+.look-name {
+  font-family:'Space Mono',monospace;font-size:0.9rem;font-weight:700;
+  color:var(--text);margin-bottom:0.25rem;display:flex;align-items:center;gap:0.75rem;
+}
+.look-rec {
+  font-family:'Space Mono',monospace;font-size:0.6rem;padding:0.15rem 0.5rem;
+  border-radius:3px;background:rgba(212,168,83,0.15);color:var(--gold);
+  text-transform:uppercase;letter-spacing:1px;
+}
+.look-desc {font-size:0.8rem;color:var(--text-dim);line-height:1.5;margin-top:0.35rem;}
+.look-palette {display:flex;gap:4px;margin-top:0.75rem;}
+.look-dot {width:18px;height:18px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);}
+.look-fonts {font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text-dim);margin-top:0.5rem;letter-spacing:0.5px;}
+
+footer {
+  text-align:center;padding:3rem 2rem;font-family:'Space Mono',monospace;
+  font-size:0.7rem;color:#555a66;position:relative;z-index:1;
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:500px){.grid{grid-template-columns:1fr;padding:1rem;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">Brand Identity Explorer</div>
+  <h1>15 Looks for <span>Appello</span></h1>
+  <p>Each card is a complete visual direction — palette, typography, tone. Click nothing, just feel which one IS you.</p>
+</div>
+
+<div class="grid">
+
+<!-- 1. WARM GOLD + DEEP TEAL (RECOMMENDED) -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(145deg,#0D1117,#132429);color:#F5F0E8;">
+    <div>
+      <div class="look-brand" style="font-family:'Sora',sans-serif;color:#D4A853;">Appello</div>
+      <div class="look-tagline" style="color:rgba(245,240,232,0.7)">Your daily call to action.</div>
+    </div>
+    <div class="look-cta" style="background:#D4A853;color:#0D1117;">Answer the Call</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">01 — Golden Hour <span class="look-rec">Recommended</span></div>
+    <div class="look-desc">Warm gold on dark teal. Premium, human, unowned in wellness. The morning light of your wake-up call.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#D4A853"></div>
+      <div class="look-dot" style="background:#1A5E63"></div>
+      <div class="look-dot" style="background:#0D1117"></div>
+      <div class="look-dot" style="background:#F5F0E8"></div>
+    </div>
+    <div class="look-fonts">Sora + DM Sans</div>
+  </div>
+</div>
+
+<!-- 2. MIDNIGHT LUXURY -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(145deg,#0a0a0a,#1a1510);color:#f0e6d3;">
+    <div>
+      <div class="look-brand" style="font-family:'Playfair Display',serif;color:#c9a961;letter-spacing:2px;">APPELLO</div>
+      <div class="look-tagline" style="color:rgba(240,230,211,0.6);font-family:'Cormorant Garamond',serif;font-size:1rem;">L'appel du changement.</div>
+    </div>
+    <div class="look-cta" style="border:1px solid #c9a961;color:#c9a961;background:transparent;">Begin Your Journey</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">02 — Black Tie</div>
+    <div class="look-desc">Ultra-luxury. Serif typography, gold on black. Like opening a Cartier box. Targets the Oura / WHOOP buyer.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#c9a961"></div>
+      <div class="look-dot" style="background:#0a0a0a"></div>
+      <div class="look-dot" style="background:#1a1510"></div>
+      <div class="look-dot" style="background:#f0e6d3"></div>
+    </div>
+    <div class="look-fonts">Playfair Display + Cormorant Garamond</div>
+  </div>
+</div>
+
+<!-- 3. NORDIC MINIMAL -->
+<div class="look">
+  <div class="look-preview" style="background:#F7F4EF;color:#2c2c2c;">
+    <div>
+      <div class="look-brand" style="font-family:'Outfit',sans-serif;color:#2c2c2c;font-weight:300;letter-spacing:3px;font-size:1.8rem;">appello</div>
+      <div class="look-tagline" style="color:rgba(44,44,44,0.5);font-family:'Outfit',sans-serif;font-weight:300;">Answer the call.</div>
+    </div>
+    <div class="look-cta" style="background:#2c2c2c;color:#F7F4EF;border-radius:100px;">Start Listening</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">03 — Nordic Quiet</div>
+    <div class="look-desc">Oura-inspired minimalism. Warm white, whisper typography, no visual noise. The brand disappears into the experience.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#F7F4EF"></div>
+      <div class="look-dot" style="background:#2c2c2c"></div>
+      <div class="look-dot" style="background:#E6DED3"></div>
+      <div class="look-dot" style="background:#8B8579"></div>
+    </div>
+    <div class="look-fonts">Outfit (light weight)</div>
+  </div>
+</div>
+
+<!-- 4. NATURE WELLNESS -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(160deg,#1a2e1a,#0f2318);color:#e8f0e4;">
+    <div>
+      <div class="look-brand" style="font-family:'Fraunces',serif;color:#7bc67b;font-size:2.2rem;">Appello</div>
+      <div class="look-tagline" style="color:rgba(232,240,228,0.6);">Grow with every call.</div>
+    </div>
+    <div class="look-cta" style="background:#4a9e4a;color:#fff;border-radius:12px;">Plant Your Routine</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">04 — Deep Forest</div>
+    <div class="look-desc">Noom-adjacent but darker, more premium. Nature greens signal health and growth. Serif warmth adds personality.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#7bc67b"></div>
+      <div class="look-dot" style="background:#4a9e4a"></div>
+      <div class="look-dot" style="background:#1a2e1a"></div>
+      <div class="look-dot" style="background:#e8f0e4"></div>
+    </div>
+    <div class="look-fonts">Fraunces + DM Sans</div>
+  </div>
+</div>
+
+<!-- 5. BOLD PERFORMANCE -->
+<div class="look">
+  <div class="look-preview" style="background:#0B0B0B;color:#ffffff;">
+    <div>
+      <div class="look-brand" style="font-family:'Archivo Black',sans-serif;color:#fff;letter-spacing:-1px;font-size:2.5rem;">APPELLO</div>
+      <div class="look-tagline" style="color:rgba(255,255,255,0.4);font-family:'Inter Tight',sans-serif;text-transform:uppercase;letter-spacing:3px;font-size:0.75rem;">No excuses. Every morning.</div>
+    </div>
+    <div class="look-cta" style="background:#ff2d2d;color:#fff;font-family:'Inter Tight',sans-serif;text-transform:uppercase;letter-spacing:2px;font-size:0.75rem;">Lock In</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">05 — WHOOP Mode</div>
+    <div class="look-desc">Black + red. Zero softness. Performance-obsessed, data-driven. For people who say "discipline" unironically.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#0B0B0B"></div>
+      <div class="look-dot" style="background:#ff2d2d"></div>
+      <div class="look-dot" style="background:#ffffff"></div>
+      <div class="look-dot" style="background:#333333"></div>
+    </div>
+    <div class="look-fonts">Archivo Black + Inter Tight</div>
+  </div>
+</div>
+
+<!-- 6. SUNRISE GRADIENT -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(135deg,#1a0a2e,#2d1b4e,#4a1942,#6b2040,#b44a2a,#d4953a);color:#fff;">
+    <div>
+      <div class="look-brand" style="font-family:'Sora',sans-serif;color:#fff;">Appello</div>
+      <div class="look-tagline" style="color:rgba(255,255,255,0.7)">Rise and answer.</div>
+    </div>
+    <div class="look-cta" style="background:rgba(255,255,255,0.2);color:#fff;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);">Wake Up With Us</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">06 — Sunrise</div>
+    <div class="look-desc">Dawn gradient — purple to orange. Evokes the morning call moment. Emotional, warm, Instagram-ready.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#1a0a2e"></div>
+      <div class="look-dot" style="background:#6b2040"></div>
+      <div class="look-dot" style="background:#b44a2a"></div>
+      <div class="look-dot" style="background:#d4953a"></div>
+    </div>
+    <div class="look-fonts">Sora</div>
+  </div>
+</div>
+
+<!-- 7. FRENCH ELEGANT -->
+<div class="look">
+  <div class="look-preview" style="background:#FAF8F5;color:#1a1a1a;">
+    <div>
+      <div class="look-brand" style="font-family:'Instrument Serif',serif;color:#1a1a1a;font-size:2.4rem;font-weight:400;">Appello</div>
+      <div class="look-tagline" style="color:rgba(26,26,26,0.4);font-family:'Crimson Pro',serif;font-style:italic;font-size:1rem;">L'appel du changement.</div>
+    </div>
+    <div class="look-cta" style="background:#1a1a1a;color:#FAF8F5;border-radius:2px;letter-spacing:1px;font-size:0.8rem;">Commencer</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">07 — Parisian</div>
+    <div class="look-desc">Elegant serif on cream. French editorial style. Whispers luxury and sophistication. Perfect for France-first launch.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#FAF8F5"></div>
+      <div class="look-dot" style="background:#1a1a1a"></div>
+      <div class="look-dot" style="background:#8B7355"></div>
+      <div class="look-dot" style="background:#D4C5B0"></div>
+    </div>
+    <div class="look-fonts">Instrument Serif + Crimson Pro</div>
+  </div>
+</div>
+
+<!-- 8. CALM OCEAN -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(170deg,#0f1b2d,#152a45);color:#c8ddf0;">
+    <div>
+      <div class="look-brand" style="font-family:'Manrope',sans-serif;color:#6fa8dc;font-weight:300;font-size:2rem;letter-spacing:1px;">appello</div>
+      <div class="look-tagline" style="color:rgba(200,221,240,0.5);font-family:'Manrope',sans-serif;font-weight:300;">Breathe. Listen. Change.</div>
+    </div>
+    <div class="look-cta" style="background:#6fa8dc;color:#0f1b2d;border-radius:100px;">Find Your Calm</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">08 — Deep Ocean</div>
+    <div class="look-desc">Calm-inspired deep blues. Serene, meditative, trust-building. For users who want peace, not push.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#0f1b2d"></div>
+      <div class="look-dot" style="background:#152a45"></div>
+      <div class="look-dot" style="background:#6fa8dc"></div>
+      <div class="look-dot" style="background:#c8ddf0"></div>
+    </div>
+    <div class="look-fonts">Manrope (light)</div>
+  </div>
+</div>
+
+<!-- 9. WARM TERRACOTTA -->
+<div class="look">
+  <div class="look-preview" style="background:#F5EDE3;color:#3d2b1f;">
+    <div>
+      <div class="look-brand" style="font-family:'Libre Baskerville',serif;color:#c26a3a;font-size:2.2rem;">Appello</div>
+      <div class="look-tagline" style="color:rgba(61,43,31,0.5);font-family:'DM Sans',sans-serif;">Your morning ritual, reimagined.</div>
+    </div>
+    <div class="look-cta" style="background:#c26a3a;color:#F5EDE3;border-radius:8px;">Start Tomorrow Morning</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">09 — Terracotta</div>
+    <div class="look-desc">Earthy, Mediterranean warmth. Clay oranges on linen. Feels handmade and human. Anti-tech aesthetic.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#c26a3a"></div>
+      <div class="look-dot" style="background:#F5EDE3"></div>
+      <div class="look-dot" style="background:#3d2b1f"></div>
+      <div class="look-dot" style="background:#dcc4a8"></div>
+    </div>
+    <div class="look-fonts">Libre Baskerville + DM Sans</div>
+  </div>
+</div>
+
+<!-- 10. PURPLE AI -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(150deg,#0f0a1a,#1a1030);color:#e0d8f0;">
+    <div>
+      <div class="look-brand" style="font-family:'Plus Jakarta Sans',sans-serif;color:#a78bfa;font-weight:700;">Appello</div>
+      <div class="look-tagline" style="color:rgba(224,216,240,0.5);">AI that actually calls you.</div>
+    </div>
+    <div class="look-cta" style="background:linear-gradient(135deg,#7c3aed,#a78bfa);color:#fff;border-radius:10px;">Get Your AI Coach</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">10 — AI Purple</div>
+    <div class="look-desc">BetterUp meets tech. Purple = AI + transformation + premium. Leans into the AI angle instead of hiding it.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#7c3aed"></div>
+      <div class="look-dot" style="background:#a78bfa"></div>
+      <div class="look-dot" style="background:#0f0a1a"></div>
+      <div class="look-dot" style="background:#e0d8f0"></div>
+    </div>
+    <div class="look-fonts">Plus Jakarta Sans</div>
+  </div>
+</div>
+
+<!-- 11. PLAYFUL ENERGY -->
+<div class="look">
+  <div class="look-preview" style="background:#1a1a2e;color:#ffffff;">
+    <div>
+      <div class="look-brand" style="font-family:'Bricolage Grotesque',sans-serif;color:#fbbf24;font-size:2.4rem;font-weight:700;">appello!</div>
+      <div class="look-tagline" style="color:rgba(255,255,255,0.6);font-family:'Bricolage Grotesque',sans-serif;">Your coach is calling. Pick up!</div>
+    </div>
+    <div class="look-cta" style="background:#fbbf24;color:#1a1a2e;border-radius:100px;font-family:'Bricolage Grotesque',sans-serif;font-weight:700;">Let's Go</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">11 — Duolingo Energy</div>
+    <div class="look-desc">Playful, bold, Gen Z friendly. Yellow exclamation mark energy. The brand that makes accountability fun, not scary.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#fbbf24"></div>
+      <div class="look-dot" style="background:#1a1a2e"></div>
+      <div class="look-dot" style="background:#34d399"></div>
+      <div class="look-dot" style="background:#ffffff"></div>
+    </div>
+    <div class="look-fonts">Bricolage Grotesque</div>
+  </div>
+</div>
+
+<!-- 12. WARM GREEN AI -->
+<div class="look">
+  <div class="look-preview" style="background:#111916;color:#d4e8d4;">
+    <div>
+      <div class="look-brand" style="font-family:'Sora',sans-serif;color:#4ade80;font-weight:600;">Appello</div>
+      <div class="look-tagline" style="color:rgba(212,232,212,0.5);font-family:'DM Sans',sans-serif;">Your personal AI. On the phone.</div>
+    </div>
+    <div class="look-cta" style="background:#4ade80;color:#111916;border-radius:10px;">Meet Your Coach</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">12 — Pi Green</div>
+    <div class="look-desc">Pi.ai-inspired. Green = AI that feels human. Dark background keeps it premium. Anti-purple positioning.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#4ade80"></div>
+      <div class="look-dot" style="background:#111916"></div>
+      <div class="look-dot" style="background:#22c55e"></div>
+      <div class="look-dot" style="background:#d4e8d4"></div>
+    </div>
+    <div class="look-fonts">Sora + DM Sans</div>
+  </div>
+</div>
+
+<!-- 13. STRAVA ATHLETIC -->
+<div class="look">
+  <div class="look-preview" style="background:#ffffff;color:#2d2d2d;">
+    <div>
+      <div class="look-brand" style="font-family:'Inter Tight',sans-serif;color:#FC5200;font-weight:700;font-size:2.2rem;letter-spacing:-1px;">Appello</div>
+      <div class="look-tagline" style="color:rgba(45,45,45,0.4);font-family:'Inter Tight',sans-serif;font-weight:600;text-transform:uppercase;font-size:0.75rem;letter-spacing:2px;">If you answered, you showed up.</div>
+    </div>
+    <div class="look-cta" style="background:#FC5200;color:#fff;border-radius:6px;">Join the Movement</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">13 — Athletic Orange</div>
+    <div class="look-desc">Strava energy — sporty orange on white. Community-driven, active, social. For people who share their streaks.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#FC5200"></div>
+      <div class="look-dot" style="background:#ffffff;border-color:#ddd"></div>
+      <div class="look-dot" style="background:#2d2d2d"></div>
+      <div class="look-dot" style="background:#ffeee5"></div>
+    </div>
+    <div class="look-fonts">Inter Tight</div>
+  </div>
+</div>
+
+<!-- 14. BRUTALIST MODERN -->
+<div class="look">
+  <div class="look-preview" style="background:#f0f0e8;color:#111;border-bottom:4px solid #111;">
+    <div>
+      <div class="look-brand" style="font-family:'Space Mono',monospace;color:#111;font-size:1.6rem;text-transform:uppercase;letter-spacing:4px;">Appello</div>
+      <div class="look-tagline" style="color:rgba(17,17,17,0.4);font-family:'Space Mono',monospace;font-size:0.8rem;">call_received: true</div>
+    </div>
+    <div class="look-cta" style="background:#111;color:#f0f0e8;border-radius:0;font-family:'Space Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;">Execute</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">14 — Terminal</div>
+    <div class="look-desc">Brutalist, developer-aesthetic. Monospace everywhere, raw edges. For the "I track everything in spreadsheets" crowd.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#f0f0e8"></div>
+      <div class="look-dot" style="background:#111111"></div>
+      <div class="look-dot" style="background:#555555"></div>
+      <div class="look-dot" style="background:#00d4aa"></div>
+    </div>
+    <div class="look-fonts">Space Mono</div>
+  </div>
+</div>
+
+<!-- 15. PELOTON HYBRID -->
+<div class="look">
+  <div class="look-preview" style="background:linear-gradient(160deg,#101113,#1a1520);color:#fff;">
+    <div>
+      <div class="look-brand" style="font-family:'Outfit',sans-serif;color:#fff;font-weight:700;font-size:2.3rem;letter-spacing:-1px;">Appello</div>
+      <div class="look-tagline" style="color:rgba(255,255,255,0.5);font-family:'Outfit',sans-serif;">Together we rise.</div>
+    </div>
+    <div class="look-cta" style="background:linear-gradient(135deg,#C41F2F,#e8475a);color:#fff;border-radius:8px;">Start Your Streak</div>
+  </div>
+  <div class="look-meta">
+    <div class="look-name">15 — Peloton Spirit</div>
+    <div class="look-desc">Dark premium + community red. Instructor-led feel. The voice on the phone IS your Peloton coach. Motivational but grounded.</div>
+    <div class="look-palette">
+      <div class="look-dot" style="background:#101113"></div>
+      <div class="look-dot" style="background:#C41F2F"></div>
+      <div class="look-dot" style="background:#CED0CF"></div>
+      <div class="look-dot" style="background:#ffffff"></div>
+    </div>
+    <div class="look-fonts">Outfit</div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  Appello Brand Identity Explorer — 15 Visual Directions — February 2026
+</footer>
+
+</body>
+</html>

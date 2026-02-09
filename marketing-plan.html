@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketing Plan & Growth Strategy — Call Me Maybe</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08090c;
+  --surface: #0e1015;
+  --card: #12141b;
+  --border: #1c1f2a;
+  --text: #eceae7;
+  --dim: #8a8f9e;
+  --muted: #4e5263;
+  --gold: #D4A853;
+  --teal: #00d4aa;
+  --orange: #F47D31;
+  --green: #4ade80;
+  --red: #ff4d6a;
+  --blue: #4da6ff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.7;
+}
+
+.noise {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index:1;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Nav */
+.top-nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 50;
+  background: rgba(8,9,12,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.top-nav a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.top-nav a:hover { color: var(--text); }
+
+.top-nav .sep { color: var(--muted); }
+
+.top-nav .current {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* Hero */
+.hero {
+  padding: 100px 0 48px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: var(--dim);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* TOC */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+
+.toc h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.toc-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+  list-style: none;
+}
+
+.toc-list a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.88rem;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s;
+}
+
+.toc-list a:hover { color: var(--teal); }
+
+.toc-list .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  min-width: 20px;
+}
+
+/* Section */
+.section {
+  margin-bottom: 56px;
+  scroll-margin-top: 70px;
+}
+
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.section h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 28px 0 12px;
+  color: var(--gold);
+}
+
+.section p {
+  color: var(--dim);
+  margin-bottom: 14px;
+}
+
+.section ul, .section ol {
+  color: var(--dim);
+  padding-left: 20px;
+  margin-bottom: 14px;
+}
+
+.section li { margin-bottom: 6px; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  font-size: 0.85rem;
+}
+
+th {
+  background: var(--card);
+  text-align: left;
+  padding: 10px 14px;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--dim);
+}
+
+tr:hover td { background: rgba(255,255,255,0.015); }
+
+.highlight-row td { color: var(--teal); font-weight: 600; }
+
+/* Stat cards */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  text-align: center;
+}
+
+.stat-card .val {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.stat-card .val.gold { color: var(--gold); }
+.stat-card .val.teal { color: var(--teal); }
+.stat-card .val.orange { color: var(--orange); }
+.stat-card .val.green { color: var(--green); }
+.stat-card .val.red { color: var(--red); }
+
+.stat-card .lbl {
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+/* Callout */
+.callout {
+  background: var(--card);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+.callout strong { color: var(--text); }
+
+/* Phase blocks */
+.phase {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.phase-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.phase-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.phase-badge.p1 { background: rgba(0,212,170,0.15); color: var(--teal); }
+.phase-badge.p2 { background: rgba(212,168,83,0.15); color: var(--gold); }
+.phase-badge.p3 { background: rgba(244,125,49,0.15); color: var(--orange); }
+
+.phase-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Team cards */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.team-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.team-card .name {
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.team-card .role {
+  font-size: 0.8rem;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.team-card ul {
+  font-size: 0.82rem;
+  padding-left: 16px;
+}
+
+.team-card .kpi {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+/* SWOT */
+.swot {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.swot-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.swot-box h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.swot-box.str h4 { color: var(--green); }
+.swot-box.wk h4 { color: var(--red); }
+
+.swot-box ul {
+  font-size: 0.82rem;
+  padding-left: 16px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+footer a { color: var(--dim); text-decoration: none; }
+footer a:hover { color: var(--text); }
+
+/* Responsive */
+@media (max-width: 600px) {
+  .toc-list { grid-template-columns: 1fr; }
+  .stat-row { grid-template-columns: 1fr 1fr; }
+  .swot { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<div class="top-nav">
+  <a href="index.html">&larr; War Room</a>
+  <span class="sep">/</span>
+  <span class="current">Marketing Plan</span>
+</div>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Confidential &mdash; Feb 2026</div>
+  <h1>Marketing Plan &amp; Growth Strategy</h1>
+  <p>AI Health Coach for Wearable Users. Deep competitor analysis, 3-phase growth roadmap, team assignments, and path to profitability in 8 months without fundraising.</p>
+  <div class="hero-meta">
+    <span>Aaron (CEO/Marketing) &amp; Ata (CTO/Backend)</span>
+    <span>+&nbsp;Friboost Team (Abidjan)</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol class="toc-list">
+    <li><a href="#s1"><span class="num">01</span> Competitor Marketing Analysis</a></li>
+    <li><a href="#s2"><span class="num">02</span> Positioning &amp; Brand Identity</a></li>
+    <li><a href="#s3"><span class="num">03</span> Target Audience</a></li>
+    <li><a href="#s4"><span class="num">04</span> Phase 1: Infiltrate (M1-4)</a></li>
+    <li><a href="#s5"><span class="num">05</span> Phase 2: Growth (M5-8)</a></li>
+    <li><a href="#s6"><span class="num">06</span> Phase 3: Scale (M9-18)</a></li>
+    <li><a href="#s7"><span class="num">07</span> Unit Economics</a></li>
+    <li><a href="#s8"><span class="num">08</span> Team Assignments (Friboost)</a></li>
+    <li><a href="#s9"><span class="num">09</span> 30-Day Action Plan</a></li>
+    <li><a href="#s10"><span class="num">10</span> Financial Rules &amp; VC Decision</a></li>
+    <li><a href="#s11"><span class="num">11</span> Exit Strategy &amp; Moat</a></li>
+  </ol>
+</div>
+
+<!-- EXECUTIVE SUMMARY -->
+<div class="callout">
+  <strong>Executive Summary:</strong> Call Me Maybe transforms raw wearable data (Whoop, Oura, Apple Watch, Garmin) into personalized, conversational health coaching in French. Our AI coach "Maybe" delivers daily briefings, nutrition analysis, and proactive recommendations. Goal: profitability in 8 months without fundraising, then scale with revenue. Market: 50K-100K Whoop users in France, 500K+ Oura, millions of Apple Watch/Garmin.
+</div>
+
+<!-- S1: COMPETITOR ANALYSIS -->
+<div class="section" id="s1">
+  <div class="section-num">Section 01</div>
+  <h2>Competitor Marketing Analysis</h2>
+
+  <h3>Whoop &mdash; The Marketing Benchmark</h3>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="val gold">$60M</div><div class="lbl">Marketing Budget 2024</div></div>
+    <div class="stat-card"><div class="val orange">$15M</div><div class="lbl">Influencer Spend (25%)</div></div>
+    <div class="stat-card"><div class="val teal">48%</div><div class="lbl">Direct Traffic</div></div>
+    <div class="stat-card"><div class="val green">50%+</div><div class="lbl">18-Month Retention</div></div>
+  </div>
+
+  <p>Whoop built its growth entirely on influence: mega-ambassadors (Cristiano Ronaldo, Michael Phelps, LeBron James), trainer-first strategy (reaching athletes through their personal trainers), host-read podcast ads (Joe Rogan exposure), and Steven Bartlett as Global Brand Ambassador for European expansion.</p>
+
+  <div class="swot">
+    <div class="swot-box str">
+      <h4>Strengths</h4>
+      <ul>
+        <li>$60M/year budget</li>
+        <li>Global ambassadors (Ronaldo, Phelps)</li>
+        <li>Proprietary podcast, strong SEO</li>
+        <li>50%+ retention after 18 months</li>
+      </ul>
+    </div>
+    <div class="swot-box wk">
+      <h4>Weaknesses</h4>
+      <ul>
+        <li>Zero French marketing presence</li>
+        <li>Whoop Coach = English only</li>
+        <li>French community completely neglected</li>
+        <li>No localized content for France</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Our opportunity:</strong> Whoop spends $60M/year without a single cent targeting French speakers. We fill that entire void.
+  </div>
+
+  <h3>ONVY &mdash; Closest Competitor</h3>
+  <p>Munich-based. AI coach connecting 500+ wearables. Newsweek/Statista distinction. But: app is buggy ("processing data" 60% of the time), zero French presence, pivoting to B2B. Their reliability issues are our biggest gift.</p>
+
+  <h3>SensAI &mdash; The Newcomer</h3>
+  <p>AI fitness trainer integrating Oura + Whoop. Beta iOS only. Good SEO strategy (long-tail HRV content). English only. We can outrun them in France.</p>
+
+  <h3>Oura &mdash; The Giant Without AI</h3>
+  <p>$1B revenue in 2025. No conversational AI coaching. Active Reddit community (r/ouraring, 100K+ members). Users are demanding data interpretation. Maybe fills that gap.</p>
+
+  <h3>Competitive Matrix</h3>
+  <table>
+    <tr><th>Criteria</th><th>Whoop</th><th>ONVY</th><th>SensAI</th><th>Oura</th><th style="color:var(--teal)">Maybe (Us)</th></tr>
+    <tr><td>Marketing Budget</td><td>$60M/yr</td><td>~$500K-1M</td><td>~$50K</td><td>~$20M</td><td style="color:var(--teal)">~$5K/mo</td></tr>
+    <tr><td>French Content</td><td>No</td><td>No</td><td>No</td><td>No</td><td style="color:var(--teal)">Yes (native)</td></tr>
+    <tr><td>FR Influencers</td><td>None</td><td>None</td><td>None</td><td>Lifestyle</td><td style="color:var(--teal)">Micro FR</td></tr>
+    <tr><td>FR SEO</td><td>No</td><td>No</td><td>No</td><td>No</td><td style="color:var(--teal)">Monopoly</td></tr>
+    <tr><td>FR Community</td><td>No</td><td>No</td><td>No</td><td>No</td><td style="color:var(--teal)">To build</td></tr>
+    <tr><td>Tone</td><td>Premium/Elite</td><td>Medical/Cold</td><td>Tech/Geek</td><td>Minimalist</td><td style="color:var(--teal)">Friendly coach</td></tr>
+    <tr><td>AI Coaching FR</td><td>GPT-4 EN</td><td>Buggy EN/DE</td><td>Beta EN</td><td>None</td><td style="color:var(--teal)">Claude FR</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Conclusion:</strong> ZERO serious competitors doing AI wearable coaching in French. We have a 12-18 month runway before any competitor reacts.
+  </div>
+</div>
+
+<!-- S2: POSITIONING -->
+<div class="section" id="s2">
+  <div class="section-num">Section 02</div>
+  <h2>Positioning &amp; Brand Identity</h2>
+
+  <p><strong>The gap we fill:</strong> Wearable users are drowning in data but starving for meaning. Whoop gives a 47% recovery score but doesn't explain why or what to do &mdash; and never in French.</p>
+
+  <div class="callout">
+    <strong>Positioning statement:</strong> "For French-speaking athletes and health enthusiasts who wear a wearable, Maybe is the AI coach that transforms your data into personalized daily advice, in your language, with an understanding of your culture."
+  </div>
+
+  <ul>
+    <li><strong>Name:</strong> Call Me Maybe (playful, memorable, universal recognition)</li>
+    <li><strong>AI Persona:</strong> Maybe &mdash; warm, competent, slightly humorous. Like a friend who's also a certified sports coach.</li>
+    <li><strong>Default:</strong> "Tu" (French fitness culture)</li>
+    <li><strong>Visual:</strong> Dark mode primary (consistent with Whoop/Oura), accent: electric teal (#00D4AA)</li>
+    <li><strong>Tagline:</strong> "Ton coach. Tes donn&eacute;es. Ta langue."</li>
+  </ul>
+</div>
+
+<!-- S3: AUDIENCE -->
+<div class="section" id="s3">
+  <div class="section-num">Section 03</div>
+  <h2>Target Audience</h2>
+
+  <h3>Primary: French Whoop Users (Beachhead)</h3>
+  <p>50,000-100,000 estimated users in France. Demographics: 25-45 years old, 58% male, high income, tech-savvy. Already paying $200-359/year for their health.</p>
+
+  <h3>Secondary: Oura / Apple Watch / Garmin FR</h3>
+  <p>500,000+ Oura users in France, millions of Apple Watch and Garmin. Many wear Whoop + Oura or Whoop + Apple Watch simultaneously. Even less AI coaching than Whoop.</p>
+
+  <h3>Tertiary (Month 6+): Francophone Markets</h3>
+  <p>Belgium (Wallonia/Brussels), Switzerland (Romandy), Quebec, French-speaking West Africa. Same language, similar fitness culture, entirely underserved.</p>
+
+  <h3>Anti-Targets</h3>
+  <ul>
+    <li>Casual walkers (not data-obsessed enough to pay)</li>
+    <li>People without a wearable (no data = no value)</li>
+    <li>English-speaking markets (too competitive, no differentiation)</li>
+    <li>Medical patients (regulatory field, out of scope)</li>
+  </ul>
+</div>
+
+<!-- S4: PHASE 1 -->
+<div class="section" id="s4">
+  <div class="section-num">Section 04</div>
+  <h2>Phase 1: Infiltrate (Months 1-4) &mdash; 0 to 200 Users</h2>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-badge p1">Phase 1</span>
+      <span class="phase-title">Infiltrate</span>
+    </div>
+
+    <h3>Reddit Infiltration</h3>
+    <p>Become an authentic contributor in r/whoop (125K+ members), r/FrenchFitness, r/quantifiedself. Post data analyses, answer HRV questions. After 2-3 weeks of credibility, naturally mention Maybe. Cost: 0&euro;.</p>
+
+    <h3>Instagram/TikTok Content Machine</h3>
+    <p>Account: @callmemaybe.coach. 5 posts/week minimum across 5 pillars: Data Decode, Maybe Says, Myth Busters, Recipes &amp; Nutrition, Before/After. Target: 2,000 followers Month 3, 5,000 Month 6. Cost: 0&euro;.</p>
+
+    <h3>French Fitness Communities</h3>
+    <p>Facebook groups (CrossFit France, Running France, Triathlon France), Discord, forums (Kikourou, Superphysique). Value first, product second. Free beta to first 50 sign-ups.</p>
+
+    <h3>Micro-Influencer Barter Partnerships</h3>
+    <p>5-10 French fitness creators with 2K-20K followers who wear Whoop/Oura. Offer: lifetime free access + feature their content. Estimated reach: 10 creators x 5K avg followers x 3% engagement = 1,500 qualified engagements. Cost: 0&euro;.</p>
+
+    <h3>Product Hunt Launch (Month 3)</h3>
+    <p>After beta polish. Mobilize 50+ beta users to vote on launch day. Demo video of Maybe coaching in French. Target: Top 5 of the day, 200-400 signups. Cost: 0&euro;.</p>
+  </div>
+
+  <table>
+    <tr><th>KPI</th><th>Target</th><th>Deadline</th></tr>
+    <tr><td>Active beta users</td><td>50</td><td>Month 2</td></tr>
+    <tr><td>Beta &rarr; paid conversion</td><td>30%</td><td>Month 4</td></tr>
+    <tr><td>Instagram followers</td><td>2,000</td><td>Month 3</td></tr>
+    <tr><td>MRR</td><td>&euro;500</td><td>Month 4</td></tr>
+    <tr><td>Paying users</td><td>50-100</td><td>Month 4</td></tr>
+    <tr><td>NPS</td><td>&gt;50</td><td>Month 4</td></tr>
+  </table>
+</div>
+
+<!-- S5: PHASE 2 -->
+<div class="section" id="s5">
+  <div class="section-num">Section 05</div>
+  <h2>Phase 2: Growth (Months 5-8) &mdash; 200 to 1,000 Users</h2>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-badge p2">Phase 2</span>
+      <span class="phase-title">Grow</span>
+    </div>
+
+    <h3>Social Ads (Small Budget, High Precision)</h3>
+    <p>Meta Ads (Instagram/Facebook). Start at &euro;300/mo, scale to &euro;500/mo based on ROAS. Target: French users interested in Whoop, Oura, HRV, biohacking, CrossFit. 25-45 years old. Lookalike audience from converted beta users. CPA target: &euro;15-20.</p>
+
+    <h3>SEO &amp; Content Marketing</h3>
+    <p>Blog at callmemaybe.app/blog. Monopolize "French wearable coaching" in search. 2 articles/week, 1,500-2,000 words. Priority keywords: "whoop recuperation", "whoop vs oura", "HRV c'est quoi", "coach IA sant&eacute;".</p>
+
+    <h3>Platform Partnerships</h3>
+    <p>Submit to Whoop Developer Directory and Oura partner program. ASO optimization with French keywords.</p>
+
+    <h3>Referral Program</h3>
+    <p>"Invite a friend &rarr; 1 free month for both." Tracked unique codes in-app. Viral coefficient target: 0.3 (every 10 users bring 3 new). Inspired by Whoop's referral program.</p>
+
+    <h3>French Fitness Podcasts</h3>
+    <p>Targets: Le Podcast du Running, CrossFit Solidaire, French biohacking podcasts. Pitch: "We built the first AI coach that actually speaks French to your Whoop." Cost: &euro;0 (barter early access).</p>
+  </div>
+
+  <table>
+    <tr><th>KPI</th><th>Target</th><th>Deadline</th></tr>
+    <tr><td>Paying users</td><td>500-1,000</td><td>Month 8</td></tr>
+    <tr><td>MRR</td><td>&euro;5,000-10,000</td><td>Month 8</td></tr>
+    <tr><td>Instagram followers</td><td>5,000+</td><td>Month 8</td></tr>
+    <tr><td>Average CPA</td><td>&lt;&euro;20</td><td>Month 8</td></tr>
+    <tr><td>Monthly churn</td><td>&lt;8%</td><td>Month 8</td></tr>
+    <tr><td>SEO articles published</td><td>30+</td><td>Month 8</td></tr>
+  </table>
+</div>
+
+<!-- S6: PHASE 3 -->
+<div class="section" id="s6">
+  <div class="section-num">Section 06</div>
+  <h2>Phase 3: Scale (Months 9-18) &mdash; 1,000 to 5,000+ Users</h2>
+
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-badge p3">Phase 3</span>
+      <span class="phase-title">Scale</span>
+    </div>
+
+    <h3>Scale Paid Acquisition</h3>
+    <p>Increase budget to &euro;1,500-2,000/mo (funded by profits). Add Google Ads (French search) and TikTok Ads. Retarget site visitors and unconverted trial users. CPA target: &lt;&euro;12.</p>
+
+    <h3>Francophone Expansion</h3>
+    <p>Belgium, Romandy, Quebec. Same product, zero additional localization. Adapt ads with local cultural references.</p>
+
+    <h3>Mid-Tier Influencers</h3>
+    <p>Budget: &euro;500-1,000/mo. French fitness influencers 20K-100K followers. Sponsored post + story + promo code. &euro;200-500 per creator per campaign.</p>
+
+    <h3>B2B Corporate Wellness Pilot</h3>
+    <p>Target French companies with wellness programs. Offer: &euro;7/user/month licenses for 50+ employees. Targets: French tech (OVH, BlaBlaCar, Doctolib), CrossFit gyms, corporate running clubs.</p>
+
+    <h3>Premium Tier Launch (Month 10)</h3>
+    <p>Maybe Pro+ at &euro;19.99/mo: advanced periodization, weekly AI video summary, priority response, data API access. Target: 15% of Pro upgrade, significantly boosting ARPU.</p>
+  </div>
+
+  <table>
+    <tr><th>KPI</th><th>Target</th><th>Deadline</th></tr>
+    <tr><td>Paying users</td><td>3,000-5,000</td><td>Month 18</td></tr>
+    <tr><td>ARR</td><td>&euro;400K-700K</td><td>Month 18</td></tr>
+    <tr><td>Net margin</td><td>&gt;60%</td><td>Month 18</td></tr>
+    <tr><td>Monthly churn</td><td>&lt;5%</td><td>Month 18</td></tr>
+    <tr class="highlight-row"><td>Founder salary</td><td>&euro;3,000-5,000/mo each</td><td>Month 12+</td></tr>
+  </table>
+</div>
+
+<!-- S7: UNIT ECONOMICS -->
+<div class="section" id="s7">
+  <div class="section-num">Section 07</div>
+  <h2>Unit Economics &amp; Financial Model</h2>
+
+  <div class="stat-row">
+    <div class="stat-card"><div class="val teal">&euro;9.99</div><div class="lbl">Monthly Price (Pro)</div></div>
+    <div class="stat-card"><div class="val gold">&euro;2.30</div><div class="lbl">Cost per User/Mo</div></div>
+    <div class="stat-card"><div class="val green">77%</div><div class="lbl">Gross Margin</div></div>
+    <div class="stat-card"><div class="val orange">&euro;200</div><div class="lbl">LTV (20 months)</div></div>
+  </div>
+
+  <h3>Cost Breakdown per User/Month</h3>
+  <table>
+    <tr><th>Component</th><th>Cost</th></tr>
+    <tr><td>Claude API</td><td>~&euro;1.50</td></tr>
+    <tr><td>Supabase</td><td>~&euro;0.50</td></tr>
+    <tr><td>API aggregator (Spike)</td><td>~&euro;0.30</td></tr>
+    <tr><td><strong>Total COGS</strong></td><td><strong>~&euro;2.30/mo</strong></td></tr>
+    <tr class="highlight-row"><td>Gross margin</td><td>&euro;7.70/mo (77%)</td></tr>
+  </table>
+
+  <h3>LTV:CAC Ratio</h3>
+  <ul>
+    <li>LTV: &euro;9.99 x 20 months = <strong>&euro;200</strong></li>
+    <li>CAC Phase 1 (organic): ~&euro;5</li>
+    <li>CAC Phase 2 (paid): &euro;15-20</li>
+    <li>CAC Phase 3 (optimized): &euro;10-12</li>
+    <li><strong>LTV:CAC ratio: 10:1 to 40:1</strong> &mdash; excellent unit economics</li>
+  </ul>
+
+  <h3>Path to Profitability</h3>
+  <table>
+    <tr><th>Month</th><th>Paying Users</th><th>MRR</th><th>Fixed Costs</th><th>Profit/Loss</th></tr>
+    <tr><td>4</td><td>50</td><td>&euro;500</td><td>&euro;500</td><td>&euro;0</td></tr>
+    <tr><td>6</td><td>200</td><td>&euro;2,000</td><td>&euro;800</td><td style="color:var(--green)">+&euro;1,200</td></tr>
+    <tr><td>8</td><td>500</td><td>&euro;5,000</td><td>&euro;1,500</td><td style="color:var(--green)">+&euro;3,500</td></tr>
+    <tr><td>12</td><td>1,500</td><td>&euro;15,000</td><td>&euro;4,000</td><td style="color:var(--green)">+&euro;11,000</td></tr>
+    <tr class="highlight-row"><td>18</td><td>5,000</td><td>&euro;50,000</td><td>&euro;12,000</td><td>+&euro;38,000</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Breakeven:</strong> Month 6 with ~150 paying users. Founder salaries possible from Month 10 with 1,000 paying users.
+  </div>
+</div>
+
+<!-- S8: TEAM -->
+<div class="section" id="s8">
+  <div class="section-num">Section 08</div>
+  <h2>Team Assignments &mdash; Friboost (Abidjan)</h2>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="name">Aaron</div>
+      <div class="role">CEO / Marketing Director &amp; Strategy</div>
+      <ul>
+        <li>Define &amp; adjust global marketing strategy monthly based on KPIs</li>
+        <li>Validate all content before publication (tone, brand alignment)</li>
+        <li>Negotiate influencer partnerships and barter deals</li>
+        <li>Manage ad budget and optimize allocation by ROAS</li>
+        <li>Run weekly marketing meetings with Friboost team</li>
+        <li>Pilot launches (Product Hunt, App Store, major campaigns)</li>
+      </ul>
+    </div>
+
+    <div class="team-card">
+      <div class="name">Ana&iuml;s</div>
+      <div class="role">Social Media Manager</div>
+      <ul>
+        <li>Manage @callmemaybe.coach: 5 posts/week (3 feed + 2 stories)</li>
+        <li>Create visuals for 3 content pillars: Data Decode, Maybe Says, Myth Busters</li>
+        <li>Reply to all comments and DMs within 4 hours</li>
+        <li>Comment authentically on 10+ fitness influencer posts daily</li>
+        <li>Manage TikTok: adapt Data Decode into short-form video (&lt;60s)</li>
+      </ul>
+      <div class="kpi">KPIs: &gt;5% engagement, 2K followers M3, 5K M6</div>
+    </div>
+
+    <div class="team-card">
+      <div class="name">Calixte</div>
+      <div class="role">SEO Writer &amp; Content Manager</div>
+      <ul>
+        <li>Write 2 SEO-optimized blog articles/week (1,500-2,000 words)</li>
+        <li>Keyword research with Google KW Planner &amp; Ubersuggest (French)</li>
+        <li>Weekly competitive content monitoring (ONVY, SensAI, Whoop blogs)</li>
+        <li>Write bi-monthly newsletters (500-800 words)</li>
+        <li>Create landing page and App Store copy (ASO) in French</li>
+      </ul>
+      <div class="kpi">KPIs: 30+ articles M8, top 3 Google.fr on 5 keywords, 5K organic visits/mo</div>
+    </div>
+
+    <div class="team-card">
+      <div class="name">Aristide</div>
+      <div class="role">Community Manager &amp; Reddit/Forums</div>
+      <ul>
+        <li>Active member on r/whoop, r/ouraring, r/quantifiedself, r/FrenchFitness</li>
+        <li>3+ value contributions/week on Reddit</li>
+        <li>Moderate French Facebook groups, forums (Kikourou, Superphysique)</li>
+        <li>Identify unsatisfied Whoop Coach / ONVY users, invite to try Maybe</li>
+        <li>Create &amp; moderate Discord "Call Me Maybe Community"</li>
+        <li>Reply to ALL App Store reviews (positive &amp; negative) within 24h</li>
+      </ul>
+      <div class="kpi">KPIs: 100 Reddit karma M2, 200+ Discord members M6, 100% review reply rate</div>
+    </div>
+
+    <div class="team-card">
+      <div class="name">C&eacute;dric</div>
+      <div class="role">Paid Ads Manager &amp; Analytics</div>
+      <ul>
+        <li>Configure &amp; manage Meta Ads campaigns (Phase 2, Month 5)</li>
+        <li>Create targeting audiences: Whoop/Oura/HRV interests, 25-45, France</li>
+        <li>A/B test minimum 3 creative variants per campaign</li>
+        <li>Track and optimize CPA daily (&lt;&euro;20 P2, &lt;&euro;12 P3)</li>
+        <li>Produce weekly KPI dashboard (MRR, CAC, LTV, churn, traffic)</li>
+        <li>Add Google Ads + TikTok Ads in Phase 3</li>
+      </ul>
+      <div class="kpi">KPIs: CPA &lt;&euro;20, ROAS &gt;3x, dashboard delivered every Monday</div>
+    </div>
+
+    <div class="team-card">
+      <div class="name">Mariam</div>
+      <div class="role">Influencer Relations &amp; Partnerships</div>
+      <ul>
+        <li>Build database of 50+ micro-influencers FR (2K-20K followers) with wearables</li>
+        <li>Contact 5 new influencers/week with personalized pitch</li>
+        <li>Negotiate barter deals: free Maybe for life in exchange for content</li>
+        <li>Identify influential French fitness coaches (Whoop trainer strategy)</li>
+        <li>Coordinate mid-tier influencer campaigns (Phase 3)</li>
+        <li>Research French fitness podcast partnership opportunities</li>
+      </ul>
+      <div class="kpi">KPIs: 5 active barter deals M3, 10 M6, 3 podcasts secured M8</div>
+    </div>
+
+    <div class="team-card">
+      <div class="name">St&eacute;phanie</div>
+      <div class="role">Design &amp; Visual Creation</div>
+      <ul>
+        <li>Create complete brand guide (logo, colors, typography, usage guide)</li>
+        <li>Design reusable templates for 3 Instagram content pillars</li>
+        <li>Create ad campaign visuals (3+ variants per campaign)</li>
+        <li>Produce TikTok/Reels short-form videos: editing, subtitles, animations</li>
+        <li>Design landing pages, App Store visuals, app screenshots</li>
+        <li>Product Hunt kit: demo video, gallery images, logo/banner</li>
+      </ul>
+      <div class="kpi">KPIs: Brand guide Week 2, 10+ IG templates M1, PH demo video M3</div>
+    </div>
+  </div>
+
+  <h3>Team Rituals</h3>
+  <table>
+    <tr><th>Ritual</th><th>Frequency</th><th>Participants</th><th>Duration</th></tr>
+    <tr><td>Marketing standup</td><td>Mon + Thu</td><td>Full team</td><td>15 min</td></tr>
+    <tr><td>KPI review</td><td>Monday AM</td><td>Aaron + C&eacute;dric</td><td>30 min</td></tr>
+    <tr><td>Content review</td><td>Wednesday</td><td>Aaron + Ana&iuml;s + Calixte + St&eacute;phanie</td><td>30 min</td></tr>
+    <tr><td>Sprint planning</td><td>1st Monday/month</td><td>Aaron + Ata + team</td><td>1h</td></tr>
+    <tr><td>Monthly retro</td><td>Last Friday</td><td>Full team</td><td>45 min</td></tr>
+  </table>
+
+  <h3>Tools</h3>
+  <ul>
+    <li><strong>Communication:</strong> WhatsApp Business (team group) + Discord (community)</li>
+    <li><strong>Project management:</strong> Notion (kanban per member + editorial calendar)</li>
+    <li><strong>Design:</strong> Canva Pro (templates) + Figma (UI/UX)</li>
+    <li><strong>Analytics:</strong> Google Analytics 4 + Mixpanel + Meta Business Suite</li>
+    <li><strong>SEO:</strong> Google Search Console + Ubersuggest</li>
+    <li><strong>Email:</strong> Resend or Loops (newsletters)</li>
+  </ul>
+</div>
+
+<!-- S9: 30-DAY ACTION PLAN -->
+<div class="section" id="s9">
+  <div class="section-num">Section 09</div>
+  <h2>30-Day Action Plan</h2>
+
+  <h3>Week 1 &mdash; Foundations</h3>
+  <table>
+    <tr><th>Owner</th><th>Task</th><th>Deliverable</th></tr>
+    <tr><td>Aaron</td><td>Validate positioning, name, tagline with Ata</td><td>Approved brief</td></tr>
+    <tr><td>St&eacute;phanie</td><td>Create logo, brand guide, IG templates</td><td>Brand kit</td></tr>
+    <tr><td>Ana&iuml;s</td><td>Create Instagram &amp; TikTok @callmemaybe.coach</td><td>Active accounts</td></tr>
+    <tr><td>Calixte</td><td>French SEO keyword research (50 priority keywords)</td><td>Excel file</td></tr>
+    <tr><td>Aristide</td><td>Create Reddit account, start contributing on r/whoop</td><td>3 posts published</td></tr>
+    <tr><td>Mariam</td><td>List 25 French micro-influencers with wearables</td><td>Database</td></tr>
+    <tr><td>C&eacute;dric</td><td>Set up GA4, Meta Pixel, Notion KPI dashboard</td><td>Dashboard ready</td></tr>
+    <tr><td>Ata</td><td>Technical setup: Supabase, Whoop API, HealthKit prototype</td><td>Backend v0</td></tr>
+  </table>
+
+  <h3>Week 2 &mdash; Content &amp; Community</h3>
+  <table>
+    <tr><th>Owner</th><th>Task</th><th>Deliverable</th></tr>
+    <tr><td>Ana&iuml;s</td><td>Publish first 5 Instagram posts (Data Decode x2, Myth Buster x2, Maybe Says x1)</td><td>5 posts</td></tr>
+    <tr><td>Calixte</td><td>Write first 2 SEO articles: "C'est quoi le HRV" + "Whoop vs Oura en France"</td><td>2 articles</td></tr>
+    <tr><td>St&eacute;phanie</td><td>Create visuals for next 10 posts + blog illustrations</td><td>Visual pack</td></tr>
+    <tr><td>Aristide</td><td>5 quality Reddit posts, start Discord setup</td><td>5 posts + Discord</td></tr>
+    <tr><td>Mariam</td><td>Send first 10 DMs to identified micro-influencers</td><td>10 contacts</td></tr>
+  </table>
+
+  <h3>Week 3-4 &mdash; Pre-Launch</h3>
+  <table>
+    <tr><th>Owner</th><th>Task</th><th>Deliverable</th></tr>
+    <tr><td>Ana&iuml;s</td><td>10 more posts + strategic commenting (10 influencers/day)</td><td>Follower growth</td></tr>
+    <tr><td>Calixte</td><td>4 more SEO articles + create waitlist landing page</td><td>6 articles + LP</td></tr>
+    <tr><td>Aristide</td><td>Recruit 20 waitlist signups via Reddit &amp; French forums</td><td>20 waitlist</td></tr>
+    <tr><td>Mariam</td><td>Confirm 3-5 first barter influencer partnerships</td><td>3+ deals signed</td></tr>
+    <tr><td>St&eacute;phanie</td><td>Create Product Hunt kit + App Store screenshots</td><td>PH kit ready</td></tr>
+    <tr><td>C&eacute;dric</td><td>Prepare Meta Ads audiences &amp; first creatives for Phase 2</td><td>Campaigns ready</td></tr>
+    <tr><td>Aaron</td><td>Contact 3 French fitness podcasts for guest/sponsorship</td><td>3 pitches sent</td></tr>
+    <tr><td>Ata</td><td>Functional MVP: French AI coaching + Whoop + HealthKit</td><td>Testable beta app</td></tr>
+  </table>
+</div>
+
+<!-- S10: FINANCIAL RULES -->
+<div class="section" id="s10">
+  <div class="section-num">Section 10</div>
+  <h2>Financial Rules &amp; VC Decision</h2>
+
+  <h3>Cash Flow Protection Rules</h3>
+  <ul>
+    <li><strong>Never spend more than 30% of MRR on marketing.</strong> If MRR = &euro;5K, max marketing = &euro;1,500.</li>
+    <li>Keep 3 months of fixed costs in reserve. Phase 2: ~&euro;3,000 minimum treasury.</li>
+    <li>Scale marketing with revenue, not ahead of it. Paid ads only when organic has proven the concept.</li>
+    <li>Push annual plans aggressively. 26% discount improves retention and cash flow.</li>
+    <li>No additional hiring before &euro;15K+ MRR. Existing Friboost team is sufficient.</li>
+  </ul>
+
+  <h3>When to Consider VC</h3>
+  <p>ALL criteria must be true before raising:</p>
+  <ul>
+    <li>&euro;30K+ sustained MRR for 3+ months</li>
+    <li>Clear path to &euro;100K MRR</li>
+    <li>Need for capital for a specific growth lever (not survival)</li>
+    <li>B2B or international expansion opportunity requiring investment</li>
+  </ul>
+
+  <div class="callout">
+    <strong>Philosophy:</strong> We're building a profitable business, not a burn-rate startup. VC is an optional accelerator, not a necessity.
+  </div>
+</div>
+
+<!-- S11: EXIT & MOAT -->
+<div class="section" id="s11">
+  <div class="section-num">Section 11</div>
+  <h2>Exit Strategy &amp; Competitive Moat</h2>
+
+  <h3>Potential Acquirers</h3>
+  <table>
+    <tr><th>Acquirer</th><th>Reason</th><th>Potential Valuation</th></tr>
+    <tr><td>Whoop</td><td>Non-English AI coaching + French user base</td><td>5-10x ARR</td></tr>
+    <tr><td>Oura</td><td>No AI coaching, $1B revenue, needs expansion</td><td>5-8x ARR</td></tr>
+    <tr><td>Withings (FR)</td><td>French wearable, natural synergies</td><td>4-7x ARR</td></tr>
+    <tr><td>Garmin / Polar</td><td>AI expansion, European market</td><td>4-6x ARR</td></tr>
+    <tr><td>French mutuelles</td><td>Digital health prevention</td><td>3-5x ARR</td></tr>
+  </table>
+
+  <h3>Or: Independent Growth</h3>
+  <ul>
+    <li>10,000 paying users = &euro;1.2M ARR</li>
+    <li>5,000 users = &euro;600K ARR with 60%+ net margin</li>
+    <li>A very comfortable business for 2 founders and a lean marketing team</li>
+  </ul>
+
+  <h3>Competitive Moat (Strengthens Over Time)</h3>
+  <ul>
+    <li><strong>Historical data:</strong> After 6 months, Maybe has seen 180 days of sleep, recovery, activity, and nutrition. This context makes coaching exponentially better than any competitor starting fresh.</li>
+    <li><strong>French SEO:</strong> 30+ quality articles create a near-impossible-to-displace search monopoly.</li>
+    <li><strong>Community:</strong> Discord and Reddit users become organic ambassadors.</li>
+    <li><strong>Language &amp; culture:</strong> Understanding French cuisine, healthcare system, and local sports culture isn't easily replicable by US competitors.</li>
+    <li><strong>RGPD native:</strong> European compliance by design &mdash; US competitors avoid this market due to regulatory complexity.</li>
+  </ul>
+</div>
+
+</div>
+
+<footer>
+  <p>Call Me Maybe &copy; 2026 &mdash; Confidential</p>
+  <p style="margin-top:6px;">Prepared for Aaron (CEO) &amp; Ata (CTO) + Friboost Team</p>
+  <p style="margin-top:6px;"><a href="index.html">&larr; Back to War Room</a></p>
+</footer>
+
+</body>
+</html>

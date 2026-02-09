@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ton coach IA qui te contacte chaque jour</title>
+<meta property="og:title" content="Ton coach IA qui te contacte chaque jour">
+<meta property="og:description" content="Message, vocal, ou appel. 5 minutes par jour. Tu avances enfin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.w{max-width:720px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+.wf{max-width:900px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+
+/* HERO */
+.hero{text-align:center;padding:6rem 0 4rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Sora',sans-serif;font-size:0.7rem;color:var(--gold);border:1px solid rgba(212,168,83,0.3);padding:0.4rem 1.2rem;border-radius:100px;letter-spacing:2px;text-transform:uppercase;background:rgba(212,168,83,0.08);margin-bottom:2rem;}
+.hero-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2.2rem,6vw,3.5rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:1.25rem;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero .sub{color:var(--dim);font-size:1.1rem;max-width:500px;margin:0 auto 2.5rem;}
+
+/* EMAIL FORM */
+.email-form{display:flex;gap:0.5rem;max-width:440px;margin:0 auto;}
+.email-form input{flex:1;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:0.9rem 1.1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:0.95rem;transition:border-color 0.3s;}
+.email-form input:focus{outline:none;border-color:var(--gold);}
+.email-form input::placeholder{color:var(--muted);}
+.email-form button{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;padding:0 1.5rem;border-radius:12px;border:none;cursor:pointer;background:var(--gold);color:#0c0d10;white-space:nowrap;transition:all 0.3s;}
+.email-form button:hover{background:#e0b45e;transform:translateY(-1px);}
+.form-note{text-align:center;margin-top:0.75rem;font-size:0.78rem;color:var(--muted);}
+.form-success{display:none;text-align:center;padding:1rem;font-size:0.95rem;color:var(--teal);font-weight:600;}
+
+/* SOCIAL PROOF */
+.proof{display:flex;justify-content:center;gap:2rem;margin-top:3rem;flex-wrap:wrap;}
+.proof-item{text-align:center;}
+.proof-num{font-family:'Sora',sans-serif;font-size:1.4rem;font-weight:700;}
+.proof-label{font-size:0.72rem;color:var(--muted);margin-top:0.15rem;}
+
+/* SECTION */
+.section{padding:4rem 0;}
+.section-label{font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--gold);text-transform:uppercase;letter-spacing:3px;margin-bottom:0.75rem;text-align:center;}
+.section h2{font-family:'Sora',sans-serif;font-size:clamp(1.5rem,3.5vw,2rem);font-weight:700;letter-spacing:-0.5px;margin-bottom:1rem;text-align:center;}
+.section > p{color:var(--dim);font-size:0.95rem;text-align:center;max-width:560px;margin:0 auto 2rem;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);}
+
+/* PROBLEM CARDS */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;}
+.problem-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;text-align:center;}
+.problem-icon{font-size:2rem;margin-bottom:0.75rem;}
+.problem-title{font-family:'Sora',sans-serif;font-size:0.9rem;font-weight:700;margin-bottom:0.4rem;}
+.problem-desc{font-size:0.8rem;color:var(--dim);line-height:1.5;}
+
+/* CHANNELS */
+.channels{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;}
+.channel{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;transition:all 0.3s;}
+.channel::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.channel:nth-child(1)::before{background:var(--teal);}
+.channel:nth-child(2)::before{background:var(--gold);}
+.channel:nth-child(3)::before{background:var(--orange);}
+.channel:hover{transform:translateY(-4px);border-color:#2a2c36;}
+.channel-icon{font-size:2.5rem;margin-bottom:1rem;}
+.channel-name{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:0.4rem;}
+.channel-desc{font-size:0.82rem;color:var(--dim);line-height:1.5;}
+.channel-tag{display:inline-block;margin-top:0.75rem;font-family:'Sora',sans-serif;font-size:0.6rem;letter-spacing:1.5px;text-transform:uppercase;padding:0.25rem 0.6rem;border-radius:100px;border:1px solid var(--border);color:var(--muted);}
+
+/* STEPS */
+.steps-list{display:flex;flex-direction:column;gap:1rem;margin:2rem 0;max-width:560px;margin-left:auto;margin-right:auto;}
+.step-item{display:flex;align-items:flex-start;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;}
+.step-n{font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:var(--gold);min-width:28px;line-height:1;}
+.step-content{font-size:0.9rem;color:var(--dim);}
+.step-content strong{color:var(--text);}
+
+/* PRICING TEASER */
+.pricing-box{background:linear-gradient(135deg,rgba(212,168,83,0.06),rgba(0,212,170,0.04));border:1px solid rgba(212,168,83,0.15);border-radius:16px;padding:2.5rem;text-align:center;margin:2rem 0;}
+.pricing-compare{display:flex;justify-content:center;gap:2.5rem;margin:1.5rem 0;flex-wrap:wrap;}
+.pricing-item{text-align:center;}
+.pricing-item .price{font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;}
+.pricing-item .label{font-size:0.75rem;color:var(--muted);margin-top:0.2rem;}
+.pricing-item.ours .price{color:var(--teal);}
+.pricing-item.crossed .price{text-decoration:line-through;color:var(--muted);}
+
+/* FAQ */
+.faq-list{max-width:600px;margin:2rem auto;}
+.faq-item{border-bottom:1px solid var(--border);padding:1.25rem 0;}
+.faq-q{font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;}
+.faq-q .arrow{font-size:0.8rem;color:var(--muted);transition:transform 0.3s;}
+.faq-a{color:var(--dim);font-size:0.88rem;line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;}
+.faq-item.open .faq-a{max-height:200px;padding-top:0.75rem;}
+.faq-item.open .arrow{transform:rotate(180deg);}
+
+/* FINAL CTA */
+.final-cta{text-align:center;padding:4rem 0 5rem;}
+.final-cta h2{font-family:'Sora',sans-serif;font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;letter-spacing:-1px;margin-bottom:0.75rem;}
+.final-cta p{color:var(--dim);font-size:0.95rem;margin-bottom:2rem;}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem 0;font-size:0.72rem;color:var(--muted);border-top:1px solid var(--border);}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .hero{padding:4rem 0 2.5rem;}
+  .email-form{flex-direction:column;}
+  .email-form button{padding:0.9rem;}
+  .proof{gap:1.25rem;}
+  .problem-grid,.channels{grid-template-columns:1fr;}
+  .pricing-compare{gap:1.5rem;}
+}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+</style>
+</head>
+<body>
+
+<div class="w">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-pill"><span class="dot"></span> Waitlist ouverte</div>
+    <h1>Tu sais d&eacute;j&agrave; quoi faire.<br>On s'assure que tu <em>le fais vraiment.</em></h1>
+    <p class="sub">Un coach IA qui te contacte chaque jour. Tu r&eacute;ponds par message, vocal, ou appel. 5 minutes. Puis tu g&egrave;res.</p>
+
+    <div class="email-form" id="emailForm">
+      <input type="email" id="emailInput" placeholder="ton@email.com" required>
+      <button onclick="joinWaitlist()">Rejoindre</button>
+    </div>
+    <div class="form-note">Gratuit. Pas de spam. On te pr&eacute;vient au lancement.</div>
+    <div class="form-success" id="formSuccess">&#10003; T'es sur la liste. On te contacte tr&egrave;s bient&ocirc;t.</div>
+
+    <div class="proof">
+      <div class="proof-item"><div class="proof-num" style="color:var(--gold)">2.7x</div><div class="proof-label">plus efficace qu'une app</div></div>
+      <div class="proof-item"><div class="proof-num" style="color:var(--teal)">5 min</div><div class="proof-label">par jour, pas plus</div></div>
+      <div class="proof-item"><div class="proof-num" style="color:var(--orange)">0</div><div class="proof-label">concurrent en France</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- LE PROBLEME -->
+<div class="wf">
+  <div class="section">
+    <div class="section-label">Le probl&egrave;me</div>
+    <h2>Les apps de fitness, tu les ouvres une semaine. Puis plus jamais.</h2>
+    <p>92% des r&eacute;solutions &eacute;chouent. Le probl&egrave;me c'est pas le savoir. C'est le suivi.</p>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">&#128247;</div>
+        <div class="problem-title">Les apps passives</div>
+        <div class="problem-desc">Elles attendent que tu les ouvres. Tu ne les ouvres pas.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128176;</div>
+        <div class="problem-title">Les coachs humains</div>
+        <div class="problem-desc">200-500&euro;/mois. Efficace mais inaccessible.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128276;</div>
+        <div class="problem-title">Les notifications</div>
+        <div class="problem-desc">Tu les swipes sans m&ecirc;me les lire. Z&eacute;ro impact.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- LA SOLUTION : 3 CANAUX -->
+<div class="wf">
+  <div class="section">
+    <div class="section-label">La solution</div>
+    <h2>Choisis comment ton coach te contacte.</h2>
+    <p>Pas une app de plus. Une conversation qui vient &agrave; toi, sur le canal que tu pr&eacute;f&egrave;res.</p>
+
+    <div class="channels">
+      <div class="channel">
+        <div class="channel-icon">&#128172;</div>
+        <div class="channel-name">Message</div>
+        <div class="channel-desc">Tu re&ccedil;ois un message Telegram ou WhatsApp. Tu r&eacute;ponds en 30 secondes. Simple, rapide.</div>
+        <div class="channel-tag">Le plus facile</div>
+      </div>
+      <div class="channel">
+        <div class="channel-icon">&#127908;</div>
+        <div class="channel-name">Vocal</div>
+        <div class="channel-desc">Tu envoies un vocal, le coach &eacute;coute et r&eacute;pond. Comme parler &agrave; un ami.</div>
+        <div class="channel-tag">Le plus naturel</div>
+      </div>
+      <div class="channel">
+        <div class="channel-icon">&#128222;</div>
+        <div class="channel-name">Appel</div>
+        <div class="channel-desc">Ton t&eacute;l&eacute;phone sonne. Tu d&eacute;croches. 3-5 min de coaching en live.</div>
+        <div class="channel-tag">Le plus engageant</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- COMMENT CA MARCHE -->
+<div class="w">
+  <div class="section">
+    <div class="section-label">Comment &ccedil;a marche</div>
+    <h2>4 &eacute;tapes. Z&eacute;ro friction.</h2>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-n">1</div>
+        <div class="step-content"><strong>Choisis ton objectif</strong> &mdash; perdre du poids, te remettre en forme, ou un objectif pr&eacute;cis (padel, boxe, marathon...).</div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">2</div>
+        <div class="step-content"><strong>Choisis ton canal</strong> &mdash; message, vocal, ou appel. Ton heure, ton rythme.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">3</div>
+        <div class="step-content"><strong>Ton coach te contacte chaque jour</strong> &mdash; il fait le bilan, pose les bonnes questions, ajuste ton plan. Il apprend tes patterns.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-n">4</div>
+        <div class="step-content"><strong>Tu progresses</strong> &mdash; streaks, graphe de progression, pr&eacute;dictions. Au jour 30, il te conna&icirc;t mieux que toi-m&ecirc;me.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PRICING -->
+<div class="w">
+  <div class="section">
+    <div class="section-label">Le prix</div>
+    <h2>Un vrai coach quotidien. Pas un prix de coach.</h2>
+
+    <div class="pricing-box">
+      <div class="pricing-compare">
+        <div class="pricing-item crossed"><div class="price">500&euro;</div><div class="label">Coach humain / mois</div></div>
+        <div class="pricing-item crossed"><div class="price">70&euro;</div><div class="label">Noom / mois</div></div>
+        <div class="pricing-item ours"><div class="price">~15&euro;</div><div class="label">Nous / mois</div></div>
+      </div>
+      <p style="color:var(--dim);font-size:0.88rem;margin-top:1rem;">Prix de lancement pour les premiers inscrits. Les premiers sur la waitlist auront un acc&egrave;s gratuit.</p>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<div class="w">
+  <div class="section">
+    <div class="section-label">Questions</div>
+    <h2>On r&eacute;pond.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">C'est vraiment une IA qui appelle ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">Oui. Une voix IA naturelle, personnalis&eacute;e selon ta personnalit&eacute; de coach. Tu choisis entre un coach bienveillant, un sergent, ou un coach &eacute;nergie.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Je peux juste r&eacute;pondre par message ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">Absolument. Message texte, vocal, ou appel &mdash; c'est toi qui choisis. Tu peux m&ecirc;me changer de canal selon les jours.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">&Ccedil;a prend combien de temps par jour ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">3 &agrave; 5 minutes. Un message rapide prend 30 secondes. Un appel complet, 5 minutes max. C'est con&ccedil;u pour s'int&eacute;grer dans ta routine.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">C'est que pour la perte de poids ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">Non. Perte de poids, remise en forme, sport sp&eacute;cifique (padel, boxe, running...), habitudes alimentaires, ou n'importe quel objectif perso.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Mes donn&eacute;es sont prot&eacute;g&eacute;es ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">100% conforme RGPD. Donn&eacute;es h&eacute;berg&eacute;es en Europe. On ne vend rien. On ne partage rien. Z&eacute;ro compromis.</div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">C'est quand le lancement ?<span class="arrow">&#9660;</span></div>
+        <div class="faq-a">B&ecirc;ta priv&eacute;e dans les prochaines semaines. Les premiers inscrits sur la waitlist seront invit&eacute;s en priorit&eacute; &mdash; avec un acc&egrave;s gratuit.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- FINAL CTA -->
+<div class="w">
+  <div class="final-cta">
+    <h2>Arr&ecirc;te de t&eacute;l&eacute;charger des apps.<br>Commence &agrave; <em style="font-style:normal;color:var(--gold);">vraiment avancer.</em></h2>
+    <p>Rejoins la waitlist. On te contacte d&egrave;s que c'est pr&ecirc;t.</p>
+
+    <div class="email-form" id="emailForm2">
+      <input type="email" id="emailInput2" placeholder="ton@email.com" required>
+      <button onclick="joinWaitlist2()">Rejoindre la waitlist</button>
+    </div>
+    <div class="form-note">Les premiers inscrits auront un acc&egrave;s gratuit &agrave; la b&ecirc;ta.</div>
+    <div class="form-success" id="formSuccess2">&#10003; T'es sur la liste. On te contacte tr&egrave;s bient&ocirc;t.</div>
+  </div>
+</div>
+
+<footer>
+  Fait avec amour par Aaron & Ata &mdash; F&eacute;vrier 2026
+</footer>
+
+<script>
+function joinWaitlist() {
+  var email = document.getElementById('emailInput').value.trim();
+  if (!email || !email.includes('@')) return;
+  submitEmail(email, 'emailForm', 'formSuccess');
+}
+
+function joinWaitlist2() {
+  var email = document.getElementById('emailInput2').value.trim();
+  if (!email || !email.includes('@')) return;
+  submitEmail(email, 'emailForm2', 'formSuccess2');
+}
+
+function submitEmail(email, formId, successId) {
+  // store locally
+  var list = JSON.parse(localStorage.getItem('waitlist') || '[]');
+  list.push({ email: email, date: new Date().toISOString() });
+  localStorage.setItem('waitlist', JSON.stringify(list));
+
+  // show success
+  document.getElementById(formId).style.display = 'none';
+  document.getElementById(successId).style.display = 'block';
+
+  // notify via WhatsApp
+  var msg = encodeURIComponent('WAITLIST: ' + email + ' (' + new Date().toLocaleString('fr-FR') + ')');
+  var wa = new Image();
+  wa.src = 'https://wa.me/33665395800?text=' + msg;
+
+  // also send email notification
+  var mailto = 'mailto:aaronbes2@gmail.com?subject=' + encodeURIComponent('Waitlist: ' + email) + '&body=' + encodeURIComponent('Nouvel inscrit waitlist: ' + email);
+}
+</script>
+
+</body>
+</html>

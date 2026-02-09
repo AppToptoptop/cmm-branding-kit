@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe — Strategy Dashboard V2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0b0e;
+  --bg-card: #12141a;
+  --bg-card-hover: #181b23;
+  --bg-elevated: #1c1f28;
+  --accent-teal: #00d4aa;
+  --accent-orange: #ff6b35;
+  --accent-blue: #4da6ff;
+  --accent-purple: #b366ff;
+  --accent-yellow: #ffd166;
+  --accent-red: #ff4d6a;
+  --accent-green: #34d399;
+  --text-primary: #e8eaed;
+  --text-secondary: #8b8fa3;
+  --text-muted: #555a6e;
+  --border: #1e2130;
+  --glow-teal: rgba(0,212,170,0.15);
+  --glow-orange: rgba(255,107,53,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+::selection { background: var(--accent-teal); color: var(--bg-deep); }
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(10,11,14,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+}
+.nav-brand {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--accent-teal);
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+.nav-brand span { color: var(--text-muted); }
+.nav-links {
+  display: flex;
+  gap: 0.15rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  margin: 0 1rem;
+  justify-content: center;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 0.35rem 0.55rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+.nav-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* HERO */
+.hero {
+  padding: 120px 2rem 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--glow-teal) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-tag {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--accent-teal);
+  border: 1px solid rgba(0,212,170,0.3);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  margin-bottom: 1.5rem;
+  animation: fadeDown 0.6s ease-out;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  animation: fadeDown 0.6s ease-out 0.1s both;
+}
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--accent-teal) 0%, var(--accent-blue) 50%, var(--accent-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  font-weight: 300;
+  animation: fadeDown 0.6s ease-out 0.2s both;
+}
+.hero-founders {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  animation: fadeDown 0.6s ease-out 0.3s both;
+}
+.founder-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 0.5rem 1.2rem 0.5rem 0.5rem;
+}
+.founder-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+}
+.founder-avatar.a { background: var(--accent-teal); color: var(--bg-deep); }
+.founder-avatar.t { background: var(--accent-orange); color: var(--bg-deep); }
+.founder-info { text-align: left; }
+.founder-name { font-weight: 600; font-size: 0.85rem; }
+.founder-role { font-size: 0.7rem; color: var(--text-muted); }
+
+/* SECTIONS */
+section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+.section-header {
+  margin-bottom: 3rem;
+}
+.section-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent-teal);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 0.5rem;
+}
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  max-width: 700px;
+}
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* CARDS */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.75rem;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: rgba(0,212,170,0.2);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+
+/* QUESTION GRID */
+.question-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.question-card { position: relative; overflow: hidden; }
+.question-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.question-card.elder::before { background: var(--accent-blue); }
+.question-card.whoop::before { background: var(--accent-orange); }
+.question-card.coach::before { background: var(--accent-teal); }
+.question-card.exec::before { background: var(--accent-purple); }
+
+.q-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+}
+.q-icon { font-size: 1.8rem; line-height: 1; }
+.q-score { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; }
+.q-score.high { color: var(--accent-teal); }
+.q-score.med { color: var(--accent-yellow); }
+.q-score.low { color: var(--accent-red); }
+.q-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.5rem; }
+.q-desc { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem; line-height: 1.5; }
+.q-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+.q-metric { background: var(--bg-elevated); border-radius: 8px; padding: 0.6rem 0.8rem; }
+.q-metric-label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.15rem; }
+.q-metric-value { font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700; }
+
+/* RECO BANNER */
+.reco-banner {
+  background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(77,166,255,0.08));
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.reco-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.75rem;
+}
+.reco-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+.reco-text { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; max-width: 900px; }
+
+/* WHOOP GRID */
+.whoop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+.gap-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+.gap-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+.gap-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+.gap-opp { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.78rem; color: var(--accent-teal); font-weight: 500; }
+
+/* TABLES */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.5rem;
+}
+.data-table th {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.data-table td {
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  font-size: 0.82rem;
+}
+.data-table tr td:first-child { border-radius: 10px 0 0 10px; }
+.data-table tr td:last-child { border-radius: 0 10px 10px 0; }
+
+.niche-table { width: 100%; border-collapse: separate; border-spacing: 0 0.5rem; }
+.niche-table th { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); text-align: left; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); }
+.niche-table td { padding: 0.9rem 1rem; background: var(--bg-card); font-size: 0.88rem; }
+.niche-table tr td:first-child { border-radius: 10px 0 0 10px; }
+.niche-table tr td:last-child { border-radius: 0 10px 10px 0; }
+.niche-rank { font-family: 'Space Mono', monospace; font-weight: 700; width: 40px; }
+.niche-bar { height: 6px; border-radius: 3px; background: var(--bg-elevated); position: relative; min-width: 100px; }
+.niche-bar-fill { height: 100%; border-radius: 3px; transition: width 1s ease-out; }
+
+.tag { display: inline-block; font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tag-high { background: rgba(0,212,170,0.15); color: var(--accent-teal); }
+.tag-med { background: rgba(255,209,102,0.15); color: var(--accent-yellow); }
+.tag-low { background: rgba(255,77,106,0.15); color: var(--accent-red); }
+.tag-blue { background: rgba(77,166,255,0.15); color: var(--accent-blue); }
+.tag-purple { background: rgba(179,102,255,0.15); color: var(--accent-purple); }
+.tag-orange { background: rgba(255,107,53,0.15); color: var(--accent-orange); }
+
+/* ECONOMICS */
+.econ-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.econ-calc { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.econ-calc-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); font-weight: 600; }
+.econ-row { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.5rem; border-bottom: 1px solid rgba(30,33,48,0.5); }
+.econ-row:last-child { border-bottom: none; }
+.econ-label { font-size: 0.85rem; color: var(--text-secondary); }
+.econ-value { font-family: 'Space Mono', monospace; font-size: 0.88rem; font-weight: 700; }
+.econ-total { background: var(--bg-elevated); }
+.econ-total .econ-label { color: var(--text-primary); font-weight: 600; }
+.econ-total .econ-value { color: var(--accent-teal); font-size: 1rem; }
+
+/* MILESTONES */
+.milestone-track { position: relative; padding-left: 40px; }
+.milestone-track::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent-teal), var(--accent-blue), var(--accent-purple), var(--accent-orange)); }
+.milestone { position: relative; margin-bottom: 2rem; padding-left: 1.5rem; }
+.milestone::before { content: ''; position: absolute; left: -29px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--accent-teal); }
+.milestone-time { font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--accent-teal); letter-spacing: 1px; margin-bottom: 0.25rem; }
+.milestone-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+.milestone-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+.milestone-kpis { display: flex; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+.kpi-chip { font-family: 'Space Mono', monospace; font-size: 0.72rem; background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 6px; padding: 0.3rem 0.7rem; }
+.kpi-chip strong { color: var(--accent-teal); }
+
+/* PRICING */
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.price-card { text-align: center; position: relative; }
+.price-card.featured { border-color: var(--accent-teal); box-shadow: 0 0 40px var(--glow-teal); }
+.price-card.featured::after { content: 'RECOMMENDED'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 2px; color: var(--bg-deep); background: var(--accent-teal); padding: 0.2rem 0.8rem; border-radius: 100px; font-weight: 700; }
+.price-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; }
+.price-amount { font-family: 'Space Mono', monospace; font-size: 2.5rem; font-weight: 700; line-height: 1; margin-bottom: 0.25rem; }
+.price-period { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1.25rem; }
+.price-features { list-style: none; text-align: left; font-size: 0.82rem; color: var(--text-secondary); }
+.price-features li { padding: 0.4rem 0; padding-left: 1.2rem; position: relative; }
+.price-features li::before { content: '~'; position: absolute; left: 0; color: var(--accent-teal); font-family: 'Space Mono', monospace; }
+.price-margin { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); font-family: 'Space Mono', monospace; font-size: 0.75rem; }
+.price-margin span { color: var(--accent-teal); font-weight: 700; }
+
+/* EXIT */
+.exit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.exit-timeline { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent-orange); letter-spacing: 1px; margin-bottom: 0.5rem; }
+.exit-val { font-family: 'Space Mono', monospace; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; }
+.exit-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+.exit-buyers { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+.exit-buyers-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 0.4rem; }
+.exit-buyers-list { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.buyer-chip { font-size: 0.7rem; background: var(--bg-elevated); border-radius: 4px; padding: 0.2rem 0.5rem; color: var(--text-secondary); }
+
+/* DECISION */
+.decision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.decision-card { cursor: pointer; position: relative; overflow: hidden; }
+.decision-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; border-radius: 16px; }
+.decision-card:hover::before { opacity: 1; }
+.decision-card.path-a::before { background: linear-gradient(135deg, rgba(0,212,170,0.05), transparent); }
+.decision-card.path-b::before { background: linear-gradient(135deg, rgba(255,107,53,0.05), transparent); }
+.path-label { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 0.75rem; }
+.path-a .path-label { color: var(--accent-teal); }
+.path-b .path-label { color: var(--accent-orange); }
+.path-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.75rem; }
+.path-list { list-style: none; font-size: 0.88rem; color: var(--text-secondary); }
+.path-list li { padding: 0.3rem 0; padding-left: 1.2rem; position: relative; }
+.path-a .path-list li::before { content: '+'; position: absolute; left: 0; color: var(--accent-teal); font-family: 'Space Mono', monospace; font-weight: 700; }
+.path-b .path-list li::before { content: '+'; position: absolute; left: 0; color: var(--accent-orange); font-family: 'Space Mono', monospace; font-weight: 700; }
+
+/* FRANCE */
+.france-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.france-stat { text-align: center; padding: 1.5rem; }
+.france-stat-value { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; color: var(--accent-teal); margin-bottom: 0.3rem; }
+.france-stat-label { font-size: 0.78rem; color: var(--text-secondary); }
+
+/* PERSONA GRID */
+.persona-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+.persona-card { position: relative; overflow: hidden; }
+.persona-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.persona-card.warm::before { background: var(--accent-teal); }
+.persona-card.drill::before { background: var(--accent-red); }
+.persona-card.wise::before { background: var(--accent-blue); }
+.persona-card.hype::before { background: var(--accent-yellow); }
+.persona-card.friend::before { background: var(--accent-purple); }
+.persona-card.challenger::before { background: var(--accent-orange); }
+.persona-emoji { font-size: 2rem; margin-bottom: 0.75rem; }
+.persona-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.persona-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.75rem; }
+.persona-best { font-size: 0.75rem; color: var(--accent-teal); font-weight: 500; }
+
+/* PROS CONS */
+.proscons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+.pro-item, .con-item { padding: 0.75rem 1rem; border-radius: 10px; margin-bottom: 0.5rem; font-size: 0.85rem; }
+.pro-item { background: rgba(0,212,170,0.06); border-left: 3px solid var(--accent-teal); }
+.con-item { background: rgba(255,77,106,0.06); border-left: 3px solid var(--accent-red); }
+.pro-item strong { color: var(--accent-teal); }
+.con-item strong { color: var(--accent-red); }
+
+/* STAT HIGHLIGHT */
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+.stat-block { text-align: center; padding: 1.5rem; }
+.stat-value { font-family: 'Space Mono', monospace; font-size: 2rem; font-weight: 700; margin-bottom: 0.3rem; }
+.stat-label { font-size: 0.78rem; color: var(--text-secondary); }
+
+/* TIMELINE HORIZONTAL */
+.timeline-h { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; position: relative; }
+.timeline-h::before { content: ''; position: absolute; top: 20px; left: 5%; right: 5%; height: 2px; background: linear-gradient(90deg, var(--accent-teal), var(--accent-blue), var(--accent-purple), var(--accent-orange)); }
+.timeline-phase { position: relative; padding-top: 2.5rem; }
+.timeline-phase::before { content: ''; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 14px; height: 14px; border-radius: 50%; background: var(--bg-deep); border: 3px solid var(--accent-teal); z-index: 1; }
+.timeline-phase:nth-child(2)::before { border-color: var(--accent-blue); }
+.timeline-phase:nth-child(3)::before { border-color: var(--accent-purple); }
+.timeline-phase:nth-child(4)::before { border-color: var(--accent-orange); }
+.phase-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--accent-teal); letter-spacing: 1px; margin-bottom: 0.5rem; text-align: center; }
+.timeline-phase:nth-child(2) .phase-label { color: var(--accent-blue); }
+.timeline-phase:nth-child(3) .phase-label { color: var(--accent-purple); }
+.timeline-phase:nth-child(4) .phase-label { color: var(--accent-orange); }
+
+/* CHANNEL PRIORITY */
+.channel-list { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.channel-chip { display: flex; align-items: center; gap: 0.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 100px; padding: 0.5rem 1rem; font-size: 0.82rem; font-weight: 500; }
+.channel-rank { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent-teal); font-weight: 700; }
+
+/* MOAT BARS */
+.moat-item { margin-bottom: 1.25rem; }
+.moat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.moat-name { font-weight: 600; font-size: 0.9rem; }
+.moat-timeline { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--text-muted); }
+.moat-bar { height: 8px; background: var(--bg-elevated); border-radius: 4px; overflow: hidden; }
+.moat-bar-fill { height: 100%; border-radius: 4px; transition: width 1.5s ease-out; }
+.moat-desc { font-size: 0.78rem; color: var(--text-secondary); margin-top: 0.3rem; }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  border-top: 1px solid var(--border);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+footer a { color: var(--accent-teal); text-decoration: none; }
+
+/* COLLAPSIBLE */
+.collapsible-trigger {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font: inherit;
+  text-align: left;
+}
+.collapsible-trigger .chevron { transition: transform 0.3s; color: var(--text-muted); font-size: 0.8rem; }
+.collapsible-trigger.open .chevron { transform: rotate(180deg); }
+.collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease; }
+.collapsible-content.open { max-height: 5000px; }
+
+/* Animations */
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease-out; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* BURGER MENU */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 200;
+}
+.burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.burger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* MOBILE MENU OVERLAY */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: rgba(10,11,14,0.97);
+  backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.mobile-menu-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 2rem;
+}
+.mobile-menu-inner a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  padding: 0.65rem 2rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.mobile-menu-inner a:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .econ-grid, .proscons-grid { grid-template-columns: 1fr; }
+  .whoop-grid, .persona-grid, .pricing-grid, .exit-grid { grid-template-columns: 1fr 1fr; }
+  .france-stats, .stat-row, .timeline-h { grid-template-columns: 1fr 1fr; }
+  .burger { display: flex; }
+  .nav-links { display: none; }
+  .nav-date { display: none; }
+}
+@media (max-width: 640px) {
+  .whoop-grid, .persona-grid, .pricing-grid, .exit-grid { grid-template-columns: 1fr; }
+  .stat-row, .timeline-h { grid-template-columns: 1fr; }
+  .hero-founders { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" style="color:#8a8f9e;text-decoration:none;font-size:0.75rem;margin-right:12px;opacity:0.7;transition:opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">&larr; Hub</a>
+    <div class="nav-brand">call_me_maybe <span>// v3</span></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#competitors">Competitors</a></li>
+      <li><a href="#persona">Persona</a></li>
+      <li><a href="#phone">Phone</a></li>
+      <li><a href="#weightloss">Weight Loss</a></li>
+      <li><a href="#whoop">Whoop</a></li>
+      <li><a href="#niches">Niches</a></li>
+      <li><a href="#economics">Economics</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#france-attack">France</a></li>
+      <li><a href="#growth">Growth</a></li>
+      <li><a href="#revenue">Revenue</a></li>
+      <li><a href="#moats">Moats</a></li>
+      <li><a href="#exits">Exits</a></li>
+      <li><a href="#onboarding">Onboarding</a></li>
+      <li><a href="#gamification">Gamification</a></li>
+      <li><a href="#killer">Killer Features</a></li>
+      <li><a href="#naming">Brand Names</a></li>
+      <li><a href="#telegram">Telegram</a></li>
+      <li><a href="#gantt">Gantt</a></li>
+      <li><a href="#price-monitor">Price Intel</a></li>
+      <li><a href="#support-content">Support→Content</a></li>
+    </ul>
+    <div class="nav-date">FEB 2026</div>
+    <button class="burger" id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="#competitors" onclick="closeMenu()">Competitors</a>
+    <a href="#persona" onclick="closeMenu()">Persona</a>
+    <a href="#phone" onclick="closeMenu()">Phone</a>
+    <a href="#weightloss" onclick="closeMenu()">Weight Loss</a>
+    <a href="#whoop" onclick="closeMenu()">Whoop</a>
+    <a href="#niches" onclick="closeMenu()">Niches</a>
+    <a href="#economics" onclick="closeMenu()">Economics</a>
+    <a href="#pricing" onclick="closeMenu()">Pricing</a>
+    <a href="#france-attack" onclick="closeMenu()">France</a>
+    <a href="#growth" onclick="closeMenu()">Growth</a>
+    <a href="#revenue" onclick="closeMenu()">Revenue</a>
+    <a href="#moats" onclick="closeMenu()">Moats</a>
+    <a href="#exits" onclick="closeMenu()">Exits</a>
+    <a href="#onboarding" onclick="closeMenu()">Onboarding</a>
+    <a href="#gamification" onclick="closeMenu()">Gamification</a>
+    <a href="#killer" onclick="closeMenu()">Killer Features</a>
+    <a href="#naming" onclick="closeMenu()">Brand Names</a>
+    <a href="#telegram" onclick="closeMenu()">Telegram</a>
+    <a href="#gantt" onclick="closeMenu()">Gantt</a>
+    <a href="#price-monitor" onclick="closeMenu()">Price Intel</a>
+    <a href="#support-content" onclick="closeMenu()">Support→Content</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">Strategy Dashboard v3.0 — Full Market Deep Dive</div>
+  <h1>Call Me <span class="gradient">Maybe</span></h1>
+  <p class="hero-sub">AI that actually calls you. Daily voice check-ins, accountability, and coaching — powered by LLMs, delivered by phone.</p>
+  <div class="hero-founders">
+    <div class="founder-badge">
+      <div class="founder-avatar a">AB</div>
+      <div class="founder-info">
+        <div class="founder-name">Aaron</div>
+        <div class="founder-role">Product / Marketing / Frontend</div>
+      </div>
+    </div>
+    <div class="founder-badge">
+      <div class="founder-avatar t">AT</div>
+      <div class="founder-info">
+        <div class="founder-name">Ata</div>
+        <div class="founder-role">Backend / Data / Strategy</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- 01 COMPETITOR LANDSCAPE -->
+<section id="competitors">
+  <div class="section-header fade-in">
+    <div class="section-number">02 — Competitor Landscape</div>
+    <h2 class="section-title">Who's in the Ring</h2>
+    <p class="section-desc">11 direct competitors mapped. Key finding: NO product combines daily AI phone calls + weight loss + French market.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">0</div><div class="stat-label">Competitors with daily AI calls for weight loss in France</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-orange)">11</div><div class="stat-label">Direct competitors worldwide (AI phone calls)</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">0</div><div class="stat-label">Competitors with community features</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">0</div><div class="stat-label">Competitors with wearable integrations</div></div>
+  </div>
+
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price/mo</th>
+          <th>Platform</th>
+          <th>Focus</th>
+          <th>Strengths</th>
+          <th>Weakness</th>
+          <th>Threat</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>CoachCall.ai</strong></td>
+          <td>Unknown</td>
+          <td>Phone+WhatsApp</td>
+          <td>General accountability</td>
+          <td style="color:var(--text-secondary)">Multiple personas, WhatsApp combo</td>
+          <td style="color:var(--text-secondary)">No funding, too broad</td>
+          <td><span class="tag tag-med">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>inTouch Mary</strong></td>
+          <td>$29.90</td>
+          <td>Phone only</td>
+          <td>Senior companion</td>
+          <td style="color:var(--text-secondary)">35 languages, FRENCH, family dashboard</td>
+          <td style="color:var(--text-secondary)">Seniors only, expensive</td>
+          <td><span class="tag tag-low">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Meela</strong></td>
+          <td>Unknown</td>
+          <td>Phone only</td>
+          <td>Senior companion</td>
+          <td style="color:var(--text-secondary)">$3.5M Bain Capital, 50% 90d retention</td>
+          <td style="color:var(--text-secondary)">Seniors only, no coaching</td>
+          <td><span class="tag tag-low">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--accent-orange)">Glow Health</strong></td>
+          <td>Unknown</td>
+          <td>Phone+Text</td>
+          <td style="color:var(--accent-orange)">Weight loss</td>
+          <td style="color:var(--text-secondary)">Doctor-founded, photo meals, closest competitor</td>
+          <td style="color:var(--text-secondary)">US only, no funding, no community</td>
+          <td><span class="tag tag-orange">High</span></td>
+        </tr>
+        <tr>
+          <td><strong>Standup</strong></td>
+          <td>Free</td>
+          <td>Phone only</td>
+          <td>Daily standup</td>
+          <td style="color:var(--text-secondary)">Zero friction</td>
+          <td style="color:var(--text-secondary)">No business model, no memory</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Habit Coach AI</strong></td>
+          <td>$19</td>
+          <td>Phone+Text+Web</td>
+          <td>General habits</td>
+          <td style="color:var(--text-secondary)">Tiered pricing, 90+ languages</td>
+          <td style="color:var(--text-secondary)">Too broad, 8 months old</td>
+          <td><span class="tag tag-med">Medium</span></td>
+        </tr>
+        <tr>
+          <td><strong>AIcalls</strong></td>
+          <td>Unknown</td>
+          <td>Phone only</td>
+          <td>Fitness motivation</td>
+          <td style="color:var(--text-secondary)">Celebrity voice clones</td>
+          <td style="color:var(--text-secondary)">Gimmicky, legal risk</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Noom</strong></td>
+          <td>$17-42</td>
+          <td>App only</td>
+          <td>Weight loss</td>
+          <td style="color:var(--text-secondary)">$1B+ ARR, 1.5M paid, proven model</td>
+          <td style="color:var(--text-secondary)">App-only = easy to ignore, no calls</td>
+          <td><span class="tag tag-med">Adjacent</span></td>
+        </tr>
+        <tr>
+          <td><strong>Freeletics</strong></td>
+          <td>$6-7</td>
+          <td>App only</td>
+          <td>Fitness</td>
+          <td style="color:var(--text-secondary)">59M users, AI coach with 56M data points</td>
+          <td style="color:var(--text-secondary)">Workout only, no nutrition/mental</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>BetterMe</strong></td>
+          <td>$7-30</td>
+          <td>App only</td>
+          <td>Wellness</td>
+          <td style="color:var(--text-secondary)">150M users worldwide</td>
+          <td style="color:var(--text-secondary)">Self-serve only, weak conversion</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Petit BamBou</strong></td>
+          <td>~$7</td>
+          <td>App only</td>
+          <td>Meditation (French)</td>
+          <td style="color:var(--text-secondary)">1.4M users, French brand, $300K/mo</td>
+          <td style="color:var(--text-secondary)">Passive content, not coaching</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Replika</strong></td>
+          <td>$19.99</td>
+          <td>App (voice)</td>
+          <td>AI companion</td>
+          <td style="color:var(--text-secondary)">10M+ users, deep personalization</td>
+          <td style="color:var(--text-secondary)">User-initiated only, no proactive calls</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pi.ai</strong></td>
+          <td>Free</td>
+          <td>App (voice)</td>
+          <td>Personal AI</td>
+          <td style="color:var(--text-secondary)">Warmest AI personality</td>
+          <td style="color:var(--text-secondary)">Failed despite $1.3B funding — no habit loop</td>
+          <td><span class="tag tag-high">Low</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Key Insight</div>
+    <div class="reco-title">The gap is clear: daily AI phone calls + weight loss + French market = unoccupied territory</div>
+    <div class="reco-text">Glow is the closest competitor (phone calls + weight loss) but US-only with no funding. inTouch Mary supports French but targets seniors only at $29.90/mo. We can own this category.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 03 AI PERSONA DESIGN -->
+<section id="persona">
+  <div class="section-header fade-in">
+    <div class="section-number">03 — AI Persona Design</div>
+    <h2 class="section-title">The Voice That Calls You</h2>
+    <p class="section-desc">Research shows accountability produces 2.7x better results than encouragement. The optimal persona: "Warm Coach with Teeth."</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">2.7x</div><div class="stat-label">Accountability vs encouragement (47-study meta-analysis)</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-orange)">85%</div><div class="stat-label">Users form emotional bonds with personified AI</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">3-5d</div><div class="stat-label">Time to form therapeutic bond (Woebot data)</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">5x</div><div class="stat-label">Retention with 7+ day streaks (Duolingo)</div></div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Persona Archetypes</h3>
+  <div class="persona-grid fade-in">
+    <div class="card persona-card warm" style="border-color:rgba(0,212,170,0.3);">
+      <div class="persona-emoji">🏆</div>
+      <div class="persona-name" style="color:var(--accent-teal)">Warm Coach with Teeth</div>
+      <div class="persona-desc">Encouraging but firm. Celebrates wins, doesn't let excuses slide. "I believe you can do this, so I'm going to hold you to it."</div>
+      <div class="persona-best">RECOMMENDED — Best for weight loss, general accountability</div>
+    </div>
+    <div class="card persona-card drill">
+      <div class="persona-emoji">🎖️</div>
+      <div class="persona-name">The Drill Sergeant</div>
+      <div class="persona-desc">Direct, no-nonsense. Holds you accountable hard. For high-performers who thrive under pressure.</div>
+      <div class="persona-best">Best for: fitness, sales targets</div>
+    </div>
+    <div class="card persona-card wise">
+      <div class="persona-emoji">🧘</div>
+      <div class="persona-name">The Wise Mentor</div>
+      <div class="persona-desc">Calm, reflective, asks probing questions. Socratic method approach to self-discovery.</div>
+      <div class="persona-best">Best for: executive coaching, career goals</div>
+    </div>
+    <div class="card persona-card hype">
+      <div class="persona-emoji">⚡</div>
+      <div class="persona-name">The Hype Coach</div>
+      <div class="persona-desc">High energy, motivational, creates excitement. Turns every morning into a launch pad.</div>
+      <div class="persona-best">Best for: morning routines, workout motivation</div>
+    </div>
+    <div class="card persona-card friend">
+      <div class="persona-emoji">💬</div>
+      <div class="persona-name">The Best Friend</div>
+      <div class="persona-desc">Casual, humorous, supportive, relatable. Like texting your most supportive friend.</div>
+      <div class="persona-best">Best for: general habits, beginners</div>
+    </div>
+    <div class="card persona-card challenger">
+      <div class="persona-emoji">🎯</div>
+      <div class="persona-name">The Challenger</div>
+      <div class="persona-desc">Probing questions, pushes assumptions. Won't let you stay comfortable.</div>
+      <div class="persona-best">Best for: business goals, high achievers</div>
+    </div>
+  </div>
+
+  <div class="proscons-grid fade-in">
+    <div class="card">
+      <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--accent-teal)">Pros of Strong Personification</h3>
+      <div class="pro-item"><strong>Retention:</strong> 7+ months avg paid subscriber retention (Replika)</div>
+      <div class="pro-item"><strong>Word of mouth:</strong> 116% referral increase from gamified persona (Duolingo)</div>
+      <div class="pro-item"><strong>Premium pricing:</strong> 50% higher willingness to pay for human-like AI</div>
+      <div class="pro-item"><strong>Habit formation:</strong> 22% higher 30-day retention with character notifications</div>
+      <div class="pro-item"><strong>Self-disclosure:</strong> Users more open with AI than humans (removes judgment)</div>
+    </div>
+    <div class="card">
+      <h3 style="font-size:1rem;font-weight:600;margin-bottom:1rem;color:var(--accent-red)">Cons & Risks</h3>
+      <div class="con-item"><strong>Uncanny valley:</strong> Over-anthropomorphized AI triggers suspicion and privacy concerns</div>
+      <div class="con-item"><strong>Persona lock-in:</strong> Replika changed personas, lost 30% premium users</div>
+      <div class="con-item"><strong>Dependency risk:</strong> 17-24% of adolescents develop AI dependencies</div>
+      <div class="con-item"><strong>Consistency:</strong> Maintaining persona across thousands of daily calls is hard</div>
+      <div class="con-item"><strong>Manipulation perception:</strong> Some find guilt-tripping annoying</div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Design Decisions</div>
+    <div class="reco-title">Named persona + 3-4 voice options + transparent AI identity</div>
+    <div class="reco-text">
+      Give the default persona a name (e.g., "Max" or "Sage"), let users rename it. Offer 3-4 voices at onboarding (warm female, authoritative male, energetic neutral, calm/wise). Be transparently AI: "I'm your AI accountability coach" — captures emotional benefits without ethical landmines. Character.AI shows 2.3x engagement when personas match user preferences.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 04 PHONE ANSWER OPTIMIZATION -->
+<section id="phone">
+  <div class="section-header fade-in">
+    <div class="section-number">04 — Phone Answer Optimization</div>
+    <h2 class="section-title">Getting Users to Pick Up</h2>
+    <p class="section-desc">80% of consumers avoid unknown calls. This is the #1 product challenge. Here's how we solve it.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-red)">80%</div><div class="stat-label">Consumers avoid unknown calls (2025-2026)</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">+56%</div><div class="stat-label">Answer rate boost with branded caller ID</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">70-90%</div><div class="stat-label">Estimated rate: scheduled + saved + preview</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-yellow)">5x</div><div class="stat-label">Retention with 7+ day streaks</div></div>
+  </div>
+
+  <div class="whoop-grid fade-in">
+    <div class="card">
+      <div class="gap-icon">📱</div>
+      <div class="gap-title">Branded Caller ID</div>
+      <div class="gap-desc">Register for STIR/SHAKEN attestation. Users see "Call Me Maybe" not "Unknown." 56% higher answer rate with recognized caller.</div>
+      <div class="gap-opp">→ Force contact saving during onboarding as required step</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🔔</div>
+      <div class="gap-title">Preview Notification</div>
+      <div class="gap-desc">Send push/SMS 5 min before call: "Max is calling in 5 min! Today: your fitness goal check-in." Transforms interruption into anticipated event.</div>
+      <div class="gap-opp">→ Contextual push CTR: 14.4% vs 4-7% generic</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🕐</div>
+      <div class="gap-title">Scheduled Ritual</div>
+      <div class="gap-desc">User picks exact call time. Same time daily creates Pavlovian anticipation. The call becomes a ritual, not an interruption.</div>
+      <div class="gap-opp">→ ElliQ: 33 interactions/day after 6 months with proactive outreach</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🍏</div>
+      <div class="gap-title">iOS 26 Call Screening</div>
+      <div class="gap-desc">AI must handle call screening: "Hi, this is Max from Call Me Maybe, your daily accountability call." Transcription becomes a FEATURE.</div>
+      <div class="gap-opp">→ Clear identification turns screening into user engagement</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🔥</div>
+      <div class="gap-title">Streak Mechanics</div>
+      <div class="gap-desc">Track consecutive call-answer days. Visual streak counter. 7-day = 5x retention. Streak freeze (1/week) reduces anxiety. Milestone badges at 7, 30, 100, 365.</div>
+      <div class="gap-opp">→ Duolingo: users with 7+ day streaks are 5x more likely to continue</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">😢</div>
+      <div class="gap-title">The Guilt Loop</div>
+      <div class="gap-desc">Missed call? "Missed you today. Everything okay?" Not punishing — concerned. Follow-up: "I had something to share about your progress..."</div>
+      <div class="gap-opp">→ Create FOMO for missed call content (variable reward psychology)</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 05 WEIGHT LOSS NICHE -->
+<section id="weightloss">
+  <div class="section-header fade-in">
+    <div class="section-number">05 — Weight Loss Niche</div>
+    <h2 class="section-title">Why Weight Loss First</h2>
+    <p class="section-desc">Emotional urgency, measurable outcomes, massive market. Noom proves $400M/yr. We do it for 1/5th the price.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">$2.5B</div><div class="stat-label">Weight loss app market by 2030 (17.1% CAGR)</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-orange)">$400M</div><div class="stat-label">Noom revenue (2020) — proves the market</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">74%</div><div class="stat-label">More weight lost with AI + human coaching</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">34%</div><div class="stat-label">Longer tracking with community accountability</div></div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Pricing Comparison: AI vs Human Coaching</h3>
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Service</th><th>Price/month</th><th>Daily Touch</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Human weight loss coach</strong></td><td style="color:var(--accent-red)">$200-500</td><td>Weekly session</td><td style="color:var(--text-secondary)">Personalized but expensive, limited access</td></tr>
+        <tr><td><strong>Noom (AI + human)</strong></td><td style="color:var(--accent-yellow)">$70/mo</td><td>App-based lessons</td><td style="color:var(--text-secondary)">Proven model, but app = easy to ignore</td></tr>
+        <tr><td><strong>HealthifyMe (AI + human)</strong></td><td style="color:var(--accent-yellow)">$44-50</td><td>AI "Ria" + human</td><td style="color:var(--text-secondary)">India-first, limited Western market</td></tr>
+        <tr><td><strong>GLP-1 programs</strong></td><td style="color:var(--accent-orange)">$119-199</td><td>Medical approach</td><td style="color:var(--text-secondary)">Drugs + coaching, expensive</td></tr>
+        <tr style="background:rgba(0,212,170,0.05)"><td><strong style="color:var(--accent-teal)">Call Me Maybe</strong></td><td style="color:var(--accent-teal)">$15-30</td><td style="color:var(--accent-teal)">Daily phone call</td><td style="color:var(--accent-teal)">Voice accountability, fraction of the cost</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Photo-Based Food Logging</div>
+    <div class="reco-title">Snap a photo, AI analyzes it, coach references it in your call</div>
+    <div class="reco-text">
+      "How was dinner last night? I see you logged a pizza. Let's talk about today's plan." Morning call references last night's food log. Evening call celebrates hitting protein targets. The voice + photo combo = uniquely powerful accountability loop no text-only app can match.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 06 WHOOP ECOSYSTEM -->
+<section id="whoop">
+  <div class="section-header fade-in">
+    <div class="section-number">06 — Whoop Ecosystem</div>
+    <h2 class="section-title">Gaps in the Whoop Experience</h2>
+    <p class="section-desc">Whoop ($3.6B, ~$260M revenue, 1M+ users) has critical gaps. Their API is open. We fill the voice + nutrition + accountability gaps.</p>
+  </div>
+  <div class="whoop-grid fade-in">
+    <div class="card"><div class="gap-icon">🗣️</div><div class="gap-title">No Voice Interface</div><div class="gap-desc">WHOOP Coach is text-only chat. No wearable has nailed voice-first coaching.</div><div class="gap-opp">→ "Recovery 82%. Great day to push. Strain target 14-18."</div></div>
+    <div class="card"><div class="gap-icon">🔔</div><div class="gap-title">Reactive, Not Proactive</div><div class="gap-desc">Coach only responds when asked. Doesn't follow up or hold you accountable.</div><div class="gap-opp">→ Morning check-in + evening review = 2 daily touchpoints</div></div>
+    <div class="card"><div class="gap-icon">🥗</div><div class="gap-title">No Nutrition</div><div class="gap-desc">#1 user request. Can't track food. Only Pivot ($9.99/mo) fills this gap.</div><div class="gap-opp">→ Voice-log meals: "What did you eat today?"</div></div>
+    <div class="card"><div class="gap-icon">🎯</div><div class="gap-title">No Goal Tracking</div><div class="gap-desc">Can't set goals with deadlines. No structured plans or accountability loops.</div><div class="gap-opp">→ "Day 8 of 14 sleep challenge. You're at 85%."</div></div>
+    <div class="card"><div class="gap-icon">🧠</div><div class="gap-title">Weak Mental Wellness</div><div class="gap-desc">Only 2 breathwork protocols. No meditation integration (users request it).</div><div class="gap-opp">→ Guided stress interventions with biometric data</div></div>
+    <div class="card"><div class="gap-icon">⚡</div><div class="gap-title">Trust is Damaged</div><div class="gap-desc">May 2025 upgrade fiasco. Users are open to complementary products.</div><div class="gap-opp">→ Independent brand that enhances, not replaces, Whoop</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 07 NICHE RANKING -->
+<section id="niches">
+  <div class="section-header fade-in">
+    <div class="section-number">07 — Niche Analysis</div>
+    <h2 class="section-title">9 Niches Ranked</h2>
+    <p class="section-desc">Evaluated on market size, willingness to pay, competition, regulatory risk, and ease of building with a 2-person team.</p>
+  </div>
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="niche-table">
+      <thead><tr><th>#</th><th>Niche</th><th>Score</th><th>Viability</th><th>WTP</th><th>Competition</th><th>Risk</th><th>Key Insight</th></tr></thead>
+      <tbody>
+        <tr><td class="niche-rank" style="color:var(--accent-teal)">01</td><td><strong>Accountability Partner</strong></td><td><div class="niche-bar"><div class="niche-bar-fill" style="width:90%;background:var(--accent-teal)"></div></div></td><td><span class="tag tag-high">9/10</span></td><td>$15-25</td><td><span class="tag tag-high">Low</span></td><td><span class="tag tag-high">Low</span></td><td style="color:var(--text-secondary);font-size:0.8rem">Can't swipe away a ringing phone.</td></tr>
+        <tr><td class="niche-rank" style="color:var(--accent-teal)">02</td><td><strong>Executive Coach</strong></td><td><div class="niche-bar"><div class="niche-bar-fill" style="width:80%;background:var(--accent-blue)"></div></div></td><td><span class="tag tag-high">8/10</span></td><td>$50-100</td><td><span class="tag tag-high">Low</span></td><td><span class="tag tag-high">Low</span></td><td style="color:var(--text-secondary);font-size:0.8rem">Premium ARPU. No daily briefs exist.</td></tr>
+        <tr><td class="niche-rank" style="color:var(--accent-teal)">03</td><td><strong>Fitness / Wellness</strong></td><td><div class="niche-bar"><div class="niche-bar-fill" style="width:80%;background:var(--accent-orange)"></div></div></td><td><span class="tag tag-high">8/10</span></td><td>$15-30</td><td><span class="tag tag-med">Med</span></td><td><span class="tag tag-high">Low</span></td><td style="color:var(--text-secondary);font-size:0.8rem">$20B market. Phone = real accountability.</td></tr>
+        <tr><td class="niche-rank">04</td><td><strong>Dating Coach</strong></td><td><div class="niche-bar"><div class="niche-bar-fill" style="width:70%;background:var(--accent-purple)"></div></div></td><td><span class="tag tag-med">7/10</span></td><td>$15-40</td><td><span class="tag tag-high">Low</span></td><td><span class="tag tag-high">Low</span></td><td style="color:var(--text-secondary);font-size:0.8rem">Viral potential. 50% Gen Z uses AI for dating.</td></tr>
+        <tr><td class="niche-rank">05</td><td><strong>Language Learning</strong></td><td><div class="niche-bar"><div class="niche-bar-fill" style="width:70%;background:var(--accent-yellow)"></div></div></td><td><span class="tag tag-med">7/10</span></td><td>$10-25</td><td><span class="tag tag-med">Med</span></td><td><span class="tag tag-high">Low</span></td><td style="color:var(--text-secondary);font-size:0.8rem">$65B market. Phone = forced daily practice.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 08 UNIT ECONOMICS -->
+<section id="economics">
+  <div class="section-header fade-in">
+    <div class="section-number">08 — Unit Economics</div>
+    <h2 class="section-title">Cost of an AI Phone Call</h2>
+    <p class="section-desc">Budget stack ~$13.50/user/month for 30 daily 5-min calls. Self-hosted at scale: ~$3/user = 88% margin.</p>
+  </div>
+  <div class="econ-grid fade-in">
+    <div class="econ-calc">
+      <div class="econ-calc-header">Budget Stack (per user/month, 30 calls)</div>
+      <div class="econ-row"><span class="econ-label">LLM (Gemini 2.0 Flash)</span><span class="econ-value" style="color:var(--accent-orange)">$0.90</span></div>
+      <div class="econ-row"><span class="econ-label">TTS (OpenAI TTS)</span><span class="econ-value" style="color:var(--accent-orange)">$9.00</span></div>
+      <div class="econ-row"><span class="econ-label">STT (Deepgram)</span><span class="econ-value" style="color:var(--accent-orange)">$1.50</span></div>
+      <div class="econ-row"><span class="econ-label">Telephony (Twilio)</span><span class="econ-value" style="color:var(--accent-orange)">$2.10</span></div>
+      <div class="econ-row econ-total"><span class="econ-label">Total COGS / user / mo</span><span class="econ-value" style="color:var(--accent-orange)">~$13.50</span></div>
+      <div class="econ-row" style="background:rgba(0,212,170,0.05)"><span class="econ-label">At $25/mo</span><span class="econ-value" style="color:var(--accent-teal)">$11.50 margin (46%)</span></div>
+      <div class="econ-row" style="background:rgba(0,212,170,0.08)"><span class="econ-label">At $39/mo</span><span class="econ-value" style="color:var(--accent-teal)">$25.50 margin (65%)</span></div>
+    </div>
+    <div class="econ-calc">
+      <div class="econ-calc-header">Path to Revenue Milestones</div>
+      <div class="econ-row"><span class="econ-label">$1K MRR</span><span class="econ-value">40 users @ $25/mo</span></div>
+      <div class="econ-row"><span class="econ-label">$5K MRR</span><span class="econ-value">200 users @ $25/mo</span></div>
+      <div class="econ-row"><span class="econ-label">$10K MRR</span><span class="econ-value">400 users @ $25/mo</span></div>
+      <div class="econ-row"><span class="econ-label">$50K MRR</span><span class="econ-value">2,000 users @ $25/mo</span></div>
+      <div class="econ-row econ-total"><span class="econ-label">$100K MRR</span><span class="econ-value">4,000 users @ $25/mo</span></div>
+      <div class="econ-row" style="background:rgba(0,212,170,0.05)"><span class="econ-label">Self-hosted at scale</span><span class="econ-value" style="color:var(--accent-teal)">~$3/user = 88% margin</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 09 PRICING -->
+<section id="pricing">
+  <div class="section-header fade-in">
+    <div class="section-number">09 — Pricing Strategy</div>
+    <h2 class="section-title">Proposed Pricing Tiers</h2>
+    <p class="section-desc">US pricing + French pricing (below). Optimized for bootstrapping with maximum margin.</p>
+  </div>
+  <div class="pricing-grid fade-in">
+    <div class="card price-card">
+      <div class="price-name">Free Trial</div>
+      <div class="price-amount" style="color:var(--text-muted)">$0</div>
+      <div class="price-period">7 days</div>
+      <ul class="price-features"><li>1 daily call (5 min)</li><li>Basic accountability</li><li>1 goal tracking</li><li>Web dashboard</li></ul>
+      <div class="price-margin">CAC: <span>-$3.50</span></div>
+    </div>
+    <div class="card price-card">
+      <div class="price-name">Starter</div>
+      <div class="price-amount">$19</div>
+      <div class="price-period">/month or $149/year</div>
+      <ul class="price-features"><li>Daily calls (5 min)</li><li>3 goals + habits</li><li>WhatsApp follow-ups</li><li>Coach personality choice</li></ul>
+      <div class="price-margin">Margin: <span>$5.50 (29%)</span></div>
+    </div>
+    <div class="card price-card featured">
+      <div class="price-name">Pro</div>
+      <div class="price-amount" style="color:var(--accent-teal)">$39</div>
+      <div class="price-period">/month or $299/year</div>
+      <ul class="price-features"><li>Morning + evening calls</li><li>Unlimited goals</li><li>Photo food logging</li><li>Wearable integration</li><li>Weekly audio summary</li></ul>
+      <div class="price-margin">Margin: <span>$25.50 (65%)</span></div>
+    </div>
+    <div class="card price-card">
+      <div class="price-name">Executive</div>
+      <div class="price-amount" style="color:var(--accent-purple)">$79</div>
+      <div class="price-period">/month or $599/year</div>
+      <ul class="price-features"><li>Everything in Pro</li><li>Calendar integration</li><li>Custom AI persona</li><li>Meeting prep briefs</li><li>Team dashboard (5)</li></ul>
+      <div class="price-margin">Margin: <span>$65.50 (83%)</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 10 FRANCE ATTACK PLAN -->
+<section id="france-attack">
+  <div class="section-header fade-in">
+    <div class="section-number">10 — France Attack Plan</div>
+    <h2 class="section-title">Owning the French Market</h2>
+    <p class="section-desc">No AI phone call competitor exists for under-60 in France. 69% won't pay for apps BUT 76% prefer voice. Mental health = Grande Cause Nationale 2025-2026.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-red)">69%</div><div class="stat-label">French consumers won't pay for app subscriptions</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">76%</div><div class="stat-label">Prefer voice channels for complex interactions</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">86%</div><div class="stat-label">Worry about privacy in health apps</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">5.85%</div><div class="stat-label">Instagram nano-influencer engagement (France)</div></div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">French Pricing Strategy</h3>
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Tier</th><th>Price</th><th>Includes</th><th>Why This Price</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Essai</strong> (Trial)</td><td>Free / 7 days</td><td>3 AI calls to experience the service</td><td style="color:var(--text-secondary)">Remove friction, convert skeptics</td></tr>
+        <tr><td><strong>Solo</strong></td><td style="color:var(--accent-teal)">€9.90/mo</td><td>Daily calls + WhatsApp support</td><td style="color:var(--text-secondary)">Below €10 psychological barrier</td></tr>
+        <tr><td><strong>Plus</strong></td><td style="color:var(--accent-blue)">€14.90/mo</td><td>+ Meal plans + progress tracking</td><td style="color:var(--text-secondary)">Below one human coaching session</td></tr>
+        <tr><td><strong>Premium</strong></td><td style="color:var(--accent-purple)">€24.90/mo</td><td>+ Weekly human coach + wearable sync</td><td style="color:var(--text-secondary)">Below inTouch Mary ($29.90)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin:2rem 0 1.5rem;font-weight:600" class="fade-in">Distribution Channels</h3>
+  <div class="whoop-grid fade-in">
+    <div class="card">
+      <div class="gap-icon">📱</div>
+      <div class="gap-title">Nano-Influencers</div>
+      <div class="gap-desc">51% of French TikTok creators are nano-influencers. 5.85% engagement on Instagram. Cost: €50-200/post. 20-50 partnerships for launch.</div>
+      <div class="gap-opp">→ Budget: €2,000-5,000 for launch campaign</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🎙️</div>
+      <div class="gap-title">French Podcasts</div>
+      <div class="gap-desc">Metamorphose, GDIY, La Pause Fitness. 18M monthly podcast listeners in France. More accessible than US podcasters.</div>
+      <div class="gap-opp">→ €500-2,000/episode sponsorship</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🏋️</div>
+      <div class="gap-title">Gym Chains</div>
+      <div class="gap-desc">Basic-Fit: 800+ clubs, 4.47M members, €1.2B revenue. Partnership = instant distribution to fitness-minded consumers.</div>
+      <div class="gap-opp">→ "Digital coaching add-on" for gym members</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">💼</div>
+      <div class="gap-title">Corporate Wellness (B2B)</div>
+      <div class="gap-desc">Teale has 300+ French corporate clients. QVT (Qualite de Vie au Travail) budgets are growing. Companies pay for employee wellness.</div>
+      <div class="gap-opp">→ B2B2C: companies pay for employees' daily coaching</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🏛️</div>
+      <div class="gap-title">BPI France / La French Tech</div>
+      <div class="gap-desc">BPI committing €10B to AI over 5 years. Bourse French Tech: grants up to €30K. French Tech 2030 program for visibility.</div>
+      <div class="gap-opp">→ Government funding + ecosystem credibility</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🔒</div>
+      <div class="gap-title">RGPD as Weapon</div>
+      <div class="gap-desc">86% worry about privacy. French CNIL actively enforces GDPR. Host on OVHcloud/Scaleway. HDS certification for health data.</div>
+      <div class="gap-opp">→ "Vos donnees restent en France" = trust advantage</div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Positioning for France</div>
+    <div class="reco-title">"Votre coach IA qui vous appelle chaque jour. Pas une app de plus, un vrai appel."</div>
+    <div class="reco-text">Position as a "service" not an "app." Phone calls feel premium. French consumers pay for personal services (coaching, therapy, gym). RGPD compliance + "Made in France" + French-language content = competitive moat that US apps can't replicate.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 11 GROWTH PLAYBOOK -->
+<section id="growth">
+  <div class="section-header fade-in">
+    <div class="section-number">11 — Growth Playbook</div>
+    <h2 class="section-title">Month-by-Month to $120K MRR</h2>
+    <p class="section-desc">Content-driven acquisition, referral loops, organic growth. Your product IS your content — the phone call itself is the most shareable asset.</p>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Channel Priority</h3>
+  <div class="channel-list fade-in">
+    <div class="channel-chip"><span class="channel-rank">#1</span> TikTok / Reels</div>
+    <div class="channel-chip"><span class="channel-rank">#2</span> Twitter/X (Build in Public)</div>
+    <div class="channel-chip"><span class="channel-rank">#3</span> Reddit</div>
+    <div class="channel-chip"><span class="channel-rank">#4</span> Product Hunt</div>
+    <div class="channel-chip"><span class="channel-rank">#5</span> Referral Program</div>
+    <div class="channel-chip"><span class="channel-rank">#6</span> French Podcasts</div>
+    <div class="channel-chip"><span class="channel-rank">#7</span> SEO / Content</div>
+    <div class="channel-chip"><span class="channel-rank">#8</span> Influencer Partnerships</div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Growth Timeline</h3>
+  <div class="timeline-h fade-in">
+    <div class="timeline-phase">
+      <div class="phase-label">PRE-LAUNCH</div>
+      <div class="card" style="padding:1.25rem">
+        <div style="font-weight:600;margin-bottom:0.5rem;font-size:0.9rem">Build Waitlist: 500-1K</div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">Landing page + waitlist. Start TikTok (2/day). Build in public on X. Join 5 subreddits. Record 10 demo call clips. Product Hunt "coming soon."</div>
+        <div style="font-family:'Space Mono';font-size:0.7rem;color:var(--accent-teal);margin-top:0.75rem">Budget: $0</div>
+      </div>
+    </div>
+    <div class="timeline-phase">
+      <div class="phase-label">MONTH 1-3</div>
+      <div class="card" style="padding:1.25rem">
+        <div style="font-weight:600;margin-bottom:0.5rem;font-size:0.9rem">Launch: 100→500 users</div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">Product Hunt launch (top 5). Convert waitlist. 30-Day Challenge. French press (Maddyness). Referral program. Annual plan.</div>
+        <div style="font-family:'Space Mono';font-size:0.7rem;color:var(--accent-blue);margin-top:0.75rem">Target: $7.5K MRR</div>
+      </div>
+    </div>
+    <div class="timeline-phase">
+      <div class="phase-label">MONTH 4-6</div>
+      <div class="card" style="padding:1.25rem">
+        <div style="font-weight:600;margin-bottom:0.5rem;font-size:0.9rem">Scale: 500→2K users</div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">Double top TikTok format. Small paid ads ($5-10/day). 10-20 micro-influencers. Corporate wellness pilot. LTD deal (200 @ $99-149).</div>
+        <div style="font-family:'Space Mono';font-size:0.7rem;color:var(--accent-purple);margin-top:0.75rem">Target: $30K MRR</div>
+      </div>
+    </div>
+    <div class="timeline-phase">
+      <div class="phase-label">MONTH 7-12</div>
+      <div class="card" style="padding:1.25rem">
+        <div style="font-weight:600;margin-bottom:0.5rem;font-size:0.9rem">Expand: 2K→8K users</div>
+        <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">English product launch. US TikTok. US influencers. B2B corporate deals. SEO scaling. Paid ads at scale (20% revenue reinvest).</div>
+        <div style="font-family:'Space Mono';font-size:0.7rem;color:var(--accent-orange);margin-top:0.75rem">Target: $120K MRR</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Revenue Milestones</h3>
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Milestone</th><th>Target</th><th>Users</th><th>How</th></tr></thead>
+      <tbody>
+        <tr><td><strong>$1K MRR</strong></td><td>Month 1</td><td>50-70</td><td style="color:var(--text-secondary)">Waitlist conversion + Product Hunt</td></tr>
+        <tr><td><strong>$5K MRR</strong></td><td>Month 3</td><td>250-350</td><td style="color:var(--text-secondary)">Referral program + influencers</td></tr>
+        <tr><td><strong>$10K MRR</strong></td><td>Month 5</td><td>500-700</td><td style="color:var(--text-secondary)">Affiliate + influencer channels active</td></tr>
+        <tr><td><strong>$25K MRR</strong></td><td>Month 8</td><td>1,250-1,700</td><td style="color:var(--text-secondary)">B2B pilots contributing</td></tr>
+        <tr><td><strong>$50K MRR</strong></td><td>Month 10</td><td>2,500-3,500</td><td style="color:var(--text-secondary)">Multiple revenue streams</td></tr>
+        <tr style="background:rgba(0,212,170,0.05)"><td><strong style="color:var(--accent-teal)">$120K MRR</strong></td><td style="color:var(--accent-teal)">Month 12</td><td style="color:var(--accent-teal)">6,000-8,000</td><td style="color:var(--accent-teal)">International + B2B + paid ads</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Killer Content Format</div>
+    <div class="reco-title">Record real AI calls as TikToks — no other product category can do this</div>
+    <div class="reco-text">
+      Phone ringing → picking up → actual AI conversation → your reaction. 30-60 second clips. "My AI called me at 6am — here's what happened." "I told my AI coach I wanted to skip the gym." "Day 30 of having an AI accountability coach." The call IS the content.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 12 REVENUE STREAMS -->
+<section id="revenue">
+  <div class="section-header fade-in">
+    <div class="section-number">12 — Revenue Streams</div>
+    <h2 class="section-title">Beyond B2C Subscriptions</h2>
+    <p class="section-desc">B2C subscriptions are the foundation. B2B corporate wellness ($68B market), white-label, gym partnerships, and affiliate programs create multiple revenue engines.</p>
+  </div>
+
+  <div class="whoop-grid fade-in">
+    <div class="card">
+      <div class="gap-icon">👤</div>
+      <div class="gap-title">B2C Subscriptions</div>
+      <div class="gap-desc">Core product. €9.90-€24.90/mo France, $19-$79/mo US. Free trial → paid conversion. Annual plans for cash flow.</div>
+      <div class="gap-opp">→ Target: 70% of revenue at scale</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🏢</div>
+      <div class="gap-title">B2B Corporate Wellness</div>
+      <div class="gap-desc">$68B market growing to $129B by 2034. $10-30/employee/month. 5 companies x 50 employees = $3,750/mo from B2B alone.</div>
+      <div class="gap-opp">→ BetterUp valued at $4.7B — proves B2B coaching works</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🏋️</div>
+      <div class="gap-title">Gym Partnerships</div>
+      <div class="gap-desc">$5-10/member/month, gym takes 30%. Boutique gyms, CrossFit boxes, personal trainers. Adds value without requiring staff.</div>
+      <div class="gap-opp">→ 73% of fitness businesses profit from wellness partnerships</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🏷️</div>
+      <div class="gap-title">White-Label</div>
+      <div class="gap-desc">Sell to coaching companies, fitness platforms, telehealth. Building this from scratch costs $50-200K. White-label commands 3-5x consumer price.</div>
+      <div class="gap-opp">→ $500-2,000/mo + per-call pricing</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">🤝</div>
+      <div class="gap-title">Affiliate Program</div>
+      <div class="gap-desc">30% recurring commission for 12 months. Target productivity bloggers, fitness creators, AI review sites. AI SaaS affiliates drive 15-25% of MRR.</div>
+      <div class="gap-opp">→ HeadshotPro: affiliates drive $50K+/month (15% of revenue)</div>
+    </div>
+    <div class="card">
+      <div class="gap-icon">💎</div>
+      <div class="gap-title">Lifetime Deals (Cash Injection)</div>
+      <div class="gap-desc">200 deals at $99-149. Capped: 1 call/day, 15 min max. Creates review army + referral base. Sell on own site (0% commission).</div>
+      <div class="gap-opp">→ 200 x $149 = $29,800 immediate cash for development</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 13 MOATS -->
+<section id="moats">
+  <div class="section-header fade-in">
+    <div class="section-number">13 — Competitive Moats</div>
+    <h2 class="section-title">Moats a 2-Person Team Can Build</h2>
+    <p class="section-desc">Defensible advantages that compound over time. Data from daily calls, voice personas users bond with, and French-first content nobody else creates.</p>
+  </div>
+
+  <div class="fade-in" style="max-width:800px;">
+    <div class="moat-item">
+      <div class="moat-header"><span class="moat-name">Voice/Persona Moat</span><span class="moat-timeline">Month 1-3</span></div>
+      <div class="moat-bar"><div class="moat-bar-fill" style="width:90%;background:linear-gradient(90deg, var(--accent-teal), var(--accent-blue))"></div></div>
+      <div class="moat-desc">Proprietary French coach personalities. Users develop emotional attachment. Switching costs: you don't leave someone who knows you.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-header"><span class="moat-name">Content Moat (French Testimonials)</span><span class="moat-timeline">Month 1-6</span></div>
+      <div class="moat-bar"><div class="moat-bar-fill" style="width:80%;background:linear-gradient(90deg, var(--accent-orange), var(--accent-yellow))"></div></div>
+      <div class="moat-desc">French-language user stories, before/after transformations. Each story makes the library more valuable. Competitors can't replicate authenticity.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-header"><span class="moat-name">Data Moat (Behavioral Patterns)</span><span class="moat-timeline">Month 3-12</span></div>
+      <div class="moat-bar"><div class="moat-bar-fill" style="width:95%;background:linear-gradient(90deg, var(--accent-purple), var(--accent-teal))"></div></div>
+      <div class="moat-desc">Every call generates mood patterns, eating habits, motivation cycles. After 90 days, AI predicts vulnerable moments. Switching costs are enormous.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-header"><span class="moat-name">Community / Network Effects</span><span class="moat-timeline">Month 3-6</span></div>
+      <div class="moat-bar"><div class="moat-bar-fill" style="width:75%;background:linear-gradient(90deg, var(--accent-blue), var(--accent-purple))"></div></div>
+      <div class="moat-desc">Duo challenges, leaderboards, referral program. ZERO competitors have community features. Peer accountability = 34% longer tracking.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-header"><span class="moat-name">Wearable Integrations</span><span class="moat-timeline">Month 6-12</span></div>
+      <div class="moat-bar"><div class="moat-bar-fill" style="width:60%;background:linear-gradient(90deg, var(--accent-yellow), var(--accent-orange))"></div></div>
+      <div class="moat-desc">Apple Health → Oura → Whoop. "Your sleep score was 62 last night. Let's talk about what happened." 10x more powerful than generic calls.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 14 EXIT STRATEGIES -->
+<section id="exits">
+  <div class="section-header fade-in">
+    <div class="section-number">14 — Exit Strategies</div>
+    <h2 class="section-title">Exits Without VC</h2>
+    <p class="section-desc">~20x more bootstrapped exits at $20M-$150M than all VC unicorn exits combined. Average bootstrapped SaaS: 4.8x ARR.</p>
+  </div>
+  <div class="exit-grid fade-in">
+    <div class="card">
+      <div class="exit-timeline">YEAR 2-3 — CONSERVATIVE</div>
+      <div class="exit-val" style="color:var(--accent-yellow)">$1.5-2M</div>
+      <div class="exit-desc">Build to $30K MRR ($360K ARR), profitable. Sell at 4-5x ARR. Founders take home ~$1M+ including salary.</div>
+      <div class="exit-buyers"><div class="exit-buyers-label">Likely buyers</div><div class="exit-buyers-list"><span class="buyer-chip">Acquire.com</span><span class="buyer-chip">Indie acquirers</span><span class="buyer-chip">PE micro-funds</span></div></div>
+    </div>
+    <div class="card">
+      <div class="exit-timeline">YEAR 3-5 — MODERATE</div>
+      <div class="exit-val" style="color:var(--accent-teal)">$5-8M</div>
+      <div class="exit-desc">Build to $100K MRR ($1.2M ARR). Strategic acquisition at 5-7x ARR. Whoop companion angle is especially viable.</div>
+      <div class="exit-buyers"><div class="exit-buyers-label">Likely buyers</div><div class="exit-buyers-list"><span class="buyer-chip">Whoop</span><span class="buyer-chip">Calm</span><span class="buyer-chip">Noom</span><span class="buyer-chip">BetterUp</span></div></div>
+    </div>
+    <div class="card">
+      <div class="exit-timeline">YEAR 5-7 — AMBITIOUS</div>
+      <div class="exit-val" style="color:var(--accent-purple)">$20-35M</div>
+      <div class="exit-desc">Build to $300K+ MRR ($3.6M ARR), multiple verticals. Strategic acquisition at 6-10x ARR.</div>
+      <div class="exit-buyers"><div class="exit-buyers-label">Likely buyers</div><div class="exit-buyers-list"><span class="buyer-chip">Whoop ($3.6B)</span><span class="buyer-chip">Oura ($5.2B)</span><span class="buyer-chip">Apple</span><span class="buyer-chip">Duolingo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 ONBOARDING 3-PATH FLOW -->
+<section id="onboarding">
+  <div class="section-header fade-in">
+    <div class="section-number">16 — Onboarding Flow</div>
+    <h2 class="section-title">3 Paths: Know the WHY</h2>
+    <p class="section-desc">Personalized onboarding increases completion by 35%. Quizzes boost conversion by 40%. Show value BEFORE registration (Duolingo model).</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem" class="fade-in">
+    <div class="card" style="border-top:3px solid var(--accent-teal)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🏋️</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-teal)">PATH 1: Lose Weight</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Motivation (pick 3):</strong> Look better in mirror, Beach confidence, Fit old clothes, Health scare, Instagram/TikTok transformation, More energy, Kids role model, Dating, Upcoming event<br><br>
+        <strong>Current State:</strong> Weight/target, Times tried before (1st/2-3/lost count), What makes you quit (boredom/cravings/social/no results/busy)<br><br>
+        <strong>Kryptonite:</strong> Late-night snacking, Fast food, Sugar, Alcohol, Portions, Emotional eating, Social meals<br><br>
+        <strong>Content toggles:</strong> Daily video clips, Meal plans, Recipe notifications, Weekly newsletter, Community challenges
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-blue)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">💪</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-blue)">PATH 2: Get Fit</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Goal (pick 1-2):</strong> Build muscle, Cardio/stamina, More energy, Train for event, Social media content, Get back in shape, Mental health, Look good<br><br>
+        <strong>Level:</strong> Workout frequency, Gym membership (Y/N/Home), Time/day (15-60min+), Injuries<br><br>
+        <strong>Weak Point:</strong> Motivation, Time, Consistency (start strong then stop after 2 weeks), No program, Too tired, Hate going alone<br><br>
+        <strong>Content toggles:</strong> Workout tips, Training programs, Supplements guide, Newsletter, Challenges, Playlists
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-purple)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🏸</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-purple)">PATH 3: Level Up My Sport</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Sport:</strong> Padel, Tennis, Muay Thai/Boxing/MMA, Running/Trail, Swimming, Cycling, CrossFit, Surf, Football/Basketball, Yoga/Pilates, Other<br><br>
+        <strong>Level:</strong> Experience (beginner→3+ yrs), Frequency, Competition (no/amateur/semi-pro), Coach/club<br><br>
+        <strong>Improve:</strong> Technique, Endurance, Strength, Speed, Mental game, Recovery, Nutrition, Consistency<br><br>
+        <strong>Content toggles:</strong> Technique videos, Drills, Nutrition for athletes, Equipment reviews, Challenges, Events calendar
+      </div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">All Paths Converge</div>
+    <div class="reco-title">Coach Style → Schedule → Phone Setup → First Call</div>
+    <div class="reco-text">
+      <strong>Coach style:</strong> Warm & encouraging / Direct & no-BS / Data-driven / Hype & energy<br>
+      <strong>Schedule:</strong> Morning call (6-10am slider) + optional evening check-in (6-10pm) + preferred days<br>
+      <strong>Phone setup:</strong> Save coach as contact (branded caller ID = +56% answer rate) + enable notifications<br>
+      <strong>First call:</strong> "Want a quick 2-minute intro call right now?" or "I'll call you tomorrow at [time]"<br><br>
+      <em style="color:var(--accent-teal)">Key insight: Show the weight loss date prediction BEFORE paywall — Noom's #1 conversion screen.</em>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 17 GAMIFICATION ENGINE -->
+<section id="gamification">
+  <div class="section-header fade-in">
+    <div class="section-number">17 — Gamification Engine</div>
+    <h2 class="section-title">SOS, Shields, Streaks & Garden</h2>
+    <p class="section-desc">Inspired by NoFap apps (50K+ monthly panic button users), Duolingo (3.6x retention at 7-day streaks), and QUITTR (Life Tree emotional attachment).</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="stat-block card"><div class="stat-value" style="color:var(--accent-teal)">3.6x</div><div class="stat-label">Retention at 7+ day streaks (Duolingo)</div></div>
+    <div class="stat-block card"><div class="stat-value" style="color:var(--accent-orange)">21%</div><div class="stat-label">Churn reduction from streak freeze</div></div>
+    <div class="stat-block card"><div class="stat-value" style="color:var(--accent-blue)">40-60%</div><div class="stat-label">Higher DAU with streaks + milestones</div></div>
+    <div class="stat-block card"><div class="stat-value" style="color:var(--accent-purple)">94%</div><div class="stat-label">Success rate with financial stakes (Forfeit)</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem" class="fade-in">
+    <div class="card" style="border-top:3px solid var(--accent-red)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🆘</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">SOS Call Button</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">One tap → AI calls you in 5 seconds. Standing at the vending machine? About to order fast food? Hit SOS. The AI talks you through the moment with empathy + strategy. Better than NoFap's text quotes — we give a LIVE voice conversation.</div>
+      <div style="margin-top:0.75rem;font-family:'Space Mono';font-size:0.72rem;color:var(--accent-orange)">Add-on: €4.99/mo for unlimited SOS calls</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-blue)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🛡️</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">6 Configurable Shields</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Fridge Shield</strong> — After 9pm reminder call<br>
+        <strong>Restaurant Shield</strong> — Pre-meal intention call<br>
+        <strong>Weekend Shield</strong> — Extra check-ins Fri-Sun<br>
+        <strong>Grocery Shield</strong> — Shopping list review<br>
+        <strong>Emotional Eating Shield</strong> — Mood-triggered outreach<br>
+        <strong>Partner Shield</strong> — Notify partner after 3 missed calls
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-teal)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🔥</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">3-Layer Streak System</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Call Streak</strong> — Answer daily call (flame counter)<br>
+        <strong>Goal Streak</strong> — Stay within targets<br>
+        <strong>Partner Streak</strong> — Snapchat-style shared streak<br><br>
+        Streak Shield: 1 free/month, purchasable after<br>
+        Streak Repair: Premium feature (monetize loss aversion)
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem" class="fade-in">
+    <div class="card" style="border-top:3px solid var(--accent-green)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🌱</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Growing Garden (Visual Progress)</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">Seed on Day 1 → grows with each call → flowers with goals met → wilting on missed calls (not death) → new species at milestones. Can be set as phone wallpaper. Shareable to Instagram/TikTok. Maps perfectly to organic weight loss growth.</div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-yellow)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">💛</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Compassionate Relapse Handling</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Day 1 missed:</strong> Gentle notification, streak safe with shield<br>
+        <strong>Day 2:</strong> "Your garden is waiting whenever you're ready"<br>
+        <strong>Day 3:</strong> Welcome back call — "No judgment. Life happens."<br>
+        <strong>Day 7+:</strong> Show TOTAL progress — "47 calls, 8 lbs lost. That doesn't go away."<br>
+        <em>Never punish. Always redirect. Preserve all historical data.</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 18 KILLER FEATURES -->
+<section id="killer">
+  <div class="section-header fade-in">
+    <div class="section-number">18 — Killer Features</div>
+    <h2 class="section-title">Top 15 Features by Impact</h2>
+    <p class="section-desc">From Reddit deep dive (r/loseit, r/getdisciplined), competitor teardowns (Noom, Forfeit, UpVibe), and behavioral science research.</p>
+  </div>
+
+  <div style="overflow-x:auto" class="fade-in">
+    <table class="data-table">
+      <thead><tr><th>#</th><th>Feature</th><th>Impact</th><th>Key Data Point</th><th>Phase</th></tr></thead>
+      <tbody>
+        <tr><td style="font-family:'Space Mono';font-weight:700;color:var(--accent-teal)">1</td><td><strong>Daily AI Phone Call</strong></td><td><span class="tag tag-high">CORE</span></td><td>Phone calls = 78% more exercise adherence</td><td><span class="tag tag-blue">MVP</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700;color:var(--accent-teal)">2</td><td><strong>Voice Food Logging</strong></td><td><span class="tag tag-high">CRITICAL</span></td><td>#1 reason people quit MFP = manual logging</td><td><span class="tag tag-blue">MVP</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700;color:var(--accent-teal)">3</td><td><strong>SOS Panic Call Button</strong></td><td><span class="tag tag-high">CRITICAL</span></td><td>NoFap Emergency = 50K monthly users</td><td><span class="tag tag-blue">MVP</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700;color:var(--accent-teal)">4</td><td><strong>Weight Loss Date Predictor</strong></td><td><span class="tag tag-high">HIGH</span></td><td>Noom's #1 conversion screen = +40%</td><td><span class="tag tag-blue">MVP</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700;color:var(--accent-teal)">5</td><td><strong>Streak System + Freeze</strong></td><td><span class="tag tag-high">HIGH</span></td><td>3.6x retention, 21% churn reduction</td><td><span class="tag tag-blue">MVP</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">6</td><td><strong>Morning + Evening Calls</strong></td><td><span class="tag tag-med">HIGH</span></td><td>127M+ daily pledges (I Am Sober model)</td><td><span class="tag tag-purple">V1.1</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">7</td><td><strong>Financial Stakes</strong></td><td><span class="tag tag-med">HIGH</span></td><td>94% success rate (Forfeit model)</td><td><span class="tag tag-purple">V1.1</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">8</td><td><strong>AI Pattern Detection</strong></td><td><span class="tag tag-med">HIGH</span></td><td>"You overeat on Wednesdays" — unique data</td><td><span class="tag tag-purple">V1.1</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">9</td><td><strong>Accountability Circle (3-5)</strong></td><td><span class="tag tag-med">MEDIUM</span></td><td>66% maintain loss with support vs 24%</td><td><span class="tag tag-orange">V1.2</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">10</td><td><strong>Growing Garden</strong></td><td><span class="tag tag-med">MEDIUM</span></td><td>QUITTR Life Tree = emotional attachment</td><td><span class="tag tag-orange">V1.2</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">11</td><td><strong>Voice Biomarker Stress Detection</strong></td><td><span class="tag tag-med">MEDIUM</span></td><td>80% depression detection from 20s voice</td><td><span class="tag tag-orange">V2.0</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">12</td><td><strong>Wearable-Triggered Calls</strong></td><td><span class="tag tag-med">MEDIUM</span></td><td>Proactive AI = bad sleep → adjusted plan</td><td><span class="tag tag-orange">V2.0</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">13</td><td><strong>Walking Challenge + Voice Pacing</strong></td><td><span class="tag tag-med">MEDIUM</span></td><td>Interval walking = 3,000% search surge 2026</td><td><span class="tag tag-orange">V2.0</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">14</td><td><strong>Partner/Spouse Mode</strong></td><td><span class="tag tag-low">LOW</span></td><td>Couples accountability = strongest motivator</td><td><span class="tag tag-orange">V2.0</span></td></tr>
+        <tr><td style="font-family:'Space Mono';font-weight:700">15</td><td><strong>AI Body Scanner + Voice Narration</strong></td><td><span class="tag tag-low">LOW</span></td><td>WW AI scanner + voice storytelling</td><td><span class="tag tag-orange">V2.0</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="reco-banner fade-in" style="margin-top:2rem">
+    <div class="reco-label">Reddit #1 Insight</div>
+    <div class="reco-title">People hate manual food logging. Voice logging during the call eliminates the #1 dropout reason.</div>
+    <div class="reco-text">Noom's top complaints: surprise charges, generic coaching, inaccurate food database. MyFitnessPal backlash: barcode scanner paywalled. CMM avoids ALL of these: voice logging = zero friction, AI coaching = personalized, transparent pricing = no traps.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 19 BRAND NAMING -->
+<section id="naming">
+  <div class="section-header fade-in">
+    <div class="section-number">19 — Brand Naming Research</div>
+    <h2 class="section-title">28 Names Evaluated, Top 5 Ranked</h2>
+    <p class="section-desc">Domain availability checked on Namecheap (Feb 2026). Scored on memorability, FR+EN pronunciation, domain availability, and brand potential.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:2rem" class="fade-in">
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-teal)">
+      <div style="font-family:'Space Mono';font-size:2rem;font-weight:700;color:var(--accent-teal);margin-bottom:0.25rem">19/20</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.3rem">Reveilla</div>
+      <div style="font-size:0.72rem;color:var(--accent-teal);font-family:'Space Mono'">reveilla.ai — $80/yr</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.5rem">Military wake-up call. "Reveil" = alarm in French. Beautiful bilingual resonance.</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-blue)">
+      <div style="font-family:'Space Mono';font-size:2rem;font-weight:700;color:var(--accent-blue);margin-bottom:0.25rem">16/20</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.3rem">RingSteady</div>
+      <div style="font-size:0.72rem;color:var(--accent-blue);font-family:'Space Mono'">.com + .ai both available!</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.5rem">Ring = phone call + stability. .com $11/yr + .ai $80/yr = under $100 total.</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-purple)">
+      <div style="font-family:'Space Mono';font-size:2rem;font-weight:700;color:var(--accent-purple);margin-bottom:0.25rem">17/20</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.3rem">Appello</div>
+      <div style="font-size:0.72rem;color:var(--accent-purple);font-family:'Space Mono'">appello.ai — ~$80/yr</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.5rem">Latin "appellare" = to call. Works across all Romance languages.</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-orange)">
+      <div style="font-family:'Space Mono';font-size:2rem;font-weight:700;color:var(--accent-orange);margin-bottom:0.25rem">17/20</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.3rem">Allore</div>
+      <div style="font-size:0.72rem;color:var(--accent-orange);font-family:'Space Mono'">allore.ai — ~$80/yr</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.5rem">"Allo" = French phone greeting + "ore" = golden. Instantly says "phone call" in French.</div>
+    </div>
+    <div class="card" style="text-align:center;border-top:3px solid var(--accent-yellow)">
+      <div style="font-family:'Space Mono';font-size:2rem;font-weight:700;color:var(--accent-yellow);margin-bottom:0.25rem">16/20</div>
+      <div style="font-size:1.1rem;font-weight:700;margin-bottom:0.3rem">Declic</div>
+      <div style="font-size:0.72rem;color:var(--accent-yellow);font-family:'Space Mono'">declic.ai — ~$80/yr</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:0.5rem">"Le declic" = the trigger moment when it clicks. Powerful French concept for transformation.</div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Strategic Recommendation</div>
+    <div class="reco-title">Primary: Reveilla (reveilla.ai) — Fallback: RingSteady (.com + .ai both available)</div>
+    <div class="reco-text">Register reveilla.ai immediately ($160 for 2-year minimum). Strongest name: emotionally powerful, bilingual, unique, trademarkable. The .ai extension IS a brand advantage for an AI product. RingSteady is the only name where both .com and .ai are available at standard pricing — secure both for under $100/yr.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 20 TELEGRAM COMMUNITY -->
+<section id="telegram">
+  <div class="section-header fade-in">
+    <div class="section-number">20 — Telegram Community</div>
+    <h2 class="section-title">Community Setup & Growth</h2>
+    <p class="section-desc">Telegram Supergroup with Forum/Topics mode, bots, content calendar, and growth strategy to reach 100 members.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-bottom:2rem" class="fade-in">
+    <div class="card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📱</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">9 Forum Topics</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">General, Daily Wins, Streaks, Weight Loss, Fitness, Food & Nutrition, Panic Button, Feature Requests, Announcements (admin only)</div>
+    </div>
+    <div class="card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🤖</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">3 Bots</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6"><strong>MissRose:</strong> Welcome message + intro questions<br><strong>Anti-spam:</strong> Captcha + slow mode<br><strong>Streak Tracker:</strong> /streak 15, /leaderboard, weekly Top 10</div>
+    </div>
+    <div class="card">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📅</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Content Calendar</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">Mon: Motivation | Tue: Tips | Wed: Wins | Thu: Throwback | Fri: Fun/Polls | Sat: Streak Shoutout | Sun: Weekly Reset & Planning</div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">First 100 Members</div>
+    <div class="reco-title">6 Growth Tactics</div>
+    <div class="reco-text">
+      1. Waitlist → Telegram link in confirmation email<br>
+      2. App onboarding: "Join community for bonus accountability"<br>
+      3. TikTok/Reels: Telegram link in bio<br>
+      4. Reddit: value content, link in profile<br>
+      5. 30-Day Challenge: require Telegram join<br>
+      6. Referral: "Invite 3 friends = 1 week free"
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 21 GANTT & FINANCIAL -->
+<section id="gantt">
+  <div class="section-header fade-in">
+    <div class="section-number">21 — 6-Month Gantt & Financial Forecast</div>
+    <h2 class="section-title">Interactive Planning Dashboard</h2>
+    <p class="section-desc">Full Gantt chart with draggable bars, financial forecast with editable cells, and time allocation visualization.</p>
+  </div>
+
+  <div class="reco-banner fade-in" style="text-align:center">
+    <div class="reco-label">Interactive Dashboard</div>
+    <div class="reco-title" style="margin-bottom:1rem">Open the Full Gantt & Financial Dashboard</div>
+    <a href="https://call-me-maybe-gantt-deploy.vercel.app" target="_blank" style="display:inline-block;background:var(--accent-teal);color:var(--bg-deep);font-family:'Space Mono',monospace;font-size:0.85rem;font-weight:700;padding:0.75rem 2rem;border-radius:100px;text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:all 0.3s;box-shadow:0 0 30px var(--glow-teal)">
+      Launch Gantt Dashboard →
+    </a>
+    <div style="margin-top:1rem;font-size:0.82rem;color:var(--text-secondary)">
+      31 tasks across 6 phases (Mar-Aug 2026) | Draggable bars | Editable financial cells | Auto-recalculation | Time allocation: Aaron vs Ata
+    </div>
+  </div>
+</section>
+
+<!-- 22 COMPETITIVE PRICE MONITORING -->
+<section id="price-monitor">
+  <div class="section-header fade-in">
+    <div class="section-number">22 — Competitive Price Intelligence</div>
+    <h2 class="section-title">Monitor. Detect. Respond.</h2>
+    <p class="section-desc">Automated monitoring of top 20 competitors' pricing pages. Real-time alerts on price changes, tier restructuring, and feature additions. AI-generated response strategies.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">20</div><div class="stat-label">Competitor pricing pages monitored daily</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-orange)">&lt;2h</div><div class="stat-label">Alert time on pricing changes</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">Auto</div><div class="stat-label">AI-generated response recommendations</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">Weekly</div><div class="stat-label">Positioning shift analysis reports</div></div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Competitors to Monitor</h3>
+  <div class="fade-in" style="overflow-x:auto;">
+    <table class="data-table">
+      <thead><tr><th>Tier</th><th>Competitor</th><th>Current Price</th><th>Monitor</th><th>Why It Matters</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-high">Direct</span></td><td><strong>Glow Health</strong></td><td>Unknown</td><td>Pricing page + features</td><td style="color:var(--text-secondary)">Closest: phone calls + weight loss</td></tr>
+        <tr><td><span class="tag tag-high">Direct</span></td><td><strong>CoachCall.ai</strong></td><td>Unknown</td><td>Pricing + persona updates</td><td style="color:var(--text-secondary)">Same format: AI phone calls</td></tr>
+        <tr><td><span class="tag tag-high">Direct</span></td><td><strong>Habit Coach AI</strong></td><td>$19/mo</td><td>Tier changes + new features</td><td style="color:var(--text-secondary)">Multi-platform, 90+ languages</td></tr>
+        <tr><td><span class="tag tag-high">Direct</span></td><td><strong>UpVibe</strong></td><td>$19.99/mo</td><td>Pricing + market expansion</td><td style="color:var(--text-secondary)">AI accountability calls</td></tr>
+        <tr><td><span class="tag tag-med">Adjacent</span></td><td><strong>Noom</strong></td><td>$17-70/mo</td><td>Price drops, new tiers</td><td style="color:var(--text-secondary)">If Noom adds voice = threat</td></tr>
+        <tr><td><span class="tag tag-med">Adjacent</span></td><td><strong>Freeletics</strong></td><td>$6-7/mo</td><td>AI coaching features</td><td style="color:var(--text-secondary)">59M users, AI coach expansion</td></tr>
+        <tr><td><span class="tag tag-med">Adjacent</span></td><td><strong>BetterMe</strong></td><td>$7-30/mo</td><td>Price changes, new markets</td><td style="color:var(--text-secondary)">150M users worldwide</td></tr>
+        <tr><td><span class="tag tag-med">Adjacent</span></td><td><strong>MyFitnessPal</strong></td><td>$19.99/mo</td><td>Feature paywalling</td><td style="color:var(--text-secondary)">Backlash = our opportunity</td></tr>
+        <tr><td><span class="tag tag-blue">French</span></td><td><strong>Petit BamBou</strong></td><td>~$7/mo</td><td>Pricing + coaching features</td><td style="color:var(--text-secondary)">French wellness brand</td></tr>
+        <tr><td><span class="tag tag-blue">French</span></td><td><strong>inTouch Mary</strong></td><td>$29.90/mo</td><td>Price drops, age expansion</td><td style="color:var(--text-secondary)">If they target younger = direct threat</td></tr>
+        <tr><td><span class="tag tag-purple">AI Companion</span></td><td><strong>Replika</strong></td><td>$19.99/mo</td><td>Coaching features</td><td style="color:var(--text-secondary)">If Replika adds accountability</td></tr>
+        <tr><td><span class="tag tag-purple">AI Companion</span></td><td><strong>Pi.ai</strong></td><td>Free</td><td>Monetization launch</td><td style="color:var(--text-secondary)">$1.3B funding, proactive features</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin:2rem 0" class="fade-in">
+    <div class="card" style="border-top:3px solid var(--accent-teal)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🔍</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Detection Layer</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Daily scraping</strong> of pricing pages (Playwright/Puppeteer)<br>
+        <strong>Screenshot diff</strong> — visual comparison catches layout changes<br>
+        <strong>Price extraction</strong> — structured data from pricing tiers<br>
+        <strong>Feature list parsing</strong> — detect added/removed features<br>
+        <strong>Blog/changelog RSS</strong> — catch announcements early
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-orange)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🚨</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">Alert System</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Price change:</strong> Instant Slack/email alert<br>
+        <strong>New tier added:</strong> Full analysis within 2 hours<br>
+        <strong>Feature change:</strong> Comparison table auto-generated<br>
+        <strong>New competitor:</strong> Product Hunt + AppStore monitoring<br>
+        <strong>Weekly digest:</strong> All changes summarized with trends
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-purple)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🧠</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.5rem">AI Response Engine</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.6">
+        <strong>Scenario A:</strong> Competitor drops price → "Hold pricing, emphasize voice call differentiator"<br>
+        <strong>Scenario B:</strong> Competitor adds feature we have → "Accelerate marketing of that feature"<br>
+        <strong>Scenario C:</strong> Competitor enters French market → "Double down on RGPD + French content moat"<br>
+        <strong>Scenario D:</strong> New competitor launches → "Full teardown within 24h"
+      </div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Example Alert</div>
+    <div class="reco-title">"Noom dropped Pro tier from $70/mo to $49/mo — here's what to do"</div>
+    <div class="reco-text">
+      <strong>Detected:</strong> Feb 9, 2026 at 14:32 UTC<br>
+      <strong>Change:</strong> Noom Pro tier reduced from $70/mo to $49/mo (-30%). Annual plan now $29/mo.<br>
+      <strong>AI Recommendation:</strong> Do NOT match. Our $19-39/mo is already positioned as the affordable alternative. Instead: (1) Create comparison content: "Noom at $49 vs CMM at $19 — what you actually get", (2) Highlight voice calls as differentiator Noom doesn't have, (3) Push the "1/3 the price, 10x the accountability" messaging harder on TikTok. Noom's price drop signals user acquisition struggles — this is GOOD for us.
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 23 SUPPORT-TO-CONTENT PIPELINE -->
+<section id="support-content">
+  <div class="section-header fade-in">
+    <div class="section-number">23 — Support-to-Content Pipeline</div>
+    <h2 class="section-title">Tickets Become Content</h2>
+    <p class="section-desc">AI analyzes support inbox patterns. Identifies recurring confusion. Auto-generates help articles, blog posts, product improvements, and onboarding fixes.</p>
+  </div>
+
+  <div class="stat-row fade-in">
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-teal)">40%</div><div class="stat-label">Typical % of tickets about same 5 issues</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-orange)">Auto</div><div class="stat-label">Tutorial drafts from ticket patterns</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-blue)">3x</div><div class="stat-label">Faster content creation from real user pain</div></div>
+    <div class="card stat-block"><div class="stat-value" style="color:var(--accent-purple)">-60%</div><div class="stat-label">Support volume reduction with proactive content</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem" class="fade-in">
+    <div class="card" style="border-top:3px solid var(--accent-teal)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📥</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.75rem">Input: Support Channels</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8">
+        <strong>Email inbox</strong> — support@callmemaybe.ai<br>
+        <strong>Telegram community</strong> — #help topic + DMs<br>
+        <strong>WhatsApp support</strong> — incoming messages<br>
+        <strong>App Store reviews</strong> — 1-3 star reviews<br>
+        <strong>Social mentions</strong> — Twitter/X, Reddit, TikTok comments<br>
+        <strong>Post-call feedback</strong> — "Rate this call" responses
+      </div>
+    </div>
+    <div class="card" style="border-top:3px solid var(--accent-orange)">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🧠</div>
+      <div style="font-size:1rem;font-weight:700;margin-bottom:0.75rem">AI Analysis Layer</div>
+      <div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.8">
+        <strong>Clustering</strong> — Group similar issues automatically<br>
+        <strong>Sentiment analysis</strong> — Frustration vs confusion vs feature request<br>
+        <strong>Trend detection</strong> — "This issue spiked 300% this week"<br>
+        <strong>Root cause mapping</strong> — Which onboarding step causes confusion?<br>
+        <strong>Priority scoring</strong> — Impact x frequency x severity<br>
+        <strong>User segment</strong> — Free trial vs paid vs churned
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:1.1rem;margin-bottom:1.5rem;font-weight:600" class="fade-in">Output Pipeline: 4 Content Streams</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem" class="fade-in">
+    <div class="card" style="text-align:center;padding:1.5rem">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📖</div>
+      <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-teal)">Help Articles</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">"40% of tickets mention confusion about call scheduling. Here's a tutorial draft addressing the top 5 misunderstandings."</div>
+    </div>
+    <div class="card" style="text-align:center;padding:1.5rem">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">✍️</div>
+      <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-orange)">Blog Posts</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">"Users keep asking about voice food logging accuracy. Generate a blog post: 'How Our AI Understands Your Meals'."</div>
+    </div>
+    <div class="card" style="text-align:center;padding:1.5rem">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">🔧</div>
+      <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-blue)">Product Fixes</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">"23% of new users can't find how to save the coach as a contact. Recommend: add prominent button in onboarding step 4."</div>
+    </div>
+    <div class="card" style="text-align:center;padding:1.5rem">
+      <div style="font-size:1.5rem;margin-bottom:0.5rem">📧</div>
+      <div style="font-size:0.9rem;font-weight:700;margin-bottom:0.5rem;color:var(--accent-purple)">Onboarding Emails</div>
+      <div style="font-size:0.78rem;color:var(--text-secondary);line-height:1.5">"Day 3 churners all ask the same thing. Add a proactive email on Day 2 answering that question before they leave."</div>
+    </div>
+  </div>
+
+  <div class="reco-banner fade-in">
+    <div class="reco-label">Example Weekly Report</div>
+    <div class="reco-title">"This week: 47 tickets analyzed → 3 content pieces drafted → 1 product fix recommended"</div>
+    <div class="reco-text">
+      <strong>Pattern #1 (18 tickets):</strong> "My phone doesn't ring at the scheduled time" → <em>Draft: Help article on iOS notification permissions + call screening setup</em><br>
+      <strong>Pattern #2 (12 tickets):</strong> "Can I change my coach's voice?" → <em>Draft: Blog post on voice personalization + product fix to make voice settings more visible</em><br>
+      <strong>Pattern #3 (9 tickets):</strong> "I missed 3 days, did I lose everything?" → <em>Draft: Onboarding email about compassionate relapse + streak shields</em><br>
+      <strong>Pattern #4 (8 tickets):</strong> "How accurate is the food logging?" → <em>Draft: TikTok content showing voice logging accuracy demo</em><br><br>
+      <em style="color:var(--accent-teal)">Your support tickets ARE your content calendar. Every confused user is telling you what to write next.</em>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Call Me Maybe — Strategy Dashboard V3 (Mega Edition) — Built Feb 2026 — Aaron + Ata</p>
+  <p style="margin-top:0.5rem;">Research: 7 deep-dive analyses | 60+ sources | 15 killer features | 28 brand names | Full Gantt & financial forecast</p>
+  <p style="margin-top:0.5rem;"><a href="https://call-me-maybe-gantt-deploy.vercel.app">Gantt Dashboard</a></p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    const top = section.offsetTop - 100;
+    if (window.scrollY >= top) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.collapsible-trigger').forEach(trigger => {
+  trigger.addEventListener('click', () => {
+    trigger.classList.toggle('open');
+    const content = trigger.nextElementSibling;
+    content.classList.toggle('open');
+  });
+});
+
+// Burger menu
+const burger = document.getElementById('burger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+burger.addEventListener('click', () => {
+  burger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+
+function closeMenu() {
+  burger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; Tech Spec</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--card2:#161a28;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--purple:#b388ff;--blue:#4da6ff;--cyan:#22d3ee;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.w{max-width:860px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+/* NAV PILLS */
+.nav-strip{position:sticky;top:42px;z-index:90;background:rgba(12,13,16,0.92);backdrop-filter:blur(10px);padding:0.6rem 0;display:flex;gap:0.4rem;flex-wrap:wrap;justify-content:center;border-bottom:1px solid var(--border);}
+.nav-pill{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:0.3rem 0.7rem;border-radius:100px;border:1px solid transparent;transition:all 0.2s;}
+.nav-pill:hover{color:var(--dim);border-color:var(--border);}
+
+/* HERO */
+.hero{text-align:center;padding:7rem 0 2.5rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--cyan);border:1px solid rgba(34,211,238,0.2);padding:0.35rem 1rem;border-radius:100px;letter-spacing:1.5px;text-transform:uppercase;background:rgba(34,211,238,0.05);margin-bottom:1.5rem;}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,2.8rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:0.8rem;}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--cyan),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero .sub{color:var(--dim);font-size:0.95rem;max-width:540px;margin:0 auto;}
+
+/* STACK BAR */
+.stack-bar{display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;margin:2rem 0 3rem;}
+.stack-chip{display:inline-flex;align-items:center;gap:0.4rem;font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:600;padding:0.4rem 0.9rem;border-radius:8px;border:1px solid var(--border);color:var(--dim);background:var(--card);transition:all 0.2s;}
+.stack-chip:hover{border-color:var(--dim);color:var(--text);}
+.stack-chip .dot{width:7px;height:7px;border-radius:50%;}
+.dot-py{background:#3572A5;}
+.dot-ts{background:#3178c6;}
+.dot-pg{background:#336791;}
+.dot-tw{background:#F22F46;}
+.dot-11{background:#000;border:1px solid var(--dim);}
+.dot-cl{background:#6C47FF;}
+.dot-tg{background:#26A5E4;}
+.dot-dk{background:#2496ED;}
+
+/* SECTION */
+.section{padding:2.5rem 0;border-top:1px solid var(--border);}
+.section:first-of-type{border-top:none;}
+.section-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.section h2{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:1.25rem;}
+
+/* STATUS GRID */
+.status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.75rem;margin-bottom:1rem;}
+.status-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;transition:all 0.2s;}
+.status-card:hover{border-color:#2a2c3a;}
+.status-title{font-family:'Sora',sans-serif;font-size:0.88rem;font-weight:700;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem;}
+.status-desc{font-size:0.76rem;color:var(--dim);line-height:1.5;}
+.badge{font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0.15rem 0.45rem;border-radius:4px;}
+.badge-done{background:rgba(74,222,128,0.12);color:var(--green);}
+.badge-wip{background:rgba(212,168,83,0.12);color:var(--gold);}
+.badge-todo{background:rgba(255,77,106,0.1);color:var(--red);}
+.badge-scaffold{background:rgba(179,136,255,0.1);color:var(--purple);}
+
+/* FLOW DIAGRAM */
+.flow-row{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin:1rem 0;justify-content:center;}
+.flow-step{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:0.6rem 1rem;font-family:'Sora',sans-serif;font-size:0.78rem;font-weight:600;text-align:center;min-width:100px;}
+.flow-arrow{color:var(--muted);font-size:1.2rem;}
+
+/* API TABLE */
+.api-table{width:100%;border-collapse:collapse;margin:1rem 0;}
+.api-table th{font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:left;padding:0.5rem 0.75rem;border-bottom:1px solid var(--border);}
+.api-table td{font-size:0.78rem;padding:0.5rem 0.75rem;border-bottom:1px solid rgba(30,34,53,0.5);}
+.api-table tr:hover td{background:rgba(255,255,255,0.015);}
+.api-method{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:4px;}
+.m-get{color:var(--green);background:rgba(74,222,128,0.08);}
+.m-post{color:var(--blue);background:rgba(77,166,255,0.08);}
+.m-patch{color:var(--gold);background:rgba(212,168,83,0.08);}
+.api-path{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--dim);}
+.api-desc{color:var(--dim);}
+
+/* SCHEMA VIS */
+.schema-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.75rem;margin:1rem 0;}
+.schema-table{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.schema-table-header{font-family:'JetBrains Mono',monospace;font-size:0.68rem;font-weight:700;letter-spacing:1px;padding:0.55rem 0.8rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.4rem;}
+.schema-table-header .tbl-icon{font-size:0.85rem;}
+.schema-col{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--dim);padding:0.25rem 0.8rem;border-bottom:1px solid rgba(30,34,53,0.3);}
+.schema-col:last-child{border-bottom:none;}
+.schema-col .pk{color:var(--gold);font-weight:700;}
+.schema-col .fk{color:var(--purple);font-weight:600;}
+.schema-col .tp{color:var(--muted);float:right;}
+
+/* INTEGRATION CARDS */
+.int-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1rem;margin:1rem 0;}
+.int-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.25rem;position:relative;overflow:hidden;}
+.int-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.int-card.int-tg::before{background:var(--blue);}
+.int-card.int-wa::before{background:var(--green);}
+.int-card.int-voice::before{background:var(--orange);}
+.int-card.int-wear::before{background:var(--purple);}
+.int-card.int-pay::before{background:var(--gold);}
+.int-icon{font-size:1.5rem;margin-bottom:0.6rem;}
+.int-name{font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.5rem;}
+.int-desc{font-size:0.78rem;color:var(--dim);line-height:1.5;}
+.int-status{margin-top:0.6rem;font-size:0.7rem;}
+
+/* ENV TABLE */
+.env-group{margin-bottom:1.25rem;}
+.env-group-title{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.4rem;}
+.env-row{display:flex;align-items:center;gap:0.5rem;padding:0.3rem 0;font-size:0.75rem;}
+.env-key{font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:var(--cyan);background:rgba(34,211,238,0.06);padding:0.15rem 0.5rem;border-radius:4px;white-space:nowrap;}
+.env-note{color:var(--muted);font-size:0.7rem;}
+
+/* DECISION CARD */
+.decision-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0.75rem;margin:1rem 0;}
+.decision-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem 1.1rem;}
+.decision-q{font-family:'Sora',sans-serif;font-size:0.82rem;font-weight:700;margin-bottom:0.4rem;}
+.decision-context{font-size:0.75rem;color:var(--dim);line-height:1.5;}
+.decision-tag{display:inline-block;margin-top:0.5rem;font-family:'JetBrains Mono',monospace;font-size:0.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0.15rem 0.4rem;border-radius:4px;}
+.dt-product{background:rgba(212,168,83,0.1);color:var(--gold);}
+.dt-tech{background:rgba(34,211,238,0.1);color:var(--cyan);}
+.dt-legal{background:rgba(255,77,106,0.1);color:var(--red);}
+
+/* COLLAPSIBLE */
+.collapsible{cursor:pointer;user-select:none;}
+.collapsible .toggle-icon{display:inline-block;transition:transform 0.3s;margin-left:0.3rem;font-size:0.8rem;color:var(--muted);}
+.collapsible.open .toggle-icon{transform:rotate(90deg);}
+.collapse-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.collapsible.open+.collapse-body{max-height:3000px;}
+
+/* FOOTER */
+.footer{text-align:center;padding:2.5rem 0;border-top:1px solid var(--border);margin-top:1rem;color:var(--muted);font-size:0.78rem;}
+.footer a{color:var(--dim);text-decoration:none;}
+.footer a:hover{color:var(--text);}
+
+@media(max-width:650px){
+.hero{padding:5.5rem 0 2rem;}
+.status-grid{grid-template-columns:1fr;}
+.schema-grid{grid-template-columns:1fr 1fr;}
+.int-grid{grid-template-columns:1fr;}
+.decision-grid{grid-template-columns:1fr;}
+.api-table{font-size:0.72rem;}
+.nav-strip{display:none;}
+.flow-row{gap:0.3rem;}
+.flow-step{font-size:0.7rem;padding:0.4rem 0.6rem;min-width:70px;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.status-card,.int-card,.schema-table,.decision-card{animation:fadeUp 0.4s ease both;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <a href="index.html">&larr; War Room</a>
+</div>
+
+<div class="nav-strip">
+  <a href="#stack" class="nav-pill">Stack</a>
+  <a href="#status" class="nav-pill">Status</a>
+  <a href="#flows" class="nav-pill">Flows</a>
+  <a href="#api" class="nav-pill">API</a>
+  <a href="#schema" class="nav-pill">Schema</a>
+  <a href="#integrations" class="nav-pill">Integrations</a>
+  <a href="#voice" class="nav-pill">Voice</a>
+  <a href="#env" class="nav-pill">Env Vars</a>
+  <a href="#decisions" class="nav-pill">Decisions</a>
+  <a href="#todo" class="nav-pill">TODO</a>
+</div>
+
+<div class="w">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pill">&lt;/&gt; Technical Specification</div>
+  <h1>Tech <em>Spec</em></h1>
+  <p class="sub">FastAPI + Postgres + Next.js. Full backend architecture, API endpoints, data model, integrations, and open decisions. Source: repo README.</p>
+</div>
+
+<!-- STACK -->
+<div id="stack" class="stack-bar">
+  <div class="stack-chip"><span class="dot dot-py"></span> Python + FastAPI</div>
+  <div class="stack-chip"><span class="dot dot-pg"></span> Postgres</div>
+  <div class="stack-chip"><span class="dot dot-ts"></span> Next.js</div>
+  <div class="stack-chip"><span class="dot dot-cl"></span> Clerk Auth</div>
+  <div class="stack-chip"><span class="dot dot-tg"></span> Telegram</div>
+  <div class="stack-chip"><span class="dot dot-tw"></span> Twilio</div>
+  <div class="stack-chip"><span class="dot dot-11"></span> ElevenLabs</div>
+  <div class="stack-chip"><span class="dot dot-dk"></span> Docker</div>
+</div>
+
+<!-- IMPLEMENTATION STATUS -->
+<div id="status" class="section">
+  <div class="section-label">01 / Implementation Status</div>
+  <h2>What's Built vs What's Left</h2>
+
+  <div class="status-grid">
+    <div class="status-card">
+      <div class="status-title">Auth (Clerk) <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Clerk JWT auth + dev fallback via X-Dev-User-Sub header. Lazy-create user on first authenticated request.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Onboarding <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Session + answers upsert, voice note upload (stored locally), persona selection stored as onboarding answer.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Goals <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Goal templates (weight_loss, get_fit) seeded. Create/list/update goals via API.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Commitments <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Contract creation + signing, invite links (single-use, 7-day expiry), public accountability view via access_token.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Compliance <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Compliance events + window-based score (30d). Used for public views + bet settlement.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Betting <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">Guests bet for/against commitment. Owner settles bets at contract end. Money rails via Stripe TODO.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Telegram <span class="badge badge-wip">Linking Only</span></div>
+      <div class="status-desc">Link code creation + webhook consumption works. Outbound nudges and scheduling TODO.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Wearables <span class="badge badge-wip">Manual</span></div>
+      <div class="status-desc">Store tokens for Oura/Whoop. Upsert/list daily summaries. OAuth flow and auto-sync TODO.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Voice Calls <span class="badge badge-scaffold">Scaffold</span></div>
+      <div class="status-desc">Twilio outbound endpoint + voice webhook + ElevenLabs TwiML helper. Needs env vars + public URL.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Payments <span class="badge badge-todo">Stub</span></div>
+      <div class="status-desc">Placeholder payment intent for commitment deposits. Full Stripe integration TODO.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">Dashboard API <span class="badge badge-done">Done</span></div>
+      <div class="status-desc">GET /dashboard returns today's summary + 7/30 day trends from wearable data.</div>
+    </div>
+    <div class="status-card">
+      <div class="status-title">WhatsApp <span class="badge badge-todo">TODO</span></div>
+      <div class="status-desc">Phase 2. Twilio WhatsApp number + webhook. 24h service window + template approval needed.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MVP FLOW -->
+<div id="flows" class="section">
+  <div class="section-label">02 / Core User Flows</div>
+  <h2>MVP Path</h2>
+
+  <div class="flow-row">
+    <div class="flow-step" style="border-color:var(--gold);">Onboarding<br><span style="font-size:0.6rem;color:var(--dim);">Questions + voice</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--teal);">Commitment<br><span style="font-size:0.6rem;color:var(--dim);">Sign + invite</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--blue);">Telegram<br><span style="font-size:0.6rem;color:var(--dim);">Link + nudges</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--purple);">Wearables<br><span style="font-size:0.6rem;color:var(--dim);">Oura / Whoop</span></div>
+    <div class="flow-arrow">&rarr;</div>
+    <div class="flow-step" style="border-color:var(--green);">Dashboard<br><span style="font-size:0.6rem;color:var(--dim);">Trends + plan</span></div>
+  </div>
+
+  <div style="margin-top:2rem;">
+    <h3 style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-bottom:1rem;">Onboarding Data Captured</h3>
+    <div class="status-grid">
+      <div class="status-card"><div class="status-title">Identity</div><div class="status-desc">Name, email/phone, locale, timezone, preferred language</div></div>
+      <div class="status-card"><div class="status-title">Body Metrics</div><div class="status-desc">Height, weight, target weight, body fat% (optional)</div></div>
+      <div class="status-card"><div class="status-title">Health Context</div><div class="status-desc">Injuries, conditions, medications, contraindications</div></div>
+      <div class="status-card"><div class="status-title">Lifestyle</div><div class="status-desc">Schedule, sleep, work type, activity level, gym access, equipment</div></div>
+      <div class="status-card"><div class="status-title">Preferences</div><div class="status-desc">Coaching style (supportive/strict/humor), profanity Y/N, persona choice</div></div>
+      <div class="status-card"><div class="status-title">Commitment</div><div class="status-desc">Stake type (money/family/friends), sign contract, invite accountability</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- API ENDPOINTS -->
+<div id="api" class="section">
+  <div class="section-label">03 / API Endpoints</div>
+  <h2 class="collapsible" onclick="this.classList.toggle('open');this.nextElementSibling.style.maxHeight=this.classList.contains('open')?'3000px':'0'">28 Endpoints Implemented <span class="toggle-icon">&#9654;</span></h2>
+  <div class="collapse-body">
+  <table class="api-table">
+    <thead><tr><th>Method</th><th>Path</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/me</td><td class="api-desc">Current user info</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/onboarding/sessions</td><td class="api-desc">Create onboarding session</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/onboarding/sessions/{id}/answers</td><td class="api-desc">Upsert answers</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/onboarding/sessions/{id}/voice</td><td class="api-desc">Upload voice note</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/onboarding/sessions/{id}/complete</td><td class="api-desc">Complete onboarding</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/goals/templates</td><td class="api-desc">List goal templates</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/goals</td><td class="api-desc">Create goal</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/goals</td><td class="api-desc">List user goals</td></tr>
+      <tr><td><span class="api-method m-patch">PATCH</span></td><td class="api-path">/goals/{id}</td><td class="api-desc">Update goal</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/commitments/contracts</td><td class="api-desc">Create contract</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/commitments/contracts/{id}/sign</td><td class="api-desc">Sign contract</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/commitments/contracts/{id}/invite-links</td><td class="api-desc">Create invite link</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/commitments/invite-links/{token}/accept</td><td class="api-desc">Accept invite</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/public/accountability/{token}</td><td class="api-desc">Guest accountability view</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/public/betting/{token}</td><td class="api-desc">Guest betting view</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/public/betting/{token}/bets</td><td class="api-desc">Place a bet</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/bets/contracts/{id}</td><td class="api-desc">List bets on contract</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/bets/contracts/{id}/settle</td><td class="api-desc">Settle bets</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/compliance/events</td><td class="api-desc">Create compliance event</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/compliance/window/30d</td><td class="api-desc">30-day compliance score</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/wearables/{provider}/connect</td><td class="api-desc">Store wearable tokens</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/wearables/connections</td><td class="api-desc">List connections</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/wearables/{provider}/daily-summaries</td><td class="api-desc">Upsert daily data</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/wearables/{provider}/daily-summaries</td><td class="api-desc">Get daily data</td></tr>
+      <tr><td><span class="api-method m-get">GET</span></td><td class="api-path">/dashboard</td><td class="api-desc">Dashboard summary</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/telegram/link-code</td><td class="api-desc">Generate link code</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/integrations/telegram/webhook</td><td class="api-desc">Telegram webhook</td></tr>
+      <tr><td><span class="api-method m-post">POST</span></td><td class="api-path">/calls/outbound</td><td class="api-desc">Trigger outbound call</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- DATA MODEL -->
+<div id="schema" class="section">
+  <div class="section-label">04 / Data Model</div>
+  <h2>Postgres Schema (14 Tables)</h2>
+
+  <div class="schema-grid">
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128100;</span> users</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col">timezone <span class="tp">text</span></div>
+      <div class="schema-col">locale <span class="tp">text</span></div>
+      <div class="schema-col">coaching_style <span class="tp">enum</span></div>
+      <div class="schema-col">profanity_ok <span class="tp">bool</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128273;</span> auth_identities</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">provider <span class="tp">text</span></div>
+      <div class="schema-col">provider_subject <span class="tp">unique</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128203;</span> onboarding_sessions</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">status <span class="tp">enum</span></div>
+      <div class="schema-col">completed_at <span class="tp">ts</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128196;</span> onboarding_answers</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">session_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">question_key <span class="tp">text</span></div>
+      <div class="schema-col">answer <span class="tp">jsonb</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#127908;</span> voice_assets</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">session_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">storage_url <span class="tp">text</span></div>
+      <div class="schema-col">transcript_text <span class="tp">text</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#127919;</span> user_goals</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">template_id <span class="tp">fk?</span></div>
+      <div class="schema-col">config <span class="tp">jsonb</span></div>
+      <div class="schema-col">status <span class="tp">enum</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128220;</span> commitment_contracts</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">stake_type <span class="tp">enum</span></div>
+      <div class="schema-col">stake_config <span class="tp">jsonb</span></div>
+      <div class="schema-col">effective_from/to <span class="tp">ts</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#9989;</span> compliance_events</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">type <span class="tp">text</span></div>
+      <div class="schema-col">data <span class="tp">jsonb</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128177;</span> contract_bets</div>
+      <div class="schema-col"><span class="fk">contract_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col"><span class="fk">viewer_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">side <span class="tp">for/against</span></div>
+      <div class="schema-col">amount_cents <span class="tp">int</span></div>
+      <div class="schema-col">status <span class="tp">enum</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#9201;</span> wearable_connections</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">provider <span class="tp">enum</span></div>
+      <div class="schema-col">tokens (enc) <span class="tp">text</span></div>
+      <div class="schema-col">last_synced_at <span class="tp">ts</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128200;</span> daily_summaries</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">provider <span class="tp">enum</span></div>
+      <div class="schema-col">day <span class="tp">date</span></div>
+      <div class="schema-col">data <span class="tp">jsonb</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128172;</span> user_channels</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">type <span class="tp">tg/wa/phone</span></div>
+      <div class="schema-col">address <span class="tp">text</span></div>
+      <div class="schema-col">verified <span class="tp">bool</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128276;</span> nudge_attempts</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">reason <span class="tp">text</span></div>
+      <div class="schema-col">status <span class="tp">enum</span></div>
+      <div class="schema-col">sent_at <span class="tp">ts</span></div>
+    </div>
+    <div class="schema-table">
+      <div class="schema-table-header"><span class="tbl-icon">&#128680;</span> emergency_sessions</div>
+      <div class="schema-col"><span class="pk">id</span> <span class="tp">pk</span></div>
+      <div class="schema-col"><span class="fk">user_id</span> <span class="tp">fk</span></div>
+      <div class="schema-col">trigger_channel <span class="tp">enum</span></div>
+      <div class="schema-col">context <span class="tp">jsonb</span></div>
+      <div class="schema-col">outcome <span class="tp">jsonb</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- INTEGRATIONS -->
+<div id="integrations" class="section">
+  <div class="section-label">05 / Integrations</div>
+  <h2>External Services</h2>
+
+  <div class="int-grid">
+    <div class="int-card int-tg">
+      <div class="int-icon">&#128172;</div>
+      <div class="int-name">Telegram <span class="badge badge-wip">Phase 1</span></div>
+      <div class="int-desc">Bot via BotFather. Webhook at /integrations/telegram/webhook. User links via one-time code. Nudges (scheduled + reactive) TODO.</div>
+    </div>
+    <div class="int-card int-wa">
+      <div class="int-icon">&#128242;</div>
+      <div class="int-name">WhatsApp <span class="badge badge-todo">Phase 2</span></div>
+      <div class="int-desc">Twilio WhatsApp number. 24h service window constraint. Needs pre-approved templates for outbound. Same linking flow as Telegram.</div>
+    </div>
+    <div class="int-card int-voice">
+      <div class="int-icon">&#128222;</div>
+      <div class="int-name">Voice Calls <span class="badge badge-scaffold">Scaffold</span></div>
+      <div class="int-desc">Twilio telephony + ElevenLabs voice agents. Outbound call endpoint + voice webhook implemented. Needs env vars + public URL to activate.</div>
+    </div>
+    <div class="int-card int-wear">
+      <div class="int-icon">&#9201;</div>
+      <div class="int-name">Wearables <span class="badge badge-wip">Manual</span></div>
+      <div class="int-desc">Oura + Whoop. Manual token connect works. OAuth flow, auto-sync, and webhook listeners TODO. Daily summaries stored as JSONB.</div>
+    </div>
+    <div class="int-card int-pay">
+      <div class="int-icon">&#128176;</div>
+      <div class="int-name">Payments (Stripe) <span class="badge badge-todo">Stub</span></div>
+      <div class="int-desc">Placeholder payment intent for commitment deposits. Full checkout flow, refund logic, and payout rails TODO.</div>
+    </div>
+  </div>
+</div>
+
+<!-- VOICE DEEP DIVE -->
+<div id="voice" class="section">
+  <div class="section-label">06 / Voice Stack Options</div>
+  <h2>Key Architecture Decision</h2>
+
+  <div class="status-grid">
+    <div class="status-card" style="border-color:rgba(244,125,49,0.3);">
+      <div class="status-title" style="color:var(--orange);">Option A: Twilio + Custom Agent</div>
+      <div class="status-desc">Twilio handles calls, audio streamed via WebSockets (Media Streams). Your server runs STT + agent + TTS. Max control, swap vendors freely. More engineering.</div>
+    </div>
+    <div class="status-card" style="border-color:rgba(0,212,170,0.3);">
+      <div class="status-title" style="color:var(--teal);">Option B: Realtime Speech-to-Speech</div>
+      <div class="status-desc">Twilio for PSTN edge, realtime model handles conversation. Fewer moving parts, more natural. Vendor dependency, careful interruption handling.</div>
+    </div>
+    <div class="status-card" style="border-color:rgba(74,222,128,0.3);">
+      <div class="status-title" style="color:var(--green);">Option C: Voice Notes Only (MVP)</div>
+      <div class="status-desc">User uploads voice note, backend stores + transcribes. Simplest path. No telephony complexity. Great for onboarding depth but not a "call".</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1rem;padding:1rem;background:var(--card);border:1px solid rgba(212,168,83,0.15);border-radius:10px;font-size:0.82rem;color:var(--dim);">
+    <strong style="color:var(--gold);">Current implementation:</strong> Twilio outbound + ElevenLabs register-call for TwiML. This is Option B with ElevenLabs as the voice agent. Needs env vars to go live.
+  </div>
+</div>
+
+<!-- ENV VARS -->
+<div id="env" class="section">
+  <div class="section-label">07 / Environment Variables</div>
+  <h2 class="collapsible" onclick="this.classList.toggle('open');this.nextElementSibling.style.maxHeight=this.classList.contains('open')?'3000px':'0'">All Required Config <span class="toggle-icon">&#9654;</span></h2>
+  <div class="collapse-body">
+
+  <div class="env-group">
+    <div class="env-group-title">&#128273; Auth (Clerk)</div>
+    <div class="env-row"><span class="env-key">CLERK_JWKS_URL</span><span class="env-note">JWKs endpoint for JWT verification</span></div>
+    <div class="env-row"><span class="env-key">CLERK_ISSUER</span><span class="env-note">Token issuer</span></div>
+    <div class="env-row"><span class="env-key">CLERK_AUDIENCE</span><span class="env-note">Optional audience enforcement</span></div>
+  </div>
+
+  <div class="env-group">
+    <div class="env-group-title">&#128451; Database</div>
+    <div class="env-row"><span class="env-key">DATABASE_URL</span><span class="env-note">Postgres connection string</span></div>
+  </div>
+
+  <div class="env-group">
+    <div class="env-group-title">&#128172; Telegram</div>
+    <div class="env-row"><span class="env-key">TELEGRAM_BOT_TOKEN</span><span class="env-note">From BotFather</span></div>
+    <div class="env-row"><span class="env-key">TELEGRAM_WEBHOOK_SECRET</span><span class="env-note">Optional, recommended</span></div>
+  </div>
+
+  <div class="env-group">
+    <div class="env-group-title">&#9201; Wearables</div>
+    <div class="env-row"><span class="env-key">OURA_CLIENT_ID</span></div>
+    <div class="env-row"><span class="env-key">OURA_CLIENT_SECRET</span></div>
+    <div class="env-row"><span class="env-key">WHOOP_CLIENT_ID</span></div>
+    <div class="env-row"><span class="env-key">WHOOP_CLIENT_SECRET</span></div>
+  </div>
+
+  <div class="env-group">
+    <div class="env-group-title">&#128222; Voice (Twilio + ElevenLabs)</div>
+    <div class="env-row"><span class="env-key">TWILIO_ACCOUNT_SID</span></div>
+    <div class="env-row"><span class="env-key">TWILIO_AUTH_TOKEN</span></div>
+    <div class="env-row"><span class="env-key">TWILIO_FROM_NUMBER</span><span class="env-note">E.164 format</span></div>
+    <div class="env-row"><span class="env-key">TWILIO_VOICE_WEBHOOK_URL</span><span class="env-note">Public URL</span></div>
+    <div class="env-row"><span class="env-key">ELEVENLABS_API_KEY</span></div>
+    <div class="env-row"><span class="env-key">ELEVENLABS_DEFAULT_AGENT_ID</span></div>
+  </div>
+
+  <div class="env-group">
+    <div class="env-group-title">&#128176; Payments (Stripe)</div>
+    <div class="env-row"><span class="env-key">STRIPE_SECRET_KEY</span></div>
+    <div class="env-row"><span class="env-key">STRIPE_WEBHOOK_SECRET</span></div>
+    <div class="env-row"><span class="env-key">STRIPE_SUCCESS_URL</span></div>
+    <div class="env-row"><span class="env-key">STRIPE_CANCEL_URL</span></div>
+  </div>
+
+  </div>
+</div>
+
+<!-- OPEN DECISIONS -->
+<div id="decisions" class="section">
+  <div class="section-label">08 / Open Decisions</div>
+  <h2>Questions to Resolve</h2>
+
+  <div class="decision-grid">
+    <div class="decision-card">
+      <div class="decision-q">MVP path priority?</div>
+      <div class="decision-context">Onboarding &rarr; Telegram nudges, OR onboarding &rarr; wearables dashboard, OR emergency button first?</div>
+      <div class="decision-tag dt-product">Product</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Wearables optional?</div>
+      <div class="decision-context">Can users use the app without Oura/Whoop (manual mode)?</div>
+      <div class="decision-tag dt-product">Product</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Voice stack selection</div>
+      <div class="decision-context">Twilio + custom agent vs realtime speech-to-speech vs voice notes only for MVP?</div>
+      <div class="decision-tag dt-tech">Tech</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Job runner</div>
+      <div class="decision-context">Celery+beat vs ARQ vs APScheduler vs cron hitting endpoints?</div>
+      <div class="decision-tag dt-tech">Tech</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Agent orchestration</div>
+      <div class="decision-context">Tool calling inside app vs MCP servers for integrations?</div>
+      <div class="decision-tag dt-tech">Tech</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Languages day-1?</div>
+      <div class="decision-context">English + French? Turkish? Vietnamese? Affects voice personas and content.</div>
+      <div class="decision-tag dt-product">Product</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Commitment model</div>
+      <div class="decision-context">Pick one stake (money/family/friends) or combine? Failure payout rules?</div>
+      <div class="decision-tag dt-product">Product</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Medical vs wellness</div>
+      <div class="decision-context">Stay wellness to avoid regulated medical advice claims? Affects compliance path.</div>
+      <div class="decision-tag dt-legal">Legal</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Voice personas &amp; rights</div>
+      <div class="decision-context">Original voices only (no celebrity impersonation). Explicit opt-in for harsh/profane style.</div>
+      <div class="decision-tag dt-legal">Legal</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Data retention</div>
+      <div class="decision-context">Voice recordings: 7 days, 30 days, or forever? "Delete my data" self-serve day-1?</div>
+      <div class="decision-tag dt-legal">Legal</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">WhatsApp provider</div>
+      <div class="decision-context">Twilio vs Meta Cloud API direct? Template approval flow needed.</div>
+      <div class="decision-tag dt-tech">Tech</div>
+    </div>
+    <div class="decision-card">
+      <div class="decision-q">Compliance scoring</div>
+      <div class="decision-context">Exact thresholds: workouts/week + nutrition check-ins + sleep targets for pass/fail?</div>
+      <div class="decision-tag dt-product">Product</div>
+    </div>
+  </div>
+</div>
+
+<!-- TODO -->
+<div id="todo" class="section">
+  <div class="section-label">09 / Next Steps</div>
+  <h2>Priority TODO</h2>
+
+  <div class="status-grid">
+    <div class="status-card" style="border-left:3px solid var(--red);">
+      <div class="status-title">Voice: Configure Twilio + ElevenLabs</div>
+      <div class="status-desc">Create API keys, configure agent IDs, expose webhook publicly (ngrok/prod), trigger test outbound call.</div>
+    </div>
+    <div class="status-card" style="border-left:3px solid var(--red);">
+      <div class="status-title">Telegram: Implement nudge scheduling</div>
+      <div class="status-desc">Outbound nudges (daily check-in, missed workout, low recovery). Job runner decision needed first.</div>
+    </div>
+    <div class="status-card" style="border-left:3px solid var(--orange);">
+      <div class="status-title">Wearables: OAuth flow</div>
+      <div class="status-desc">Replace manual token connect with proper OAuth for Oura and Whoop. Auto-sync periodic pulls.</div>
+    </div>
+    <div class="status-card" style="border-left:3px solid var(--orange);">
+      <div class="status-title">Payments: Stripe integration</div>
+      <div class="status-desc">Commitment deposit capture, refund flow on success, payout rails for accountability buddies.</div>
+    </div>
+    <div class="status-card" style="border-left:3px solid var(--gold);">
+      <div class="status-title">DB Migrations: Alembic</div>
+      <div class="status-desc">Replace create_all() with proper Alembic migrations for production readiness.</div>
+    </div>
+    <div class="status-card" style="border-left:3px solid var(--gold);">
+      <div class="status-title">Voice transcription</div>
+      <div class="status-desc">Transcribe + summarize uploaded voice notes. Provider decision: OpenAI Whisper vs Deepgram.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:1.5rem;padding:1.25rem;background:var(--card);border:1px solid var(--border);border-radius:12px;">
+    <div style="font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.6rem;">Dev Quickstart</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan);background:rgba(0,0,0,0.3);padding:0.8rem 1rem;border-radius:8px;line-height:1.8;">
+      docker compose up --build<br>
+      <span style="color:var(--muted);"># API: http://localhost:8000/docs</span><br>
+      <span style="color:var(--muted);"># Web: http://localhost:3000</span><br><br>
+      <span style="color:var(--muted);"># Generate frontend types:</span><br>
+      cd frontend && npm run gen:types
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Call Me Maybe &copy; 2026 &mdash; <a href="index.html">War Room</a> &middot; Source: repo README.md</p>
+</div>
+
+</body>
+</html>
