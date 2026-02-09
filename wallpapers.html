@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; 21-Day Streak Wallpapers</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--pink:#ff6b9d;--purple:#b388ff;--cyan:#22d3ee;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+.w{max-width:1100px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+.hero{text-align:center;padding:7rem 0 2rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:0.5rem;font-family:'Sora',sans-serif;font-size:0.65rem;color:var(--orange);border:1px solid rgba(244,125,49,0.25);padding:0.35rem 1rem;border-radius:100px;letter-spacing:2px;text-transform:uppercase;background:rgba(244,125,49,0.06);margin-bottom:1.5rem;}
+.hero h1{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:0.8rem;}
+.hero h1 em{font-style:normal;color:var(--gold);}
+.hero .sub{color:var(--dim);font-size:0.95rem;max-width:600px;margin:0 auto;}
+
+/* ACTIONS */
+.actions{display:flex;gap:0.6rem;justify-content:center;margin:1.5rem 0 2.5rem;flex-wrap:wrap;}
+.action-btn{font-family:'Sora',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.5px;border:1px solid var(--border);background:transparent;color:var(--dim);padding:0.5rem 1.2rem;border-radius:100px;cursor:pointer;transition:all 0.25s;}
+.action-btn:hover{border-color:var(--gold);color:var(--gold);}
+.action-btn.primary{border-color:var(--gold);color:var(--bg);background:var(--gold);}
+.action-btn.primary:hover{background:#e6bd6a;}
+
+/* GRID */
+.wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin:2rem 0;}
+.wall-card{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--border);cursor:pointer;transition:all 0.3s;aspect-ratio:9/19.5;}
+.wall-card:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4);}
+.wall-card canvas{width:100%;height:100%;display:block;}
+.wall-card .day-badge{position:absolute;top:8px;left:8px;font-family:'Sora',sans-serif;font-size:0.55rem;font-weight:700;color:var(--gold);background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);padding:0.2rem 0.5rem;border-radius:100px;letter-spacing:1px;}
+.wall-card .dl-btn{position:absolute;bottom:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(212,168,83,0.9);color:var(--bg);display:flex;align-items:center;justify-content:center;font-size:0.75rem;opacity:0;transition:opacity 0.2s;cursor:pointer;}
+.wall-card:hover .dl-btn{opacity:1;}
+
+/* SETUP SECTIONS */
+.setup{padding:2.5rem 0;border-top:1px solid var(--border);}
+.setup-label{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;}
+.setup h2{font-family:'Sora',sans-serif;font-size:1.25rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:0.5rem;}
+.setup .sub-desc{font-size:0.85rem;color:var(--dim);margin-bottom:1.5rem;max-width:650px;}
+.platform-tabs{display:flex;gap:0.4rem;margin-bottom:1.5rem;}
+.plat-btn{font-family:'Sora',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.5px;border:1px solid var(--border);background:transparent;color:var(--muted);padding:0.45rem 1rem;border-radius:100px;cursor:pointer;transition:all 0.25s;}
+.plat-btn:hover{border-color:var(--dim);color:var(--dim);}
+.plat-btn.active{border-color:var(--gold);color:var(--gold);background:rgba(212,168,83,0.08);}
+.plat-content{display:none;}
+.plat-content.active{display:block;}
+
+.step-list{counter-reset:step;}
+.step{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:0.6rem;counter-increment:step;position:relative;padding-left:3.5rem;}
+.step::before{content:counter(step);position:absolute;left:1.2rem;top:1rem;font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:800;color:var(--gold);}
+.step-title{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;}
+.step-desc{font-size:0.78rem;color:var(--dim);line-height:1.5;}
+.step-desc code{font-size:0.72rem;background:rgba(255,255,255,0.05);padding:0.1rem 0.4rem;border-radius:4px;color:var(--teal);}
+
+.tip-box{background:rgba(212,168,83,0.04);border:1px solid rgba(212,168,83,0.15);border-radius:12px;padding:1rem 1.2rem;margin-top:1rem;}
+.tip-box .tip-label{font-family:'Sora',sans-serif;font-size:0.6rem;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.3rem;}
+.tip-box .tip-text{font-size:0.78rem;color:var(--dim);line-height:1.5;}
+
+.footer{text-align:center;padding:2.5rem 0;border-top:1px solid var(--border);margin-top:2rem;color:var(--muted);font-size:0.78rem;}
+.footer a{color:var(--dim);text-decoration:none;}
+.footer a:hover{color:var(--text);}
+
+@media(max-width:600px){
+.hero{padding:5rem 0 1.5rem;}
+.wall-grid{grid-template-columns:repeat(3,1fr);gap:0.5rem;}
+.step{padding-left:3rem;}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <a href="index.html">&larr; War Room</a>
+</div>
+
+<div class="w">
+
+<div class="hero">
+  <div class="hero-pill">&#128242; Lockscreen Challenge</div>
+  <h1>21-Day <em>Wallpapers</em></h1>
+  <p class="sub">Auto-changing lockscreen wallpapers for the 21-day streak challenge. Download all 21, set up the automation, and watch your streak grow every time you unlock your phone.</p>
+</div>
+
+<div class="actions">
+  <button class="action-btn primary" onclick="downloadAll()">&#11015; Download All 21</button>
+  <button class="action-btn" onclick="document.getElementById('setup').scrollIntoView({behavior:'smooth'})">&#9881; Setup Guide</button>
+</div>
+
+<div class="wall-grid" id="wallGrid"></div>
+
+<!-- SETUP GUIDE -->
+<div class="setup" id="setup">
+  <div class="setup-label">Setup Guide</div>
+  <h2>Auto-Change Your Lockscreen Daily</h2>
+  <p class="sub-desc">Set it up once, forget about it. Every morning your lockscreen updates to the next day of the challenge. Works on iPhone and Android.</p>
+
+  <div class="platform-tabs">
+    <button class="plat-btn active" onclick="showPlatform('iphone')">iPhone (Shortcuts)</button>
+    <button class="plat-btn" onclick="showPlatform('android')">Android</button>
+  </div>
+
+  <!-- iPHONE -->
+  <div class="plat-content active" id="plat-iphone">
+    <div class="step-list">
+      <div class="step">
+        <div class="step-title">Download the 21 wallpapers</div>
+        <div class="step-desc">Click <strong>&ldquo;Download All 21&rdquo;</strong> above. Save all images to your Photos app (or create a dedicated album called <code>CMM Challenge</code>).</div>
+      </div>
+      <div class="step">
+        <div class="step-title">Open the Shortcuts app</div>
+        <div class="step-desc">Go to the <strong>Automation</strong> tab at the bottom. Tap <strong>+ New Automation</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-title">Choose &ldquo;Time of Day&rdquo;</div>
+        <div class="step-desc">Set it to <strong>6:00 AM</strong> (or whenever you want). Select <strong>Daily</strong> repeat. Choose <strong>&ldquo;Run Immediately&rdquo;</strong> (not &ldquo;Ask Before Running&rdquo;).</div>
+      </div>
+      <div class="step">
+        <div class="step-title">Add actions to the shortcut</div>
+        <div class="step-desc">
+          Add these actions in order:<br>
+          <strong>a)</strong> <code>Get Current Date</code> &rarr; format as custom: <code>d</code> (day number)<br>
+          <strong>b)</strong> <code>Find Photos</code> where Album is <code>CMM Challenge</code>, sorted by Name, limit 21<br>
+          <strong>c)</strong> <code>Get Item from List</code> &rarr; Item at Index = the day number variable (use modulo 21 if you want it to loop)<br>
+          <strong>d)</strong> <code>Set Wallpaper</code> &rarr; choose <strong>Lock Screen</strong> &rarr; set to the photo from step c
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-title">Alternative: Simple version</div>
+        <div class="step-desc">
+          If the above feels complex, use the simpler approach:<br>
+          <strong>a)</strong> <code>Find Photos</code> where Album is <code>CMM Challenge</code><br>
+          <strong>b)</strong> <code>Get Random Item from List</code><br>
+          <strong>c)</strong> <code>Set Wallpaper</code> &rarr; Lock Screen<br>
+          This picks a random wallpaper daily instead of sequential.
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-title">Test it</div>
+        <div class="step-desc">Tap <strong>Run</strong> to test. Your lockscreen should change immediately. If iOS asks permission for wallpaper changes, allow it. Done!</div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-label">Pro Tip</div>
+      <div class="tip-text">For iOS 16.4+, you can also use the <strong>&ldquo;Rotate Lock Screen&rdquo;</strong> shortcut action to cycle through pre-configured Lock Screens. Create 21 Lock Screens in Settings &gt; Wallpaper, each with a different wallpaper, and rotate through them.</div>
+    </div>
+  </div>
+
+  <!-- ANDROID -->
+  <div class="plat-content" id="plat-android">
+    <div class="step-list">
+      <div class="step">
+        <div class="step-title">Download the 21 wallpapers</div>
+        <div class="step-desc">Click <strong>&ldquo;Download All 21&rdquo;</strong> above. Save all images to a folder on your phone (e.g., <code>CMM-Challenge/</code>).</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Sora',sans-serif;font-size:0.9rem;font-weight:700;margin:1.5rem 0 0.8rem;color:var(--teal);">Option A: MacroDroid (Free &mdash; Recommended)</h3>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-title">Install MacroDroid</div>
+        <div class="step-desc">Free on Google Play Store. No root required. Works on most Android phones.</div>
+      </div>
+      <div class="step">
+        <div class="step-title">Create a new Macro</div>
+        <div class="step-desc">
+          <strong>Trigger:</strong> Day/Time &rarr; set to <strong>6:00 AM daily</strong><br>
+          <strong>Action:</strong> Device Settings &rarr; <strong>Set Wallpaper</strong> &rarr; select <strong>&ldquo;Next file in folder&rdquo;</strong> &rarr; point to your <code>CMM-Challenge/</code> folder<br>
+          <strong>Constraint:</strong> None needed
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-title">Enable and test</div>
+        <div class="step-desc">Save the macro. Tap <strong>Test</strong>. Your wallpaper should change. MacroDroid handles sequential rotation automatically.</div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Sora',sans-serif;font-size:0.9rem;font-weight:700;margin:1.5rem 0 0.8rem;color:var(--purple);">Option B: Tasker ($3.49 &mdash; Most Powerful)</h3>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-title">Install Tasker</div>
+        <div class="step-desc">$3.49 on Play Store. The most powerful automation app for Android.</div>
+      </div>
+      <div class="step">
+        <div class="step-title">Create Profile + Task</div>
+        <div class="step-desc">
+          <strong>Profile:</strong> Time &rarr; 6:00 AM, repeat every day<br>
+          <strong>Task:</strong> Add action &rarr; Display &rarr; <strong>Set Wallpaper</strong><br>
+          Set Source to <strong>File</strong>, use variable <code>%DAESSION</code> to calculate day number, then set path: <code>/storage/CMM-Challenge/day-%DAYNUM%.png</code>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Sora',sans-serif;font-size:0.9rem;font-weight:700;margin:1.5rem 0 0.8rem;color:var(--orange);">Option C: Samsung (Bixby Routines)</h3>
+    <div class="step-list">
+      <div class="step">
+        <div class="step-title">Samsung phones only</div>
+        <div class="step-desc">
+          Go to <strong>Settings &rarr; Modes &amp; Routines &rarr; Routines</strong><br>
+          <strong>If:</strong> Time = 6:00 AM daily<br>
+          <strong>Then:</strong> Change wallpaper &rarr; select from gallery<br>
+          Samsung's built-in wallpaper rotation can also cycle through a folder automatically.
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <div class="tip-label">Simplest Method</div>
+      <div class="tip-text"><strong>MacroDroid</strong> is the easiest for most Android users. It&rsquo;s free, no root needed, and the &ldquo;Next file in folder&rdquo; option handles sequential Day 1 &rarr; Day 2 &rarr; Day 3 automatically. Just name your files <code>day-01.png</code>, <code>day-02.png</code>, etc.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <p>Call Me Maybe &copy; 2026 &mdash; <a href="index.html">War Room</a></p>
+</div>
+
+<script>
+// Coach quotes for each day
+const quotes = [
+  { coach: "Coach Max", quote: "Day 1. No excuses.\nLet's go.", color: "#F47D31" },
+  { coach: "Zen", quote: "Show up today.\nThat's all.", color: "#b388ff" },
+  { coach: "Mama Rosa", quote: "I believe in you.\nDon't let me down.", color: "#ff6b9d" },
+  { coach: "Dr. Luna", quote: "Small wins\ncompound.", color: "#00d4aa" },
+  { coach: "Coach Max", quote: "5 days in.\nYou're not quitting now.", color: "#F47D31" },
+  { coach: "Zen", quote: "Consistency\nis the strategy.", color: "#b388ff" },
+  { coach: "Mama Rosa", quote: "One week!\nI'm so proud of you.", color: "#ff6b9d" },
+  { coach: "Dr. Luna", quote: "Your habits are\nrewiring your brain.", color: "#00d4aa" },
+  { coach: "Coach Max", quote: "Push harder.\nYou can take it.", color: "#F47D31" },
+  { coach: "Zen", quote: "10 days.\nYou are the proof.", color: "#b388ff" },
+  { coach: "Mama Rosa", quote: "Keep going amore.\nAlmost halfway.", color: "#ff6b9d" },
+  { coach: "Dr. Luna", quote: "Dopamine from\ndiscipline > junk food.", color: "#00d4aa" },
+  { coach: "Coach Max", quote: "You're a machine.\n13 and counting.", color: "#F47D31" },
+  { coach: "Zen", quote: "Two weeks.\nThis is who you are now.", color: "#b388ff" },
+  { coach: "Mama Rosa", quote: "14 days!\nMamma mia, incredible.", color: "#ff6b9d" },
+  { coach: "Dr. Luna", quote: "Neural pathways\nare forming.", color: "#00d4aa" },
+  { coach: "Coach Max", quote: "Week 3 unlocked.\nBeast mode.", color: "#F47D31" },
+  { coach: "Zen", quote: "The streak is you.\nYou are the streak.", color: "#b388ff" },
+  { coach: "Mama Rosa", quote: "3 more days.\nDon't you dare stop.", color: "#ff6b9d" },
+  { coach: "Dr. Luna", quote: "20 days.\n95% don't make it here.", color: "#00d4aa" },
+  { coach: "ALL", quote: "DAY 21.\nYOU DID IT.", color: "#D4A853" }
+];
+
+// progress milestones
+const milestones = [1, 3, 7, 10, 14, 21];
+
+function drawWallpaper(canvas, day, forDownload) {
+  const w = forDownload ? 1170 : 180;
+  const h = forDownload ? 2532 : 390;
+  const s = forDownload ? 1 : 180/1170;
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  const q = quotes[day - 1];
+  const progress = day / 21;
+
+  // background gradient
+  const grad = ctx.createLinearGradient(0, 0, 0, h);
+  grad.addColorStop(0, '#0a0b0e');
+  grad.addColorStop(0.4, '#0f1118');
+  grad.addColorStop(1, '#0a0b0e');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, w, h);
+
+  // subtle radial glow
+  const glow = ctx.createRadialGradient(w*0.5, h*0.38, 0, w*0.5, h*0.38, w*0.8);
+  glow.addColorStop(0, q.color + '18');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, w, h);
+
+  // noise-like grain (subtle dots)
+  if (forDownload) {
+    ctx.fillStyle = 'rgba(255,255,255,0.008)';
+    for (let i = 0; i < 3000; i++) {
+      const x = Math.random() * w;
+      const y = Math.random() * h;
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+
+  const fs = forDownload ? 1 : s;
+
+  // top area — time placeholder region (leave space for iOS clock)
+  // small branding at top
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.font = `${Math.round(28*fs)}px Sora, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText('Call Me Maybe', w/2, h*0.12);
+
+  // DAY NUMBER — big
+  ctx.fillStyle = q.color;
+  ctx.font = `900 ${Math.round(220*fs)}px Sora, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.fillText(day.toString().padStart(2, '0'), w/2, h*0.36);
+
+  // "DAY" label
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.font = `700 ${Math.round(36*fs)}px Sora, sans-serif`;
+  ctx.letterSpacing = '12px';
+  ctx.fillText('D A Y', w/2, h*0.28);
+
+  // progress bar
+  const barW = w * 0.6;
+  const barH = forDownload ? 8 : 2;
+  const barX = (w - barW) / 2;
+  const barY = h * 0.41;
+  // bg
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.beginPath();
+  ctx.roundRect(barX, barY, barW, barH, barH/2);
+  ctx.fill();
+  // progress
+  ctx.fillStyle = q.color;
+  ctx.beginPath();
+  ctx.roundRect(barX, barY, barW * progress, barH, barH/2);
+  ctx.fill();
+
+  // progress label
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = `600 ${Math.round(22*fs)}px Sora, sans-serif`;
+  ctx.fillText(`${day} / 21`, w/2, barY + (forDownload ? 38 : 12));
+
+  // streak fire emojis for milestones
+  if (milestones.includes(day)) {
+    ctx.font = `${Math.round(60*fs)}px serif`;
+    ctx.fillText('\u{1F525}', w/2, h*0.48);
+  }
+
+  // quote
+  const lines = q.quote.split('\n');
+  ctx.fillStyle = 'rgba(255,255,255,0.85)';
+  ctx.font = `700 ${Math.round(48*fs)}px Sora, sans-serif`;
+  const lineH = forDownload ? 68 : 18;
+  const quoteY = h * 0.58;
+  lines.forEach((line, i) => {
+    ctx.fillText(line, w/2, quoteY + i * lineH);
+  });
+
+  // coach name
+  ctx.fillStyle = q.color + 'aa';
+  ctx.font = `600 ${Math.round(26*fs)}px Sora, sans-serif`;
+  ctx.fillText('— ' + q.coach, w/2, quoteY + lines.length * lineH + (forDownload ? 30 : 10));
+
+  // bottom decorative line
+  ctx.strokeStyle = q.color + '40';
+  ctx.lineWidth = forDownload ? 2 : 1;
+  ctx.beginPath();
+  ctx.moveTo(w*0.2, h*0.72);
+  ctx.lineTo(w*0.8, h*0.72);
+  ctx.stroke();
+
+  // bottom motivation
+  const bottomTexts = [
+    "Your lockscreen is your commitment.",
+    "Every unlock is a reminder.",
+    "This wallpaper = your streak.",
+    "You chose this. Own it.",
+    "The screen changes. So do you.",
+    "Unlock your phone. Unlock your potential.",
+    "Day by day, wallpaper by wallpaper."
+  ];
+  ctx.fillStyle = 'rgba(255,255,255,0.2)';
+  ctx.font = `${Math.round(22*fs)}px DM Sans, sans-serif`;
+  ctx.fillText(bottomTexts[day % bottomTexts.length], w/2, h*0.76);
+
+  // very bottom — hashtag
+  ctx.fillStyle = 'rgba(255,255,255,0.12)';
+  ctx.font = `600 ${Math.round(20*fs)}px Sora, sans-serif`;
+  ctx.fillText('#CallMeMaybe21', w/2, h*0.92);
+}
+
+// Generate grid
+const grid = document.getElementById('wallGrid');
+for (let d = 1; d <= 21; d++) {
+  const card = document.createElement('div');
+  card.className = 'wall-card';
+  card.style.animationDelay = (d * 0.03) + 's';
+  card.style.animation = 'fadeUp 0.4s ease both';
+
+  const canvas = document.createElement('canvas');
+  card.appendChild(canvas);
+
+  const badge = document.createElement('div');
+  badge.className = 'day-badge';
+  badge.textContent = 'DAY ' + d;
+  card.appendChild(badge);
+
+  const dl = document.createElement('div');
+  dl.className = 'dl-btn';
+  dl.innerHTML = '&#11015;';
+  dl.onclick = (e) => { e.stopPropagation(); downloadOne(d); };
+  card.appendChild(dl);
+
+  card.onclick = () => downloadOne(d);
+  grid.appendChild(card);
+
+  // draw preview
+  drawWallpaper(canvas, d, false);
+}
+
+function downloadOne(day) {
+  const c = document.createElement('canvas');
+  drawWallpaper(c, day, true);
+  const link = document.createElement('a');
+  link.download = 'cmm-day-' + day.toString().padStart(2,'0') + '.png';
+  link.href = c.toDataURL('image/png');
+  link.click();
+}
+
+async function downloadAll() {
+  for (let d = 1; d <= 21; d++) {
+    downloadOne(d);
+    await new Promise(r => setTimeout(r, 300));
+  }
+}
+
+function showPlatform(id) {
+  document.querySelectorAll('.plat-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.plat-content').forEach(c => c.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('plat-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>
