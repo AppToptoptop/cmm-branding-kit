@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Call Me Maybe &mdash; Video Ideas &amp; AI Concepts</title>
+<title>Call Me Maybe &mdash; Video Ideas &amp; AI Prompts</title>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--pink:#ff6b9d;--purple:#b388ff;--blue:#4da6ff;--cyan:#22d3ee;}
@@ -57,6 +57,17 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 .vid-tag.t-social{border-color:var(--orange);color:var(--orange);}
 .vid-tag.t-emotional{border-color:var(--purple);color:var(--purple);}
 .vid-tag.t-demo{border-color:var(--gold);color:var(--gold);}
+
+/* PROMPT BOX */
+.prompt-box{margin-top:0.6rem;background:rgba(0,0,0,0.35);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.prompt-header{display:flex;align-items:center;justify-content:space-between;padding:0.4rem 0.7rem;cursor:pointer;user-select:none;}
+.prompt-label{font-family:'Sora',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cyan);}
+.prompt-copy{font-size:0.6rem;color:var(--muted);background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:4px;padding:0.15rem 0.5rem;cursor:pointer;transition:all 0.2s;font-family:'Sora',sans-serif;letter-spacing:0.5px;}
+.prompt-copy:hover{border-color:var(--cyan);color:var(--cyan);}
+.prompt-copy.copied{border-color:var(--green);color:var(--green);}
+.prompt-text{display:none;padding:0.5rem 0.7rem;font-size:0.72rem;color:var(--dim);line-height:1.55;font-family:'DM Sans',monospace;border-top:1px solid var(--border);}
+.prompt-box.open .prompt-text{display:block;}
+.prompt-box.open .prompt-header{border-bottom:none;}
 
 /* PERSONA CARDS */
 .persona-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0;}
@@ -119,7 +130,7 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 <div class="hero">
   <div class="hero-pill">&#127916; Video Factory</div>
   <h1>Video <em>Ideas</em></h1>
-  <p class="sub">AI-generated videos, website explainers, and social content. Multiple personas, funny tones, and ready-to-prompt concepts.</p>
+  <p class="sub">AI-generated videos, website explainers, and social content. Each video includes a copy-paste AI prompt ready for Runway, Kling, or Pika.</p>
 </div>
 
 <div class="tab-bar">
@@ -177,7 +188,7 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 <div class="section">
   <div class="section-label">02 / AI-Generated Videos</div>
   <h2>Videos to Generate with AI Tools</h2>
-  <p class="sub-desc">Use Runway Gen-3, Kling, Pika, or Sora. These are prompts/concepts ready to generate. Funny, surreal, attention-grabbing.</p>
+  <p class="sub-desc">Use Runway Gen-3, Kling, Pika, or Sora. Click &laquo; AI Prompt &raquo; on each card to reveal the copy-paste prompt. Funny, surreal, attention-grabbing.</p>
 
   <div class="vid-grid">
 
@@ -196,6 +207,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-social">TikTok</span>
           <span class="vid-tag">15s</span>
         </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Cinematic POV shot, dark kitchen at 2am. A man in pajamas opens a glowing refrigerator, blue light spills onto his face. He reaches for a block of cheese. Suddenly his phone on the counter lights up bright orange. The fridge door slowly pushes closed by an invisible force while the man looks confused and slightly scared. Moody lighting, slight fog, comedic horror tone. Shot on 35mm film, shallow depth of field. 4K, 16:9.</div>
+        </div>
       </div>
     </div>
 
@@ -207,11 +225,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Phone Notification Chaos</div>
-        <div class="vid-desc">Cinematic shot of a phone on a desk. A notification pops up: &laquo; Your coach is calling... &raquo; The person tries to ignore it. Phone starts vibrating aggressively. Camera zoom. They finally pick up. Voice: &laquo; There you are. Let's talk about that KFC. &raquo;</div>
+        <div class="vid-desc">Cinematic shot of a phone on a desk. A notification pops up: &laquo; Your coach is calling... &raquo; The person tries to ignore it. Phone starts vibrating aggressively. They finally pick up. Voice: &laquo; There you are. Let's talk about that KFC. &raquo;</div>
         <div class="vid-tags">
           <span class="vid-tag t-ai">AI Gen</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">20s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Close-up of a smartphone lying on a minimalist white desk. The screen lights up with a notification showing a phone icon and text "Your coach is calling..." The phone begins vibrating, moving across the desk. A hand reaches to decline the call. The phone immediately lights up again, vibrating even more aggressively, sliding towards the edge of the desk. The hand reluctantly picks it up. Cinematic, slightly comedic tension, like a horror movie reveal. Clean modern office, natural light, shallow DOF. 4K.</div>
         </div>
       </div>
     </div>
@@ -231,6 +256,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-social">TikTok</span>
           <span class="vid-tag">25s</span>
         </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">A warm Italian grandmother in a rustic Tuscan kitchen, arms crossed, looking directly at camera with a disappointed but loving expression. She's wearing a floral apron, wooden spoons hanging on the wall behind her. Warm golden lighting from a window. She slowly shakes her head, then dramatically puts one hand over her heart and wipes an imaginary tear with the other. The kitchen has hanging garlic, copper pots, and a fresh meal on the counter being ignored. Cinematic, warm color grading, shallow depth of field. Comedy tone. 4K, 16:9.</div>
+        </div>
       </div>
     </div>
 
@@ -248,6 +280,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-emotional">Emotional</span>
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag">15s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Cinematic time-lapse of a single seed planted in dark rich soil. The seed sprouts, grows into a small green stem, then rapidly grows taller with leaves unfurling. A small bud appears and slowly blooms into a vibrant golden flower. As it blooms, golden particles of light float upward like fireflies. The background transitions from grey overcast to warm golden sunrise. Macro lens, extremely detailed, magical realism style. Warm color grading, bokeh background. 4K, 16:9. No text.</div>
         </div>
       </div>
     </div>
@@ -267,6 +306,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag">20s</span>
         </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Split screen comparison, vertical divider in the middle. LEFT SIDE: A person slumped on a messy couch in a dark apartment, surrounded by empty chip bags, pizza boxes, and soda cans. Their phone screen shows 47 notification badges, all ignored. TV playing in the background, blue glow. Moody, desaturated colors. RIGHT SIDE: The same person in a bright, clean kitchen, wearing athletic clothes, actively meal prepping with colorful fresh vegetables. Sunlight streaming through windows. Phone on counter showing a green streak counter "Day 30" with a flame emoji. Vibrant, warm, saturated colors. 4K, 16:9, cinematic.</div>
+        </div>
       </div>
     </div>
 
@@ -283,6 +329,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-ai">AI Gen</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">20s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">A person sleeping peacefully in a cozy bed, warm morning light filtering through curtains. A smartphone on the nightstand suddenly lights up and vibrates. A groggy hand slowly reaches out and picks up the phone. The person squints at the bright screen, looking annoyed. They sit up reluctantly, yawning, then look at running shoes placed neatly by the bedroom door. Golden morning light streams in as they slowly swing their legs out of bed. Cinematic, warm tones, shallow depth of field. Relatable comedy meets motivational tone. 4K, 16:9.</div>
         </div>
       </div>
     </div>
@@ -314,6 +367,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-demo">Product Demo</span>
           <span class="vid-tag">60s</span>
         </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Create a modern tech explainer video. Scene 1 (0-8s): Rapid montage of a person scrolling through fitness apps on their phone, swiping away notifications, looking bored on a couch. Desaturated colors, slight blue tint. Scene 2 (8-15s): Text appears on dark background: "The problem isn't motivation. It's that nobody checks in on you." Clean white typography on dark navy. Scene 3 (15-25s): A phone screen lights up with a warm golden glow. An incoming call notification reads "Your Coach". The person answers with a smile. Show 3 channel icons: chat bubble, microphone, phone. Scene 4 (25-38s): Animated phone mockup showing a chat conversation, a photo of food being analyzed with nutrition overlay, and a streak counter going up. Scene 5 (38-46s): Pricing comparison with crossed-out numbers. Scene 6 (46-53s): Time-lapse streak counter Day 1 to Day 30 with growing plant. Scene 7 (53-60s): Call-to-action screen with email input field. All scenes: dark theme, teal and gold accents, modern SaaS aesthetic. 4K.</div>
+        </div>
       </div>
     </div>
 
@@ -325,11 +385,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Message Flow Demo (30s)</div>
-        <div class="vid-desc"><strong>For: solution section.</strong> Animated phone screen showing a real conversation: coach sends morning check-in, user replies with food photo, AI analyzes macros, coach gives feedback. Smooth scrolling animation. No voiceover &mdash; just text and ambient music.</div>
+        <div class="vid-desc"><strong>For: solution section.</strong> Animated phone screen showing a real conversation: coach sends morning check-in, user replies with food photo, AI analyzes macros, coach gives feedback. Smooth scrolling animation.</div>
         <div class="vid-tags">
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag t-demo">Product Demo</span>
           <span class="vid-tag">30s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Smooth animation of a smartphone floating on a dark background with soft ambient lighting. The screen shows a messaging app interface. Messages appear one by one with typing indicators: "Good morning! How did you sleep?" followed by user reply "Pretty good, 7 hours". Then coach: "Nice! What's for breakfast?" User sends a photo of avocado toast. An animated overlay appears on the photo showing "Calories: 380 | Protein: 12g | Carbs: 35g | Fat: 22g" with a green checkmark. Coach responds: "Great choice! You're on track for today." Smooth scroll animation, modern chat UI with dark theme, teal accent colors. Ambient electronic music feel. 4K, 9:16 vertical.</div>
         </div>
       </div>
     </div>
@@ -342,10 +409,17 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Voice Note Preview (15s)</div>
-        <div class="vid-desc"><strong>For: channel section.</strong> Audio waveform animation with the coach's voice playing a real check-in message. Show the waveform morphing into text subtitles. Clean, minimal. Shows what a daily voice note actually sounds like.</div>
+        <div class="vid-desc"><strong>For: channel section.</strong> Audio waveform animation with the coach's voice playing a real check-in message. Show the waveform morphing into text subtitles. Clean, minimal.</div>
         <div class="vid-tags">
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag">15s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Minimalist dark background with a floating audio waveform visualization in teal/cyan color. The waveform pulses and moves organically as if someone is speaking. Below the waveform, subtitle text appears word by word: "Hey, it's your coach. Yesterday was solid - 120g protein, 8k steps. Today let's push for a morning workout. You got this." The waveform is smooth, modern, glowing with a subtle particle effect. Ambient, calming aesthetic. 4K, 16:9.</div>
         </div>
       </div>
     </div>
@@ -358,11 +432,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Fake Testimonials (Funny) (45s)</div>
-        <div class="vid-desc"><strong>For: social proof section.</strong> Since we don't have real users yet &mdash; create obviously fake, funny testimonials. &laquo; I lost 8kg and my Uber Eats driver doesn't recognize me anymore. &raquo; &laquo; My coach called me at 7am. I was furious. Then I lost 5kg. &raquo; Deadpan delivery.</div>
+        <div class="vid-desc"><strong>For: social proof section.</strong> Obviously fake, funny testimonials. &laquo; I lost 8kg and my Uber Eats driver doesn't recognize me anymore. &raquo; &laquo; My coach called me at 7am. I was furious. Then I lost 5kg. &raquo; Deadpan delivery.</div>
         <div class="vid-tags">
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">45s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt (HeyGen)</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Create talking head testimonial videos with a deadpan comedic tone. Use diverse AI avatars (male, female, different ages 25-40). Each person speaks directly to camera against a clean minimal background. Script lines to record: (1) "I lost 8 kilos and my Uber Eats driver doesn't recognize me anymore. He drove past my house three times." (2) "My AI coach called me at 7am on a Saturday. I was furious. Then I lost 5 kilos. Now I pick up on the first ring." (3) "I told the coach I had a salad for lunch. It sent back my own Instagram story of me eating a burger. Nowhere to hide." (4) "My girlfriend thinks I'm cheating because I keep getting calls from someone named Coach Max at 7am." Deadpan delivery, no smiling until the very end. Clean modern aesthetic.</div>
         </div>
       </div>
     </div>
@@ -375,11 +456,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Photo Food Logging Demo (20s)</div>
-        <div class="vid-desc"><strong>For: features section.</strong> Film a real plate of food. Take a photo. Animated overlay shows macros appearing (Calories: 520, Protein: 38g, Carbs: 45g, Fat: 22g). Green checkmark: &laquo; On track! &raquo; Clean, fast, satisfying.</div>
+        <div class="vid-desc"><strong>For: features section.</strong> Film a real plate of food. Take a photo. Animated overlay shows macros appearing. Green checkmark: &laquo; On track! &raquo; Clean, fast, satisfying.</div>
         <div class="vid-tags">
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag t-demo">Product Demo</span>
           <span class="vid-tag">20s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Top-down shot of a beautiful healthy plate of food (grilled chicken, rice, vegetables) on a wooden table. A hand holds up a smartphone and takes a photo of the plate. The camera flash goes off. Immediately, animated overlay graphics appear on the phone screen: scanning lines sweep across the food photo, then nutrition data fades in - "Calories: 520 | Protein: 38g | Carbs: 45g | Fat: 22g" with a satisfying green checkmark and "On track!" text. Smooth motion graphics, modern UI overlay, warm restaurant lighting. 4K, vertical 9:16.</div>
         </div>
       </div>
     </div>
@@ -392,10 +480,17 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Streak Counter Animation (10s)</div>
-        <div class="vid-desc"><strong>For: gamification section.</strong> Looping animation of a streak counter going up: Day 1... Day 7... Day 14... Day 30. With confetti burst at milestones. Background goes from grey to vibrant as streak grows. Silent or subtle sound FX.</div>
+        <div class="vid-desc"><strong>For: gamification section.</strong> Looping animation of a streak counter going up. Confetti burst at milestones. Background goes from grey to vibrant. Silent or subtle sound FX.</div>
         <div class="vid-tags">
           <span class="vid-tag t-site">Website</span>
           <span class="vid-tag">Loop</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Animated counter on a dark background counting up: "Day 1" in grey, "Day 7" in silver, "Day 14" in light gold, "Day 21" in bright gold, "Day 30" in blazing gold with fire particles and confetti explosion. Each number transition has a satisfying flip animation. The background gradually shifts from cold grey to warm amber as the counter increases. At Day 30, golden particles burst outward and the text glows. Minimal, clean, loop-ready. Motion graphics style. 4K, 16:9.</div>
         </div>
       </div>
     </div>
@@ -421,11 +516,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Breaking Up with Uber Eats</div>
-        <div class="vid-desc">Filmed like a romantic breakup scene. &laquo; It's not you, it's me. Actually it's you. The calories, the sodium, the regret at 2am. I've met someone else... his name is Coach Max and he doesn't let me make bad decisions. &raquo; Dramatic music.</div>
+        <div class="vid-desc">Filmed like a romantic breakup scene. &laquo; It's not you, it's me. Actually it's you. The calories, the sodium, the regret at 2am. I've met someone else... his name is Coach Max. &raquo; Dramatic music.</div>
         <div class="vid-tags">
           <span class="vid-tag t-social">Social</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">30s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Dramatic breakup scene shot like a sad indie movie. A person sits at a cafe table across from a branded food delivery bag (representing Uber Eats). They look emotional, holding the bag's hand (the bag handle). Soft piano music tone. The person slowly pushes the bag away, tears in their eyes. They stand up, turn around, and walk toward a glowing phone showing "Coach Max is calling..." The delivery bag sits alone at the table, abandoned. Rain starts falling outside. Dramatic, comedic, heartfelt. Shot like a Wes Anderson film with centered framing. 4K, 16:9.</div>
         </div>
       </div>
     </div>
@@ -438,11 +540,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">Things My AI Coach Says</div>
-        <div class="vid-desc">Series format. Each video = 1 ridiculous/accurate coach quote. Show notification on phone, read it, react. &laquo; I know you're looking at that brownie. Remember: you're 4 days from your longest streak ever. &raquo; &laquo; Good morning. No, you can't skip legs. &raquo;</div>
+        <div class="vid-desc">Series format. Each video = 1 ridiculous/accurate coach quote. Show notification on phone, read it, react. &laquo; I know you're looking at that brownie. Remember: 4 days from your longest streak ever. &raquo;</div>
         <div class="vid-tags">
           <span class="vid-tag t-social">Social</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">15s each</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt (Series)</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Close-up of a phone notification dropping down on screen. The notification shows a coach avatar icon with message text. Quick cut to a person's face reacting with shock/laughter/guilt. Series of notification texts to generate: (1) "I see you opened Deliveroo. Close it. Now." (2) "Good morning. No, you can't skip legs. I checked your calendar, you're free." (3) "You told me you had chicken and rice. Your Apple Watch says you were at McDonald's for 22 minutes." (4) "Great job today! 120g protein. But we need to talk about those 3 espressos." (5) "It's been 6 hours since your last meal. If you eat a proper dinner NOW, I'll let you have dessert. Deal?" Modern phone UI, dark theme, clean typography. Each clip 15 seconds. 4K vertical 9:16.</div>
         </div>
       </div>
     </div>
@@ -455,11 +564,18 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
       </div>
       <div class="vid-body">
         <div class="vid-title">The Excuse Generator</div>
-        <div class="vid-desc">User: &laquo; I can't work out because... &raquo; [spins wheel of excuses: too tired, raining, legs day, Mercury retrograde, my cat needs me]. Coach responds to each one with deadpan one-liners. Quick cuts, meme energy.</div>
+        <div class="vid-desc">User: &laquo; I can't work out because... &raquo; [spins wheel of excuses: too tired, raining, Mercury retrograde, my cat needs me]. Coach responds to each one with deadpan one-liners.</div>
         <div class="vid-tags">
           <span class="vid-tag t-social">Social</span>
           <span class="vid-tag t-funny">Funny</span>
           <span class="vid-tag">30s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">A colorful spinning wheel (like Wheel of Fortune) with excuse labels: "Too tired", "It's raining", "Leg day", "Mercury retrograde", "My cat needs me", "I'll start Monday", "Netflix has a new season". The wheel spins and lands on an excuse. Cut to a deadpan AI coach face (straight to camera) responding with a one-liner. Then wheel spins again, lands on another excuse, another deadpan response. Quick cuts, meme energy, slight zoom on the coach face for comedic effect. Bright colorful wheel contrasts with the coach's serious face. Game show aesthetic meets TikTok comedy. 4K vertical 9:16.</div>
         </div>
       </div>
     </div>
@@ -477,6 +593,13 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
           <span class="vid-tag t-social">Social</span>
           <span class="vid-tag t-emotional">Emotional</span>
           <span class="vid-tag">30s</span>
+        </div>
+        <div class="prompt-box" onclick="togglePrompt(this,event)">
+          <div class="prompt-header">
+            <span class="prompt-label">&#9889; AI Prompt</span>
+            <button class="prompt-copy" onclick="copyPrompt(this,event)">Copy</button>
+          </div>
+          <div class="prompt-text">Time-lapse montage showing 30 days of transformation. Day 1: person looking tired, messy room, phone notification "Day 1 - Let's go!". Day 7: person jogging slowly, phone shows "Day 7 streak!" with small flame. Day 14: person cooking a healthy meal, visible energy improvement, "Day 14" counter. Day 21: person at the gym smiling, phone shows "Day 21 - You're unstoppable". Day 30: person looking fit, confident, standing in sunlight, confetti explosion, "Day 30" in golden text. Each day transition uses a smooth morph/wipe effect. Background progresses from grey/dark to warm/golden. Motivational, authentic, not overly polished. 4K vertical 9:16.</div>
         </div>
       </div>
     </div>
@@ -607,6 +730,23 @@ function filterVids(cat){
     if(cat==='all'){c.style.display='';}
     else{c.style.display=c.dataset.cat.includes(cat)?'':'none';}
   });
+}
+
+function togglePrompt(box,e){
+  if(e.target.classList.contains('prompt-copy'))return;
+  box.classList.toggle('open');
+}
+
+function copyPrompt(btn,e){
+  e.stopPropagation();
+  const text=btn.closest('.prompt-box').querySelector('.prompt-text').textContent.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    btn.textContent='Copied!';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  });
+  // also open the prompt if closed
+  btn.closest('.prompt-box').classList.add('open');
 }
 </script>
 </body>
