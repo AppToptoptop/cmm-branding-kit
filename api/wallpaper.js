@@ -2,12 +2,14 @@ import { ImageResponse } from '@vercel/og';
 
 export const config = { runtime: 'edge' };
 
+const FONT_URL = 'https://raw.githubusercontent.com/google/fonts/main/ofl/sora/Sora%5Bwght%5D.ttf';
+
 const quotes = [
   { coach: "Coach Max", quote: ["Day 1. No excuses.", "Let's go."], color: "#F47D31" },
   { coach: "Zen", quote: ["Show up today.", "That's all."], color: "#b388ff" },
   { coach: "Mama Rosa", quote: ["I believe in you.", "Don't let me down."], color: "#ff6b9d" },
   { coach: "Dr. Luna", quote: ["Small wins", "compound."], color: "#00d4aa" },
-  { coach: "Coach Max", quote: ["5 days in.", "You're not quitting now."], color: "#F47D31" },
+  { coach: "Coach Max", quote: ["5 days in.", "Not quitting now."], color: "#F47D31" },
   { coach: "Zen", quote: ["Consistency", "is the strategy."], color: "#b388ff" },
   { coach: "Mama Rosa", quote: ["One week!", "I'm so proud."], color: "#ff6b9d" },
   { coach: "Dr. Luna", quote: ["Your habits are", "rewiring your brain."], color: "#00d4aa" },
@@ -28,225 +30,91 @@ const quotes = [
 
 const milestones = new Set([1, 3, 7, 10, 14, 21]);
 
-const bottomTexts = [
-  "Your lockscreen is your commitment.",
-  "Every unlock is a reminder.",
-  "This wallpaper = your streak.",
-  "You chose this. Own it.",
-  "The screen changes. So do you.",
-  "Unlock your phone. Unlock your potential.",
-  "Day by day, wallpaper by wallpaper."
-];
-
-// satori element helper (no JSX needed)
-function h(type, style, ...children) {
-  const flat = children.length === 1 ? children[0] : children;
-  return { type, props: { style: { display: 'flex', ...style }, children: flat } };
+function el(type, style, ...children) {
+  return { type, props: { style: { display: 'flex', ...style }, children: children.length === 1 ? children[0] : children } };
 }
 
 export default async function handler(req) {
   try {
-  const url = new URL(req.url);
-  let day = parseInt(url.searchParams.get('day') || '0');
-  const start = url.searchParams.get('start');
-  const device = url.searchParams.get('device') || '1320x2868';
-  const parts = device.split('x').map(Number);
-  const width = parts[0] || 1320;
-  const height = parts[1] || 2868;
+    const url = new URL(req.url);
+    let day = parseInt(url.searchParams.get('day') || '0');
+    const start = url.searchParams.get('start');
+    const device = url.searchParams.get('device') || '1170x2532';
+    const [width, height] = (device.match(/^(\d+)x(\d+)$/) || [, '1170', '2532']).slice(1).map(Number);
 
-  if (start && !day) {
-    const startDate = new Date(start + 'T00:00:00');
-    const now = new Date();
-    const diff = Math.floor((now.getTime() - startDate.getTime()) / 86400000) + 1;
-    day = Math.max(1, ((diff - 1) % 21) + 1);
-  }
-  if (!day || day < 1) day = 1;
-  if (day > 21) day = ((day - 1) % 21) + 1;
+    if (start && !day) {
+      const diff = Math.floor((Date.now() - new Date(start + 'T00:00:00').getTime()) / 86400000) + 1;
+      day = Math.max(1, ((diff - 1) % 21) + 1);
+    }
+    if (!day || day < 1) day = 1;
+    if (day > 21) day = ((day - 1) % 21) + 1;
 
-  const q = quotes[day - 1];
-  const progress = Math.round((day / 21) * 100);
-  const s = width / 1170;
-  const isMilestone = milestones.has(day);
+    const q = quotes[day - 1];
+    const pct = Math.round((day / 21) * 100);
+    const s = width / 1170;
+    const fire = milestones.has(day);
 
-  let fontData;
-  try {
-    const fontRes = await fetch(
-      'https://cdn.jsdelivr.net/npm/@fontsource/sora@5.1.0/files/sora-latin-700-normal.woff'
-    );
-    if (fontRes.ok) fontData = await fontRes.arrayBuffer();
-  } catch (_) {}
-  if (!fontData) {
-    const fallbackRes = await fetch(
-      'https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-700-normal.woff'
-    );
-    fontData = await fallbackRes.arrayBuffer();
-  }
+    // fetch font
+    const fontData = await fetch(FONT_URL).then(r => {
+      if (!r.ok) throw new Error('Font fetch failed: ' + r.status);
+      return r.arrayBuffer();
+    });
 
-  const quoteLines = q.quote;
-  const childElements = [];
+    const kids = [
+      // branding
+      el('div', { marginTop: Math.round(height * 0.1), color: 'rgba(255,255,255,0.25)', fontSize: Math.round(28 * s) }, 'Call Me Maybe'),
+      // DAY label
+      el('div', { color: 'rgba(255,255,255,0.4)', fontSize: Math.round(36 * s), fontWeight: 700, letterSpacing: Math.round(12 * s), marginTop: Math.round(height * 0.06) }, 'D A Y'),
+      // number
+      el('div', { color: q.color, fontSize: Math.round(220 * s), fontWeight: 900, lineHeight: 1, marginTop: Math.round(15 * s) }, String(day).padStart(2, '0')),
+      // progress bar
+      el('div', { width: Math.round(width * 0.6), height: Math.round(Math.max(4, 8 * s)), background: 'rgba(255,255,255,0.08)', borderRadius: 4, marginTop: Math.round(25 * s) },
+        el('div', { width: `${pct}%`, height: '100%', background: q.color, borderRadius: 4 })
+      ),
+      // progress text
+      el('div', { color: 'rgba(255,255,255,0.3)', fontSize: Math.round(22 * s), fontWeight: 600, marginTop: Math.round(12 * s) }, `${day} / 21`),
+    ];
 
-  // branding
-  childElements.push(
-    h('div', {
-      marginTop: Math.round(height * 0.1),
-      color: 'rgba(255,255,255,0.25)',
-      fontSize: Math.round(28 * s),
-      fontFamily: 'Sora',
-    }, 'Call Me Maybe')
-  );
+    // fire emoji
+    if (fire) {
+      kids.push(el('div', { fontSize: Math.round(50 * s), marginTop: Math.round(15 * s) }, '\u{1F525}'));
+    }
 
-  // DAY label
-  childElements.push(
-    h('div', {
-      color: 'rgba(255,255,255,0.4)',
-      fontSize: Math.round(36 * s),
-      fontWeight: 700,
-      letterSpacing: Math.round(12 * s),
-      marginTop: Math.round(height * 0.06),
-      fontFamily: 'Sora',
-    }, 'D A Y')
-  );
+    // quote lines
+    kids.push(el('div', { color: 'rgba(255,255,255,0.85)', fontSize: Math.round(48 * s), fontWeight: 700, marginTop: Math.round(fire ? 25 * s : 55 * s) }, q.quote[0]));
+    if (q.quote[1]) {
+      kids.push(el('div', { color: 'rgba(255,255,255,0.85)', fontSize: Math.round(48 * s), fontWeight: 700, marginTop: Math.round(8 * s) }, q.quote[1]));
+    }
 
-  // day number
-  childElements.push(
-    h('div', {
-      color: q.color,
-      fontSize: Math.round(220 * s),
-      fontWeight: 900,
-      lineHeight: 1,
-      marginTop: Math.round(15 * s),
-      fontFamily: 'Sora',
-    }, String(day).padStart(2, '0'))
-  );
+    // coach
+    kids.push(el('div', { color: q.color, opacity: 0.7, fontSize: Math.round(26 * s), fontWeight: 600, marginTop: Math.round(25 * s) }, `— ${q.coach}`));
 
-  // progress bar
-  childElements.push(
-    h('div', {
-      width: Math.round(width * 0.6),
-      height: Math.round(8 * s),
-      background: 'rgba(255,255,255,0.08)',
-      borderRadius: Math.round(4 * s),
-      marginTop: Math.round(25 * s),
-      overflow: 'hidden',
-    },
-      h('div', {
-        width: `${progress}%`,
-        height: '100%',
-        background: q.color,
-        borderRadius: Math.round(4 * s),
-      })
-    )
-  );
+    // hashtag
+    kids.push(el('div', { position: 'absolute', bottom: Math.round(height * 0.08), color: 'rgba(255,255,255,0.12)', fontSize: Math.round(20 * s), fontWeight: 600 }, '#CallMeMaybe21'));
 
-  // progress label
-  childElements.push(
-    h('div', {
-      color: 'rgba(255,255,255,0.3)',
-      fontSize: Math.round(22 * s),
-      fontWeight: 600,
-      marginTop: Math.round(12 * s),
-      fontFamily: 'Sora',
-    }, `${day} / 21`)
-  );
-
-  // fire emoji for milestones
-  if (isMilestone) {
-    childElements.push(
-      h('div', {
-        fontSize: Math.round(50 * s),
-        marginTop: Math.round(15 * s),
-      }, '\u{1F525}')
-    );
-  }
-
-  // quote line 1
-  childElements.push(
-    h('div', {
-      color: 'rgba(255,255,255,0.85)',
-      fontSize: Math.round(48 * s),
-      fontWeight: 700,
-      textAlign: 'center',
-      marginTop: Math.round(isMilestone ? 25 * s : 55 * s),
-      fontFamily: 'Sora',
-    }, quoteLines[0])
-  );
-
-  // quote line 2
-  if (quoteLines[1]) {
-    childElements.push(
-      h('div', {
-        color: 'rgba(255,255,255,0.85)',
-        fontSize: Math.round(48 * s),
-        fontWeight: 700,
-        textAlign: 'center',
-        marginTop: Math.round(8 * s),
-        fontFamily: 'Sora',
-      }, quoteLines[1])
-    );
-  }
-
-  // coach name
-  childElements.push(
-    h('div', {
-      color: q.color,
-      opacity: 0.7,
-      fontSize: Math.round(26 * s),
-      fontWeight: 600,
-      marginTop: Math.round(25 * s),
-      fontFamily: 'Sora',
-    }, `\u2014 ${q.coach}`)
-  );
-
-  // bottom motivation (absolute)
-  childElements.push(
-    h('div', {
-      position: 'absolute',
-      bottom: Math.round(height * 0.14),
-      color: 'rgba(255,255,255,0.2)',
-      fontSize: Math.round(22 * s),
-      fontFamily: 'Sora',
-    }, bottomTexts[day % bottomTexts.length])
-  );
-
-  // hashtag (absolute)
-  childElements.push(
-    h('div', {
-      position: 'absolute',
-      bottom: Math.round(height * 0.08),
-      color: 'rgba(255,255,255,0.12)',
-      fontSize: Math.round(20 * s),
-      fontWeight: 600,
-      fontFamily: 'Sora',
-    }, '#CallMeMaybe21')
-  );
-
-  const element = {
-    type: 'div',
-    props: {
-      style: {
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        background: 'linear-gradient(180deg, #0a0b0e 0%, #0f1118 40%, #0a0b0e 100%)',
-        fontFamily: 'Sora',
-        position: 'relative',
+    const root = {
+      type: 'div',
+      props: {
+        style: {
+          width: '100%', height: '100%',
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          background: 'linear-gradient(180deg, #0a0b0e 0%, #0f1118 40%, #0a0b0e 100%)',
+          fontFamily: 'Sora', position: 'relative',
+        },
+        children: kids,
       },
-      children: childElements,
-    },
-  };
+    };
 
-  return new ImageResponse(element, {
-    width,
-    height,
-    fonts: [
-      { name: 'Sora', data: fontData, style: 'normal', weight: 700 },
-    ],
-    headers: {
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400',
-    },
-  });
+    return new ImageResponse(root, {
+      width,
+      height,
+      fonts: [
+        { name: 'Sora', data: fontData, weight: 400 },
+        { name: 'Sora', data: fontData, weight: 700 },
+        { name: 'Sora', data: fontData, weight: 900 },
+      ],
+      headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
+    });
 
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message, stack: e.stack }), {
