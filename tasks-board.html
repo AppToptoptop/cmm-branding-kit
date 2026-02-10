@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe — Task Board</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a0b0e;
+  --bg-card: #12141a;
+  --bg-card-hover: #181b23;
+  --bg-elevated: #1c1f28;
+  --accent-teal: #00d4aa;
+  --accent-orange: #ff6b35;
+  --accent-blue: #4da6ff;
+  --accent-purple: #b366ff;
+  --accent-yellow: #ffd166;
+  --accent-red: #ff4d6a;
+  --accent-green: #34d399;
+  --text-primary: #e8eaed;
+  --text-secondary: #8b8fa3;
+  --text-muted: #555a6e;
+  --border: #1e2130;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+::selection { background: var(--accent-teal); color: var(--bg-deep); }
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* HEADER */
+.header {
+  padding: 1.5rem 2rem 1rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  text-decoration: none;
+  border: 1px solid rgba(0,212,170,0.3);
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  transition: all 0.2s;
+}
+.back-link:hover { background: rgba(0,212,170,0.1); }
+.header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.header h1 span { color: var(--accent-teal); }
+.header-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 2rem 1rem;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+.filter-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--accent-teal);
+  color: var(--text-primary);
+  background: rgba(0,212,170,0.08);
+}
+
+/* BOARD */
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.25rem;
+  padding: 0 2rem 3rem;
+  max-width: 1500px;
+  margin: 0 auto;
+  align-items: start;
+}
+.column {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.col-header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg-card);
+  z-index: 2;
+}
+.col-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.col-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.col-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.col-count {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 0.15rem 0.5rem;
+  border-radius: 100px;
+}
+.col-body {
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* SPRINT DIVIDER */
+.sprint-divider {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 0.5rem 0.5rem 0.15rem;
+  margin-top: 0.25rem;
+}
+
+/* TASK CARD */
+.task {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  transition: all 0.2s;
+  cursor: default;
+  position: relative;
+}
+.task:hover {
+  border-color: rgba(0,212,170,0.2);
+  transform: translateY(-1px);
+}
+.task-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+.task-tag {
+  font-size: 0.58rem;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+.tag-backend { background: rgba(77,166,255,0.15); color: var(--accent-blue); }
+.tag-marketing { background: rgba(0,212,170,0.15); color: var(--accent-teal); }
+.tag-product { background: rgba(179,102,255,0.15); color: var(--accent-purple); }
+.tag-content { background: rgba(255,209,102,0.15); color: var(--accent-yellow); }
+.tag-growth { background: rgba(255,107,53,0.15); color: var(--accent-orange); }
+.tag-legal { background: rgba(255,77,106,0.15); color: var(--accent-red); }
+.tag-b2b { background: rgba(52,211,153,0.15); color: var(--accent-green); }
+.tag-launch { background: linear-gradient(135deg, rgba(0,212,170,0.15), rgba(179,102,255,0.15)); color: var(--accent-teal); }
+.task-date {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+}
+.task-title {
+  font-weight: 600;
+  font-size: 0.82rem;
+  margin-bottom: 0.25rem;
+}
+.task-desc {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.task-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+.task-owner {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.owner-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 0.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bg-deep);
+}
+.owner-dot.aaron { background: var(--accent-teal); }
+.owner-dot.ata { background: var(--accent-orange); }
+.owner-name { font-size: 0.6rem; color: var(--text-muted); }
+.task-status {
+  font-size: 0.55rem;
+  font-family: 'Space Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+.status-todo { background: rgba(85,90,110,0.3); color: var(--text-muted); }
+.status-now { background: rgba(255,107,53,0.2); color: var(--accent-orange); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .board { grid-template-columns: 1fr; }
+  .column { max-height: none; }
+}
+@media (max-width: 600px) {
+  .header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .filters { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <a href="strategy.html" class="back-link">&larr; War Room</a>
+    <h1>Task <span>Board</span></h1>
+  </div>
+  <div class="header-meta">UPDATED FEB 10, 2026 &mdash; 45+ TASKS</div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filterTasks('all')">All</button>
+  <button class="filter-btn" onclick="filterTasks('aaron')">Aaron</button>
+  <button class="filter-btn" onclick="filterTasks('ata')">Ata</button>
+  <button class="filter-btn" onclick="filterTasks('backend')">Backend</button>
+  <button class="filter-btn" onclick="filterTasks('marketing')">Marketing</button>
+  <button class="filter-btn" onclick="filterTasks('product')">Product</button>
+</div>
+
+<div class="board">
+
+  <!-- SHORT TERM: Feb 10-14 -->
+  <div class="column">
+    <div class="col-header">
+      <div class="col-title">
+        <div class="col-dot" style="background:var(--accent-red);"></div>
+        <div class="col-name">Short Term</div>
+      </div>
+      <div class="col-count">Feb 10-14 &bull; 14 tasks</div>
+    </div>
+    <div class="col-body">
+      <div class="sprint-divider">Sprint 1 &mdash; Ata (Backend)</div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-backend">Backend</span>
+          <span class="task-date">Feb 11</span>
+        </div>
+        <div class="task-title">VAPI.ai Account + First Test Call</div>
+        <div class="task-desc">Just get an AI phone call happening end-to-end</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-now">Now</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-backend">Backend</span>
+          <span class="task-date">Feb 12</span>
+        </div>
+        <div class="task-title">Supabase Setup</div>
+        <div class="task-desc">Auth, users table, call logs — basic schema, can iterate</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 13</span>
+        </div>
+        <div class="task-title">Voice Prompts v1</div>
+        <div class="task-desc">Morning check-in script using voice-prompts-guide.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-backend">Backend</span>
+          <span class="task-date">Feb 13</span>
+        </div>
+        <div class="task-title">Stripe Billing Integration</div>
+        <div class="task-desc">3 plans: &euro;9.90 / &euro;14.90 / &euro;24.90</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Milestone</span>
+          <span class="task-date">Feb 14</span>
+        </div>
+        <div class="task-title">End-to-End Flow Working</div>
+        <div class="task-desc">Signup &rarr; schedule &rarr; call. THE critical milestone.</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-backend">Backend</span>
+          <span class="task-date">Feb 14</span>
+        </div>
+        <div class="task-title">PostHog Analytics Setup</div>
+        <div class="task-desc">Basic events: signup, call_answered, call_completed</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Sprint 1 &mdash; Aaron (Marketing)</div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Blocker</span>
+          <span class="task-date">Feb 11</span>
+        </div>
+        <div class="task-title">Decide Final App Name</div>
+        <div class="task-desc">With Ata. Blocks domain, branding, social profiles.</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron + Ata</span></div>
+          <span class="task-status status-now">Now</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 11</span>
+        </div>
+        <div class="task-title">Register Domain (.ai)</div>
+        <div class="task-desc">Right after naming decision</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 12</span>
+        </div>
+        <div class="task-title">Deploy Waitlist on Final Domain</div>
+        <div class="task-desc">Already have waitlist.html ready</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 12</span>
+        </div>
+        <div class="task-title">Create Social Media Profiles</div>
+        <div class="task-desc">All platforms — use social-media-profiles.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 12</span>
+        </div>
+        <div class="task-title">Set Up Brevo (Email)</div>
+        <div class="task-desc">Email automation, import waitlist emails</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 13</span>
+        </div>
+        <div class="task-title">Create Discord Server</div>
+        <div class="task-desc">Basic setup — use discord-community-plan.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="content">
+        <div class="task-top">
+          <span class="task-tag tag-content">Content</span>
+          <span class="task-date">Feb 13</span>
+        </div>
+        <div class="task-title">Start TikTok Content (Day 1)</div>
+        <div class="task-desc">Use content-calendar-30days.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 14</span>
+        </div>
+        <div class="task-title">SEO Foundation</div>
+        <div class="task-desc">Meta tags, sitemap, blog setup — use seo-strategy.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MID TERM: Feb 15-28 -->
+  <div class="column">
+    <div class="col-header">
+      <div class="col-title">
+        <div class="col-dot" style="background:var(--accent-orange);"></div>
+        <div class="col-name">Mid Term</div>
+      </div>
+      <div class="col-count">Feb 15-28 &bull; 24 tasks</div>
+    </div>
+    <div class="col-body">
+      <div class="sprint-divider">Sprint 2 &mdash; Ata (Product)</div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 16</span>
+        </div>
+        <div class="task-title">Coach Persona &ldquo;Maya&rdquo;</div>
+        <div class="task-desc">Warm coach with teeth — prompt engineering, tone calibration</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 17</span>
+        </div>
+        <div class="task-title">Call Scheduling System</div>
+        <div class="task-desc">User picks time — morning calls 6am-10am range</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 17</span>
+        </div>
+        <div class="task-title">Streak Tracking + Gamification</div>
+        <div class="task-desc">Current streak, best streak, streak freeze</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 18</span>
+        </div>
+        <div class="task-title">Branded Caller ID</div>
+        <div class="task-desc">Users see &ldquo;Coach Maya&rdquo; not unknown number</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 18</span>
+        </div>
+        <div class="task-title">Preview Notification (5 min)</div>
+        <div class="task-desc">SMS or push before call — critical for answer rate</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 19</span>
+        </div>
+        <div class="task-title">Voice Food Logging</div>
+        <div class="task-desc">&ldquo;I had a salad and a coffee&rdquo; &rarr; parsed + logged</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 20</span>
+        </div>
+        <div class="task-title">User Dashboard (Web)</div>
+        <div class="task-desc">Streak, call history, next call time — mobile-friendly</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 21</span>
+        </div>
+        <div class="task-title">Contact Saving Onboarding</div>
+        <div class="task-desc">User saves number &rarr; known contact on phone</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Sprint 2 &mdash; Aaron (Audience)</div>
+
+      <div class="task" data-owner="aaron" data-tag="content">
+        <div class="task-top">
+          <span class="task-tag tag-content">Content</span>
+          <span class="task-date">Daily</span>
+        </div>
+        <div class="task-title">TikTok Content Days 2-8</div>
+        <div class="task-desc">First demo video of AI calling</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="content">
+        <div class="task-top">
+          <span class="task-tag tag-content">Content</span>
+          <span class="task-date">Feb 16</span>
+        </div>
+        <div class="task-title">Instagram Profile + First 5 Posts</div>
+        <div class="task-desc">Reels from TikTok content</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">Feb 15-21</span>
+        </div>
+        <div class="task-title">Reddit Karma Building</div>
+        <div class="task-desc">r/france, r/loseit — comment, don't promote yet</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">Feb 16</span>
+        </div>
+        <div class="task-title">Join 10 FB Weight Loss Groups</div>
+        <div class="task-desc">France — use facebook-playbook.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">Feb 17</span>
+        </div>
+        <div class="task-title">Contact 5 Nano Influencers</div>
+        <div class="task-desc">Use influencer-outreach-kit.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">Feb 18</span>
+        </div>
+        <div class="task-title">Pitch 2 Podcasts</div>
+        <div class="task-desc">Use podcast-pitch-kit.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 19</span>
+        </div>
+        <div class="task-title">Product Hunt Ship Page Draft</div>
+        <div class="task-desc">Use product-hunt-plan.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="legal">
+        <div class="task-top">
+          <span class="task-tag tag-legal">Legal</span>
+          <span class="task-date">Feb 20</span>
+        </div>
+        <div class="task-title">Apply La French Tech Label</div>
+        <div class="task-desc">Online application</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Feb 21</span>
+        </div>
+        <div class="task-title">Email Sequence (7 Emails)</div>
+        <div class="task-desc">Use email-nurture-sequence.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Sprint 3 &mdash; Beta (Feb 22-28)</div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 22</span>
+        </div>
+        <div class="task-title">Invite 20-30 Beta Testers</div>
+        <div class="task-desc">From waitlist + personal network + Discord</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 24</span>
+        </div>
+        <div class="task-title">Fix Bugs from Beta Day 1</div>
+        <div class="task-desc">Rapid iteration based on feedback</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">Feb 26</span>
+        </div>
+        <div class="task-title">Referral System v1</div>
+        <div class="task-desc">Use referral-program.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="content">
+        <div class="task-top">
+          <span class="task-tag tag-content">Content</span>
+          <span class="task-date">Feb 24-28</span>
+        </div>
+        <div class="task-title">Collect Beta Testimonials</div>
+        <div class="task-desc">Video + text for launch day assets</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="content">
+        <div class="task-top">
+          <span class="task-tag tag-content">Content</span>
+          <span class="task-date">Feb 25</span>
+        </div>
+        <div class="task-title">First Blog Post Published</div>
+        <div class="task-desc">Use blog-posts-seo.md</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Milestone</span>
+          <span class="task-date">Feb 28</span>
+        </div>
+        <div class="task-title">Product Hunt Ship Page LIVE</div>
+        <div class="task-desc">Start collecting followers</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LONG TERM: March+ -->
+  <div class="column">
+    <div class="col-header">
+      <div class="col-title">
+        <div class="col-dot" style="background:var(--accent-teal);"></div>
+        <div class="col-name">Long Term</div>
+      </div>
+      <div class="col-count">March+ &bull; 14 tasks</div>
+    </div>
+    <div class="col-body">
+      <div class="sprint-divider">Soft Launch &mdash; March 3</div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Launch</span>
+          <span class="task-date">Mar 3</span>
+        </div>
+        <div class="task-title">Open Beta to All Waitlist</div>
+        <div class="task-desc">Email + Discord blast</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="backend">
+        <div class="task-top">
+          <span class="task-tag tag-backend">Backend</span>
+          <span class="task-date">Mar 3</span>
+        </div>
+        <div class="task-title">Activate Paid Plans</div>
+        <div class="task-desc">7-day free trial via Stripe</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">Mar 3</span>
+        </div>
+        <div class="task-title">First Paid Ad Test (&euro;50)</div>
+        <div class="task-desc">Instagram — test creative + audience</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Full Launch &mdash; March 10</div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Launch</span>
+          <span class="task-date">Mar 10</span>
+        </div>
+        <div class="task-title">Product Hunt Goes Live</div>
+        <div class="task-desc">00:01 Paris time &mdash; full launch sequence</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Launch</span>
+          <span class="task-date">Mar 10</span>
+        </div>
+        <div class="task-title">Multi-Platform Blitz</div>
+        <div class="task-desc">X, Instagram, TikTok, Reddit, LinkedIn, WhatsApp</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="marketing">
+        <div class="task-top">
+          <span class="task-tag tag-marketing">Marketing</span>
+          <span class="task-date">Mar 10</span>
+        </div>
+        <div class="task-title">Discord Live Q&amp;A</div>
+        <div class="task-desc">10:00 Paris — community engagement</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Month 1 Targets &mdash; March</div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">March</span>
+        </div>
+        <div class="task-title">500 Total Signups</div>
+        <div class="task-desc">TikTok organic (200-500) + Instagram + Reddit + referrals</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-product">Product</span>
+          <span class="task-date">March</span>
+        </div>
+        <div class="task-title">50 Paying Users / &euro;500 MRR</div>
+        <div class="task-desc">Trial &rarr; Paid conversion target: &gt;15%</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Ata</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="growth">
+        <div class="task-top">
+          <span class="task-tag tag-growth">Growth</span>
+          <span class="task-date">March</span>
+        </div>
+        <div class="task-title">Meta Ads Test (&euro;300/mo)</div>
+        <div class="task-desc">Target CAC: &euro;10-15, 20-30 signups</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Aaron</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="sprint-divider">Scale &mdash; Month 4+</div>
+
+      <div class="task" data-owner="aaron" data-tag="b2b">
+        <div class="task-top">
+          <span class="task-tag tag-b2b">B2B</span>
+          <span class="task-date">June</span>
+        </div>
+        <div class="task-title">Alan + Basic-Fit Pilots</div>
+        <div class="task-desc">Corporate wellness partnership proposals</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Both</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="aaron" data-tag="b2b">
+        <div class="task-top">
+          <span class="task-tag tag-b2b">B2B</span>
+          <span class="task-date">June</span>
+        </div>
+        <div class="task-title">Dietitian Referral Program</div>
+        <div class="task-desc">5 dietitians via Madietenligne</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot aaron">AB</div><span class="owner-name">Both</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="legal">
+        <div class="task-top">
+          <span class="task-tag tag-legal">Funding</span>
+          <span class="task-date">July</span>
+        </div>
+        <div class="task-title">BPI France Innovation Grant</div>
+        <div class="task-desc">&euro;117K-187K non-dilutive funding</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Both</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+      <div class="task" data-owner="ata" data-tag="product">
+        <div class="task-top">
+          <span class="task-tag tag-launch">Target</span>
+          <span class="task-date">August</span>
+        </div>
+        <div class="task-title">&euro;13K MRR / 1,300 Paying Users</div>
+        <div class="task-desc">Month 6 milestone — &euro;33.5K cumulative revenue</div>
+        <div class="task-bottom">
+          <div class="task-owner"><div class="owner-dot ata">AT</div><span class="owner-name">Both</span></div>
+          <span class="task-status status-todo">Todo</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function filterTasks(filter) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.task').forEach(t => {
+    if (filter === 'all') { t.style.display = ''; return; }
+    const owner = t.dataset.owner;
+    const tag = t.dataset.tag;
+    const match = (filter === 'aaron' && owner === 'aaron') ||
+                  (filter === 'ata' && owner === 'ata') ||
+                  (filter === tag);
+    t.style.display = match ? '' : 'none';
+  });
+}
+</script>
+
+</body>
+</html>
