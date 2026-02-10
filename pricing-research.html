@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing Benchmark | Call Me Maybe War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #08090c;
+  --surface: #0e1015;
+  --card: #12141b;
+  --card-hover: #181b24;
+  --border: #1c1f2a;
+  --text: #eceae7;
+  --dim: #8a8f9e;
+  --muted: #4e5263;
+  --gold: #D4A853;
+  --teal: #00d4aa;
+  --orange: #F47D31;
+  --green: #4ade80;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 2rem 0 1rem;
+  transition: color 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.back-link:hover { color: var(--teal); }
+
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text) 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--dim);
+  max-width: 700px;
+  line-height: 1.8;
+}
+
+.section {
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--teal);
+}
+
+h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+p { color: var(--dim); margin-bottom: 1rem; font-size: 0.95rem; }
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--dim); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.card:hover { background: var(--card-hover); border-color: var(--teal); }
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead th {
+  background: linear-gradient(135deg, rgba(0,212,170,0.15) 0%, rgba(212,168,83,0.1) 100%);
+  color: var(--teal);
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid var(--teal);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--dim);
+  vertical-align: top;
+}
+
+tbody tr { background: var(--card); transition: background 0.2s; }
+tbody tr:nth-child(even) { background: var(--surface); }
+tbody tr:hover { background: var(--card-hover); }
+tbody td:first-child { color: var(--text); font-weight: 500; }
+tbody td strong { color: var(--text); }
+
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; color: var(--dim); }
+li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+li strong { color: var(--text); }
+
+.highlight {
+  background: linear-gradient(135deg, rgba(0,212,170,0.08) 0%, rgba(212,168,83,0.05) 100%);
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.stat-card .stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+.stat-card .stat-label {
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+.callout {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.callout-title {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Price map */
+.price-map {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--dim);
+}
+
+.cmm-highlight {
+  background: rgba(0,212,170,0.15);
+  border: 1px solid var(--teal);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.sources { margin-top: 2rem; }
+.sources a { color: var(--blue); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.sources a:hover { color: var(--teal); }
+.sources li { margin-bottom: 0.4rem; }
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 1rem 3rem; }
+  .hero { padding: 2rem 0; }
+  table { font-size: 0.78rem; }
+  thead th, tbody td { padding: 0.5rem; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .price-map { font-size: 0.65rem; padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to War Room</a>
+
+<header class="hero">
+  <div class="hero-label">War Room Research</div>
+  <h1>Coaching &amp; Weight Loss App Pricing Benchmark</h1>
+  <p class="hero-description">Comprehensive competitive pricing analysis for Call Me Maybe positioning. Where EUR9.90/mo sits in the global and French market landscape.</p>
+</header>
+
+<!-- 1. Master Comparison Table -->
+<div class="section">
+  <h2>1. Master Comparison Table</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Category</th><th>Monthly Price</th><th>Annual Price</th><th>Annual /mo</th><th>Free Tier</th><th>Trial</th><th>Target Market</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Noom</strong></td>
+          <td>Weight loss coaching</td>
+          <td>$70/mo</td>
+          <td>$209/yr</td>
+          <td>$17.42/mo</td>
+          <td>Yes (since Sep 2025)</td>
+          <td>14-day free</td>
+          <td>US/Global, 25-55, psychology-based</td>
+        </tr>
+        <tr>
+          <td><strong>Yazio</strong></td>
+          <td>Calorie counter</td>
+          <td>$7.99/mo</td>
+          <td>$39.99/yr</td>
+          <td>$3.33/mo</td>
+          <td>Yes (basic tracking)</td>
+          <td>None</td>
+          <td>Europe-focused, budget calorie trackers</td>
+        </tr>
+        <tr>
+          <td><strong>MyFitnessPal</strong></td>
+          <td>Calorie tracking</td>
+          <td>$19.99-$24.99/mo</td>
+          <td>$79.99-$99.99/yr</td>
+          <td>$6.67-$8.33/mo</td>
+          <td>Yes (food logging, basic macros)</td>
+          <td>1-month free</td>
+          <td>Global, largest food database</td>
+        </tr>
+        <tr>
+          <td><strong>BetterMe</strong></td>
+          <td>Fitness/weight loss</td>
+          <td>$19.99/mo</td>
+          <td>~$84/yr</td>
+          <td>~$7.00/mo</td>
+          <td>Minimal (quiz only)</td>
+          <td>None</td>
+          <td>150M+ downloads, 18-35 women</td>
+        </tr>
+        <tr>
+          <td><strong>Freeletics</strong></td>
+          <td>AI fitness coaching</td>
+          <td>~$10/mo</td>
+          <td>~$100-125/yr</td>
+          <td>~$8.33/mo</td>
+          <td>Yes (limited workouts)</td>
+          <td>None</td>
+          <td>Europe-first, bodyweight fitness</td>
+        </tr>
+        <tr>
+          <td><strong>WW (Weight Watchers)</strong></td>
+          <td>Weight loss program</td>
+          <td>$23/mo (Digital)</td>
+          <td>~$240/yr</td>
+          <td>$20/mo</td>
+          <td>No</td>
+          <td>None (frequent promos)</td>
+          <td>35-60, primarily women</td>
+        </tr>
+        <tr>
+          <td><strong>WW France</strong></td>
+          <td>Weight loss program</td>
+          <td>From EUR10/mo</td>
+          <td>~EUR120/yr</td>
+          <td>EUR10/mo</td>
+          <td>No</td>
+          <td>None</td>
+          <td>France, 30-60</td>
+        </tr>
+        <tr>
+          <td><strong>Lose It!</strong></td>
+          <td>Weight loss tracker</td>
+          <td>$9.99/mo</td>
+          <td>$39.99/yr</td>
+          <td>$3.33/mo</td>
+          <td>Yes (basic calorie tracking)</td>
+          <td>None</td>
+          <td>US, budget-conscious trackers</td>
+        </tr>
+        <tr>
+          <td><strong>Calibrate</strong></td>
+          <td>Metabolic health + GLP-1</td>
+          <td>~$199/mo</td>
+          <td>$1,649/yr</td>
+          <td>$137/mo</td>
+          <td>No</td>
+          <td>No</td>
+          <td>US, high-income, medical weight loss</td>
+        </tr>
+        <tr>
+          <td><strong>Found</strong></td>
+          <td>Weight loss + GLP-1</td>
+          <td>$99-129/mo (+ meds)</td>
+          <td>~$1,200-1,500/yr</td>
+          <td>$99+/mo</td>
+          <td>No</td>
+          <td>No</td>
+          <td>US, GLP-1 seekers</td>
+        </tr>
+        <tr>
+          <td><strong>Fitbit Premium</strong></td>
+          <td>Health/fitness</td>
+          <td>$9.99/mo</td>
+          <td>$79.99/yr</td>
+          <td>$6.67/mo</td>
+          <td>Yes (basic activity tracking)</td>
+          <td>6-mo free w/ device</td>
+          <td>Fitbit device owners</td>
+        </tr>
+        <tr>
+          <td><strong>Peloton App</strong></td>
+          <td>Fitness</td>
+          <td>$15.99-$28.99/mo</td>
+          <td>N/A (monthly only)</td>
+          <td>$15.99-28.99/mo</td>
+          <td>Yes (limited workouts)</td>
+          <td>7-day free</td>
+          <td>US, fitness enthusiasts, 25-45</td>
+        </tr>
+        <tr>
+          <td><strong>Fastic</strong></td>
+          <td>Intermittent fasting</td>
+          <td>~$16/mo</td>
+          <td>~$79-99/yr</td>
+          <td>~$6.60-8.25/mo</td>
+          <td>Yes (basic fasting timer)</td>
+          <td>None</td>
+          <td>Global, fasting community</td>
+        </tr>
+        <tr>
+          <td><strong>Lifesum</strong></td>
+          <td>Nutrition</td>
+          <td>~$9.99/mo</td>
+          <td>$44.99/yr</td>
+          <td>$3.75/mo</td>
+          <td>Yes (basic food log)</td>
+          <td>None</td>
+          <td>Europe/Global, nutrition-focused</td>
+        </tr>
+        <tr>
+          <td><strong>8fit</strong></td>
+          <td>Workouts + meals</td>
+          <td>$25/mo</td>
+          <td>$79/yr</td>
+          <td>$6.67/mo</td>
+          <td>Minimal (few workouts)</td>
+          <td>14-day trial</td>
+          <td>Global, home workout seekers</td>
+        </tr>
+        <tr>
+          <td><strong>Centr</strong></td>
+          <td>Fitness (celebrity)</td>
+          <td>$29.99/mo</td>
+          <td>$89.99/yr</td>
+          <td>$7.50/mo</td>
+          <td>No</td>
+          <td>7-day free</td>
+          <td>Fans of Chris Hemsworth, 20-40</td>
+        </tr>
+        <tr>
+          <td><strong>Petit BamBou</strong></td>
+          <td>Meditation (French)</td>
+          <td>EUR6.99/mo</td>
+          <td>EUR59.88/yr</td>
+          <td>EUR4.99/mo</td>
+          <td>Yes (discovery programs)</td>
+          <td>None</td>
+          <td>France/francophone, meditation</td>
+        </tr>
+        <tr>
+          <td><strong>FizzUp</strong></td>
+          <td>Fitness (French)</td>
+          <td>EUR19.99/mo</td>
+          <td>EUR69.99/yr</td>
+          <td>EUR5.83/mo</td>
+          <td>Yes (basic workouts)</td>
+          <td>None</td>
+          <td>France, home fitness</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 2. Pricing Tier Analysis -->
+<div class="section">
+  <h2>2. Pricing Tier Analysis</h2>
+
+  <h3>Budget Tier (under $5/mo equivalent)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Annual /mo Equiv.</th><th>Strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Yazio</strong></td><td>$3.33/mo</td><td>Volume play, Europe-focused</td></tr>
+        <tr><td><strong>Lose It!</strong></td><td>$3.33/mo</td><td>Dynamic pricing, rewards engagement</td></tr>
+        <tr><td><strong>Lifesum</strong></td><td>$3.75/mo</td><td>Nutrition-only focus</td></tr>
+        <tr><td><strong>Petit BamBou</strong></td><td>EUR4.99/mo</td><td>French market niche</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Mid-Range Tier ($5-10/mo equivalent)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Annual /mo Equiv.</th><th>Strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>FizzUp</strong></td><td>EUR5.83/mo</td><td>French fitness niche</td></tr>
+        <tr><td><strong>Fitbit Premium</strong></td><td>$6.67/mo</td><td>Device ecosystem lock-in</td></tr>
+        <tr><td><strong>MyFitnessPal</strong></td><td>$6.67/mo</td><td>Massive free user base, gentle upsell</td></tr>
+        <tr><td><strong>8fit</strong></td><td>$6.67/mo</td><td>Workout + meal combo value</td></tr>
+        <tr><td><strong>BetterMe</strong></td><td>~$7.00/mo</td><td>Aggressive paid acquisition</td></tr>
+        <tr><td><strong>Centr</strong></td><td>$7.50/mo</td><td>Celebrity brand premium</td></tr>
+        <tr><td><strong>Fastic</strong></td><td>~$6.60-8.25/mo</td><td>Fasting niche</td></tr>
+        <tr><td><strong>Freeletics</strong></td><td>~$8.33/mo</td><td>AI coach positioning</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Premium Tier ($10-25/mo)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Monthly Price</th><th>Strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>WW France</strong></td><td>EUR10-18/mo</td><td>Legacy brand, workshops</td></tr>
+        <tr><td><strong>Peloton App One</strong></td><td>$15.99/mo</td><td>Content library, no annual discount</td></tr>
+        <tr><td><strong>Noom</strong></td><td>$17.42/mo (annual)</td><td>Psychology-based, high commitment</td></tr>
+        <tr><td><strong>WW US</strong></td><td>$20-23/mo</td><td>Brand trust, community</td></tr>
+        <tr><td><strong>Peloton App+</strong></td><td>$28.99/mo</td><td>Full content access</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Medical/Luxury Tier ($99+/mo)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Monthly Price</th><th>Strategy</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Found</strong></td><td>$99-129/mo (+ meds)</td><td>GLP-1 medication access</td></tr>
+        <tr><td><strong>Calibrate</strong></td><td>$137-199/mo</td><td>Medical metabolic reset</td></tr>
+        <tr><td><strong>Noom Med</strong></td><td>$99-149/mo</td><td>GLP-1 + coaching hybrid</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 3. Conversion & Revenue Metrics -->
+<div class="section">
+  <h2>3. Conversion &amp; Revenue Metrics</h2>
+
+  <h3>Industry Benchmarks (Health &amp; Fitness Apps, 2025-2026)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Median</th><th>Top 10% (P90)</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Download-to-Paid Conversion</strong></td><td>1.5-2.7%</td><td>12.1%</td><td>RevenueCat 2025</td></tr>
+        <tr><td><strong>Trial-to-Paid Conversion</strong></td><td>28-48%</td><td>68%</td><td>RevenueCat 2025</td></tr>
+        <tr><td><strong>14-Day ARPU</strong></td><td>$0.44</td><td>$1.31</td><td>RevenueCat 2025</td></tr>
+        <tr><td><strong>Annual ARPU (all apps)</strong></td><td>$25.78</td><td>-</td><td>Business of Apps 2026</td></tr>
+        <tr><td><strong>Annual ARPU (paid apps only)</strong></td><td>$70.20</td><td>-</td><td>Business of Apps 2026</td></tr>
+        <tr><td><strong>Subscription App Monthly ARPU</strong></td><td>$3-9/mo</td><td>-</td><td>Industry average</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Known App-Specific Metrics</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Key Metric</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Noom</strong></td><td>~1.5M paid subscribers, ~$500M revenue (2023), ARR ~$1B</td><td>Sacra</td></tr>
+        <tr><td><strong>BetterMe</strong></td><td>~700K downloads/mo, ~$2M revenue/mo, 150M+ total installs</td><td>Sensor Tower</td></tr>
+        <tr><td><strong>France H&amp;W Coaching ARPU</strong></td><td>US$16.35 expected average</td><td>Statista</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 4. Pricing Strategy Patterns -->
+<div class="section">
+  <h2>4. Pricing Strategy Patterns</h2>
+
+  <h3>Freemium Timing &amp; Paywall Approaches</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Strategy</th><th>Apps Using It</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Hard paywall after quiz</strong></td><td>BetterMe, Noom (pre-2025)</td><td>Long onboarding quiz, paywall at the end</td></tr>
+        <tr><td><strong>Generous free + premium upsell</strong></td><td>MyFitnessPal, Lose It!, Yazio</td><td>Core features free, premium for power users</td></tr>
+        <tr><td><strong>Time-limited free content</strong></td><td>Petit BamBou, FizzUp</td><td>Discovery programs free, paywall for full catalog</td></tr>
+        <tr><td><strong>Free trial + auto-renew</strong></td><td>Centr, 8fit, Peloton</td><td>7-14 day free trial, then charged</td></tr>
+        <tr><td><strong>No free tier</strong></td><td>WW, Calibrate, Found</td><td>Brand/medical authority justifies immediate payment</td></tr>
+        <tr><td><strong>Device-locked free</strong></td><td>Fitbit Premium</td><td>Free basic with device, premium for insights</td></tr>
+        <tr><td><strong>Freemium launched late</strong></td><td>Noom (Sep 2025)</td><td>Added free tier to expand funnel for GLP-1 upsell</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Trial Length Comparison</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Trial Length</th><th>Apps</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>No trial</strong></td><td>Yazio, BetterMe, Freeletics, WW, Lose It!, Fastic, Lifesum, FizzUp, Petit BamBou</td></tr>
+        <tr><td><strong>7-day</strong></td><td>Centr, Peloton</td></tr>
+        <tr><td><strong>14-day</strong></td><td>Noom, 8fit</td></tr>
+        <tr><td><strong>1-month</strong></td><td>MyFitnessPal</td></tr>
+        <tr><td><strong>6-month (with device)</strong></td><td>Fitbit Premium</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Annual vs Monthly Discount Depth</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Monthly</th><th>Annual /mo</th><th>Discount %</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Centr</strong></td><td>$29.99</td><td>$7.50</td><td style="color: var(--green); font-weight: 600;">75%</td></tr>
+        <tr><td><strong>Noom</strong></td><td>$70.00</td><td>$17.42</td><td style="color: var(--green); font-weight: 600;">75%</td></tr>
+        <tr><td><strong>8fit</strong></td><td>$25.00</td><td>$6.67</td><td style="color: var(--green); font-weight: 600;">73%</td></tr>
+        <tr><td><strong>FizzUp</strong></td><td>EUR19.99</td><td>EUR5.83</td><td style="color: var(--green); font-weight: 600;">71%</td></tr>
+        <tr><td><strong>MyFitnessPal</strong></td><td>$19.99</td><td>$6.67</td><td style="color: var(--green); font-weight: 600;">67%</td></tr>
+        <tr><td><strong>BetterMe</strong></td><td>$19.99</td><td>~$7.00</td><td style="color: var(--green); font-weight: 600;">65%</td></tr>
+        <tr><td><strong>Fitbit Premium</strong></td><td>$9.99</td><td>$6.67</td><td>33%</td></tr>
+        <tr><td><strong>Freeletics</strong></td><td>~$10.00</td><td>~$8.33</td><td>~17%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Apps with aggressive annual discounts (65-75% off monthly) use monthly pricing as an anchor to push annual commitments. The monthly price is intentionally unattractive.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 5. Human Coaching Comparison -->
+<div class="section">
+  <h2>5. Human Coaching Comparison (France)</h2>
+
+  <h3>Professional Coaching Rates in France</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Price Range</th><th>Format</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Coach sportif (per session)</strong></td><td>EUR30-80/session</td><td>In-person</td></tr>
+        <tr><td><strong>Coach sportif at home</strong></td><td>EUR50-70/hour</td><td>Home visits</td></tr>
+        <tr><td><strong>Online fitness coaching</strong></td><td>EUR39-130/month</td><td>Remote</td></tr>
+        <tr><td><strong>Nutritional coaching</strong></td><td>EUR40-130/session or /month</td><td>Variable</td></tr>
+        <tr><td><strong>Combined sport + nutrition coaching</strong></td><td>EUR55-130/month</td><td>Online</td></tr>
+        <tr><td><strong>Premium/celebrity coach</strong></td><td>Up to EUR300/session</td><td>In-person</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>After Tax Credit (50% in France)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Before Credit</th><th>After Credit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Coach at home (per hour)</strong></td><td>EUR38-60/hr</td><td>EUR19-30/hr</td></tr>
+        <tr><td><strong>Monthly package (4 sessions)</strong></td><td>EUR152-240/mo</td><td>EUR76-120/mo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Price Positioning Map</h3>
+  <div class="price-map">Price/month (EUR)
+|
+300  |                                          [Human premium coach]
+200  |                                    [Calibrate] [Found+meds]
+150  |
+100  |                              [Noom Med] [Found membership]
+ 75  |                        [Human online coach after tax credit]
+ 50  |
+ 25  |                  [WW workshops] [Peloton App+] [Noom annual]
+ 20  |            [WW Digital] [FizzUp monthly]
+ 15  |       [Peloton App One]
+ 10  |  ==&gt; <span style="color: var(--teal); font-weight: 700;">[CALL ME MAYBE at EUR9.90]</span> &lt;==
+  8  |  [Freeletics] [MyFitnessPal annual] [Centr annual]
+  7  |  [BetterMe annual] [Petit BamBou] [8fit annual]
+  5  |  [FizzUp annual] [Lifesum]
+  3  |  [Yazio] [Lose It!]
+  0  |  [Free tiers]
+     +--------------------------------------------------&gt;
+       Low touch                              High touch
+       (self-service)                    (coaching/human)</div>
+</div>
+
+<hr class="divider">
+
+<!-- 6. CMM at EUR9.90/mo -->
+<div class="section">
+  <h2>6. Call Me Maybe at EUR9.90/mo: Competitive Analysis</h2>
+
+  <h3>Where EUR9.90/mo Sits in the Market</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green);">95%</div>
+      <div class="stat-label">Cheaper than human coaching</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green);">86%</div>
+      <div class="stat-label">Cheaper than Noom</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green);">57%</div>
+      <div class="stat-label">Cheaper than WW Digital France</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green);">50%</div>
+      <div class="stat-label">Cheaper than Peloton App One</div>
+    </div>
+  </div>
+
+  <div class="cmm-highlight">
+    <p><strong>EUR9.90/month positions Call Me Maybe:</strong></p>
+    <ul>
+      <li><strong>95% cheaper</strong> than human coaching in France (EUR55-130/mo online)</li>
+      <li><strong>86% cheaper</strong> than Noom (monthly rate $70)</li>
+      <li><strong>57% cheaper</strong> than WW Digital France (EUR23/mo standard)</li>
+      <li><strong>At parity</strong> with Fitbit Premium ($9.99/mo) and Lose It! ($9.99/mo)</li>
+      <li><strong>50% cheaper</strong> than Peloton App One ($15.99/mo)</li>
+      <li><strong>More expensive</strong> than pure trackers on annual plans (Yazio $3.33/mo, Lose It! $3.33/mo)</li>
+    </ul>
+  </div>
+
+  <h3>Strategic Advantage of EUR9.90/mo</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Factor</th><th>Analysis</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Price-to-value perception</strong></td><td>AI voice calls + WhatsApp daily check-ins at under EUR10 = exceptional perceived value vs. human coaching</td></tr>
+        <tr><td><strong>Impulse purchase threshold</strong></td><td>Sub-EUR10 pricing falls below the "think twice" threshold for most consumers</td></tr>
+        <tr><td><strong>Vs. trackers</strong></td><td>2-3x more than pure calorie counters, justified by active coaching modality (calls)</td></tr>
+        <tr><td><strong>Vs. coaching apps</strong></td><td>50-85% cheaper than coached programs (Noom, WW, Peloton)</td></tr>
+        <tr><td><strong>Vs. human coaches</strong></td><td>90-95% cheaper, available 24/7, no scheduling friction</td></tr>
+        <tr><td><strong>France ARPU alignment</strong></td><td>France H&amp;W coaching ARPU of $16.35 means EUR9.90 is achievable and slightly below average -- room for premium tier later</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Recommended Pricing Architecture</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Tier</th><th>Price</th><th>Features</th><th>Competitive Anchor</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Free</strong></td>
+          <td>EUR0</td>
+          <td>1 AI check-in/week, basic goal setting</td>
+          <td>Competes with free tiers of MFP, Yazio</td>
+        </tr>
+        <tr>
+          <td><strong>Essential</strong></td>
+          <td style="color: var(--teal); font-weight: 600;">EUR9.90/mo</td>
+          <td>Daily AI calls, WhatsApp check-ins, progress tracking</td>
+          <td>Undercuts Noom/WW by 50%+</td>
+        </tr>
+        <tr>
+          <td><strong>Premium</strong></td>
+          <td>EUR19.90/mo</td>
+          <td>Everything + custom voice coach personality, advanced analytics, priority scheduling</td>
+          <td>At parity with WW Digital/FizzUp monthly</td>
+        </tr>
+        <tr>
+          <td><strong>Annual Essential</strong></td>
+          <td>EUR79/yr (EUR6.58/mo)</td>
+          <td>Same as Essential, 33% annual discount</td>
+          <td>At parity with MFP/Fitbit Premium annual</td>
+        </tr>
+        <tr>
+          <td><strong>Annual Premium</strong></td>
+          <td>EUR149/yr (EUR12.42/mo)</td>
+          <td>Same as Premium, 38% annual discount</td>
+          <td>Below Noom annual ($209/yr)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 7. France-Specific Market Insights -->
+<div class="section">
+  <h2>7. France-Specific Market Insights</h2>
+
+  <h3>Willingness to Pay</h3>
+  <ul>
+    <li><strong>France H&amp;W Coaching ARPU:</strong> US$16.35 (Statista forecast)</li>
+    <li><strong>Most popular paid subscriptions:</strong> Fitness/exercise (57%), Life coaching (34%), Diet/nutrition (26%)</li>
+    <li><strong>Consumers willing to pay for weight loss services:</strong> 43%</li>
+    <li><strong>Preferred payment model:</strong> Subscription (67% of digital health decision makers)</li>
+  </ul>
+
+  <h3>French Competitors</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Monthly</th><th>Annual /mo</th><th>Positioning</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>WW France Standard</strong></td><td>EUR10/mo</td><td>EUR10/mo</td><td>Legacy, community-driven</td></tr>
+        <tr><td><strong>WW France Premium</strong></td><td>EUR18/mo</td><td>EUR18/mo</td><td>Workshops + digital</td></tr>
+        <tr><td><strong>Petit BamBou</strong></td><td>EUR6.99/mo</td><td>EUR4.99/mo</td><td>Meditation-only, French-made</td></tr>
+        <tr><td><strong>FizzUp</strong></td><td>EUR19.99/mo</td><td>EUR5.83/mo</td><td>French fitness, no coaching</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="highlight">
+    <h4>Key Takeaway for France</h4>
+    <p>The French market has limited direct competition in the <strong>AI coaching for weight loss</strong> niche. WW is the dominant weight loss brand but costs 2-4x more. Petit BamBou and FizzUp serve adjacent categories. No French app offers daily AI phone calls for accountability.</p>
+    <p style="margin-top: 1rem;">At EUR9.90/mo, Call Me Maybe is positioned in a white space:</p>
+    <ul>
+      <li>More personalized than trackers (Yazio, MFP, Lose It!)</li>
+      <li>More affordable than coached programs (WW, Noom)</li>
+      <li>More innovative than legacy French apps (FizzUp, Petit BamBou)</li>
+      <li>Radically cheaper than human coaching (EUR55-130/mo)</li>
+    </ul>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 8. CoachCall.ai -->
+<div class="section">
+  <h2>8. CoachCall.ai (Closest Competitor)</h2>
+  <div class="card">
+    <ul>
+      <li><strong>Product:</strong> AI accountability partner via phone calls + WhatsApp</li>
+      <li><strong>Features:</strong> Voice calls, WhatsApp check-ins, smart scheduling, achievement tracking, multiple coach personalities</li>
+      <li><strong>Pricing:</strong> Not publicly disclosed (paid subscription model, exact tiers unknown)</li>
+      <li><strong>Modes:</strong> Accountability, Mindfulness, Custom</li>
+      <li><strong>Target:</strong> Entrepreneurs, busy parents, students</li>
+      <li><strong>Differentiation from CMM:</strong> General accountability (not weight-loss specific), English-language focused</li>
+    </ul>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Strategic Implication</div>
+    <p>CoachCall.ai validates the AI-calls-for-accountability model but does not focus on weight loss or the French market. Call Me Maybe's weight-loss specialization + French-first approach creates meaningful differentiation.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 9. Key Strategic Recommendations -->
+<div class="section">
+  <h2>9. Key Strategic Recommendations</h2>
+
+  <div class="card">
+    <h4>1. EUR9.90/mo is well-positioned</h4>
+    <p>It sits in the "sweet spot" between cheap trackers and expensive coaching programs, offering significantly more value than trackers at only 2-3x the price.</p>
+  </div>
+
+  <div class="card">
+    <h4>2. Lead with the human coaching comparison</h4>
+    <p>"The accountability of a personal coach for EUR9.90/mo instead of EUR200-500/mo" is a powerful value proposition.</p>
+  </div>
+
+  <div class="card">
+    <h4>3. Consider a free tier</h4>
+    <p>80%+ of successful health apps offer a free tier. A limited free tier (1 call/week) would build the funnel for conversion. Industry benchmark conversion of 2-12% on a large free base can drive growth.</p>
+  </div>
+
+  <div class="card">
+    <h4>4. Annual pricing should be aggressive</h4>
+    <p>Offer 33-40% discount on annual plans. The industry norm is 65-75% monthly-to-annual discount (where the monthly price is inflated as an anchor).</p>
+  </div>
+
+  <div class="card">
+    <h4>5. Trial strategy matters</h4>
+    <p>A 7-day free trial with daily calls would demonstrate the value proposition viscerally. Top apps see 47-68% trial-to-paid conversion.</p>
+  </div>
+
+  <div class="card">
+    <h4>6. France-first is a moat</h4>
+    <p>No competitor offers AI voice coaching for weight loss in French. WW France charges EUR10-18/mo for a less personalized digital experience.</p>
+  </div>
+</div>
+
+<div class="footer-note">
+  Pricing data compiled February 2026. Prices are approximate and subject to change. Currency conversions use approximate exchange rates.
+</div>
+
+</div>
+
+</body>
+</html>

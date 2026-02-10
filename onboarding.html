@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --green:#22c55e;--green-dark:#16a34a;--green-light:#4ade80;--green-50:#f0fdf4;--green-100:#dcfce7;
+  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;--gray-300:#d1d5db;--gray-400:#9ca3af;
+  --gray-500:#6b7280;--gray-600:#4b5563;--gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;
+  --white:#fff;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--orange:#f97316;--yellow:#eab308;
+  --teal:#14b8a6;
+}
+body{font-family:'Inter',sans-serif;background:var(--gray-50);color:var(--gray-900);min-height:100vh;overflow-x:hidden}
+
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:100;background:var(--white);border-bottom:1px solid var(--gray-200);padding:0.75rem 2rem;display:flex;align-items:center;justify-content:space-between}
+.top-bar .logo{display:flex;align-items:center;gap:0.5rem;font-weight:800;font-size:1.1rem;color:var(--gray-900);text-decoration:none}
+.top-bar .logo .mark{width:32px;height:32px;background:var(--green);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:0.8rem;font-weight:900}
+.top-bar .logo span{color:var(--green)}
+.top-bar-right{display:flex;align-items:center;gap:0.75rem}
+
+/* lang toggle */
+.lang-toggle{display:flex;border:2px solid var(--gray-200);border-radius:10px;overflow:hidden;font-size:0.75rem;font-weight:700}
+.lang-btn{padding:6px 14px;cursor:pointer;background:var(--white);color:var(--gray-500);border:none;font-family:'Inter',sans-serif;font-weight:700;font-size:0.75rem;transition:all 0.2s}
+.lang-btn.active{background:var(--green);color:var(--white)}
+.lang-btn:hover:not(.active){background:var(--gray-50);color:var(--gray-700)}
+
+.progress-container{position:fixed;top:57px;left:0;right:0;z-index:99;background:var(--white);padding:1rem 2rem 0.75rem;border-bottom:1px solid var(--gray-100)}
+.progress-steps{display:flex;align-items:center;justify-content:center;gap:0.5rem;max-width:600px;margin:0 auto}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;transition:all 0.4s ease;border:2px solid var(--gray-300);color:var(--gray-400);background:var(--white)}
+.step-dot.active{border-color:var(--green);background:var(--green);color:var(--white);transform:scale(1.1)}
+.step-dot.done{border-color:var(--green);background:var(--green-50);color:var(--green)}
+.step-line{width:40px;height:2px;background:var(--gray-200);transition:background 0.4s}
+.step-line.active{background:var(--green)}
+.step-label{font-size:0.65rem;color:var(--gray-400);text-align:center;margin-top:0.25rem;white-space:nowrap}
+.step-label.active{color:var(--green);font-weight:600}
+.step-group{display:flex;flex-direction:column;align-items:center}
+
+.main{padding-top:140px;padding-bottom:120px;max-width:800px;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+.step-panel{display:none;animation:fadeUp 0.5s ease}
+.step-panel.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.step-heading{text-align:center;margin-bottom:2.5rem}
+.step-heading .emoji{font-size:3rem;margin-bottom:0.75rem}
+.step-heading h2{font-size:1.75rem;font-weight:800;margin-bottom:0.5rem;line-height:1.2}
+.step-heading h2 .green{color:var(--green)}
+.step-heading p{color:var(--gray-500);font-size:0.95rem;max-width:500px;margin:0 auto;line-height:1.6}
+
+.path-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
+.path-card{background:var(--white);border:2px solid var(--gray-200);border-radius:16px;padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all 0.3s ease;position:relative;overflow:hidden}
+.path-card:hover{border-color:var(--green-light);transform:translateY(-4px);box-shadow:0 12px 40px rgba(34,197,94,0.12)}
+.path-card.selected{border-color:var(--green);background:var(--green-50);box-shadow:0 0 0 3px rgba(34,197,94,0.2)}
+.path-card .check{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--white);display:none;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700}
+.path-card.selected .check{display:flex}
+.path-card .icon{font-size:3rem;margin-bottom:1rem}
+.path-card h3{font-size:1.15rem;font-weight:700;margin-bottom:0.5rem}
+.path-card p{font-size:0.8rem;color:var(--gray-500);line-height:1.5}
+.path-card .tag{display:inline-block;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.65rem;font-weight:700;text-transform:uppercase;margin-top:0.75rem}
+.path-card:nth-child(1) .tag{background:#fef2f2;color:#ef4444}
+.path-card:nth-child(2) .tag{background:#eff6ff;color:#3b82f6}
+.path-card:nth-child(3) .tag{background:#f5f3ff;color:#8b5cf6}
+
+.question-group{margin-bottom:2rem}
+.question-group label{display:block;font-size:0.85rem;font-weight:700;margin-bottom:0.75rem;color:var(--gray-700)}
+.chip-grid{display:flex;flex-wrap:wrap;gap:0.5rem}
+.chip{padding:0.5rem 1rem;border-radius:100px;border:2px solid var(--gray-200);background:var(--white);cursor:pointer;font-size:0.8rem;font-weight:500;color:var(--gray-600);transition:all 0.2s;user-select:none}
+.chip:hover{border-color:var(--green-light);color:var(--gray-800)}
+.chip.selected{border-color:var(--green);background:var(--green-50);color:var(--green-dark);font-weight:600}
+
+.input-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+.input-group{display:flex;flex-direction:column;gap:0.4rem}
+.input-group label{font-size:0.8rem;font-weight:600;color:var(--gray-600)}
+.input-group input,.input-group select,.input-group textarea{padding:0.65rem 1rem;border:2px solid var(--gray-200);border-radius:10px;font-size:0.9rem;font-family:'Inter',sans-serif;transition:border 0.2s;background:var(--white)}
+.input-group input:focus,.input-group select:focus,.input-group textarea:focus{outline:none;border-color:var(--green)}
+.input-group textarea{resize:vertical;min-height:60px;line-height:1.5}
+
+.voice-prompt{background:var(--green-50);border:1px solid var(--green-100);border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:0.75rem;align-items:flex-start}
+.voice-prompt .vp-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
+.voice-prompt .vp-text{font-size:0.8rem;color:var(--gray-600);line-height:1.5}
+.voice-prompt .vp-text strong{color:var(--green-dark)}
+
+.coach-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+.coach-card{background:var(--white);border:2px solid var(--gray-200);border-radius:16px;padding:1.5rem;cursor:pointer;transition:all 0.3s;display:flex;gap:1rem;align-items:flex-start;position:relative}
+.coach-card:hover{border-color:var(--green-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+.coach-card.selected{border-color:var(--green);background:var(--green-50)}
+.coach-card .avatar{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.coach-card .info h4{font-size:1rem;font-weight:700;margin-bottom:0.2rem}
+.coach-card .info .style{font-size:0.75rem;font-weight:600;color:var(--green);margin-bottom:0.4rem}
+.coach-card .info p{font-size:0.78rem;color:var(--gray-500);line-height:1.5}
+.coach-card .check{position:absolute;top:12px;right:12px;width:24px;height:24px;border-radius:50%;background:var(--green);color:var(--white);display:none;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700}
+.coach-card.selected .check{display:flex}
+.coach-card .sample-msg{margin-top:0.5rem;background:var(--gray-50);padding:0.5rem 0.75rem;border-radius:10px;font-size:0.75rem;color:var(--gray-600);font-style:italic;border-left:3px solid var(--green)}
+
+.schedule-section{background:var(--white);border-radius:16px;border:1px solid var(--gray-200);padding:2rem;margin-bottom:1.5rem}
+.schedule-section h3{font-size:1rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.time-picker{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.time-picker input[type=range]{flex:1;accent-color:var(--green);height:8px}
+.time-display{font-size:1.5rem;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums;min-width:60px;text-align:center}
+.days-grid{display:flex;gap:0.5rem;flex-wrap:wrap}
+.day-chip{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px solid var(--gray-200);cursor:pointer;font-size:0.75rem;font-weight:700;color:var(--gray-500);transition:all 0.2s;background:var(--white)}
+.day-chip:hover{border-color:var(--green-light)}
+.day-chip.selected{border-color:var(--green);background:var(--green);color:var(--white)}
+
+/* extras section */
+.extras-grid{display:grid;grid-template-columns:1fr;gap:0.75rem;margin-top:1.5rem}
+.extra-toggle{background:var(--white);border:2px solid var(--gray-200);border-radius:12px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all 0.2s}
+.extra-toggle:hover{border-color:var(--green-light)}
+.extra-toggle.active{border-color:var(--green);background:var(--green-50)}
+.extra-toggle .et-icon{font-size:1.5rem;flex-shrink:0}
+.extra-toggle .et-text{flex:1}
+.extra-toggle .et-text strong{font-size:0.85rem;display:block;margin-bottom:0.15rem}
+.extra-toggle .et-text span{font-size:0.75rem;color:var(--gray-500)}
+.extra-toggle .et-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--gray-300);display:flex;align-items:center;justify-content:center;font-size:0.7rem;color:transparent;transition:all 0.2s;flex-shrink:0}
+.extra-toggle.active .et-check{background:var(--green);border-color:var(--green);color:var(--white)}
+
+.phone-frame{width:280px;margin:0 auto 2rem;background:var(--gray-900);border-radius:32px;padding:12px;box-shadow:0 20px 60px rgba(0,0,0,0.2)}
+.phone-screen{background:var(--white);border-radius:22px;overflow:hidden;min-height:400px}
+.phone-status{background:var(--gray-900);color:var(--white);padding:8px 20px;font-size:0.65rem;display:flex;justify-content:space-between;font-weight:600}
+.call-screen{background:linear-gradient(135deg,#0f172a,#1e3a5f);color:var(--white);text-align:center;padding:3rem 1.5rem 2rem;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:space-between}
+.call-screen .caller-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--teal));display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:1rem;animation:pulse-ring 2s infinite}
+@keyframes pulse-ring{0%{box-shadow:0 0 0 0 rgba(34,197,94,0.4)}70%{box-shadow:0 0 0 20px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.call-screen .caller-name{font-size:1.3rem;font-weight:700;margin-bottom:0.25rem}
+.call-screen .caller-label{font-size:0.8rem;opacity:0.7;margin-bottom:2rem}
+.call-screen .calling-text{font-size:0.85rem;opacity:0.6;margin-bottom:2rem;animation:blink 1.5s infinite}
+@keyframes blink{0%,50%{opacity:0.6}25%{opacity:0.3}}
+.call-actions{display:flex;gap:2rem;justify-content:center}
+.call-btn{width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;font-size:1.5rem;display:flex;align-items:center;justify-content:center;transition:transform 0.2s}
+.call-btn:hover{transform:scale(1.1)}
+.call-btn.decline{background:var(--red)}
+.call-btn.accept{background:var(--green);animation:pulse-ring 2s infinite}
+
+.summary-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
+.summary-card{background:var(--white);border:1px solid var(--gray-200);border-radius:12px;padding:1.25rem}
+.summary-card .label{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--gray-400);margin-bottom:0.4rem}
+.summary-card .value{font-size:1rem;font-weight:700;color:var(--gray-800)}
+.summary-card .detail{font-size:0.8rem;color:var(--gray-500);margin-top:0.2rem}
+
+.prediction{background:linear-gradient(135deg,var(--green-50),#ecfdf5);border:2px solid var(--green);border-radius:16px;padding:2rem;text-align:center;margin-bottom:2rem}
+.prediction .date{font-size:2rem;font-weight:900;color:var(--green-dark);margin-bottom:0.25rem}
+.prediction .sub{font-size:0.9rem;color:var(--gray-600)}
+.prediction .disclaimer{font-size:0.7rem;color:var(--gray-400);margin-top:0.75rem}
+
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--white);border-top:1px solid var(--gray-200);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.btn{padding:0.75rem 1.75rem;border-radius:12px;font-size:0.9rem;font-weight:700;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;display:flex;align-items:center;gap:0.5rem}
+.btn:disabled{opacity:0.4;cursor:not-allowed}
+.btn-primary{background:var(--green);color:var(--white)}
+.btn-primary:hover:not(:disabled){background:var(--green-dark);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--gray-500);border:2px solid var(--gray-200)}
+.btn-secondary:hover{border-color:var(--gray-400);color:var(--gray-700)}
+.btn-ghost{background:transparent;color:var(--gray-400);font-size:0.85rem;padding:0.5rem 1rem}
+
+@media(max-width:768px){
+  .path-grid{grid-template-columns:1fr}
+  .coach-grid{grid-template-columns:1fr}
+  .input-row{grid-template-columns:1fr}
+  .summary-grid{grid-template-columns:1fr}
+  .progress-steps{gap:0.25rem}
+  .step-line{width:20px}
+  .step-label{font-size:0.55rem}
+  .main{padding-left:1rem;padding-right:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- top bar -->
+<div class="top-bar">
+  <a class="logo" href="landing-v2.html">
+    <div class="mark">CM</div>
+    Call Me <span>Maybe</span>
+  </a>
+  <div class="top-bar-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="btn btn-ghost" id="back-btn" onclick="window.location.href='landing-v2.html'">&larr; Retour</button>
+  </div>
+</div>
+
+<!-- progress bar -->
+<div class="progress-container">
+  <div class="progress-steps">
+    <div class="step-group"><div class="step-dot active" id="dot-1">1</div><div class="step-label active" id="label-1"></div></div>
+    <div class="step-line" id="line-1"></div>
+    <div class="step-group"><div class="step-dot" id="dot-2">2</div><div class="step-label" id="label-2"></div></div>
+    <div class="step-line" id="line-2"></div>
+    <div class="step-group"><div class="step-dot" id="dot-3">3</div><div class="step-label" id="label-3"></div></div>
+    <div class="step-line" id="line-3"></div>
+    <div class="step-group"><div class="step-dot" id="dot-4">4</div><div class="step-label" id="label-4"></div></div>
+    <div class="step-line" id="line-4"></div>
+    <div class="step-group"><div class="step-dot" id="dot-5">5</div><div class="step-label" id="label-5"></div></div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- STEP 1 -->
+<div class="step-panel active" id="step-1">
+  <div class="step-heading">
+    <div class="emoji">&#127919;</div>
+    <h2 data-fr="Quel est ton <span class='green'>objectif principal</span> ?" data-en="What's your <span class='green'>main goal</span>?"></h2>
+    <p data-fr="Choisis le domaine o&ugrave; tu veux progresser. Ton coach adaptera chaque appel." data-en="Pick the area you want to improve. Your coach will tailor every call."></p>
+  </div>
+  <div class="path-grid">
+    <div class="path-card" data-path="weight" onclick="selectPath(this)">
+      <div class="check">&check;</div>
+      <div class="icon">&#127947;&#65039;</div>
+      <h3 data-fr="Perdre du poids" data-en="Lose Weight"></h3>
+      <p data-fr="Suivi alimentaire, motivation quotidienne, objectifs de poids." data-en="Food tracking, daily motivation, weight goals."></p>
+      <div class="tag" data-fr="Le plus populaire" data-en="Most popular"></div>
+    </div>
+    <div class="path-card" data-path="fitness" onclick="selectPath(this)">
+      <div class="check">&check;</div>
+      <div class="icon">&#128170;</div>
+      <h3 data-fr="Se remettre en forme" data-en="Get Fit"></h3>
+      <p data-fr="Musculation, cardio, &eacute;nergie et constance." data-en="Strength, cardio, energy and consistency."></p>
+      <div class="tag" data-fr="Nouveau" data-en="New"></div>
+    </div>
+    <div class="path-card" data-path="sport" onclick="selectPath(this)">
+      <div class="check">&check;</div>
+      <div class="icon">&#127941;</div>
+      <h3 data-fr="Progresser en sport" data-en="Level Up Sport"></h3>
+      <p data-fr="Padel, running, boxe&hellip; Performances sportives." data-en="Padel, running, boxing&hellip; Sport performance."></p>
+      <div class="tag" data-fr="Sp&eacute;cialis&eacute;" data-en="Specialized"></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step-panel" id="step-2">
+  <div class="step-heading">
+    <div class="emoji">&#128221;</div>
+    <h2 data-fr="Parle-nous de <span class='green'>toi</span>" data-en="Tell us about <span class='green'>yourself</span>"></h2>
+    <p data-fr="Plus ton coach te conna&icirc;t, mieux il t'aide." data-en="The more your coach knows, the better the calls."></p>
+  </div>
+
+  <!-- Weight -->
+  <div id="q-weight" class="path-questions" style="display:none">
+    <div class="voice-prompt">
+      <div class="vp-icon">&#128172;</div>
+      <div class="vp-text" data-fr="<strong>Pourquoi ces questions ?</strong> Ton coach utilisera tes r&eacute;ponses au t&eacute;l&eacute;phone. Sois bref &mdash; comme tu parlerais &agrave; un ami." data-en="<strong>Why these questions?</strong> Your coach will use your answers on the phone. Keep it short &mdash; like talking to a friend."></div>
+    </div>
+    <div class="input-row">
+      <div class="input-group"><label data-fr="Poids actuel (kg)" data-en="Current weight (kg)"></label><input type="number" placeholder="85" id="current-weight"></div>
+      <div class="input-group"><label data-fr="Poids cible (kg)" data-en="Target weight (kg)"></label><input type="number" placeholder="72" id="target-weight"></div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#128293; Pourquoi ? (max 3)" data-en="&#128293; Why? (max 3)"></label>
+      <div class="chip-grid" data-max="3">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Le miroir" data-en="The mirror"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="La plage" data-en="The beach"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Mes v&ecirc;tements" data-en="My clothes"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Ma sant&eacute;" data-en="My health"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Plus d'&eacute;nergie" data-en="More energy"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Mes enfants" data-en="My kids"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Un &eacute;v&eacute;nement" data-en="An event"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Le dating" data-en="Dating"></span>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#128128; Ton pi&egrave;ge" data-en="&#128128; Your trap"></label>
+      <div class="chip-grid" data-max="2">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Grignotage le soir" data-en="Late snacking"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Fast food" data-en="Fast food"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Sucre" data-en="Sugar"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Alcool" data-en="Alcohol"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Grosses portions" data-en="Big portions"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Alimentation &eacute;motionnelle" data-en="Emotional eating"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Restos / soir&eacute;es" data-en="Restaurants / parties"></span>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#128260; D&eacute;j&agrave; essay&eacute; ?" data-en="&#128260; Tried before?"></label>
+      <div class="chip-grid" data-max="1">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Premi&egrave;re fois" data-en="First time"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="2-3 fois" data-en="2-3 times"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="J'ai perdu le compte" data-en="Lost count"></span>
+      </div>
+    </div>
+    <div class="input-group" style="margin-top:1rem">
+      <label data-fr="&#127908; Ton objectif en une phrase" data-en="&#127908; Your goal in one sentence"></label>
+      <textarea id="goal-phrase-weight" data-fr-placeholder="Ex: Perdre 10kg avant l'&eacute;t&eacute; et arr&ecirc;ter le grignotage" data-en-placeholder="Ex: Lose 10kg before summer and stop late-night snacking" maxlength="150"></textarea>
+      <div style="font-size:0.7rem;color:var(--gray-400);margin-top:0.25rem" data-fr="Ton coach reprendra cette phrase au t&eacute;l&eacute;phone." data-en="Your coach will quote this on the phone."></div>
+    </div>
+  </div>
+
+  <!-- Fitness -->
+  <div id="q-fitness" class="path-questions" style="display:none">
+    <div class="voice-prompt">
+      <div class="vp-icon">&#128172;</div>
+      <div class="vp-text" data-fr="<strong>Pourquoi ces questions ?</strong> Ton coach s'adapte &agrave; toi. R&eacute;ponds vite." data-en="<strong>Why these questions?</strong> Your coach adapts to you. Keep it quick."></div>
+    </div>
+    <div class="input-row">
+      <div class="input-group"><label data-fr="S&eacute;ances / semaine" data-en="Sessions / week"></label>
+        <select><option data-fr="0 (je d&eacute;marre)" data-en="0 (just starting)"></option><option>1-2</option><option>3-4</option><option>5+</option></select>
+      </div>
+      <div class="input-group"><label data-fr="Temps dispo" data-en="Time available"></label>
+        <select><option>15-30 min</option><option>30-45 min</option><option>45-60 min</option><option>60+ min</option></select>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#127919; Objectif (max 2)" data-en="&#127919; Goal (max 2)"></label>
+      <div class="chip-grid" data-max="2">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Muscle" data-en="Muscle"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Cardio" data-en="Cardio"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="&Eacute;nergie" data-en="Energy"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Remise en forme" data-en="Get back in shape"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Mental" data-en="Mental health"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Physique" data-en="Aesthetics"></span>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#128128; Ce qui te bloque" data-en="&#128128; What blocks you"></label>
+      <div class="chip-grid" data-max="2">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Motivation" data-en="Motivation"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Temps" data-en="Time"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="J'arr&ecirc;te apr&egrave;s 2 sem." data-en="I quit after 2 weeks"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Pas de programme" data-en="No program"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Fatigue" data-en="Fatigue"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Y aller seul" data-en="Going alone"></span>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#127968; O&ugrave; ?" data-en="&#127968; Where?"></label>
+      <div class="chip-grid" data-max="1">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Salle" data-en="Gym"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Maison" data-en="Home"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Ext&eacute;rieur" data-en="Outdoors"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Pas d&eacute;cid&eacute;" data-en="Not sure yet"></span>
+      </div>
+    </div>
+    <div class="input-group" style="margin-top:1rem">
+      <label data-fr="&#127908; Ton objectif en une phrase" data-en="&#127908; Your goal in one sentence"></label>
+      <textarea id="goal-phrase-fitness" data-fr-placeholder="Ex: Reprendre la salle 4x/sem et gagner 5kg de muscle" data-en-placeholder="Ex: Get back to the gym 4x/week and gain 5kg of muscle" maxlength="150"></textarea>
+      <div style="font-size:0.7rem;color:var(--gray-400);margin-top:0.25rem" data-fr="Ton coach reprendra cette phrase au t&eacute;l&eacute;phone." data-en="Your coach will quote this on the phone."></div>
+    </div>
+  </div>
+
+  <!-- Sport -->
+  <div id="q-sport" class="path-questions" style="display:none">
+    <div class="voice-prompt">
+      <div class="vp-icon">&#128172;</div>
+      <div class="vp-text" data-fr="<strong>Pourquoi ces questions ?</strong> Ton coach adaptera chaque appel &agrave; ton sport." data-en="<strong>Why these questions?</strong> Your coach will tailor calls to your sport."></div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#127934; Ton sport" data-en="&#127934; Your sport"></label>
+      <div class="chip-grid" data-max="2">
+        <span class="chip" onclick="toggleChip(this)">Padel</span>
+        <span class="chip" onclick="toggleChip(this)">Tennis</span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Boxe / MMA" data-en="Boxing / MMA"></span>
+        <span class="chip" onclick="toggleChip(this)">Running</span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Natation" data-en="Swimming"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="V&eacute;lo" data-en="Cycling"></span>
+        <span class="chip" onclick="toggleChip(this)">CrossFit</span>
+        <span class="chip" onclick="toggleChip(this)">Yoga</span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Foot / Basket" data-en="Soccer / Basketball"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Autre" data-en="Other"></span>
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="input-group"><label data-fr="Niveau" data-en="Level"></label>
+        <select><option data-fr="D&eacute;butant" data-en="Beginner"></option><option data-fr="Interm&eacute;diaire" data-en="Intermediate"></option><option data-fr="Confirm&eacute;" data-en="Advanced"></option><option data-fr="Comp&eacute;tition" data-en="Competitive"></option></select>
+      </div>
+      <div class="input-group"><label data-fr="Fr&eacute;quence" data-en="Frequency"></label>
+        <select><option data-fr="1x / semaine" data-en="1x / week"></option><option data-fr="2-3x / semaine" data-en="2-3x / week"></option><option data-fr="4-5x / semaine" data-en="4-5x / week"></option><option data-fr="Tous les jours" data-en="Every day"></option></select>
+      </div>
+    </div>
+    <div class="question-group">
+      <label data-fr="&#128200; &Agrave; am&eacute;liorer (max 3)" data-en="&#128200; Improve (max 3)"></label>
+      <div class="chip-grid" data-max="3">
+        <span class="chip" onclick="toggleChip(this)" data-fr="Technique" data-en="Technique"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Endurance" data-en="Endurance"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Force" data-en="Strength"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Vitesse" data-en="Speed"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="Mental" data-en="Mental"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="R&eacute;cup" data-en="Recovery"></span>
+        <span class="chip" onclick="toggleChip(this)" data-fr="R&eacute;gularit&eacute;" data-en="Consistency"></span>
+      </div>
+    </div>
+    <div class="input-group" style="margin-top:1rem">
+      <label data-fr="&#127908; Ton objectif en une phrase" data-en="&#127908; Your goal in one sentence"></label>
+      <textarea id="goal-phrase-sport" data-fr-placeholder="Ex: Passer de 3e s&eacute;rie &agrave; 2e en padel d'ici juin" data-en-placeholder="Ex: Move from 3rd to 2nd division in padel by June" maxlength="150"></textarea>
+      <div style="font-size:0.7rem;color:var(--gray-400);margin-top:0.25rem" data-fr="Ton coach reprendra cette phrase au t&eacute;l&eacute;phone." data-en="Your coach will quote this on the phone."></div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 3: Coach -->
+<div class="step-panel" id="step-3">
+  <div class="step-heading">
+    <div class="emoji">&#129333;</div>
+    <h2 data-fr="Choisis ton <span class='green'>style de coach</span>" data-en="Pick your <span class='green'>coach style</span>"></h2>
+    <p data-fr="Tu pourras en changer &agrave; tout moment." data-en="You can switch anytime."></p>
+  </div>
+  <div class="coach-grid">
+    <div class="coach-card" data-coach="max" onclick="selectCoach(this)">
+      <div class="check">&check;</div>
+      <div class="avatar" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0)">&#128170;</div>
+      <div class="info">
+        <h4>Coach Max</h4>
+        <div class="style" data-fr="Bienveillant mais direct" data-en="Warm but honest"></div>
+        <p data-fr="Chaleureux, honn&ecirc;te, pas de blabla. Il c&eacute;l&egrave;bre tes victoires et te remet sur les rails." data-en="Warm, honest, no BS. He celebrates wins and gets you back on track."></p>
+        <div class="sample-msg" data-fr="&laquo; Hier tu m'as dit que tu allais &eacute;viter le sucre. Comment &ccedil;a s'est pass&eacute; ? &raquo;" data-en="&ldquo;You told me you'd skip sugar yesterday. How did it go? Be honest.&rdquo;"></div>
+      </div>
+    </div>
+    <div class="coach-card" data-coach="luna" onclick="selectCoach(this)">
+      <div class="check">&check;</div>
+      <div class="avatar" style="background:linear-gradient(135deg,#fef3c7,#fde68a)">&#127774;</div>
+      <div class="info">
+        <h4>Coach Luna</h4>
+        <div class="style" data-fr="Douce &amp; encourageante" data-en="Gentle &amp; supportive"></div>
+        <p data-fr="Empathique et positive. Chaque petit pas est une victoire." data-en="Empathetic and positive. Every small step is a win."></p>
+        <div class="sample-msg" data-fr="&laquo; M&ecirc;me si hier n'&eacute;tait pas parfait, tu es l&agrave; aujourd'hui. C'est &ccedil;a la force. &raquo;" data-en="&ldquo;Even if yesterday wasn't perfect, you showed up today. That's strength.&rdquo;"></div>
+      </div>
+    </div>
+    <div class="coach-card" data-coach="alex" onclick="selectCoach(this)">
+      <div class="check">&check;</div>
+      <div class="avatar" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">&#128293;</div>
+      <div class="info">
+        <h4>Coach Alex</h4>
+        <div class="style">Drill Sergeant</div>
+        <p data-fr="Pas d'excuses. Le coach qui ne l&acirc;che rien." data-en="No excuses. The coach who never lets up."></p>
+        <div class="sample-msg" data-fr="&laquo; Tu m'avais dit 7h &agrave; la salle. Il est 7h02. Tu y es ou pas ? &raquo;" data-en="&ldquo;You said 7am at the gym. It's 7:02. Are you there or not?&rdquo;"></div>
+      </div>
+    </div>
+    <div class="coach-card" data-coach="sage" onclick="selectCoach(this)">
+      <div class="check">&check;</div>
+      <div class="avatar" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe)">&#129504;</div>
+      <div class="info">
+        <h4>Coach Sage</h4>
+        <div class="style" data-fr="Data-driven &amp; strat&eacute;gique" data-en="Data-driven &amp; strategic"></div>
+        <p data-fr="Analytique et pr&eacute;cis. Il identifie tes patterns." data-en="Analytical and precise. Spots your patterns."></p>
+        <div class="sample-msg" data-fr="&laquo; Tes donn&eacute;es montrent que tu craques le mercredi soir. On met un rappel ? &raquo;" data-en="&ldquo;Your data shows you slip on Wednesdays. Should we set a reminder?&rdquo;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: Schedule + Extras -->
+<div class="step-panel" id="step-4">
+  <div class="step-heading">
+    <div class="emoji">&#128197;</div>
+    <h2 data-fr="Planning &amp; <span class='green'>pr&eacute;f&eacute;rences</span>" data-en="Schedule &amp; <span class='green'>preferences</span>"></h2>
+    <p data-fr="Quand ton coach t'appelle + le contenu que tu veux recevoir." data-en="When your coach calls + the content you want to receive."></p>
+  </div>
+
+  <div class="schedule-section">
+    <h3 data-fr="&#9728;&#65039; Appel du matin" data-en="&#9728;&#65039; Morning call"></h3>
+    <div class="time-picker">
+      <span style="font-size:0.8rem;color:var(--gray-400)">6h</span>
+      <input type="range" min="6" max="10" step="0.5" value="7.5" oninput="updateTime(this,'morning-time')">
+      <span style="font-size:0.8rem;color:var(--gray-400)">10h</span>
+      <div class="time-display" id="morning-time">7h30</div>
+    </div>
+  </div>
+
+  <div class="schedule-section">
+    <h3 data-fr="&#127769; Appel du soir <span style='font-size:0.75rem;color:var(--gray-400);font-weight:400'>(optionnel)</span>" data-en="&#127769; Evening call <span style='font-size:0.75rem;color:var(--gray-400);font-weight:400'>(optional)</span>"></h3>
+    <div style="margin-bottom:1rem">
+      <label style="display:flex;align-items:center;gap:0.5rem;cursor:pointer;font-size:0.85rem;color:var(--gray-600)">
+        <input type="checkbox" id="evening-toggle" onchange="toggleEvening()" style="accent-color:var(--green);width:18px;height:18px">
+        <span data-fr="Ajouter un check-in le soir" data-en="Add an evening check-in"></span>
+      </label>
+    </div>
+    <div id="evening-section" style="display:none">
+      <div class="time-picker">
+        <span style="font-size:0.8rem;color:var(--gray-400)">18h</span>
+        <input type="range" min="18" max="22" step="0.5" value="20" oninput="updateTime(this,'evening-time')">
+        <span style="font-size:0.8rem;color:var(--gray-400)">22h</span>
+        <div class="time-display" id="evening-time">20h00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="schedule-section">
+    <h3 data-fr="&#128197; Jours d'appels" data-en="&#128197; Call days"></h3>
+    <p style="font-size:0.8rem;color:var(--gray-500);margin-bottom:1rem" data-fr="On recommande tous les jours pour les 21 premiers jours." data-en="We recommend every day for the first 21 days."></p>
+    <div class="days-grid">
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Lun" data-en="Mon"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Mar" data-en="Tue"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Mer" data-en="Wed"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Jeu" data-en="Thu"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Ven" data-en="Fri"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Sam" data-en="Sat"></div>
+      <div class="day-chip selected" onclick="toggleDay(this)" data-fr="Dim" data-en="Sun"></div>
+    </div>
+  </div>
+
+  <!-- EXTRAS: videos, tips, accounts -->
+  <div class="schedule-section">
+    <h3 data-fr="&#127916; Contenu bonus" data-en="&#127916; Bonus content"></h3>
+    <p style="font-size:0.8rem;color:var(--gray-500);margin-bottom:1rem" data-fr="En plus des appels, veux-tu recevoir du contenu pour t'aider ?" data-en="Beyond calls, do you want extra content to help you?"></p>
+    <div class="extras-grid">
+      <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="videos">
+        <div class="et-icon">&#127909;</div>
+        <div class="et-text">
+          <strong data-fr="Vid&eacute;os cl&eacute;s" data-en="Key videos"></strong>
+          <span data-fr="Exercices, recettes, techniques &mdash; 2-3 par semaine" data-en="Exercises, recipes, techniques &mdash; 2-3 per week"></span>
+        </div>
+        <div class="et-check">&check;</div>
+      </div>
+      <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="accounts">
+        <div class="et-icon">&#128241;</div>
+        <div class="et-text">
+          <strong data-fr="Comptes &agrave; suivre" data-en="Accounts to follow"></strong>
+          <span data-fr="Influenceurs, coachs, et comptes motivants pour ton objectif" data-en="Influencers, coaches, and motivating accounts for your goal"></span>
+        </div>
+        <div class="et-check">&check;</div>
+      </div>
+      <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="tips">
+        <div class="et-icon">&#128161;</div>
+        <div class="et-text">
+          <strong data-fr="Tips &amp; astuces quotidiens" data-en="Daily tips &amp; hacks"></strong>
+          <span data-fr="Nutrition, mindset, habitudes &mdash; par SMS ou notification" data-en="Nutrition, mindset, habits &mdash; via SMS or push"></span>
+        </div>
+        <div class="et-check">&check;</div>
+      </div>
+      <div class="extra-toggle" onclick="toggleExtra(this)" data-extra="challenges">
+        <div class="et-icon">&#127942;</div>
+        <div class="et-text">
+          <strong data-fr="Challenges communaut&eacute;" data-en="Community challenges"></strong>
+          <span data-fr="D&eacute;fis hebdomadaires avec d'autres utilisateurs" data-en="Weekly challenges with other users"></span>
+        </div>
+        <div class="et-check">&check;</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: Summary -->
+<div class="step-panel" id="step-5">
+  <div class="step-heading">
+    <div class="emoji">&#128640;</div>
+    <h2 data-fr="Tout est <span class='green'>pr&ecirc;t</span> !" data-en="All <span class='green'>set</span>!"></h2>
+    <p data-fr="Voici le r&eacute;sum&eacute;. Ton premier appel arrive bient&ocirc;t." data-en="Here's your summary. Your first call is coming soon."></p>
+  </div>
+
+  <div id="prediction-box" class="prediction" style="display:none">
+    <div style="font-size:0.75rem;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem" data-fr="&#127793; Estimation personnalis&eacute;e" data-en="&#127793; Personalized estimate"></div>
+    <div class="date" id="pred-date"></div>
+    <div class="sub" id="pred-sub"></div>
+    <div class="disclaimer" data-fr="* Perte saine de 0,5-1 kg/semaine avec suivi r&eacute;gulier." data-en="* Healthy loss of 0.5-1 kg/week with consistent check-ins."></div>
+  </div>
+
+  <div id="goal-phrase-display" style="display:none;background:var(--white);border:2px solid var(--green);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;text-align:center">
+    <div style="font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--green);margin-bottom:0.4rem" data-fr="&#127908; Ton objectif en une phrase" data-en="&#127908; Your goal in one sentence"></div>
+    <div id="goal-phrase-text" style="font-size:1.05rem;font-weight:600;color:var(--gray-800);font-style:italic"></div>
+    <div style="font-size:0.7rem;color:var(--gray-400);margin-top:0.5rem" data-fr="Ton coach dira &ccedil;a au t&eacute;l&eacute;phone." data-en="Your coach will say this on the phone."></div>
+  </div>
+
+  <div class="summary-grid" id="summary-grid"></div>
+
+  <div class="phone-frame">
+    <div class="phone-screen">
+      <div class="phone-status"><span>9:41</span><span>&#128267; &#128246;</span></div>
+      <div class="call-screen">
+        <div>
+          <div class="caller-avatar" id="call-avatar">&#128170;</div>
+          <div class="caller-name" id="call-name">Coach Max</div>
+          <div class="caller-label">Call Me Maybe</div>
+          <div class="calling-text" data-fr="Appel entrant&hellip;" data-en="Incoming call&hellip;"></div>
+        </div>
+        <div class="call-actions">
+          <button class="call-btn decline">&#128532;</button>
+          <button class="call-btn accept">&#128222;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center;color:var(--gray-400);font-size:0.8rem" data-fr="En continuant, tu acceptes nos <a href='#' style='color:var(--green)'>CGU</a> et notre <a href='#' style='color:var(--green)'>politique de confidentialit&eacute;</a>." data-en="By continuing, you agree to our <a href='#' style='color:var(--green)'>Terms</a> and <a href='#' style='color:var(--green)'>Privacy Policy</a>."></p>
+</div>
+
+</div>
+
+<!-- bottom nav -->
+<div class="bottom-nav">
+  <button class="btn btn-secondary" id="btn-back" onclick="prevStep()" style="visibility:hidden">&larr; <span data-fr="Retour" data-en="Back"></span></button>
+  <div style="font-size:0.8rem;color:var(--gray-400)" id="step-counter"></div>
+  <button class="btn btn-primary" id="btn-next" onclick="nextStep()" disabled><span id="btn-next-text"></span></button>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 5;
+let lang = 'fr';
+let state = { path: null, coach: null, extras: [] };
+
+// i18n
+const T = {
+  steps: { fr: ['Objectif','Profil','Coach','Planning','C\'est parti'], en: ['Goal','Profile','Coach','Schedule','Let\'s go'] },
+  stepOf: { fr: (n) => '\u00C9tape ' + n + ' sur ' + totalSteps, en: (n) => 'Step ' + n + ' of ' + totalSteps },
+  next: { fr: 'Continuer \u2192', en: 'Continue \u2192' },
+  final: { fr: 'Recevoir mon premier appel \uD83D\uDCDE', en: 'Get my first call \uD83D\uDCDE' },
+  loading: { fr: 'Inscription en cours...', en: 'Signing up...' },
+  done: { fr: 'Merci ! Ton premier appel arrive demain matin. \uD83D\uDE80', en: 'Thanks! Your first call is coming tomorrow morning. \uD83D\uDE80' },
+  back: { fr: '\u2190 Retour au site', en: '\u2190 Back to site' },
+  pathNames: { fr: { weight:'Perte de poids', fitness:'Remise en forme', sport:'Progression sportive' }, en: { weight:'Weight Loss', fitness:'Get Fit', sport:'Sport Performance' } },
+  coachStyles: { fr: { max:'Bienveillant mais direct', luna:'Douce & encourageante', alex:'Drill Sergeant', sage:'Data-driven' }, en: { max:'Warm but honest', luna:'Gentle & supportive', alex:'Drill Sergeant', sage:'Data-driven' } },
+  summaryLabels: { fr: ['Objectif','Coach','Appel du matin','Jours','Contenu bonus'], en: ['Goal','Coach','Morning call','Days','Bonus content'] },
+  months: { fr: ['janvier','f\u00e9vrier','mars','avril','mai','juin','juillet','ao\u00fbt','septembre','octobre','novembre','d\u00e9cembre'], en: ['January','February','March','April','May','June','July','August','September','October','November','December'] },
+  predSub: { fr: (tw,w) => 'Tu pourrais atteindre ' + tw + ' kg en ' + w + ' semaines', en: (tw,w) => 'You could reach ' + tw + ' kg in ' + w + ' weeks' },
+  daysWeek: { fr: (n) => n + ' jours / semaine', en: (n) => n + ' days / week' },
+  extraNames: { fr: { videos:'Vid\u00e9os cl\u00e9s', accounts:'Comptes \u00e0 suivre', tips:'Tips quotidiens', challenges:'Challenges' }, en: { videos:'Key videos', accounts:'Accounts to follow', tips:'Daily tips', challenges:'Challenges' } }
+};
+
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent === l.toUpperCase()));
+  document.documentElement.lang = l;
+
+  // update all translatable elements
+  document.querySelectorAll('[data-' + l + ']').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + l);
+  });
+
+  // update placeholders
+  document.querySelectorAll('[data-' + l + '-placeholder]').forEach(el => {
+    el.placeholder = el.getAttribute('data-' + l + '-placeholder');
+  });
+
+  // update back button
+  document.getElementById('back-btn').innerHTML = T.back[l];
+
+  updateProgress();
+}
+
+function selectPath(el) {
+  document.querySelectorAll('.path-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.path = el.dataset.path;
+  document.getElementById('btn-next').disabled = false;
+}
+
+function selectCoach(el) {
+  document.querySelectorAll('.coach-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.coach = el.dataset.coach;
+  document.getElementById('btn-next').disabled = false;
+}
+
+function toggleChip(el) {
+  const grid = el.parentElement;
+  const max = parseInt(grid.dataset.max) || 99;
+  const selected = grid.querySelectorAll('.chip.selected');
+  if (el.classList.contains('selected')) el.classList.remove('selected');
+  else if (selected.length < max) el.classList.add('selected');
+}
+
+function toggleDay(el) { el.classList.toggle('selected'); }
+
+function toggleExtra(el) {
+  el.classList.toggle('active');
+  const key = el.dataset.extra;
+  if (el.classList.contains('active')) { if (!state.extras.includes(key)) state.extras.push(key); }
+  else { state.extras = state.extras.filter(e => e !== key); }
+}
+
+function toggleEvening() {
+  document.getElementById('evening-section').style.display = document.getElementById('evening-toggle').checked ? 'block' : 'none';
+}
+
+function updateTime(input, displayId) {
+  const val = parseFloat(input.value);
+  const hours = Math.floor(val);
+  const mins = (val % 1) * 60;
+  document.getElementById(displayId).textContent = hours + 'h' + (mins === 0 ? '00' : '30');
+}
+
+function updateProgress() {
+  const steps = T.steps[lang];
+  for (let i = 1; i <= totalSteps; i++) {
+    const dot = document.getElementById('dot-' + i);
+    const label = document.getElementById('label-' + i);
+    label.textContent = steps[i-1];
+    dot.classList.remove('active', 'done');
+    label.classList.remove('active');
+    if (i < currentStep) { dot.classList.add('done'); dot.innerHTML = '&check;'; }
+    else if (i === currentStep) { dot.classList.add('active'); dot.textContent = i; label.classList.add('active'); }
+    else { dot.textContent = i; }
+    if (i < totalSteps) document.getElementById('line-' + i).classList.toggle('active', i < currentStep);
+  }
+  document.getElementById('step-counter').textContent = T.stepOf[lang](currentStep);
+  document.getElementById('btn-back').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+  document.getElementById('btn-next-text').textContent = currentStep === 5 ? T.final[lang] : T.next[lang];
+  if (currentStep === 5 || currentStep === 4 || currentStep === 2) document.getElementById('btn-next').disabled = false;
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  currentStep = n;
+  updateProgress();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (n === 2) {
+    document.querySelectorAll('.path-questions').forEach(q => q.style.display = 'none');
+    if (state.path) document.getElementById('q-' + state.path).style.display = 'block';
+  }
+  if (n === 3 && !state.coach) document.getElementById('btn-next').disabled = true;
+  if (n === 5) buildSummary();
+}
+
+function nextStep() {
+  if (currentStep === 5) {
+    document.getElementById('btn-next-text').textContent = T.loading[lang];
+    document.getElementById('btn-next').disabled = true;
+    setTimeout(() => { alert(T.done[lang]); }, 1500);
+    return;
+  }
+  if (currentStep < totalSteps) showStep(currentStep + 1);
+}
+
+function prevStep() { if (currentStep > 1) showStep(currentStep - 1); }
+
+function buildSummary() {
+  const coachNames = { max:'Coach Max', luna:'Coach Luna', alex:'Coach Alex', sage:'Coach Sage' };
+  const coachEmojis = { max:'\uD83D\uDCAA', luna:'\uD83C\uDF1E', alex:'\uD83D\uDD25', sage:'\uD83E\uDDE0' };
+  const L = T.summaryLabels[lang];
+
+  const morning = document.getElementById('morning-time').textContent;
+  const evening = document.getElementById('evening-toggle').checked ? document.getElementById('evening-time').textContent : null;
+  const days = document.querySelectorAll('.day-chip.selected');
+  const dayList = Array.from(days).map(d => d.textContent).join(', ');
+
+  const extrasText = state.extras.length ? state.extras.map(e => T.extraNames[lang][e]).join(', ') : (lang === 'fr' ? 'Aucun' : 'None');
+
+  let html = '';
+  html += '<div class="summary-card"><div class="label">' + L[0] + '</div><div class="value">' + (T.pathNames[lang][state.path] || '\u2014') + '</div></div>';
+  html += '<div class="summary-card"><div class="label">' + L[1] + '</div><div class="value">' + (coachNames[state.coach] || '\u2014') + '</div><div class="detail">' + (T.coachStyles[lang][state.coach] || '') + '</div></div>';
+  html += '<div class="summary-card"><div class="label">' + L[2] + '</div><div class="value">' + morning + '</div>' + (evening ? '<div class="detail">+ ' + (lang==='fr'?'soir \u00e0 ':'evening ') + evening + '</div>' : '') + '</div>';
+  html += '<div class="summary-card"><div class="label">' + L[3] + '</div><div class="value">' + dayList + '</div><div class="detail">' + T.daysWeek[lang](days.length) + '</div></div>';
+  html += '<div class="summary-card" style="grid-column:1/-1"><div class="label">' + L[4] + '</div><div class="value">' + extrasText + '</div></div>';
+  document.getElementById('summary-grid').innerHTML = html;
+
+  // goal phrase
+  const phraseIds = { weight:'goal-phrase-weight', fitness:'goal-phrase-fitness', sport:'goal-phrase-sport' };
+  const phraseEl = document.getElementById(phraseIds[state.path]);
+  const phraseText = phraseEl ? phraseEl.value.trim() : '';
+  const phraseDisplay = document.getElementById('goal-phrase-display');
+  if (phraseText) {
+    document.getElementById('goal-phrase-text').textContent = '\u00AB ' + phraseText + ' \u00BB';
+    phraseDisplay.style.display = 'block';
+  } else {
+    phraseDisplay.style.display = 'none';
+  }
+
+  // call preview
+  document.getElementById('call-name').textContent = coachNames[state.coach] || 'Coach Max';
+  document.getElementById('call-avatar').textContent = coachEmojis[state.coach] || '\uD83D\uDCAA';
+
+  // weight prediction
+  const predBox = document.getElementById('prediction-box');
+  if (state.path === 'weight') {
+    const cw = parseFloat(document.getElementById('current-weight').value);
+    const tw = parseFloat(document.getElementById('target-weight').value);
+    if (cw && tw && cw > tw) {
+      const weeks = Math.ceil((cw - tw) / 0.75);
+      const targetDate = new Date();
+      targetDate.setDate(targetDate.getDate() + weeks * 7);
+      document.getElementById('pred-date').textContent = targetDate.getDate() + ' ' + T.months[lang][targetDate.getMonth()] + ' ' + targetDate.getFullYear();
+      document.getElementById('pred-sub').textContent = T.predSub[lang](tw, weeks);
+      predBox.style.display = 'block';
+    } else predBox.style.display = 'none';
+  } else predBox.style.display = 'none';
+}
+
+// init
+setLang('fr');
+</script>
+</body>
+</html>

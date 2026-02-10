@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; Ton coach IA qui t'appelle chaque jour</title>
+<meta name="description" content="Un coach IA qui t'appelle chaque jour par t&eacute;l&eacute;phone. 5 minutes par jour. Une vraie voix. De vrais r&eacute;sultats. Lance ton streak de 21 jours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #22c55e;
+  --green-dark: #16a34a;
+  --green-light: #4ade80;
+  --green-50: #f0fdf4;
+  --green-100: #dcfce7;
+  --green-200: #bbf7d0;
+  --green-900: #14532d;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --white: #ffffff;
+  --red: #ef4444;
+  --orange: #f97316;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  --shadow-xl: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); line-height: 1.6; background: var(--white); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--gray-200); padding: 0 2rem; }
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-logo-icon { width: 36px; height: 36px; border-radius: 10px; background: var(--green); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1rem; }
+.nav-logo-text { font-weight: 800; font-size: 1.1rem; color: var(--gray-900); letter-spacing: -0.5px; }
+.nav-logo-text span { color: var(--green); }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { color: var(--gray-600); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+.nav-links a:hover { color: var(--gray-900); }
+.nav-cta { display: flex; align-items: center; gap: 0.75rem; }
+.btn-outline { padding: 0.5rem 1.1rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--gray-300); background: white; color: var(--gray-700); cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.btn-outline:hover { border-color: var(--gray-400); background: var(--gray-50); }
+.btn-primary { padding: 0.5rem 1.3rem; border-radius: 10px; font-size: 0.85rem; font-weight: 600; border: none; background: var(--green); color: white; cursor: pointer; transition: all 0.2s; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-lg { padding: 0.85rem 2rem; font-size: 1rem; border-radius: 14px; }
+.hero { padding: 7rem 2rem 4rem; background: linear-gradient(180deg, var(--green-50) 0%, white 100%); position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; border-radius: 50%; background: radial-gradient(circle, rgba(74,222,128,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; position: relative; z-index: 1; }
+.hero-pills { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.hero-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; padding: 0.35rem 0.8rem; border-radius: 100px; cursor: default; }
+.hero-pill.active { background: var(--green-100); color: var(--green-dark); border: 1px solid var(--green-200); }
+.hero-pill.outline { background: white; color: var(--gray-500); border: 1px solid var(--gray-200); }
+.hero-pill .badge { font-size: 0.55rem; padding: 1px 6px; border-radius: 4px; font-weight: 700; }
+.hero-pill .badge.pop { background: var(--green); color: white; }
+.hero-pill .badge.new { background: var(--orange); color: white; }
+.hero h1 { font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 900; letter-spacing: -2px; line-height: 1.1; margin-bottom: 1.25rem; color: var(--gray-900); }
+.hero h1 .highlight { color: var(--green); position: relative; }
+.hero h1 .highlight::after { content: ''; position: absolute; bottom: 2px; left: 0; right: 0; height: 4px; background: var(--green-200); border-radius: 2px; }
+.hero-sub { font-size: 1.15rem; color: var(--gray-500); max-width: 480px; margin-bottom: 2rem; line-height: 1.7; }
+.hero-buttons { display: flex; gap: 0.75rem; margin-bottom: 2.5rem; }
+.hero-proof { display: flex; gap: 2.5rem; }
+.hero-proof-item { display: flex; align-items: center; gap: 8px; }
+.hero-proof-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; }
+.hero-proof-icon.green { background: var(--green-100); }
+.hero-proof-text { font-size: 0.8rem; color: var(--gray-500); }
+.hero-proof-text strong { color: var(--gray-800); display: block; font-size: 0.85rem; }
+.hero-visual { position: relative; }
+.hero-chat { background: white; border-radius: 20px; box-shadow: var(--shadow-xl); padding: 0; overflow: hidden; max-width: 380px; margin-left: auto; position: relative; z-index: 2; }
+.hero-chat-header { background: var(--green); padding: 1rem 1.2rem; display: flex; align-items: center; gap: 0.8rem; }
+.hero-chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.hero-chat-name { color: white; font-weight: 700; font-size: 0.95rem; }
+.hero-chat-status { color: rgba(255,255,255,0.7); font-size: 0.75rem; }
+.hero-chat-body { padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; }
+.chat-msg { max-width: 85%; padding: 0.7rem 1rem; border-radius: 16px; font-size: 0.83rem; line-height: 1.5; }
+.chat-msg.coach { background: var(--green-50); color: var(--gray-800); border-bottom-left-radius: 4px; align-self: flex-start; }
+.chat-msg.user { background: var(--gray-100); color: var(--gray-700); border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-msg .time { font-size: 0.65rem; color: var(--gray-400); margin-top: 4px; }
+.hero-call { position: absolute; bottom: -20px; right: -30px; background: var(--gray-900); border-radius: 20px; padding: 1.2rem 1.5rem; box-shadow: var(--shadow-xl); z-index: 3; min-width: 220px; text-align: center; animation: float 3s ease-in-out infinite; }
+.hero-call-label { color: var(--gray-400); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+.hero-call-name { color: white; font-weight: 700; font-size: 1rem; margin-bottom: 1rem; }
+.hero-call-buttons { display: flex; gap: 1rem; justify-content: center; }
+.call-btn { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; border: none; cursor: pointer; transition: transform 0.2s; }
+.call-btn:hover { transform: scale(1.1); }
+.call-btn.decline { background: var(--red); color: white; }
+.call-btn.answer { background: var(--green); color: white; animation: ring 1.5s ease-in-out infinite; }
+.hero-live { position: absolute; top: -15px; left: 20px; background: white; border-radius: 100px; padding: 0.4rem 1rem; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 8px; z-index: 4; font-size: 0.75rem; }
+.hero-live .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+.hero-live .label { font-weight: 700; color: var(--green-dark); text-transform: uppercase; letter-spacing: 1px; font-size: 0.6rem; }
+.hero-live .text { color: var(--gray-500); font-size: 0.72rem; }
+.section { padding: 5rem 2rem; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 3.5rem; }
+.section-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--green); margin-bottom: 0.75rem; }
+.section-header h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -1px; line-height: 1.2; margin-bottom: 1rem; }
+.section-header h2 .green { color: var(--green); }
+.section-header p { font-size: 1.05rem; color: var(--gray-500); max-width: 600px; margin: 0 auto; }
+.bg-gray { background: var(--gray-50); }
+.bg-dark { background: var(--gray-900); color: white; }
+.feature-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-bottom: 5rem; }
+.feature-row:last-child { margin-bottom: 0; }
+.feature-row.reverse { direction: rtl; }
+.feature-row.reverse > * { direction: ltr; }
+.feature-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; }
+.feature-icon.green { background: var(--green-100); }
+.feature-icon.orange { background: #fff7ed; }
+.feature-icon.blue { background: #eff6ff; }
+.feature h3 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+.feature p { font-size: 0.95rem; color: var(--gray-500); margin-bottom: 1.2rem; line-height: 1.7; }
+.feature-checks { display: flex; flex-direction: column; gap: 0.5rem; }
+.feature-check { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--gray-700); }
+.feature-check .check { color: var(--green); font-weight: 700; font-size: 1rem; }
+.feature-phone { background: var(--gray-900); border-radius: 20px; padding: 2rem; text-align: center; box-shadow: var(--shadow-xl); }
+.feature-phone h4 { color: white; font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+.feature-phone .sub { color: var(--gray-400); font-size: 0.85rem; margin-bottom: 1.5rem; }
+.feature-phone-btns { display: flex; gap: 1.5rem; justify-content: center; }
+.phone-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.phone-btn-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; border: none; cursor: default; }
+.phone-btn-circle.red { background: var(--red); }
+.phone-btn-circle.green { background: var(--green); }
+.phone-btn-label { color: var(--gray-400); font-size: 0.72rem; }
+.wa-mock { background: white; border-radius: 20px; box-shadow: var(--shadow-xl); overflow: hidden; }
+.wa-mock-header { background: #075e54; padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.7rem; }
+.wa-mock-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+.wa-mock-name { color: white; font-weight: 600; font-size: 0.9rem; }
+.wa-mock-body { padding: 1rem; background: #ece5dd; display: flex; flex-direction: column; gap: 0.5rem; min-height: 200px; }
+.wa-msg { max-width: 80%; padding: 0.5rem 0.7rem; border-radius: 8px; font-size: 0.8rem; line-height: 1.5; }
+.wa-msg.in { background: white; align-self: flex-start; border-bottom-left-radius: 0; }
+.wa-msg.out { background: #dcf8c6; align-self: flex-end; border-bottom-right-radius: 0; }
+.wa-msg .ts { font-size: 0.6rem; color: var(--gray-400); text-align: right; margin-top: 2px; }
+.achievement-mock { background: white; border-radius: 20px; box-shadow: var(--shadow-xl); overflow: hidden; }
+.achievement-header { padding: 1rem 1.2rem; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 8px; }
+.achievement-header .dots { display: flex; gap: 6px; }
+.achievement-header .dot { width: 10px; height: 10px; border-radius: 50%; }
+.achievement-header .dot.r { background: #ef4444; }
+.achievement-header .dot.y { background: #f59e0b; }
+.achievement-header .dot.g { background: var(--green); }
+.achievement-header .title { font-size: 0.8rem; color: var(--gray-500); margin-left: 0.5rem; }
+.achievement-body { padding: 1.5rem; }
+.achievement-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+.achievement-stat { text-align: center; padding: 0.8rem; background: var(--gray-50); border-radius: 12px; }
+.achievement-stat .num { font-size: 1.6rem; font-weight: 800; color: var(--gray-900); }
+.achievement-stat .label { font-size: 0.7rem; color: var(--gray-400); margin-top: 2px; }
+.achievement-items { display: flex; flex-direction: column; gap: 0.75rem; }
+.achievement-item { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.6rem; border-radius: 10px; background: var(--green-50); }
+.achievement-item .icon { width: 32px; height: 32px; border-radius: 8px; background: var(--green-100); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
+.achievement-item .meta { flex: 1; }
+.achievement-item .date { font-size: 0.65rem; color: var(--gray-400); }
+.achievement-item .tag { font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 1px 6px; border-radius: 4px; background: var(--green); color: white; margin-left: 6px; }
+.achievement-item h5 { font-size: 0.82rem; font-weight: 600; margin-top: 2px; }
+.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.problem-card { background: white; border: 1px solid var(--gray-200); border-radius: 16px; padding: 2rem; text-align: center; transition: all 0.3s; }
+.problem-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.problem-x { width: 40px; height: 40px; border-radius: 50%; background: #fef2f2; color: var(--red); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 1rem; }
+.problem-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.problem-card p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.step { background: white; border: 1px solid var(--gray-200); border-radius: 16px; padding: 2rem 1.5rem; position: relative; transition: all 0.3s; }
+.step:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.step-num { width: 36px; height: 36px; border-radius: 10px; background: var(--green-100); color: var(--green-dark); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.9rem; margin-bottom: 1rem; }
+.step h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+.step p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; }
+.usecases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.usecase { background: white; border: 1px solid var(--gray-200); border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+.usecase:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.usecase-img { height: 160px; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+.usecase-img.g1 { background: linear-gradient(135deg, #f0fdf4, #dcfce7); }
+.usecase-img.g2 { background: linear-gradient(135deg, #fff7ed, #ffedd5); }
+.usecase-img.g3 { background: linear-gradient(135deg, #eff6ff, #dbeafe); }
+.usecase-img.g4 { background: linear-gradient(135deg, #fdf4ff, #fae8ff); }
+.usecase-img.g5 { background: linear-gradient(135deg, #fefce8, #fef9c3); }
+.usecase-img.g6 { background: linear-gradient(135deg, #f0fdfa, #ccfbf1); }
+.usecase-body { padding: 1.5rem; }
+.usecase h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.usecase p { font-size: 0.83rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 0.6rem; }
+.usecase .for { font-size: 0.7rem; font-weight: 600; color: var(--green-dark); background: var(--green-50); padding: 0.25rem 0.6rem; border-radius: 6px; display: inline-block; }
+.testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.testimonial { background: white; border: 1px solid var(--gray-200); border-radius: 16px; padding: 2rem; }
+.testimonial-stars { color: #f59e0b; font-size: 0.9rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+.testimonial p { font-size: 0.9rem; color: var(--gray-600); line-height: 1.7; margin-bottom: 1.2rem; font-style: italic; }
+.testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+.testimonial-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; color: white; }
+.testimonial-avatar.a { background: var(--green); }
+.testimonial-avatar.b { background: var(--orange); }
+.testimonial-avatar.c { background: #8b5cf6; }
+.testimonial-name { font-weight: 700; font-size: 0.88rem; }
+.testimonial-role { font-size: 0.75rem; color: var(--gray-400); }
+.testimonial-badge { font-size: 0.65rem; font-weight: 600; color: var(--green-dark); background: var(--green-50); padding: 0.2rem 0.5rem; border-radius: 4px; margin-top: 0.3rem; display: inline-block; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 900px; margin: 0 auto; }
+.price-card { background: white; border: 1px solid var(--gray-200); border-radius: 20px; padding: 2rem; position: relative; transition: all 0.3s; }
+.price-card:hover { box-shadow: var(--shadow-lg); }
+.price-card.featured { border: 2px solid var(--green); box-shadow: var(--shadow-lg); transform: scale(1.03); }
+.price-card.featured::before { content: 'LE PLUS POPULAIRE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 0.6rem; font-weight: 700; letter-spacing: 1px; padding: 0.3rem 1rem; border-radius: 100px; white-space: nowrap; }
+.price-name { font-size: 0.85rem; font-weight: 600; color: var(--gray-500); margin-bottom: 0.5rem; }
+.price-amount { font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 0.25rem; }
+.price-period { font-size: 0.8rem; color: var(--gray-400); margin-bottom: 1.5rem; }
+.price-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+.price-features li { font-size: 0.85rem; color: var(--gray-600); display: flex; align-items: center; gap: 8px; }
+.price-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+.price-btn { display: block; text-align: center; padding: 0.75rem; border-radius: 12px; font-weight: 700; font-size: 0.9rem; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; width: 100%; font-family: inherit; }
+.price-btn.primary { background: var(--green); color: white; }
+.price-btn.primary:hover { background: var(--green-dark); }
+.price-btn.outline { background: white; color: var(--gray-700); border: 1px solid var(--gray-300); }
+.price-btn.outline:hover { border-color: var(--green); color: var(--green-dark); }
+.faq-list { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.5rem; }
+.faq-item { border: 1px solid var(--gray-200); border-radius: 12px; overflow: hidden; }
+.faq-q { width: 100%; padding: 1.1rem 1.5rem; background: white; border: none; text-align: left; font-size: 0.95rem; font-weight: 600; color: var(--gray-800); cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-family: inherit; transition: background 0.2s; }
+.faq-q:hover { background: var(--gray-50); }
+.faq-q .arrow { font-size: 1.2rem; color: var(--gray-400); transition: transform 0.3s; }
+.faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner { padding: 0 1.5rem 1.2rem; font-size: 0.88rem; color: var(--gray-500); line-height: 1.7; }
+.final-cta { text-align: center; }
+.final-cta h2 { font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 1rem; }
+.final-cta h2 .green { color: var(--green-light); }
+.final-cta p { font-size: 1.05rem; color: var(--gray-400); max-width: 500px; margin: 0 auto 2rem; }
+.final-features { display: flex; justify-content: center; gap: 2.5rem; margin-top: 3rem; }
+.final-feature { text-align: center; }
+.final-feature .icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin: 0 auto 0.75rem; }
+.final-feature h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.3rem; }
+.final-feature p { font-size: 0.78rem; color: var(--gray-400); max-width: 200px; }
+.footer { padding: 3rem 2rem; border-top: 1px solid var(--gray-200); }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-left { display: flex; align-items: center; gap: 8px; }
+.footer-logo { width: 28px; height: 28px; border-radius: 8px; background: var(--green); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 0.8rem; }
+.footer-copy { font-size: 0.8rem; color: var(--gray-400); }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-size: 0.8rem; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--gray-600); }
+.sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-top: 1px solid var(--gray-200); padding: 0.75rem 2rem; z-index: 99; }
+.sticky-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.sticky-bar-left { display: flex; align-items: center; gap: 0.75rem; }
+.sticky-avatars { display: flex; }
+.sticky-avatars .av { width: 28px; height: 28px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: white; margin-left: -8px; }
+.sticky-avatars .av:first-child { margin-left: 0; }
+.sticky-avatars .av.a { background: var(--green); }
+.sticky-avatars .av.b { background: var(--orange); }
+.sticky-avatars .av.c { background: #8b5cf6; }
+.sticky-bar-text { font-size: 0.82rem; color: var(--gray-600); }
+.sticky-bar-text .hl { font-weight: 700; background: var(--green-100); color: var(--green-dark); padding: 1px 6px; border-radius: 4px; font-size: 0.75rem; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 70% { box-shadow: 0 0 0 12px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+@media (max-width: 768px) {
+  .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .hero-sub { margin: 0 auto 2rem; }
+  .hero-buttons { justify-content: center; }
+  .hero-proof { justify-content: center; }
+  .hero-visual { display: none; }
+  .nav-links { display: none; }
+  .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+  .problem-grid, .steps, .usecases, .testimonials { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .price-card.featured { transform: none; }
+  .final-features { flex-direction: column; align-items: center; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">CM</div>
+      <div class="nav-logo-text">Call Me <span>Maybe</span></div>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Fonctionnalit&eacute;s</a>
+      <a href="#how-it-works">Comment &ccedil;a marche</a>
+      <a href="#testimonials">T&eacute;moignages</a>
+      <a href="#pricing">Tarifs</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#" class="btn-outline">Connexion</a>
+      <a href="#" class="btn-primary">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-pills">
+        <div class="hero-pill active"><span class="badge pop">Populaire</span> PERTE DE POIDS</div>
+        <div class="hero-pill outline"><span class="badge new">Nouveau</span> FITNESS</div>
+        <div class="hero-pill outline">MINDSET</div>
+      </div>
+      <h1>Ton coach IA qui <span class="highlight">t'appelle</span> vraiment</h1>
+      <p class="hero-sub">Un partenaire IA qui t'appelle chaque jour par t&eacute;l&eacute;phone. 5 minutes par jour. Une vraie voix qui te garde sur la bonne voie.</p>
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary btn-lg">Re&ccedil;ois ton premier appel</a>
+        <a href="#how-it-works" class="btn-outline btn-lg">Comment &ccedil;a marche</a>
+      </div>
+      <div class="hero-proof">
+        <div class="hero-proof-item">
+          <div class="hero-proof-icon green">&#128222;</div>
+          <div class="hero-proof-text"><strong>Appels vocaux</strong>Check-ins quotidiens</div>
+        </div>
+        <div class="hero-proof-item">
+          <div class="hero-proof-icon green">&#128170;</div>
+          <div class="hero-proof-text"><strong>Streaks de 21 jours</strong>Cr&eacute;e des habitudes durables</div>
+        </div>
+        <div class="hero-proof-item">
+          <div class="hero-proof-icon green">&#128200;</div>
+          <div class="hero-proof-text"><strong>Suivi des progr&egrave;s</strong>Visualise ta progression</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-live">
+        <span class="dot"></span>
+        <span class="label">En direct</span>
+        <span class="text">Coach Max a appel&eacute; quelqu'un il y a 3 min</span>
+      </div>
+      <div class="hero-chat">
+        <div class="hero-chat-header">
+          <div class="hero-chat-avatar">&#128170;</div>
+          <div>
+            <div class="hero-chat-name">Coach Max</div>
+            <div class="hero-chat-status">En ligne</div>
+          </div>
+        </div>
+        <div class="hero-chat-body">
+          <div class="chat-msg coach">Salut ! O&ugrave; en es-tu avec ton objectif course ? J'ai vu que t'as s&eacute;ch&eacute; hier.<div class="time">8h24</div></div>
+          <div class="chat-msg user">J'ai eu une journ&eacute;e charg&eacute;e. Je compte y aller ce soir !<div class="time">8h30</div></div>
+          <div class="chat-msg coach">Parfait ! Je t'appelle &agrave; 18h pour confirmer. Deal ? &#128170;<div class="time">8h31</div></div>
+        </div>
+      </div>
+      <div class="hero-call">
+        <div class="hero-call-label">Appel entrant</div>
+        <div class="hero-call-name">Coach Max &#128170;</div>
+        <div class="hero-call-buttons">
+          <button class="call-btn decline">&#128532;</button>
+          <button class="call-btn answer">&#128222;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Fonctionnalit&eacute;s</div>
+      <h2>Arr&ecirc;te d'&eacute;chouer seul.<br><span class="green">Passe enfin &agrave; l'action.</span></h2>
+      <p>Un coach IA qui s'int&egrave;gre naturellement dans ta vie avec des outils con&ccedil;us pour un vrai changement.</p>
+    </div>
+
+    <!-- Feature 1: Appels -->
+    <div class="feature-row">
+      <div class="feature">
+        <div class="feature-icon green">&#128222;</div>
+        <h3>Appels quotidiens</h3>
+        <p>De vrais appels t&eacute;l&eacute;phoniques &agrave; l'heure que tu choisis. Pas une notification qu'on swipe &mdash; une conversation qui t'engage.</p>
+        <div class="feature-checks">
+          <div class="feature-check"><span class="check">&#10003;</span> Choisis l'heure de ton appel</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Voix IA personnalis&eacute;e qui conna&icirc;t tes objectifs</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Notification 5 min avant pour te pr&eacute;parer</div>
+        </div>
+      </div>
+      <div class="feature-phone">
+        <h4>Coach Max</h4>
+        <div class="sub">Appel entrant</div>
+        <div class="feature-phone-btns">
+          <div class="phone-btn">
+            <div class="phone-btn-circle red">&#128532;</div>
+            <span class="phone-btn-label">Refuser</span>
+          </div>
+          <div class="phone-btn">
+            <div class="phone-btn-circle green">&#128222;</div>
+            <span class="phone-btn-label">R&eacute;pondre</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Messages -->
+    <div class="feature-row reverse">
+      <div class="feature">
+        <div class="feature-icon orange">&#128172;</div>
+        <h3>SMS &amp; notifications</h3>
+        <p>Des check-ins quotidiens et de la motivation envoy&eacute;s directement sur ton t&eacute;l&eacute;phone. Rapide, personnel, impossible &agrave; ignorer.</p>
+        <div class="feature-checks">
+          <div class="feature-check"><span class="check">&#10003;</span> 3 check-ins par jour pour te garder motiv&eacute;</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Messages personnalis&eacute;s bas&eacute;s sur ton streak</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Conversations naturelles comme un vrai coach</div>
+        </div>
+      </div>
+      <div class="wa-mock">
+        <div class="wa-mock-header">
+          <div class="wa-mock-avatar">&#128170;</div>
+          <span class="wa-mock-name">Coach Max</span>
+        </div>
+        <div class="wa-mock-body">
+          <div class="wa-msg in">Bonjour ! Comment tu te sens par rapport &agrave; ton objectif sport aujourd'hui ? &#9728;&#65039;<div class="ts">8h24</div></div>
+          <div class="wa-msg out">Un peu fatigu&eacute; mais je compte aller &agrave; la salle cet apr&egrave;s-midi !<div class="ts">8h30</div></div>
+          <div class="wa-msg in">C'est l'esprit ! Jour 14 de ton streak &#128293; Je te recontacte &agrave; 15h pour v&eacute;rifier.<div class="ts">8h31</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Suivi -->
+    <div class="feature-row">
+      <div class="feature">
+        <div class="feature-icon blue">&#128200;</div>
+        <h3>Suivi des accomplissements</h3>
+        <p>Chaque accomplissement est automatiquement enregistr&eacute; pour visualiser ta progression. Regarde ton streak de 21 jours grandir.</p>
+        <div class="feature-checks">
+          <div class="feature-check"><span class="check">&#10003;</span> Enregistrement automatique des &eacute;tapes cl&eacute;s</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Timeline visuelle pour c&eacute;l&eacute;brer tes victoires</div>
+          <div class="feature-check"><span class="check">&#10003;</span> Fonds d'&eacute;cran streak de 21 jours &agrave; partager</div>
+        </div>
+      </div>
+      <div class="achievement-mock">
+        <div class="achievement-header">
+          <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+          <span class="title">Tableau de bord Call Me Maybe</span>
+        </div>
+        <div class="achievement-body">
+          <div class="achievement-stats">
+            <div class="achievement-stat"><div class="num">14</div><div class="label">jours de streak</div></div>
+            <div class="achievement-stat"><div class="num">10</div><div class="label">appels compl&eacute;t&eacute;s</div></div>
+            <div class="achievement-stat"><div class="num">Bon</div><div class="label">assiduit&eacute;</div></div>
+          </div>
+          <div class="achievement-items">
+            <div class="achievement-item">
+              <div class="icon">&#127942;</div>
+              <div class="meta">
+                <div class="date">10 f&eacute;v. <span class="tag">&Eacute;tape cl&eacute;</span></div>
+                <h5>2 semaines de streak ! &Agrave; mi-chemin des 21 jours</h5>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <div class="icon">&#128170;</div>
+              <div class="meta">
+                <div class="date">7 f&eacute;v. <span class="tag">Objectif atteint</span></div>
+                <h5>Poids cible de la semaine atteint</h5>
+              </div>
+            </div>
+            <div class="achievement-item">
+              <div class="icon">&#11088;</div>
+              <div class="meta">
+                <div class="date">3 f&eacute;v. <span class="tag">Perc&eacute;e</span></div>
+                <h5>Premi&egrave;re semaine compl&egrave;te d'appels quotidiens</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBL&Egrave;ME -->
+<section class="section bg-gray">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Le probl&egrave;me</div>
+      <h2>Pourquoi la plupart des gens <span class="green">&eacute;chouent seuls</span></h2>
+      <p>La motivation s'&eacute;puise. Les applis sont ignor&eacute;es. Les partenaires de responsabilit&eacute; annulent. Tu m&eacute;rites mieux.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-x">&times;</div>
+        <h4>Les applis sont ignor&eacute;es</h4>
+        <p>95 % des notifications d'applis fitness sont ignor&eacute;es en quelques secondes. Il te faut quelque chose d'impossible &agrave; ignorer &mdash; un appel t&eacute;l&eacute;phonique.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-x">&times;</div>
+        <h4>La motivation s'&eacute;puise</h4>
+        <p>Les &eacute;tudes montrent que la motivation chute d&egrave;s le 7e jour. Sans responsabilit&eacute; externe, 80 % des r&eacute;solutions &eacute;chouent avant f&eacute;vrier.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-x">&times;</div>
+        <h4>Les coachs co&ucirc;tent 200&euro;+/mois</h4>
+        <p>Un vrai coach personnel co&ucirc;te 200 &agrave; 500&euro;/mois. La plupart des gens ne peuvent pas se permettre un suivi quotidien.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMENT &Ccedil;A MARCHE -->
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Comment &ccedil;a marche</div>
+      <h2>D&eacute;marre en <span class="green">moins de 2 minutes</span></h2>
+      <p>Un processus simple et puissant con&ccedil;u pour te garder responsable et t'aider &agrave; atteindre tes objectifs.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>D&eacute;finis ton objectif</h4>
+        <p>Dis-nous ce que tu veux accomplir &mdash; perte de poids, fitness, habitudes. Choisis l'heure de ton appel quotidien.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Choisis ton coach</h4>
+        <p>S&eacute;lectionne un persona IA qui te correspond. Coaching dur ? Encouragements doux ? C'est toi qui d&eacute;cides.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Re&ccedil;ois tes appels</h4>
+        <p>Ton coach t'appelle chaque jour &agrave; l'heure choisie. 5 minutes de check-in. Vraie voix. Vraie responsabilit&eacute;.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Construis ton streak</h4>
+        <p>Suis ton streak de 21 jours. C&eacute;l&egrave;bre tes &eacute;tapes. B&acirc;tis les habitudes qui transforment ta vie.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAS D'USAGE -->
+<section class="section bg-gray">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Cas d'usage</div>
+      <h2>Comment les gens utilisent <span class="green">Call Me Maybe</span></h2>
+      <p>D&eacute;couvre comment notre coach IA s'adapte &agrave; diff&eacute;rents objectifs et modes de vie.</p>
+    </div>
+    <div class="usecases">
+      <div class="usecase">
+        <div class="usecase-img g1">&#127947;&#65039;</div>
+        <div class="usecase-body">
+          <h4>Suivi perte de poids</h4>
+          <p>Rappels de pes&eacute;e quotidiens, suivi des repas et appels de motivation pour rester sur ton plan nutritionnel.</p>
+          <span class="for">Objectif minceur</span>
+        </div>
+      </div>
+      <div class="usecase">
+        <div class="usecase-img g2">&#9728;&#65039;</div>
+        <div class="usecase-body">
+          <h4>Appel r&eacute;veil du matin</h4>
+          <p>Remplace tes alarmes ennuyeuses par un appel motivant qui te donne l'&eacute;nergie de bien commencer la journ&eacute;e.</p>
+          <span class="for">Gros dormeurs &amp; pros</span>
+        </div>
+      </div>
+      <div class="usecase">
+        <div class="usecase-img g3">&#128170;</div>
+        <div class="usecase-body">
+          <h4>Responsabilit&eacute; fitness</h4>
+          <p>Appels avant l'entra&icirc;nement et check-ins apr&egrave;s pour suivre ta r&eacute;gularit&eacute; sportive.</p>
+          <span class="for">Sportifs &amp; coureurs</span>
+        </div>
+      </div>
+      <div class="usecase">
+        <div class="usecase-img g4">&#129504;</div>
+        <div class="usecase-body">
+          <h4>TDAH &amp; procrastination</h4>
+          <p>Rappels quotidiens structur&eacute;s pour construire des routines et vaincre les distractions.</p>
+          <span class="for">Personnes avec TDAH</span>
+        </div>
+      </div>
+      <div class="usecase">
+        <div class="usecase-img g5">&#128218;</div>
+        <div class="usecase-body">
+          <h4>&Eacute;tudes &amp; r&eacute;visions</h4>
+          <p>Check-ins quotidiens et appels de suivi pour rester sur tes plannings de r&eacute;vision.</p>
+          <span class="for">&Eacute;tudiants</span>
+        </div>
+      </div>
+      <div class="usecase">
+        <div class="usecase-img g6">&#127769;</div>
+        <div class="usecase-body">
+          <h4>Bilan du soir</h4>
+          <p>Termine ta journ&eacute;e par un appel pour faire le point sur tes accomplissements et pr&eacute;parer demain.</p>
+          <span class="for">D&eacute;veloppement personnel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- T&Eacute;MOIGNAGES -->
+<section class="section" id="testimonials">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">T&eacute;moignages</div>
+      <h2>Ce que nos utilisateurs <span class="green">en disent</span></h2>
+      <p>Des histoires vraies de personnes qui transforment leur vie avec Call Me Maybe.</p>
+    </div>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&laquo;&nbsp;Les appels quotidiens ont tout chang&eacute;. J'ai perdu 8 kg en 3 semaines parce que je ne pouvais pas mentir &agrave; mon coach quand il m'appelait chaque matin.&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar a">SL</div>
+          <div>
+            <div class="testimonial-name">Sophie L.</div>
+            <div class="testimonial-role">Responsable marketing, Paris</div>
+            <div class="testimonial-badge">-8 kg en 21 jours</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&laquo;&nbsp;J'ai essay&eacute; toutes les applis fitness. C'est la seule chose que je ne peux pas swiper. Quand le t&eacute;l&eacute;phone sonne, tu d&eacute;croches. C'est &ccedil;a la diff&eacute;rence.&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar b">TM</div>
+          <div>
+            <div class="testimonial-name">Thomas M.</div>
+            <div class="testimonial-role">D&eacute;veloppeur, Lyon</div>
+            <div class="testimonial-badge">Streak de 21 jours termin&eacute;</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>&laquo;&nbsp;Coach Luna a l'air tellement r&eacute;elle. Elle se souvient de ce que j'ai dit hier, me demande comment se sont pass&eacute;s mes repas et c&eacute;l&egrave;bre sinc&egrave;rement mes victoires.&nbsp;&raquo;</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar c">AK</div>
+          <div>
+            <div class="testimonial-name">Amira K.</div>
+            <div class="testimonial-role">Freelance, Marseille</div>
+            <div class="testimonial-badge">Routine matinale cr&eacute;&eacute;e</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section class="section bg-gray" id="pricing">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Tarifs</div>
+      <h2>Simple et <span class="green">transparent</span></h2>
+      <p>Commence gratuitement. Passe au niveau sup&eacute;rieur quand tu es pr&ecirc;t.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">D&eacute;couverte</div>
+        <div class="price-amount">Gratuit</div>
+        <div class="price-period">Essai de 3 jours</div>
+        <ul class="price-features">
+          <li>1 appel IA par jour</li>
+          <li>1 persona de coach</li>
+          <li>Suivi de streak basique</li>
+          <li>Notifications SMS</li>
+        </ul>
+        <button class="price-btn outline">Essayer gratuitement</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-name">Pro</div>
+        <div class="price-amount">9,90&euro;</div>
+        <div class="price-period">par mois</div>
+        <ul class="price-features">
+          <li>Appels quotidiens illimit&eacute;s</li>
+          <li>Tous les personas de coach</li>
+          <li>Tableau de bord streak complet</li>
+          <li>Notifications push + SMS</li>
+          <li>Horaire d'appel personnalis&eacute;</li>
+          <li>Qualit&eacute; vocale prioritaire</li>
+        </ul>
+        <button class="price-btn primary">Commencer</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Duo</div>
+        <div class="price-amount">14,90&euro;</div>
+        <div class="price-period">par mois, 2 utilisateurs</div>
+        <ul class="price-features">
+          <li>Tout ce qui est dans Pro</li>
+          <li>2 comptes utilisateurs</li>
+          <li>Streaks &amp; d&eacute;fis partag&eacute;s</li>
+          <li>Mode couple / binôme</li>
+        </ul>
+        <button class="price-btn outline">Choisir Duo</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">FAQ</div>
+      <h2>Questions <span class="green">fr&eacute;quentes</span></h2>
+      <p>Tout ce que tu dois savoir sur Call Me Maybe.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item open">
+        <button class="faq-q">Comment l'IA m'appelle concr&egrave;tement ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">On utilise une IA vocale avanc&eacute;e pour passer un vrai appel t&eacute;l&eacute;phonique &agrave; ton num&eacute;ro &agrave; l'heure pr&eacute;vue. La voix est naturelle, elle se souvient de tes objectifs et adapte la conversation &agrave; ta progression. Pas besoin de t&eacute;l&eacute;charger d'appli &mdash; &ccedil;a appelle ton num&eacute;ro directement.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Et si je rate un appel ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Ton coach essaie une fois. Si tu ne r&eacute;ponds pas, tu re&ccedil;ois un SMS de suivi. Ton streak est pr&eacute;serv&eacute; si tu r&eacute;ponds au SMS dans les 2 heures. On sait que la vie est parfois impr&eacute;visible !</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Je peux choisir l'heure de l'appel ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Absolument. Tu choisis ton heure d'appel quotidien lors de la configuration. L&egrave;ve-t&ocirc;t ? 7h. Couche-tard ? 21h. Tu peux modifier ton planning &agrave; tout moment depuis le tableau de bord.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Mes donn&eacute;es sont-elles prot&eacute;g&eacute;es ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui. Toutes les conversations sont chiffr&eacute;es de bout en bout. On ne partage jamais tes donn&eacute;es avec des tiers. Tes donn&eacute;es de sant&eacute; et de fitness t'appartiennent. On est conforme au RGPD et &agrave; la l&eacute;gislation fran&ccedil;aise.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Je peux r&eacute;silier &agrave; tout moment ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Oui. R&eacute;siliation en un clic depuis ton tableau de bord. Pas de frais cach&eacute;s, pas d'engagement, pas de questions. Tes donn&eacute;es sont supprim&eacute;es sous 30 jours apr&egrave;s r&eacute;siliation.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">&Ccedil;a fonctionne en dehors de la France ? <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner">On lance d'abord en France, avec le fran&ccedil;ais et l'anglais. L'expansion internationale est pr&eacute;vue pour le T3 2026. Inscris-toi &agrave; la liste d'attente pour &ecirc;tre pr&eacute;venu quand on arrive dans ton pays.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="section bg-dark">
+  <div class="section-inner final-cta">
+    <h2>Imagine atteindre<br><span class="green">chacun de tes objectifs</span></h2>
+    <p>Rejoins ceux qui transforment d&eacute;j&agrave; leur vie avec un coach IA qui les appelle vraiment.</p>
+    <a href="#" class="btn-primary btn-lg" style="font-size:1.05rem;padding:1rem 2.5rem;">Re&ccedil;ois ton premier appel</a>
+    <div class="final-features">
+      <div class="final-feature">
+        <div class="icon">&#128222;</div>
+        <h4>Vrais appels</h4>
+        <p>Pas une notif. Une vraie conversation vocale.</p>
+      </div>
+      <div class="final-feature">
+        <div class="icon">&#128170;</div>
+        <h4>Streaks de 21 jours</h4>
+        <p>Construis des habitudes durables en 3 semaines.</p>
+      </div>
+      <div class="final-feature">
+        <div class="icon">&#128274;</div>
+        <h4>Conforme RGPD</h4>
+        <p>Tes donn&eacute;es sont priv&eacute;es, chiffr&eacute;es et &agrave; toi.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-logo">CM</div>
+      <span class="footer-copy">&copy; 2026 Call Me Maybe. Tous droits r&eacute;serv&eacute;s.</span>
+    </div>
+    <div class="footer-links">
+      <a href="#">Confidentialit&eacute;</a>
+      <a href="#">CGU</a>
+      <a href="#">Support</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BARRE STICKY -->
+<div class="sticky-bar">
+  <div class="sticky-bar-inner">
+    <div class="sticky-bar-left">
+      <div class="sticky-avatars">
+        <span class="av a">SL</span>
+        <span class="av b">TM</span>
+        <span class="av c">AK</span>
+      </div>
+      <span class="sticky-bar-text">Rejoins <span class="hl">des centaines</span> de personnes motiv&eacute;es</span>
+    </div>
+    <a href="#" class="btn-primary">Re&ccedil;ois ton premier appel</a>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+</script>
+
+</body>
+</html>

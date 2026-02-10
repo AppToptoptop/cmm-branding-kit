@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Research 2026 | Call Me Maybe War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #08090c;
+  --surface: #0e1015;
+  --card: #12141b;
+  --card-hover: #181b24;
+  --border: #1c1f2a;
+  --text: #eceae7;
+  --dim: #8a8f9e;
+  --muted: #4e5263;
+  --gold: #D4A853;
+  --teal: #00d4aa;
+  --orange: #F47D31;
+  --green: #4ade80;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 2rem 0 1rem;
+  transition: color 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.back-link:hover { color: var(--teal); }
+
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text) 0%, var(--orange) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+.hero-meta span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--dim);
+  max-width: 700px;
+  line-height: 1.8;
+}
+
+.section {
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--orange);
+}
+
+h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+p { color: var(--dim); margin-bottom: 1rem; font-size: 0.95rem; }
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--dim); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.card:hover { background: var(--card-hover); border-color: var(--orange); }
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead th {
+  background: linear-gradient(135deg, rgba(244,125,49,0.15) 0%, rgba(0,212,170,0.1) 100%);
+  color: var(--orange);
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid var(--orange);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--dim);
+  vertical-align: top;
+}
+
+tbody tr { background: var(--card); transition: background 0.2s; }
+tbody tr:nth-child(even) { background: var(--surface); }
+tbody tr:hover { background: var(--card-hover); }
+tbody td:first-child { color: var(--text); font-weight: 500; }
+tbody td strong { color: var(--text); }
+
+blockquote {
+  background: var(--card);
+  border-left: 3px solid var(--teal);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--dim);
+}
+
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; color: var(--dim); }
+li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+li strong { color: var(--text); }
+
+.highlight {
+  background: linear-gradient(135deg, rgba(244,125,49,0.08) 0%, rgba(0,212,170,0.05) 100%);
+  border: 1px solid rgba(244,125,49,0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.stat-card .stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+.stat-card .stat-label {
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+.callout {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.callout-title {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.sources { margin-top: 2rem; }
+.sources a { color: var(--blue); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.sources a:hover { color: var(--teal); }
+.sources li { margin-bottom: 0.4rem; }
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 1rem 3rem; }
+  .hero { padding: 2rem 0; }
+  table { font-size: 0.78rem; }
+  thead th, tbody td { padding: 0.5rem; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to War Room</a>
+
+<header class="hero">
+  <div class="hero-label">War Room Research</div>
+  <h1>Weight Loss Coaching Market Deep Dive</h1>
+  <div class="hero-meta">
+    <span>February 2026</span>
+    <span>Global + France Focus</span>
+    <span>AI-Powered Daily Phone Call Coaching</span>
+  </div>
+  <p class="hero-description">Global market analysis with France-specific focus for Call Me Maybe's AI-powered daily phone call accountability coaching for weight loss.</p>
+</header>
+
+<!-- 1. Global Market Size & Growth -->
+<div class="section">
+  <h2>1. Global Market Size &amp; Growth</h2>
+
+  <h3>Total Weight Loss &amp; Weight Management Market</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">~$297B</div>
+      <div class="stat-label">Global market 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">~$572B</div>
+      <div class="stat-label">Projected 2033</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">7.7%</div>
+      <div class="stat-label">CAGR 2025-2035</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">~$896B</div>
+      <div class="stat-label">Projected 2035</div>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Global market size (2024)</strong></td><td>~$297 billion</td><td>IMARC Group</td></tr>
+        <tr><td><strong>Global market size (2025)</strong></td><td>~$427 billion (broad) / ~$177 billion (narrow)</td><td>Multiple sources</td></tr>
+        <tr><td><strong>Projected 2030</strong></td><td>$298-405 billion</td><td>Grand View Research, F&amp;F Research</td></tr>
+        <tr><td><strong>Projected 2033</strong></td><td>~$572 billion</td><td>IMARC Group</td></tr>
+        <tr><td><strong>Projected 2035</strong></td><td>~$896 billion</td><td>Future Market Insights</td></tr>
+        <tr><td><strong>CAGR (2025-2035)</strong></td><td>7.7%</td><td>Future Market Insights</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Note:</strong> Market size estimates vary significantly depending on whether the scope includes supplements, meal replacements, fitness equipment, surgery, and pharmaceuticals, or focuses narrowly on services and software. The weight management market broadly defined is approaching <strong>$300-430 billion</strong> today.</p>
+
+  <h3>Digital Weight Loss / App Market</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Exercise &amp; weight loss apps market (2024)</strong></td><td>~$980 million</td><td>Grand View Research</td></tr>
+        <tr><td><strong>Exercise &amp; weight loss apps market (2025)</strong></td><td>~$1.15 billion</td><td>Grand View Research</td></tr>
+        <tr><td><strong>Projected 2030</strong></td><td>~$2.56 billion</td><td>Grand View Research</td></tr>
+        <tr><td><strong>Projected 2032 (broader definition)</strong></td><td>~$11.6 billion</td><td>Credence Research</td></tr>
+        <tr><td><strong>CAGR (apps segment)</strong></td><td>17.4-18.4%</td><td>Multiple sources</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>Digital weight loss apps are the <strong>fastest-growing format</strong> in the entire weight management ecosystem, scaling at an 18.4% CAGR that outpaces every other category.</p>
+  </div>
+
+  <h3>AI Coaching Segment</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Health &amp; wellness coaching market (2025)</strong></td><td>$20.1 billion</td><td>Precedence Research</td></tr>
+        <tr><td><strong>AI-generated digital health coaching avatars (2025)</strong></td><td>$1.71 billion</td><td>Globe Newswire</td></tr>
+        <tr><td><strong>AI health coaching avatars projected 2029</strong></td><td>$5.01 billion</td><td>Globe Newswire</td></tr>
+        <tr><td><strong>AI coaching CAGR</strong></td><td>30.8%</td><td>Globe Newswire</td></tr>
+        <tr><td><strong>Digital health coaching market (2024)</strong></td><td>$10.8 billion</td><td>InsightAce Analytic</td></tr>
+        <tr><td><strong>Digital health coaching projected 2034</strong></td><td>$34.4 billion</td><td>InsightAce Analytic</td></tr>
+        <tr><td><strong>Digital health coaching CAGR</strong></td><td>14.9%</td><td>InsightAce Analytic</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p>The AI coaching segment is growing at <strong>30.8% CAGR</strong> -- nearly 4x faster than the broader weight management market. AI-driven coaching platforms are projected to exceed $1 billion in global value by 2026.</p>
+  </div>
+
+  <h3>Growth Drivers</h3>
+  <ul>
+    <li>Rising global obesity rates (WHO projects 167 million adults will be overweight/obese by 2025 in Europe alone)</li>
+    <li>Smartphone penetration enabling digital delivery</li>
+    <li>AI/ML enabling personalization at scale</li>
+    <li>GLP-1 medication boom creating complementary coaching demand</li>
+    <li>Employer-sponsored wellness programs expanding coverage</li>
+    <li>Post-COVID normalization of remote health services</li>
+  </ul>
+</div>
+
+<hr class="divider">
+
+<!-- 2. France-Specific Analysis -->
+<div class="section">
+  <h2>2. France-Specific Analysis</h2>
+
+  <h3>French Weight Loss Market Size</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>France weight management market projected 2030</strong></td><td>$4.7 billion</td><td>Grand View Research</td></tr>
+        <tr><td><strong>France health &amp; wellness market (2024)</strong></td><td>$121.8 billion</td><td>IMARC Group</td></tr>
+        <tr><td><strong>France health &amp; wellness projected 2033</strong></td><td>$193.7 billion</td><td>IMARC Group</td></tr>
+        <tr><td><strong>France digital health market projected 2029</strong></td><td>$6.04 billion</td><td>Statista</td></tr>
+        <tr><td><strong>European weight loss market (2023)</strong></td><td>$80.9 billion</td><td>Market Data Forecast</td></tr>
+        <tr><td><strong>European market CAGR</strong></td><td>8.96%</td><td>Market Data Forecast</td></tr>
+        <tr><td><strong>Economic cost of obesity in France (2024)</strong></td><td>EUR 12.7 billion</td><td>Asteres</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">France Position</div>
+    <p>France is characterized as the <strong>fastest-growing regional market in Europe</strong> for weight management.</p>
+  </div>
+
+  <h3>Obesity &amp; Population Statistics</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">18.1%</div>
+      <div class="stat-label">Adult obesity rate (9.5M people)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">~47%</div>
+      <div class="stat-label">Overweight + obese combined</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">28%</div>
+      <div class="stat-label">Obesity projected by 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange);">EUR 15.4B</div>
+      <div class="stat-label">Cost of obesity by 2030</div>
+    </div>
+  </div>
+  <div class="highlight">
+    <p><strong>Paradox:</strong> France has Europe's lowest obesity rate but obesity is still growing rapidly and is projected to reach 28% by 2025, with associated costs exceeding EUR 15 billion by 2030.</p>
+  </div>
+
+  <h3>French Consumer Attitudes (ACTION-FRANCE Study, 2024)</h3>
+  <div class="card">
+    <p>Key findings from the major peer-reviewed ACTION-FRANCE study:</p>
+    <ul>
+      <li><strong>56.5%</strong> of people with obesity say their most important goal is losing any amount of weight</li>
+      <li><strong>36.3%</strong> want to improve their appearance</li>
+      <li><strong>33.6%</strong> want to prevent health problems</li>
+      <li><strong>26.6%</strong> want more energy</li>
+      <li>Weight-related discussions with healthcare providers are "surprisingly infrequent"</li>
+      <li>People with obesity feel weight management is <strong>their own responsibility</strong> -- they avoid professional help</li>
+      <li>Healthcare providers often misattribute this to lack of motivation</li>
+    </ul>
+  </div>
+  <div class="callout">
+    <div class="callout-title">CMM Opportunity</div>
+    <p>This "personal responsibility" mindset is a <strong>massive opportunity for CMM</strong>: French consumers want help but feel it should come from themselves, not doctors. An AI coach that feels personal (not clinical) fits perfectly.</p>
+  </div>
+
+  <h3>French Digital Health Behavior</h3>
+  <ul>
+    <li><strong>78% of French consumers</strong> have taken at least some action to live more healthily in the past 12 months</li>
+    <li>Growing demand for telemedicine and remote health solutions</li>
+    <li>Increasing adoption of mobile health apps and wearables</li>
+    <li>France is seeing a surge in digital therapeutics, bolstered by new reimbursement frameworks (DIGA, PECAN)</li>
+  </ul>
+
+  <h3>Cultural Considerations</h3>
+  <ul>
+    <li>France has a strong cultural identity around food, cuisine, and mealtime rituals -- "diet culture" is perceived differently than in the US</li>
+    <li>French consumers are more skeptical of fad diets and tend to prefer structured, science-backed approaches</li>
+    <li>The word "regime" (diet) carries negative connotations; "equilibre alimentaire" (nutritional balance) resonates better</li>
+    <li>Personal coaching and individual attention are culturally valued</li>
+    <li>Privacy is taken very seriously -- RGPD compliance is non-negotiable</li>
+  </ul>
+
+  <h3>RGPD / Privacy Considerations</h3>
+  <p>France has among the strictest health data regulations in Europe:</p>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Requirement</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Legal basis</strong></td><td>Explicit consent required for health data processing under GDPR</td></tr>
+        <tr><td><strong>Data hosting</strong></td><td>Must use HDS-certified hosting (Hebergeur de Donnees de Sante)</td></tr>
+        <tr><td><strong>Regulator</strong></td><td>CNIL (Commission Nationale de l'Informatique et des Libertes)</td></tr>
+        <tr><td><strong>2025-2028 priorities</strong></td><td>CNIL strategic plan focuses on AI supervision, digital health, children's data</td></tr>
+        <tr><td><strong>Mobile app guidance</strong></td><td>CNIL published specific recommendations in September 2024 for privacy-friendly mobile apps</td></tr>
+        <tr><td><strong>European Health Data Space</strong></td><td>French implementation act being prepared in 2025</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>CMM Implications:</strong> Voice recordings from coaching calls are health data and require explicit consent. Data must be hosted on HDS-certified infrastructure in France/EU. Privacy-by-design is mandatory, not optional. CNIL's 2025-2028 strategic focus on AI + digital health means CMM will face scrutiny. This is also a <strong>competitive moat</strong>: compliance requirements create barriers to entry for US-based competitors entering France.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 3. Accountability & Coaching Research -->
+<div class="section">
+  <h2>3. Accountability &amp; Coaching Research</h2>
+
+  <h3>The Science of Accountability Partners</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Source</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>People with accountability partners lost <strong>nearly 2x</strong> as much weight</td><td>JAMA study</td></tr>
+        <tr><td>66% of dieters with social support maintained weight loss vs. 24% without</td><td>Journal of Consulting and Clinical Psychology</td></tr>
+        <tr><td>Log-sharing with a support system increased adherence by <strong>40%</strong></td><td>2020 tech-mediated weight loss study</td></tr>
+        <tr><td>Social support influences <strong>69%</strong> of weight loss behaviors</td><td>Behavioral research</td></tr>
+        <tr><td>When one partner succeeds, the other is <strong>3x more likely</strong> to also succeed</td><td>Partner2Lose RCT</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Key caveat:</strong> Observational studies strongly support accountability, but some randomized controlled trials show mixed results for formal partner inclusion. The mechanism matters -- passive partnership is less effective than structured, regular check-ins.</p>
+
+  <h3>Phone-Based Coaching vs. App Notifications</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Intervention</th><th>Weight Loss (3 months)</th><th>Weight Loss (6 months)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>App + human coaching</strong></td><td>-2.03 kg</td><td>-2.63 kg</td></tr>
+        <tr><td><strong>App + phone intervention (TECH+PHONE)</strong></td><td>--</td><td>-6.4 kg</td></tr>
+        <tr><td><strong>App technology only (TECH)</strong></td><td>--</td><td>-4.1 kg</td></tr>
+        <tr><td><strong>Push notifications only</strong></td><td>-1.63 kg difference</td><td>--</td></tr>
+        <tr><td><strong>App-only (no coaching)</strong></td><td>-1.99 kg</td><td>-2.80 kg</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Core Validation</div>
+    <p>Technology combined with phone-based coaching produced <strong>56% more weight loss</strong> (-6.4 kg vs -4.1 kg) than technology alone over 6 months. This is the core scientific validation for CMM's phone-call model.</p>
+  </div>
+
+  <h3>The Psychology of Voice vs. Text</h3>
+  <div class="card">
+    <p>Research from UT Austin and UC Berkeley reveals why phone calls outperform text:</p>
+    <ul>
+      <li><strong>Voice triggers oxytocin release</strong> -- the bonding hormone that builds trust</li>
+      <li>Phone calls <strong>reduce cortisol</strong> (stress hormone) significantly more than text</li>
+      <li>People form <strong>significantly stronger bonds</strong> through voice, even though they predict they'd prefer text</li>
+      <li>Voice creates a sense of <strong>real-time presence</strong> and accountability that text/push notifications cannot replicate</li>
+      <li>Voice messages result in <strong>more active engagement</strong> and higher response rates</li>
+    </ul>
+  </div>
+
+  <h3>Habit Formation: The 21-Day Myth</h3>
+  <p>A major 2024 systematic review (20 studies, 2,601 participants) debunked the popular "21-day habit" claim:</p>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Actual average time to form a habit</strong></td><td><strong>59-66 days</strong></td></tr>
+        <tr><td><strong>Full range</strong></td><td>4 to 335 days</td></tr>
+        <tr><td><strong>Realistic expectation</strong></td><td><strong>2-5 months</strong> for health behavior automaticity</td></tr>
+        <tr><td><strong>Morning practices</strong></td><td>More effective than evening</td></tr>
+        <tr><td><strong>Self-chosen habits</strong></td><td>Better results than assigned ones</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>CMM Implication:</strong> The daily call model should be designed for a minimum <strong>60-90 day engagement arc</strong>, not the commonly marketed "21-day challenge." Subscription pricing should be structured around 3-month minimum commitments to align with actual behavior change timelines.</p>
+  </div>
+
+  <h3>The Duolingo Streak Model</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">4.6x</div>
+      <div class="stat-label">Retention improvement (12% to 55%)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">3.6x</div>
+      <div class="stat-label">7-day streak users stay engaged</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">21%</div>
+      <div class="stat-label">Churn reduction (Streak Freeze)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">40%</div>
+      <div class="stat-label">More lessons with leaderboard</div>
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Overall retention improvement</strong></td><td>12% to <strong>55%</strong> (4.6x increase)</td></tr>
+        <tr><td><strong>7-day streak users</strong></td><td><strong>3.6x</strong> more likely to stay engaged long-term</td></tr>
+        <tr><td><strong>Streak wager feature</strong></td><td><strong>14%</strong> boost in day-14 retention</td></tr>
+        <tr><td><strong>Streak Freeze feature</strong></td><td><strong>21%</strong> churn reduction for at-risk users</td></tr>
+        <tr><td><strong>iOS widget (streak display)</strong></td><td><strong>60%</strong> increase in user commitment</td></tr>
+        <tr><td><strong>Leaderboard engagement</strong></td><td><strong>40%</strong> more lessons completed per week</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Mechanism:</strong> Streaks leverage <strong>loss aversion</strong> -- people are more motivated to avoid losing progress than to gain rewards. This psychological principle is directly applicable to CMM's daily call streak model.</p>
+
+  <h3>Why Diets Fail</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Finding</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Origin of "95% fail" claim</strong></td><td>1959 study -- outdated but directionally correct</td></tr>
+        <tr><td><strong>Modern failure rate</strong></td><td>~80% regain significant weight within 12 months</td></tr>
+        <tr><td><strong>Average regain timeline</strong></td><td>Dieters regain &gt;50% of lost weight within 2 years</td></tr>
+        <tr><td><strong>Metabolic adaptation</strong></td><td>Body slows metabolism to resist weight loss</td></tr>
+        <tr><td><strong>Hormonal changes</strong></td><td>Leptin decreases, ghrelin increases -- creating biological hunger drive</td></tr>
+        <tr><td><strong>With intensive support</strong></td><td>50% maintain &gt;5% loss after 8 years; 25% maintain &gt;10% loss</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Key Insight</div>
+    <p>The 50% success rate with intensive, personalized programs (vs. ~20% without) represents the evidence base for CMM's value proposition. The gap between self-directed failure (~80%) and coached success (~50%) is where CMM creates value.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 4. Market Segments -->
+<div class="section">
+  <h2>4. Market Segments</h2>
+
+  <h3>B2C Consumer Apps</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Company</th><th>Revenue (2024)</th><th>Key Model</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>WeightWatchers</strong></td><td>$452 million</td><td>Subscription + community + GLP-1</td></tr>
+        <tr><td><strong>Noom</strong></td><td>~$400 million</td><td>Subscription + AI + human coaching</td></tr>
+        <tr><td><strong>Simple</strong> (fasting app)</td><td>Undisclosed (700K+ subscribers)</td><td>AI coach "Avo" + intermittent fasting</td></tr>
+        <tr><td><strong>MyFitnessPal</strong></td><td>~$200 million (est.)</td><td>Freemium + calorie tracking</td></tr>
+        <tr><td><strong>HealthifyMe</strong></td><td>Undisclosed</td><td>AI nutritionist "Ria" + human coaches</td></tr>
+        <tr><td><strong>Calibrate</strong></td><td>Undisclosed</td><td>GLP-1 + metabolic coaching</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>Competitive gap CMM fills:</strong> None of these competitors use <strong>phone calls</strong> as the primary engagement channel. They all rely on app notifications, in-app messaging, and text-based coaching. CMM's voice-first approach is genuinely differentiated.</p>
+  </div>
+
+  <h3>B2B Corporate Wellness</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">$56-68B</div>
+      <div class="stat-label">Global corporate wellness 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$102.6B</div>
+      <div class="stat-label">Projected 2032</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">24.7%</div>
+      <div class="stat-label">Nutrition/weight share (largest)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">7-8%</div>
+      <div class="stat-label">CAGR</div>
+    </div>
+  </div>
+
+  <h4>Key developments in 2025-2026</h4>
+  <ul>
+    <li>Noom partnered with Castlight Health for employer distribution</li>
+    <li>Virta Health introduced cost guarantees for employer weight loss programs</li>
+    <li>UnitedHealthcare launched "Total Weight Support" with coaching + GLP-1 coverage</li>
+    <li>PBMs increasingly pairing GLP-1 authorizations with mandatory lifestyle coaching</li>
+    <li>Employers seeking solutions to manage rising GLP-1 medication costs</li>
+  </ul>
+
+  <h3>GLP-1 / Ozempic Adjacent Market</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>US adults using GLP-1s</strong></td><td>~18 million (7% of adults)</td></tr>
+        <tr><td><strong>Complementary coaching need</strong></td><td>Behavioral support not typically included in GLP-1 prescriptions</td></tr>
+        <tr><td><strong>Employer integration</strong></td><td>PBMs now pairing GLP-1 with lifestyle coaching mandates</td></tr>
+        <tr><td><strong>Clinical evidence</strong></td><td>Coaching + GLP-1 produces better long-term outcomes than medication alone</td></tr>
+        <tr><td><strong>Wegovy launch in France</strong></td><td>October 2024 (not yet reimbursed by national insurance)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">CMM Positioning</div>
+    <p>CMM is not a medication competitor -- it is a <strong>GLP-1 companion product</strong>. As Wegovy and similar medications launch in France, CMM can position as the behavioral support layer that maximizes medication outcomes. This is a powerful B2B pitch to insurance companies and employers.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 5. Consumer Pain Points -->
+<div class="section">
+  <h2>5. Consumer Pain Points</h2>
+
+  <h3>Why People Quit Weight Loss Apps</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Pain Point</th><th>Detail</th><th>CMM Solution</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Manual food logging</strong></td>
+          <td>"The tracking becomes more exhausting than the diet itself." High data entry burden is the #1 cited reason for app abandonment.</td>
+          <td>Voice-based check-ins eliminate manual logging. AI can extract meal info from conversational descriptions.</td>
+        </tr>
+        <tr>
+          <td><strong>Notification fatigue</strong></td>
+          <td>Sending 3-6 push notifications causes <strong>40% of users to opt out</strong>. Users become blind to generic reminders.</td>
+          <td>A phone call is impossible to ignore and creates genuine engagement, not fatigue.</td>
+        </tr>
+        <tr>
+          <td><strong>Unrealistic expectations</strong></td>
+          <td>Users expect transformation in days/weeks. When it doesn't happen, they quit.</td>
+          <td>Daily calls set realistic expectations through ongoing coaching dialogue.</td>
+        </tr>
+        <tr>
+          <td><strong>Lack of motivational support</strong></td>
+          <td>Users want "something to encourage them" -- not just data tracking. Apps provide information but not emotional support.</td>
+          <td>Voice coaching provides the encouragement, empathy, and motivation users actually want.</td>
+        </tr>
+        <tr>
+          <td><strong>No human connection</strong></td>
+          <td>Apps feel transactional. Push notifications feel robotic. No sense that "someone cares."</td>
+          <td>Even AI voice creates stronger bonding than text (oxytocin release, cortisol reduction).</td>
+        </tr>
+        <tr>
+          <td><strong>Low retention</strong></td>
+          <td>Average 30-day retention for health apps: <strong>27%</strong>. 77% of users lost within first 3 days.</td>
+          <td>Daily phone calls create a commitment device. Missing a call feels like standing someone up.</td>
+        </tr>
+        <tr>
+          <td><strong>Generic advice</strong></td>
+          <td>One-size-fits-all programs don't account for individual context, preferences, or constraints.</td>
+          <td>AI learns from each call, personalizing coaching over time.</td>
+        </tr>
+        <tr>
+          <td><strong>Battery/technical issues</strong></td>
+          <td>GPS tracking, video streaming drain battery. Technical friction drives dropout.</td>
+          <td>Phone calls work on any phone, any OS, even without the app open. Zero technical friction.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The Retention Crisis in Numbers</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange);">26%</div>
+      <div class="stat-label">Day 1 activation</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange);">23%</div>
+      <div class="stat-label">Day 3 retention</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange);">~10%</div>
+      <div class="stat-label">Day 28 retention</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--orange);">5%</div>
+      <div class="stat-label">90-day (no push notifications)</div>
+    </div>
+  </div>
+  <div class="highlight">
+    <p><strong>AI personalization advantage:</strong> Health apps incorporating AI-driven personalization have <strong>50% higher retention rates</strong>. Apps with social features see a <strong>30% boost</strong>. CMM combines both (AI personalization + voice social connection).</p>
+  </div>
+
+  <h3>The Phone Call Advantage</h3>
+  <div class="card">
+    <ol>
+      <li><strong>Impossible to ignore:</strong> A ringing phone demands attention; a push notification blends into the noise</li>
+      <li><strong>Creates social obligation:</strong> Not answering feels like ignoring a person, not dismissing a notification</li>
+      <li><strong>Triggers neurochemistry:</strong> Voice triggers oxytocin (bonding) and reduces cortisol (stress)</li>
+      <li><strong>Enables real-time coaching:</strong> Two-way conversation allows adaptation, not just broadcasting</li>
+      <li><strong>Higher perceived value:</strong> A "phone call from your coach" feels premium; a push notification feels spam</li>
+      <li><strong>No screen time required:</strong> Users can take the call while walking, cooking, commuting</li>
+      <li><strong>Works on any device:</strong> Doesn't require smartphone, specific OS, or app installation</li>
+    </ol>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 6. Trends 2025-2026 -->
+<div class="section">
+  <h2>6. Trends 2025-2026</h2>
+
+  <h3>AI Voice Agents in Health</h3>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-value">$468M</div>
+      <div class="stat-label">Market 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value">$3.18B</div>
+      <div class="stat-label">Projected 2030</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--green);">37.8%</div>
+      <div class="stat-label">CAGR</div>
+    </div>
+  </div>
+  <ul>
+    <li>HIPAA-compliant platforms integrating vocal biomarker detectors</li>
+    <li>Voice analysis detecting neurological disorders, heart disease, respiratory illness, depression</li>
+    <li>Psychiatric disorders dominating voice biomarker applications (32.4% market share)</li>
+  </ul>
+
+  <h3>Voice Biomarker Analysis</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Value</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Vocal biomarkers market (2025)</strong></td><td>$1.24 billion</td></tr>
+        <tr><td><strong>Projected 2035</strong></td><td>$5.39 billion</td></tr>
+        <tr><td><strong>CAGR</strong></td><td>15.8%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>CMM future feature:</strong> Daily phone calls generate a rich dataset of vocal biomarkers over time. CMM could detect early signs of emotional distress, stress-eating triggers, or depression -- and adapt coaching accordingly. This is a genuine technological moat.</p>
+  </div>
+
+  <h3>Personalized Coaching at Scale</h3>
+  <ul>
+    <li><strong>Simple:</strong> AI coach "Avo" with 700K+ subscribers, $35M Series B (October 2025, led by Kevin Hart's VC)</li>
+    <li><strong>HealthifyMe:</strong> AI nutritionist "Ria" enabling coaches to manage 300 clients simultaneously</li>
+    <li><strong>Noom:</strong> AI-powered daily prompts tracking emotional eating patterns</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-title">CMM Differentiation</div>
+    <p>All these competitors are <strong>text-based</strong>. None use voice as the primary coaching modality. CMM can be the first AI voice coaching platform for weight loss at scale.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 7. Key Takeaways for CMM Positioning -->
+<div class="section">
+  <h2>7. Key Takeaways for CMM Positioning</h2>
+
+  <h3>The Core Thesis</h3>
+  <div class="highlight">
+    <p>CMM sits at the intersection of three explosive growth trends:</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--green);">30.8%</div>
+        <div class="stat-label">AI Coaching CAGR</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--green);">37.8%</div>
+        <div class="stat-label">AI Voice Agents Healthcare CAGR</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style="color: var(--green);">17-18%</div>
+        <div class="stat-label">Digital Weight Loss Apps CAGR</div>
+      </div>
+    </div>
+    <p style="margin-top: 1rem;">The combined addressable market is expanding rapidly, and CMM's unique voice-first approach occupies white space that no major competitor has claimed.</p>
+  </div>
+
+  <h3>Why CMM Wins</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Advantage</th><th>Evidence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Phone coaching adds 56% more weight loss than tech alone</strong></td><td>TECH+PHONE study: -6.4 kg vs -4.1 kg</td></tr>
+        <tr><td><strong>Voice triggers bonding neurochemistry</strong></td><td>UT Austin: oxytocin release, cortisol reduction</td></tr>
+        <tr><td><strong>Accountability doubles weight loss outcomes</strong></td><td>JAMA: 2x weight loss with accountability partner</td></tr>
+        <tr><td><strong>66% maintain weight loss with support vs 24% without</strong></td><td>Journal of Consulting and Clinical Psychology</td></tr>
+        <tr><td><strong>Daily streaks transform retention</strong></td><td>Duolingo: 12% to 55% retention, 3.6x engagement at 7-day streak</td></tr>
+        <tr><td><strong>AI personalization = 50% higher retention</strong></td><td>Health app benchmarks data</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>France-First Strategy Validation</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Factor</th><th>Favorable?</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Market growth</strong></td><td style="color: var(--green);">Yes</td><td>Fastest-growing weight management market in Europe</td></tr>
+        <tr><td><strong>Obesity trajectory</strong></td><td style="color: var(--green);">Yes</td><td>Rising from 18% to projected 28%, creating demand</td></tr>
+        <tr><td><strong>Cultural fit</strong></td><td style="color: var(--green);">Yes</td><td>French value personal attention and individual coaching</td></tr>
+        <tr><td><strong>"Personal responsibility" mindset</strong></td><td style="color: var(--green);">Yes</td><td>French consumers want to solve it themselves -- AI coach enables this</td></tr>
+        <tr><td><strong>RGPD as moat</strong></td><td style="color: var(--green);">Yes</td><td>Compliance barriers keep out lazy US competitors</td></tr>
+        <tr><td><strong>GLP-1 timing</strong></td><td style="color: var(--green);">Yes</td><td>Wegovy just launched in France (Oct 2024) -- complementary coaching demand emerging</td></tr>
+        <tr><td><strong>Digital health adoption</strong></td><td style="color: var(--green);">Yes</td><td>78% of French consumers actively pursuing healthier lifestyles</td></tr>
+        <tr><td><strong>Regulatory opportunity</strong></td><td style="color: var(--green);">Yes</td><td>PECAN/DIGA frameworks enable potential reimbursement</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Recommended Positioning</h3>
+  <div class="card">
+    <h4>Primary</h4>
+    <p>"Your daily accountability coach that calls you -- not another app you forget to open."</p>
+    <h4>For France</h4>
+    <p>Emphasize "equilibre alimentaire" (nutritional balance), not "regime" (diet). Position as a personal companion, not a clinical tool.</p>
+    <h4>B2B pitch</h4>
+    <p>"The measurable, daily-touchpoint behavioral support layer that makes your GLP-1 investment and corporate wellness program actually work."</p>
+  </div>
+
+  <h3>Critical Metrics to Track</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Industry Average</th><th>CMM Target</th><th>Rationale</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Day 7 retention</strong></td><td>~30%</td><td style="color: var(--green);">65%+</td><td>Duolingo achieves this with streaks</td></tr>
+        <tr><td><strong>Day 30 retention</strong></td><td>27%</td><td style="color: var(--green);">55%+</td><td>Voice commitment device should outperform text apps</td></tr>
+        <tr><td><strong>Day 90 retention</strong></td><td>~10%</td><td style="color: var(--green);">35%+</td><td>Habit formation at 60-66 days means users who reach 90 days are habituated</td></tr>
+        <tr><td><strong>Average weight loss (6 months)</strong></td><td>-2.8 kg (app only)</td><td style="color: var(--green);">-5-6 kg</td><td>Phone coaching studies show -6.4 kg achievable</td></tr>
+        <tr><td><strong>NPS</strong></td><td>~30 (health apps)</td><td style="color: var(--green);">50+</td><td>Voice coaching creates emotional connection</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Pricing Context</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Competitor</th><th>Price</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Noom</strong></td><td>$70/month or $209/year</td></tr>
+        <tr><td><strong>WeightWatchers</strong></td><td>$23-45/month</td></tr>
+        <tr><td><strong>Simple</strong></td><td>$20-40/month</td></tr>
+        <tr><td><strong>Human nutrition coaching (France)</strong></td><td>EUR 50-80/session</td></tr>
+        <tr><td><strong>HealthifyMe Pro</strong></td><td>$15-30/month</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Pricing Recommendation</div>
+    <p>CMM should price in the <strong>EUR 29-49/month</strong> range for France B2C, positioning above commodity apps but well below human coaching. The phone call modality justifies premium pricing over text-based alternatives.</p>
+  </div>
+
+  <h3>Risks and Mitigations</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Risk</th><th>Mitigation</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Voice AI quality not convincing enough</strong></td><td>Start with hybrid model (AI + human coaching for high-value moments)</td></tr>
+        <tr><td><strong>RGPD compliance cost</strong></td><td>Build compliant from day one; use it as competitive advantage</td></tr>
+        <tr><td><strong>GLP-1 medications reducing coaching demand</strong></td><td>Position as companion, not competitor; coaching improves GLP-1 outcomes</td></tr>
+        <tr><td><strong>User fatigue with daily calls</strong></td><td>Allow frequency customization; make calls short (3-5 min); use Duolingo-style streak rewards</td></tr>
+        <tr><td><strong>Competitors copying voice model</strong></td><td>Move fast; build voice biomarker dataset as proprietary moat</td></tr>
+        <tr><td><strong>Noom entering voice</strong></td><td>Noom's free tier launch suggests margin pressure; they're going mass-market, not premium</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer-note">
+  Research compiled February 2026. Market data sourced from Grand View Research, IMARC Group, Future Market Insights, Precedence Research, Globe Newswire, and peer-reviewed academic studies.
+</div>
+
+</div>
+
+</body>
+</html>

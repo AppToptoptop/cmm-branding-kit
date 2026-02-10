@@ -1,0 +1,1593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe &mdash; SEO Strategy Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08090c;
+  --card: #12141b;
+  --card-hover: #181b24;
+  --elevated: #1c1f29;
+  --border: #1e2130;
+  --text: #eceae7;
+  --dim: #8b8fa3;
+  --muted: #555a6e;
+  --gold: #D4A853;
+  --teal: #00d4aa;
+  --orange: #F47D31;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+  --red: #ff4d6a;
+  --green: #34d399;
+  --glow-gold: rgba(212,168,83,0.12);
+  --glow-teal: rgba(0,212,170,0.12);
+  --glow-orange: rgba(244,125,49,0.12);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+::selection { background: var(--gold); color: var(--bg); }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(8,9,12,0.88);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+}
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+.nav-brand {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+.nav-brand em { font-style: normal; color: var(--gold); }
+.nav-links {
+  display: flex;
+  gap: 0.25rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-links::-webkit-scrollbar { display: none; }
+.nav-links a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.nav-links a:hover { color: var(--text); background: var(--elevated); }
+.nav-right { display: flex; gap: 0.75rem; align-items: center; }
+.nav-right a {
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-right a:hover { color: var(--text); }
+.nav-right .print-btn { color: var(--gold); }
+
+/* MAIN */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO HEADER */
+.hero {
+  text-align: center;
+  padding: 2rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+.hero-badge {
+  display: inline-block;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.6rem;
+  color: var(--gold);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: 1px solid rgba(212,168,83,0.25);
+  padding: 0.3rem 1rem;
+  border-radius: 100px;
+  background: rgba(212,168,83,0.06);
+  margin-bottom: 1.2rem;
+}
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -2px;
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+.hero h1 em { font-style: normal; color: var(--gold); }
+.hero-sub {
+  color: var(--dim);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+}
+.hero-meta {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero-meta span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 0.25rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--card);
+}
+
+/* TOC */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2.5rem;
+}
+.toc-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1rem;
+}
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.5rem;
+}
+.toc a {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.82rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+.toc a:hover { color: var(--text); background: var(--elevated); }
+.toc .toc-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--gold);
+  min-width: 22px;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 3rem;
+  animation: fadeUp 0.5s ease both;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.section-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--bg);
+  background: var(--gold);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* SUBSECTION */
+.subsection {
+  margin-bottom: 2rem;
+}
+.subsection h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.8rem;
+  color: var(--teal);
+}
+.subsection h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: var(--dim);
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+.card.accent-gold::before { background: var(--gold); }
+.card.accent-teal::before { background: var(--teal); }
+.card.accent-orange::before { background: var(--orange); }
+.card.accent-blue::before { background: var(--blue); }
+.card.accent-purple::before { background: var(--purple); }
+.card.accent-green::before { background: var(--green); }
+.card.accent-red::before { background: var(--red); }
+
+.card-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.card h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 0.5rem;
+}
+.card p {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.65;
+}
+
+/* GRID LAYOUTS */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* TABLES */
+.table-wrap {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+thead {
+  background: var(--elevated);
+  position: sticky;
+  top: 0;
+}
+th {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 0.65rem 1rem;
+  color: var(--dim);
+  border-bottom: 1px solid rgba(30,33,48,0.5);
+  vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+td:first-child {
+  color: var(--text);
+  font-weight: 500;
+}
+.tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 500;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.tag-gold { background: rgba(212,168,83,0.15); color: var(--gold); }
+.tag-teal { background: rgba(0,212,170,0.15); color: var(--teal); }
+.tag-orange { background: rgba(244,125,49,0.15); color: var(--orange); }
+.tag-blue { background: rgba(77,166,255,0.15); color: var(--blue); }
+.tag-green { background: rgba(52,211,153,0.15); color: var(--green); }
+.tag-red { background: rgba(255,77,106,0.15); color: var(--red); }
+.tag-purple { background: rgba(179,102,255,0.15); color: var(--purple); }
+
+/* CODE BLOCKS */
+.code-block {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0 1.25rem;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  line-height: 1.8;
+  color: var(--dim);
+}
+.code-block .comment { color: var(--muted); }
+.code-block .key { color: var(--teal); }
+.code-block .val { color: var(--gold); }
+.code-block .str { color: var(--orange); }
+
+/* CALLOUT */
+.callout {
+  background: rgba(212,168,83,0.06);
+  border: 1px solid rgba(212,168,83,0.2);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 1rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+  font-size: 0.82rem;
+  color: var(--dim);
+}
+.callout.teal {
+  background: rgba(0,212,170,0.06);
+  border-color: rgba(0,212,170,0.2);
+  border-left-color: var(--teal);
+}
+.callout.orange {
+  background: rgba(244,125,49,0.06);
+  border-color: rgba(244,125,49,0.2);
+  border-left-color: var(--orange);
+}
+.callout strong { color: var(--text); }
+
+/* LISTS */
+.styled-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 1rem;
+}
+.styled-list li {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.65;
+  padding: 0.25rem 0 0.25rem 1.2rem;
+  position: relative;
+}
+.styled-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.styled-list.teal li::before { background: var(--teal); }
+.styled-list.orange li::before { background: var(--orange); }
+
+/* STAT ROW */
+.stat-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.stat-item {
+  flex: 1;
+  min-width: 100px;
+  text-align: center;
+  background: var(--elevated);
+  border-radius: 10px;
+  padding: 0.8rem 0.5rem;
+  border: 1px solid var(--border);
+}
+.stat-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+.stat-num.gold { color: var(--gold); }
+.stat-num.teal { color: var(--teal); }
+.stat-num.orange { color: var(--orange); }
+.stat-label {
+  font-size: 0.6rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0.2rem;
+}
+
+/* DIAGRAM */
+.diagram {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin: 1rem 0 1.5rem;
+  text-align: center;
+}
+.diagram-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.diagram-node {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+.diagram-node.highlight {
+  border-color: var(--gold);
+  background: rgba(212,168,83,0.08);
+  color: var(--gold);
+}
+.diagram-arrow {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+/* TIMELINE */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1rem 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.65rem;
+  top: 0.5rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  border: 2px solid var(--bg);
+}
+.timeline-item.phase-2::before { background: var(--teal); }
+.timeline-item.phase-3::before { background: var(--orange); }
+.timeline-item.phase-4::before { background: var(--purple); }
+.timeline-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.timeline-desc {
+  font-size: 0.78rem;
+  color: var(--dim);
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 2rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+/* CLUSTER MAP */
+.cluster-map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+}
+.cluster-hub {
+  background: var(--gold);
+  color: var(--bg);
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+}
+.cluster-branches {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cluster-branch {
+  background: var(--elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  text-align: center;
+  font-size: 0.72rem;
+  min-width: 100px;
+}
+.cluster-branch .cb-name {
+  font-family: 'Sora', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-bottom: 0.2rem;
+}
+.cluster-branch .cb-count {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--muted);
+}
+.connector-line {
+  width: 2px;
+  height: 20px;
+  background: var(--border);
+}
+.connector-row {
+  display: flex;
+  gap: 3rem;
+}
+.connector-row .connector-line {
+  width: 2px;
+  height: 20px;
+  background: var(--border);
+}
+
+/* PRINT */
+@media print {
+  body { background: #fff; color: #111; }
+  body::before { display: none; }
+  nav { display: none; }
+  .container { padding-top: 1rem; }
+  .card, .toc { border-color: #ddd; background: #f9f9f9; }
+  .card::before { display: none; }
+  .card p, .card li, td { color: #444; }
+  th { color: #666; }
+  .section-num { background: #333; color: #fff; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">Call Me <em>Maybe</em></a>
+    <div class="nav-links">
+      <a href="#keywords">Keywords</a>
+      <a href="#onpage">On-Page</a>
+      <a href="#content">Content</a>
+      <a href="#technical">Technical</a>
+      <a href="#backlinks">Backlinks</a>
+      <a href="#local">Local SEO</a>
+      <a href="#partners">Partners</a>
+      <a href="#timeline">Timeline</a>
+    </div>
+    <div class="nav-right">
+      <a href="javascript:window.print()" class="print-btn">&#128424; Print</a>
+      <a href="index.html">&larr; War Room</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">SEO Strategy &mdash; Feb 2026</div>
+  <h1>SEO Strategy <em>Plan</em></h1>
+  <p class="hero-sub">Comprehensive organic search strategy for Call Me Maybe. France-first, then global. Keyword research, content clusters, technical SEO, and link building playbook.</p>
+  <div class="hero-meta">
+    <span>Target: FR Women 25-40</span>
+    <span>Price: &euro;9.90/mo</span>
+    <span>Launch: France Q1 2026</span>
+    <span>Goal: 25K organic/mo by M12</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">Table of Contents</div>
+  <div class="toc-grid">
+    <a href="#keywords"><span class="toc-num">01</span> Keyword Research (FR + EN)</a>
+    <a href="#onpage"><span class="toc-num">02</span> On-Page SEO</a>
+    <a href="#content"><span class="toc-num">03</span> Content Strategy</a>
+    <a href="#technical"><span class="toc-num">04</span> Technical SEO</a>
+    <a href="#backlinks"><span class="toc-num">05</span> Backlink Strategy</a>
+    <a href="#local"><span class="toc-num">06</span> Local SEO (France)</a>
+    <a href="#partners"><span class="toc-num">07</span> Partner SEO Synergy</a>
+    <a href="#timeline"><span class="toc-num">08</span> Implementation Timeline</a>
+  </div>
+</div>
+
+<!-- KEY METRICS OVERVIEW -->
+<div class="stat-row">
+  <div class="stat-item">
+    <div class="stat-num gold">20+</div>
+    <div class="stat-label">Blog Topics</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num teal">5</div>
+    <div class="stat-label">Content Clusters</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num orange">80+</div>
+    <div class="stat-label">Target Keywords</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num gold">150</div>
+    <div class="stat-label">Backlinks Y1</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num teal">DA 35</div>
+    <div class="stat-label">Target Y1</div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 1: KEYWORD RESEARCH -->
+<!-- ============================================ -->
+<div class="section" id="keywords">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>Keyword Research (FR + EN)</h2>
+  </div>
+
+  <div class="callout">
+    <strong>Blue Ocean Advantage:</strong> No competitor targets "coaching telephonique perte de poids" or "AI coach qui appelle." The intersection of phone calls + AI + weight loss is uncontested in search. We own this from day one.
+  </div>
+
+  <!-- 1.1 Primary -->
+  <div class="subsection">
+    <h3>1.1 Primary Keywords (High Intent)</h3>
+    <p style="font-size:0.82rem;color:var(--dim);margin-bottom:0.8rem;">These are the money keywords. Users searching these have high purchase intent for weight loss coaching.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Keyword (FR)</th><th>Keyword (EN)</th><th>Volume FR</th><th>Difficulty</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>coach perte de poids</td><td>weight loss coach</td><td>2,400</td><td><span class="tag tag-orange">Medium</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>coaching minceur</td><td>slimming coaching</td><td>1,300</td><td><span class="tag tag-orange">Medium</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>application perte de poids</td><td>weight loss app</td><td>6,600</td><td><span class="tag tag-red">High</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>coach minceur en ligne</td><td>online slimming coach</td><td>720</td><td><span class="tag tag-green">Low</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>appel coaching perte de poids</td><td>weight loss coaching call</td><td>&lt;100</td><td><span class="tag tag-teal">Very Low</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>coach IA perte de poids</td><td>AI weight loss coach</td><td>320</td><td><span class="tag tag-green">Low</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>programme perte de poids personnalise</td><td>personalized weight loss program</td><td>1,600</td><td><span class="tag tag-orange">Medium</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>coaching telephonique perte de poids</td><td>phone coaching weight loss</td><td>&lt;100</td><td><span class="tag tag-teal">Very Low</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.2 Secondary -->
+  <div class="subsection">
+    <h3>1.2 Secondary Keywords (Accountability + Habits)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Keyword (FR)</th><th>Keyword (EN)</th><th>Volume FR</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>accountability partner</td><td>accountability partner</td><td>880</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>coaching quotidien</td><td>daily coaching</td><td>390</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>habitudes saines</td><td>healthy habits</td><td>1,900</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>motivation perte de poids</td><td>weight loss motivation</td><td>3,600</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>discipline alimentaire</td><td>food discipline</td><td>480</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>changer ses habitudes</td><td>changing habits</td><td>1,600</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>tenir ses objectifs</td><td>sticking to goals</td><td>720</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>routine bien-etre</td><td>wellness routine</td><td>590</td><td><span class="tag tag-blue">P1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.3 Long-Tail -->
+  <div class="subsection">
+    <h3>1.3 Long-Tail Keywords (Questions People Ask)</h3>
+    <p style="font-size:0.82rem;color:var(--dim);margin-bottom:0.8rem;">Targets featured snippets, People Also Ask boxes, and voice search.</p>
+    <div class="grid-2">
+      <div class="card accent-gold">
+        <div class="card-label">French Long-Tail</div>
+        <ul class="styled-list">
+          <li>comment perdre du poids durablement <span class="tag tag-gold">2,900</span></li>
+          <li>pourquoi je n'arrive pas a perdre du poids <span class="tag tag-gold">1,900</span></li>
+          <li>comment rester motivee pour maigrir <span class="tag tag-gold">1,300</span></li>
+          <li>perdre du poids sans regime <span class="tag tag-gold">4,400</span></li>
+          <li>comment se tenir a un regime <span class="tag tag-gold">1,600</span></li>
+          <li>est-ce qu'un coach aide a perdre du poids <span class="tag tag-gold">880</span></li>
+          <li>TDAH et perte de poids <span class="tag tag-gold">590</span></li>
+          <li>perte de poids femme 35 ans <span class="tag tag-gold">720</span></li>
+        </ul>
+      </div>
+      <div class="card accent-teal">
+        <div class="card-label">English Long-Tail</div>
+        <ul class="styled-list teal">
+          <li>does accountability help with weight loss <span class="tag tag-teal">590</span></li>
+          <li>AI weight loss coach that calls you <span class="tag tag-teal">&lt;100</span></li>
+          <li>best accountability app for weight loss <span class="tag tag-teal">880</span></li>
+          <li>how to stay motivated to lose weight <span class="tag tag-teal">6,600</span></li>
+          <li>GLP-1 companion app <span class="tag tag-teal">1,300</span></li>
+          <li>phone call coaching for health <span class="tag tag-teal">170</span></li>
+          <li>daily phone call for accountability <span class="tag tag-teal">210</span></li>
+          <li>weight loss coach vs app which is better <span class="tag tag-teal">320</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1.4 TDAH -->
+  <div class="subsection">
+    <h3>1.4 TDAH/ADHD + Accountability Keywords</h3>
+    <div class="callout teal">
+      <strong>High Opportunity Niche:</strong> Obesity is 70% more frequent in ADHD adults. Coaching demand outstrips supply in France. CMM's daily call provides the external accountability TDAH brains need &mdash; zero charge mentale.
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Keyword (FR)</th><th>Keyword (EN)</th><th>Volume</th><th>Opportunity</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TDAH et alimentation</td><td>ADHD and eating</td><td>880</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>TDAH perte de poids</td><td>ADHD weight loss</td><td>590</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>coaching TDAH adulte</td><td>ADHD coaching adult</td><td>720</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>TDAH et motivation</td><td>ADHD and motivation</td><td>480</td><td><span class="tag tag-green">High</span></td></tr>
+          <tr><td>TDAH et boulimie</td><td>ADHD and binge eating</td><td>390</td><td><span class="tag tag-orange">Medium</span></td></tr>
+          <tr><td>application TDAH France</td><td>ADHD app France</td><td>320</td><td><span class="tag tag-green">High</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 1.5 Competitor -->
+  <div class="subsection">
+    <h3>1.5 Competitor Keywords to Target</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Competitor Keyword</th><th>Volume</th><th>CMM Strategy</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Noom avis</td><td>2,900</td><td>Blog: "Noom vs Call Me Maybe"</td></tr>
+          <tr><td>Noom France</td><td>1,600</td><td>Blog: "Alternative a Noom en France"</td></tr>
+          <tr><td>Weight Watchers en ligne</td><td>1,300</td><td>Blog: "WW vs coaching IA"</td></tr>
+          <tr><td>Yazio avis</td><td>1,900</td><td>Blog: "Au-dela du comptage de calories"</td></tr>
+          <tr><td>MyFitnessPal alternative</td><td>880</td><td>Blog: "Du tracking au coaching"</td></tr>
+          <tr><td>Noom prix</td><td>720</td><td>Blog: pricing comparison</td></tr>
+          <tr><td>application regime gratuite</td><td>3,600</td><td>Blog: "Pourquoi gratuit ne marche pas"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 2: ON-PAGE SEO -->
+<!-- ============================================ -->
+<div class="section" id="onpage">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>On-Page SEO Recommendations</h2>
+  </div>
+
+  <!-- 2.1 Title Tags -->
+  <div class="subsection">
+    <h3>2.1 Title Tags &amp; Meta Descriptions</h3>
+    <div class="grid-2">
+      <div class="card accent-gold">
+        <div class="card-label">Homepage (FR)</div>
+        <div class="code-block">
+<span class="key">title:</span> <span class="str">Call Me Maybe | Votre Coach IA Qui Vous Appelle Chaque Jour Pour Maigrir</span>
+<span class="key">meta:</span> <span class="val">Perdez du poids avec un coach IA qui vous appelle par telephone chaque matin. Accountability quotidienne, sans regime. 9,90&euro;/mois. Essai gratuit 7 jours.</span>
+        </div>
+      </div>
+      <div class="card accent-teal">
+        <div class="card-label">Homepage (EN)</div>
+        <div class="code-block">
+<span class="key">title:</span> <span class="str">Call Me Maybe | AI Coach That Calls You Daily for Weight Loss</span>
+<span class="key">meta:</span> <span class="val">Lose weight with an AI coach that calls you every morning by phone. Daily accountability, no dieting. &euro;9.90/month. 7-day free trial.</span>
+        </div>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-label">TDAH Landing Page</div>
+        <div class="code-block">
+<span class="key">title:</span> <span class="str">TDAH &amp; Perte de Poids | Un Coach Qui Vous Appelle (Pas une App de Plus)</span>
+<span class="key">meta:</span> <span class="val">Le TDAH rend la perte de poids 70% plus difficile. Call Me Maybe vous appelle chaque matin : zero charge mentale, accountability externe.</span>
+        </div>
+      </div>
+      <div class="card accent-purple">
+        <div class="card-label">Partner Perks Page</div>
+        <div class="code-block">
+<span class="key">title:</span> <span class="str">Partenaires Call Me Maybe | Programme de Perks pour Marques Sante</span>
+<span class="key">meta:</span> <span class="val">Rejoignez le programme partenaires CMM. Offrez des avantages exclusifs a nos utilisatrices. Backlinks dofollow inclus.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.2 Schema -->
+  <div class="subsection">
+    <h3>2.2 Schema Markup</h3>
+    <div class="grid-3">
+      <div class="card accent-teal">
+        <div class="card-label">FAQ Schema</div>
+        <h3>FAQPage</h3>
+        <p>Apply to homepage and every blog post. Targets People Also Ask and rich snippets in search results.</p>
+      </div>
+      <div class="card accent-gold">
+        <div class="card-label">Product Schema</div>
+        <h3>SoftwareApplication</h3>
+        <p>Category: HealthApplication. Include price (&euro;9.90), aggregate rating, and description for rich product cards.</p>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-label">Organization Schema</div>
+        <h3>Organization</h3>
+        <p>Include name, URL, logo, social profiles (Instagram, TikTok, Twitter) for Knowledge Panel eligibility.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2.3 Internal Linking -->
+  <div class="subsection">
+    <h3>2.3 Internal Linking Strategy</h3>
+    <div class="diagram">
+      <div class="card-label">Hub-and-Spoke Architecture</div>
+      <div class="cluster-map">
+        <div class="cluster-hub">HOMEPAGE (Hub)</div>
+        <div class="connector-line"></div>
+        <div class="cluster-branches">
+          <div class="cluster-branch" style="border-color:var(--gold);">
+            <div class="cb-name" style="color:var(--gold);">Accountability</div>
+            <div class="cb-count">6 posts</div>
+          </div>
+          <div class="cluster-branch" style="border-color:var(--teal);">
+            <div class="cb-name" style="color:var(--teal);">AI Coaching</div>
+            <div class="cb-count">5 posts</div>
+          </div>
+          <div class="cluster-branch" style="border-color:var(--orange);">
+            <div class="cb-name" style="color:var(--orange);">Habits</div>
+            <div class="cb-count">4 posts</div>
+          </div>
+          <div class="cluster-branch" style="border-color:var(--purple);">
+            <div class="cb-name" style="color:var(--purple);">TDAH</div>
+            <div class="cb-count">3 posts</div>
+          </div>
+          <div class="cluster-branch" style="border-color:var(--green);">
+            <div class="cb-name" style="color:var(--green);">GLP-1</div>
+            <div class="cb-count">2 posts</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>Linking Rules:</strong> Every blog post links to homepage CTA at least once. Every post links to 2-3 related posts within its cluster. Cluster pillar pages link to ALL spoke articles. Partner page links naturally from pricing and homepage.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 3: CONTENT STRATEGY -->
+<!-- ============================================ -->
+<div class="section" id="content">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Content Strategy</h2>
+  </div>
+
+  <!-- 3.1 Blog Topics -->
+  <div class="subsection">
+    <h3>3.1 Blog Post Topics (20 Ideas)</h3>
+
+    <h4 style="color:var(--gold);margin-top:1rem;">Cluster 1: Accountability &amp; Motivation (6 posts)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Title</th><th>Primary Keyword</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Pourquoi l'accountability est la cle de la perte de poids (etude)</td><td>accountability perte de poids</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>2</td><td>Accountability Partner : definition, avantages et comment en trouver un</td><td>accountability partner</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>3</td><td>7 raisons pour lesquelles vous n'arrivez pas a tenir vos objectifs minceur</td><td>tenir ses objectifs</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>4</td><td>Motivation vs discipline : ce qui fait vraiment maigrir</td><td>motivation perte de poids</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>5</td><td>Comment rester motivee quand la balance ne bouge plus</td><td>plateau perte de poids</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>6</td><td>L'effet Hawthorne : pourquoi etre observee vous fait maigrir</td><td>coaching perte de poids</td><td><span class="tag tag-purple">P2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--teal);margin-top:1rem;">Cluster 2: AI Coaching &amp; Comparisons (5 posts)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Title</th><th>Primary Keyword</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>7</td><td>Noom vs Call Me Maybe : quel coach perte de poids choisir en 2026 ?</td><td>Noom avis</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>8</td><td>Weight Watchers vs coaching IA : la fin du comptage de points</td><td>WW en ligne</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>9</td><td>Pourquoi les applications de calories ne marchent pas (et quoi faire)</td><td>application perte de poids</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>10</td><td>Coach humain vs coach IA : lequel est le plus efficace pour maigrir ?</td><td>coach IA perte de poids</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>11</td><td>Le coaching par telephone : la methode que personne n'attendait</td><td>coaching telephonique</td><td><span class="tag tag-gold">P0</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--orange);margin-top:1rem;">Cluster 3: Habits &amp; Lifestyle (4 posts)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Title</th><th>Primary Keyword</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>12</td><td>5 habitudes du matin qui accelerent la perte de poids</td><td>routine matin minceur</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>13</td><td>Comment changer ses habitudes alimentaires sans regime</td><td>changer habitudes alimentaires</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>14</td><td>Perdre du poids sans regime : le guide complet 2026</td><td>perdre du poids sans regime</td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>15</td><td>La methode des petits pas : maigrir sans souffrir</td><td>methode petits pas</td><td><span class="tag tag-purple">P2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--purple);margin-top:1rem;">Cluster 4: TDAH &amp; Neurodivergence (3 posts)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Title</th><th>Primary Keyword</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>16</td><td>TDAH et perte de poids : pourquoi c'est 70% plus dur (et comment reussir)</td><td>TDAH perte de poids</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>17</td><td>Coaching TDAH : pourquoi un appel quotidien bat toutes les apps</td><td>coaching TDAH</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>18</td><td>TDAH et alimentation : comprendre le lien pour mieux maigrir</td><td>TDAH alimentation</td><td><span class="tag tag-purple">P2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--green);margin-top:1rem;">Cluster 5: GLP-1 Companion (2 posts)</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Title</th><th>Primary Keyword</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>19</td><td>GLP-1 et coaching : pourquoi Ozempic seul ne suffit pas</td><td>GLP-1 companion</td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>20</td><td>Comment maintenir sa perte de poids apres l'arret du GLP-1</td><td>maintenir perte poids GLP-1</td><td><span class="tag tag-blue">P1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3.2 Content Calendar -->
+  <div class="subsection">
+    <h3>3.2 Content Calendar Priority</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Month</th><th>Posts to Publish</th><th>Focus</th><th>Cadence</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="color:var(--gold);">Month 1</td><td>Posts 1, 11, 14</td><td>Foundation: accountability + method + anti-diet</td><td>3 posts</td></tr>
+          <tr><td style="color:var(--gold);">Month 2</td><td>Posts 7, 9, 13</td><td>Competitor capture + habit change</td><td>3 posts</td></tr>
+          <tr><td style="color:var(--teal);">Month 3</td><td>Posts 2, 16, 19</td><td>Accountability definition + TDAH + GLP-1</td><td>3 posts</td></tr>
+          <tr><td style="color:var(--teal);">Month 4</td><td>Posts 3, 8, 12</td><td>Motivation + WW comparison + morning routine</td><td>3 posts</td></tr>
+          <tr><td style="color:var(--orange);">Month 5</td><td>Posts 4, 10, 17</td><td>Motivation vs discipline + AI coaching + TDAH coaching</td><td>3 posts</td></tr>
+          <tr><td style="color:var(--orange);">Month 6</td><td>Posts 5, 6, 15, 18, 20</td><td>Remaining articles + catch-up</td><td>5 posts</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card accent-gold">
+      <div class="card-label">Post Template</div>
+      <h3>Every Blog Post Follows This Structure</h3>
+      <ul class="styled-list">
+        <li>SEO-optimized title with primary keyword</li>
+        <li>Hook paragraph (problem statement)</li>
+        <li>Data / study reference (credibility)</li>
+        <li>Practical advice (value)</li>
+        <li>CMM method tie-in (soft sell)</li>
+        <li>CTA block (trial signup)</li>
+        <li>Internal links to 2-3 related articles</li>
+        <li>FAQ section (schema-eligible)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 4: TECHNICAL SEO -->
+<!-- ============================================ -->
+<div class="section" id="technical">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Technical SEO</h2>
+  </div>
+
+  <!-- 4.1 Speed -->
+  <div class="subsection">
+    <h3>4.1 Core Web Vitals Targets</h3>
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-num green">&lt;2.5s</div>
+        <div class="stat-label">LCP Target</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num green">&lt;200ms</div>
+        <div class="stat-label">INP Target</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num green">&lt;0.1</div>
+        <div class="stat-label">CLS Target</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Action</th><th>Priority</th><th>Impact</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Use Next.js or Astro with SSG for blog</td><td><span class="tag tag-gold">P0</span></td><td>Critical for Core Web Vitals</td></tr>
+          <tr><td>Optimize images: WebP, lazy loading, srcset</td><td><span class="tag tag-gold">P0</span></td><td>LCP improvement</td></tr>
+          <tr><td>Minimize JS bundle (&lt; 100KB initial)</td><td><span class="tag tag-gold">P0</span></td><td>INP improvement</td></tr>
+          <tr><td>Use CDN (Vercel Edge / Cloudflare)</td><td><span class="tag tag-gold">P0</span></td><td>TTFB &lt; 200ms</td></tr>
+          <tr><td>Preload critical fonts (Sora, DM Sans)</td><td><span class="tag tag-blue">P1</span></td><td>CLS reduction</td></tr>
+          <tr><td>Inline critical CSS, defer non-critical</td><td><span class="tag tag-blue">P1</span></td><td>FCP improvement</td></tr>
+          <tr><td>Enable Brotli compression</td><td><span class="tag tag-blue">P1</span></td><td>Transfer size reduction</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4.2 Hreflang -->
+  <div class="subsection">
+    <h3>4.2 Hreflang Implementation (FR/EN)</h3>
+    <div class="code-block">
+<span class="comment">&lt;!-- On every page --&gt;</span>
+<span class="key">&lt;link</span> <span class="val">rel="alternate"</span> <span class="str">hreflang="fr"</span> href="https://callmemaybe.ai/fr/{page}" <span class="key">/&gt;</span>
+<span class="key">&lt;link</span> <span class="val">rel="alternate"</span> <span class="str">hreflang="en"</span> href="https://callmemaybe.ai/en/{page}" <span class="key">/&gt;</span>
+<span class="key">&lt;link</span> <span class="val">rel="alternate"</span> <span class="str">hreflang="x-default"</span> href="https://callmemaybe.ai/en/{page}" <span class="key">/&gt;</span>
+    </div>
+    <div class="grid-3">
+      <div class="card accent-green">
+        <h3>Subdirectory</h3>
+        <p><strong>/fr/blog/</strong> and <strong>/en/blog/</strong><br>Best for single-domain SEO authority. Recommended.</p>
+      </div>
+      <div class="card">
+        <h3>Subdomain</h3>
+        <p><strong>fr.callmemaybe.ai</strong><br>Splits domain authority. Not recommended.</p>
+      </div>
+      <div class="card">
+        <h3>ccTLD</h3>
+        <p><strong>callmemaybe.fr</strong><br>Expensive, limits flexibility. Not recommended.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4.3 robots.txt -->
+  <div class="subsection">
+    <h3>4.3 Sitemap &amp; robots.txt</h3>
+    <div class="code-block">
+<span class="comment"># robots.txt</span>
+<span class="key">User-agent:</span> *
+<span class="key">Allow:</span> /
+<span class="key">Disallow:</span> <span class="val">/api/</span>
+<span class="key">Disallow:</span> <span class="val">/admin/</span>
+<span class="key">Disallow:</span> <span class="val">/dashboard/</span>
+<span class="key">Disallow:</span> <span class="val">/app/</span>
+
+<span class="key">Sitemap:</span> <span class="str">https://callmemaybe.ai/sitemap.xml</span>
+<span class="key">Sitemap:</span> <span class="str">https://callmemaybe.ai/sitemap-fr.xml</span>
+<span class="key">Sitemap:</span> <span class="str">https://callmemaybe.ai/sitemap-en.xml</span>
+    </div>
+  </div>
+
+  <!-- 4.4 Mobile -->
+  <div class="subsection">
+    <h3>4.4 Mobile Optimization</h3>
+    <div class="grid-2">
+      <div class="card accent-teal">
+        <div class="card-label">Must Have</div>
+        <ul class="styled-list teal">
+          <li>Mobile-first responsive design</li>
+          <li>Touch targets minimum 48x48px</li>
+          <li>No horizontal scroll</li>
+          <li>Font sizes: minimum 16px body</li>
+          <li>Viewport meta tag set correctly</li>
+        </ul>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-label">Conversion Boost</div>
+        <ul class="styled-list orange">
+          <li>Sticky CTA on mobile (fixed bottom bar)</li>
+          <li>"Essai Gratuit" button always visible</li>
+          <li>Click-to-call from mobile pages</li>
+          <li>Fast PWA instead of AMP</li>
+          <li>Optimize for thumb-zone navigation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 5: BACKLINKS -->
+<!-- ============================================ -->
+<div class="section" id="backlinks">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Backlink Strategy</h2>
+  </div>
+
+  <!-- 5.1 Partner Link Exchange -->
+  <div class="subsection">
+    <h3>5.1 Partner Page as Link Exchange Engine</h3>
+    <div class="diagram">
+      <div class="card-label">Link Building Flywheel</div>
+      <div class="diagram-flow">
+        <div class="diagram-node highlight">CMM creates partner page</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Partners get dofollow links</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Partners link back to CMM</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node highlight">Both gain DA</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node">Higher rankings</div>
+        <div class="diagram-arrow">&rarr;</div>
+        <div class="diagram-node highlight">More partners join</div>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card accent-gold">
+        <div class="card-label">What CMM Gives</div>
+        <ul class="styled-list">
+          <li>Dofollow link from /partenaires</li>
+          <li>Featured listing with logo + description</li>
+          <li>Access to CMM user base (email, app mentions)</li>
+          <li>Partner-specific promo codes</li>
+        </ul>
+      </div>
+      <div class="card accent-teal">
+        <div class="card-label">What Partner Gives Back</div>
+        <ul class="styled-list teal">
+          <li>Dofollow link from partner blog/site</li>
+          <li>"As seen on" or "Partenaire de CMM" mention</li>
+          <li>Co-branded content (blog, social)</li>
+          <li>Exclusive discounts for CMM users</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5.2 Guest Posting -->
+  <div class="subsection">
+    <h3>5.2 Guest Posting Targets</h3>
+    <h4 style="color:var(--gold);">French Health/Fitness Media</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Publication</th><th>DA</th><th>Topic Angle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Doctissimo.fr</td><td><span class="tag tag-green">75</span></td><td>"L'accountability, nouvelle tendance minceur"</td></tr>
+          <tr><td>Femme Actuelle</td><td><span class="tag tag-green">70</span></td><td>"L'appli qui vous appelle pour maigrir"</td></tr>
+          <tr><td>Marie Claire FR</td><td><span class="tag tag-green">72</span></td><td>"Tech & bien-etre : les apps qui changent tout"</td></tr>
+          <tr><td>Top Sante</td><td><span class="tag tag-green">65</span></td><td>"Coach IA : l'avenir du coaching minceur"</td></tr>
+          <tr><td>Cosmopolitan FR</td><td><span class="tag tag-green">68</span></td><td>"J'ai teste le coach qui m'appelle chaque matin"</td></tr>
+          <tr><td>Madame Figaro</td><td><span class="tag tag-green">70</span></td><td>"TDAH & poids : l'app qui comprend"</td></tr>
+          <tr><td>Elle FR</td><td><span class="tag tag-green">72</span></td><td>"Pourquoi les regimes ne marchent pas"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h4 style="color:var(--teal);">English Health/Tech Media</h4>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Publication</th><th>DA</th><th>Topic Angle</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Healthline</td><td><span class="tag tag-green">85</span></td><td>"AI coaching for weight loss: what the research says"</td></tr>
+          <tr><td>TechCrunch</td><td><span class="tag tag-green">93</span></td><td>"French AI startup replaces diet apps with phone calls"</td></tr>
+          <tr><td>The Verge</td><td><span class="tag tag-green">92</span></td><td>"The anti-app: this AI coach calls you instead"</td></tr>
+          <tr><td>Product Hunt Blog</td><td><span class="tag tag-green">75</span></td><td>Launch story</td></tr>
+          <tr><td>Indie Hackers</td><td><span class="tag tag-green">60</span></td><td>Build-in-public journey</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5.3 Directories -->
+  <div class="subsection">
+    <h3>5.3 Directory Submissions</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Directory</th><th>Type</th><th>DA</th><th>Priority</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Product Hunt</td><td>Tech products</td><td><span class="tag tag-green">90</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>BetaList</td><td>Startups</td><td><span class="tag tag-green">60</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>AlternativeTo</td><td>App directory</td><td><span class="tag tag-green">70</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>Crunchbase</td><td>Company directory</td><td><span class="tag tag-green">90</span></td><td><span class="tag tag-gold">P0</span></td></tr>
+          <tr><td>G2</td><td>Software reviews</td><td><span class="tag tag-green">85</span></td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>Maddyness</td><td>French startup media</td><td><span class="tag tag-green">50</span></td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>FrenchWeb.fr</td><td>French tech media</td><td><span class="tag tag-green">45</span></td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>Station F directory</td><td>French startups</td><td><span class="tag tag-green">55</span></td><td><span class="tag tag-blue">P1</span></td></tr>
+          <tr><td>AngelList</td><td>Startup directory</td><td><span class="tag tag-green">85</span></td><td><span class="tag tag-blue">P1</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 5.4 PR Opportunities -->
+  <div class="subsection">
+    <h3>5.4 PR Opportunities &amp; Timing</h3>
+    <div class="grid-2">
+      <div class="card accent-gold">
+        <div class="card-label">Launch Window</div>
+        <ul class="styled-list">
+          <li><strong>Month 1:</strong> Product Hunt + BetaList launch</li>
+          <li><strong>Month 2:</strong> French Tech press ("Made in France AI wellness")</li>
+          <li><strong>Jan 2027:</strong> "L'alternative aux bonnes resolutions" wave</li>
+        </ul>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-label">Ongoing Angles</div>
+        <ul class="styled-list orange">
+          <li>Anti-diet movement: "Perdre du poids sans regime"</li>
+          <li>GLP-1 trend: "Le companion app pour Ozempic"</li>
+          <li>TDAH awareness month (October): "TDAH & poids"</li>
+          <li>AI in health trend pieces year-round</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 6: LOCAL SEO -->
+<!-- ============================================ -->
+<div class="section" id="local">
+  <div class="section-header">
+    <div class="section-num">6</div>
+    <h2>Local SEO (France)</h2>
+  </div>
+
+  <!-- 6.1 Google Business -->
+  <div class="subsection">
+    <h3>6.1 Google Business Profile</h3>
+    <div class="card accent-gold">
+      <div class="card-label">Setup Checklist</div>
+      <div class="grid-2" style="margin:0;">
+        <div>
+          <ul class="styled-list">
+            <li><strong>Name:</strong> Call Me Maybe</li>
+            <li><strong>Category:</strong> Health & wellness app</li>
+            <li><strong>Address:</strong> Registered office in France</li>
+            <li><strong>Phone:</strong> Customer support number</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="styled-list">
+            <li><strong>Website:</strong> callmemaybe.ai</li>
+            <li><strong>Photos:</strong> App screenshots, team</li>
+            <li><strong>Posts:</strong> Weekly updates with blog snippets</li>
+            <li><strong>Reviews:</strong> Target 50+ in 6 months</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6.2 French Directories -->
+  <div class="subsection">
+    <h3>6.2 French Health Directories</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Directory</th><th>Type</th><th>Cost</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Annuaire Sante Bien-Etre</td><td>Health directory</td><td><span class="tag tag-green">Free</span></td></tr>
+          <tr><td>Portail Bien-Etre</td><td>Wellness directory</td><td><span class="tag tag-green">Free</span></td></tr>
+          <tr><td>ProxiBienetre</td><td>Wellness directory</td><td><span class="tag tag-green">Free</span></td></tr>
+          <tr><td>PagesJaunes</td><td>Business directory</td><td><span class="tag tag-green">Free</span></td></tr>
+          <tr><td>Trustpilot FR</td><td>Review platform</td><td><span class="tag tag-green">Free</span></td></tr>
+          <tr><td>SanteCloud</td><td>Health directory</td><td><span class="tag tag-orange">Free/Paid</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 6.3 French Press -->
+  <div class="subsection">
+    <h3>6.3 French Press Targets</h3>
+    <div class="grid-3">
+      <div class="card accent-gold">
+        <div class="card-label">Tier 1 &mdash; National</div>
+        <ul class="styled-list">
+          <li>Le Monde (Tech desk)</li>
+          <li>Les Echos (Start section)</li>
+          <li>Le Figaro (Health desk)</li>
+          <li>20 Minutes (Lifestyle)</li>
+        </ul>
+      </div>
+      <div class="card accent-teal">
+        <div class="card-label">Tier 2 &mdash; Digital/Tech</div>
+        <ul class="styled-list teal">
+          <li>Maddyness (Startup story)</li>
+          <li>FrenchWeb (French tech)</li>
+          <li>Numerama (AI + health)</li>
+          <li>UsineDigitale (Health tech)</li>
+        </ul>
+      </div>
+      <div class="card accent-orange">
+        <div class="card-label">Tier 3 &mdash; Women's/Lifestyle</div>
+        <ul class="styled-list orange">
+          <li>Femme Actuelle ("J'ai teste")</li>
+          <li>Grazia FR (Wellness trends)</li>
+          <li>Aufeminin (Tech bien-etre)</li>
+          <li>Psychologies Magazine</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 7: PARTNER SEO SYNERGY -->
+<!-- ============================================ -->
+<div class="section" id="partners">
+  <div class="section-header">
+    <div class="section-num">7</div>
+    <h2>Partner SEO Synergy</h2>
+  </div>
+
+  <!-- 7.1 Value Proposition -->
+  <div class="subsection">
+    <h3>7.1 SEO Value Proposition for Partners</h3>
+    <div class="card accent-gold">
+      <div class="card-label">Partner Pitch</div>
+      <p style="font-style:italic;color:var(--text);font-size:0.85rem;line-height:1.7;">
+        "En devenant partenaire Call Me Maybe, vous beneficiez de : un backlink dofollow depuis callmemaybe.ai (DA en croissance), une exposition a notre audience de femmes 25-40 interessees par la sante, de la co-creation de contenu (articles de blog, comparatifs, guides), des mentions dans notre newsletter, et un badge partenaire a afficher sur votre site."
+      </p>
+    </div>
+  </div>
+
+  <!-- 7.2 Partner Tiers -->
+  <div class="subsection">
+    <h3>7.2 Partner Tiers by SEO Value</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Tier</th><th>Partner DA</th><th>What They Get</th><th>What CMM Gets</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span style="color:var(--gold);">Gold</span></td><td>50+</td><td>Featured listing, dedicated page, blog collab</td><td>High-DA backlink, press credibility</td></tr>
+          <tr><td><span style="color:var(--dim);">Silver</span></td><td>30-49</td><td>Standard listing, newsletter mention</td><td>Medium-DA backlink, niche relevance</td></tr>
+          <tr><td><span style="color:var(--orange);">Bronze</span></td><td>15-29</td><td>Basic listing</td><td>Low-DA backlink, topical diversity</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 7.3 Co-Created Content -->
+  <div class="subsection">
+    <h3>7.3 Link Building Through Partner Content</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Content Type</th><th>SEO Impact</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Joint blog post</td><td>2 backlinks (one per site)</td><td>"Comment [Marque] + CMM vous aident a mincir"</td></tr>
+          <tr><td>Expert interview</td><td>Backlink + authority</td><td>"Interview avec la fondatrice de [Marque]"</td></tr>
+          <tr><td>Case study</td><td>Long-tail keywords</td><td>"Comment Marie a perdu 8kg avec CMM + [Marque]"</td></tr>
+          <tr><td>Giveaway / Contest</td><td>Social signals + links</td><td>"Gagnez 3 mois CMM + panier [Marque]"</td></tr>
+          <tr><td>Infographic</td><td>Embeddable links</td><td>"Les habitudes des Francaises qui maigrissent"</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout teal">
+      <strong>Link Velocity Target:</strong> Month 1-3: 5-10 new backlinks/month (directories + first partners). Month 4-6: 10-20/month (guest posts + more partners). Month 7-12: 20-30/month (PR + scaled partnerships).
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SECTION 8: IMPLEMENTATION TIMELINE -->
+<!-- ============================================ -->
+<div class="section" id="timeline">
+  <div class="section-header">
+    <div class="section-num">8</div>
+    <h2>Implementation Timeline</h2>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-label" style="color:var(--gold);">Phase 1: Foundation (Month 1-2)</div>
+      <div class="timeline-desc">
+        Set up blog with SSG. Implement schema markup (FAQ, Product, Org). Configure hreflang FR/EN. Create sitemap.xml + robots.txt. Publish 3 foundation blog posts. Submit to Product Hunt, BetaList, Crunchbase. Set up Google Business Profile. Launch partner page with 3-5 initial partners. Set up Google Search Console + Analytics + rank tracking.
+      </div>
+    </div>
+    <div class="timeline-item phase-2">
+      <div class="timeline-label" style="color:var(--teal);">Phase 2: Content Scaling (Month 3-4)</div>
+      <div class="timeline-desc">
+        Publish 6 more blog posts (3/month). First guest post pitches (5 publications). Submit to French directories (5+). Add 5 more partners to partner page. Begin competitor comparison content. Internal linking audit + optimization. Core Web Vitals audit + fixes.
+      </div>
+    </div>
+    <div class="timeline-item phase-3">
+      <div class="timeline-label" style="color:var(--orange);">Phase 3: Authority Building (Month 5-8)</div>
+      <div class="timeline-desc">
+        Publish remaining blog posts. Secure 3+ guest post placements. French press outreach (Tier 2 + Tier 3). Scale partner program to 15+ partners. Launch TDAH content cluster. Launch GLP-1 content cluster. Begin targeting English keywords. Monthly SEO performance review.
+      </div>
+    </div>
+    <div class="timeline-item phase-4">
+      <div class="timeline-label" style="color:var(--purple);">Phase 4: Scale &amp; Dominate (Month 9-12)</div>
+      <div class="timeline-desc">
+        Target Tier 1 French press. English content expansion. Advanced link building (broken link, resource pages). Partner program at 25+ partners. Video content for YouTube SEO. Monthly DA tracking, adjust strategy.
+      </div>
+    </div>
+  </div>
+
+  <!-- Key Metrics -->
+  <div class="subsection" style="margin-top:2rem;">
+    <h3>Key Metrics to Track</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Metric</th><th>Tool</th><th>6-Month Target</th><th>12-Month Target</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Organic traffic</td><td>Google Analytics</td><td style="color:var(--teal);">5,000/mo</td><td style="color:var(--gold);">25,000/mo</td></tr>
+          <tr><td>Keyword rankings (top 10)</td><td>Ahrefs / SEMrush</td><td style="color:var(--teal);">20 keywords</td><td style="color:var(--gold);">80 keywords</td></tr>
+          <tr><td>Domain Authority</td><td>Ahrefs / Moz</td><td style="color:var(--teal);">DA 20</td><td style="color:var(--gold);">DA 35</td></tr>
+          <tr><td>Backlinks</td><td>Ahrefs</td><td style="color:var(--teal);">50 referring domains</td><td style="color:var(--gold);">150 referring domains</td></tr>
+          <tr><td>Blog posts published</td><td>CMS</td><td style="color:var(--teal);">12</td><td style="color:var(--gold);">24</td></tr>
+          <tr><td>Featured snippets</td><td>Search Console</td><td style="color:var(--teal);">3</td><td style="color:var(--gold);">10</td></tr>
+          <tr><td>Organic signups</td><td>Analytics</td><td style="color:var(--teal);">200/mo</td><td style="color:var(--gold);">1,000/mo</td></tr>
+          <tr><td>Partner backlinks</td><td>Manual tracking</td><td style="color:var(--teal);">10</td><td style="color:var(--gold);">30</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- SUMMARY -->
+<!-- ============================================ -->
+<div class="card accent-gold" style="margin-top:2rem;">
+  <div class="card-label">Executive Summary</div>
+  <h3 style="font-size:1.1rem;margin-bottom:0.8rem;">Three Priorities to Start Immediately</h3>
+  <div class="grid-3">
+    <div style="text-align:center;padding:0.5rem;">
+      <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold);margin-bottom:0.3rem;">01</div>
+      <p style="font-size:0.8rem;color:var(--dim);">Publish first 3 blog posts: accountability, method, anti-diet</p>
+    </div>
+    <div style="text-align:center;padding:0.5rem;">
+      <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:var(--teal);margin-bottom:0.3rem;">02</div>
+      <p style="font-size:0.8rem;color:var(--dim);">Submit to Product Hunt + BetaList + Crunchbase</p>
+    </div>
+    <div style="text-align:center;padding:0.5rem;">
+      <div style="font-family:'Sora',sans-serif;font-size:1.8rem;font-weight:800;color:var(--orange);margin-bottom:0.3rem;">03</div>
+      <p style="font-size:0.8rem;color:var(--dim);">Launch partner page with dofollow links for 3-5 initial partners</p>
+    </div>
+  </div>
+</div>
+
+<div class="callout" style="margin-top:1.5rem;">
+  <strong>Blue Ocean Advantage:</strong> No competitor targets "coaching telephonique perte de poids" or "AI coach qui appelle." The intersection of phone calls + AI + weight loss is uncontested in search. By building content clusters around accountability, habits, TDAH, and GLP-1 companion coaching, CMM can own long-tail keywords while gradually competing for higher-volume terms. The partner perks program doubles as a link-building engine, creating natural, topically-relevant backlinks. Combined with France-first local SEO and targeted French press outreach, CMM can achieve dominant organic positioning within 12 months.
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Call Me Maybe &mdash; SEO Strategy Plan &mdash; February 2026<br>
+  <span style="color:var(--muted);">Confidential &mdash; Internal Use Only</span>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>

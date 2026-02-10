@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community &amp; Targets Research | Call Me Maybe War Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #08090c;
+  --surface: #0e1015;
+  --card: #12141b;
+  --card-hover: #181b24;
+  --border: #1c1f2a;
+  --text: #eceae7;
+  --dim: #8a8f9e;
+  --muted: #4e5263;
+  --gold: #D4A853;
+  --teal: #00d4aa;
+  --orange: #F47D31;
+  --green: #4ade80;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 2rem 0 1rem;
+  transition: color 0.2s;
+  font-family: 'JetBrains Mono', monospace;
+}
+.back-link:hover { color: var(--teal); }
+
+.hero {
+  padding: 4rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--teal);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text) 0%, var(--purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--dim);
+  max-width: 700px;
+  line-height: 1.8;
+}
+
+.section {
+  margin-bottom: 3.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+  position: relative;
+}
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: var(--purple);
+}
+
+h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+p { color: var(--dim); margin-bottom: 1rem; font-size: 0.95rem; }
+strong { color: var(--text); font-weight: 600; }
+em { color: var(--dim); }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+.card:hover { background: var(--card-hover); border-color: var(--purple); }
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+thead th {
+  background: linear-gradient(135deg, rgba(179,102,255,0.15) 0%, rgba(0,212,170,0.1) 100%);
+  color: var(--purple);
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid var(--purple);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--dim);
+  vertical-align: top;
+}
+
+tbody tr { background: var(--card); transition: background 0.2s; }
+tbody tr:nth-child(even) { background: var(--surface); }
+tbody tr:hover { background: var(--card-hover); }
+tbody td:first-child { color: var(--text); font-weight: 500; }
+tbody td strong { color: var(--text); }
+
+ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; color: var(--dim); }
+li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+li strong { color: var(--text); }
+
+.highlight {
+  background: linear-gradient(135deg, rgba(179,102,255,0.08) 0%, rgba(0,212,170,0.05) 100%);
+  border: 1px solid rgba(179,102,255,0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  text-align: center;
+}
+.stat-card .stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+.stat-card .stat-label {
+  font-size: 0.8rem;
+  color: var(--dim);
+}
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
+
+.callout {
+  background: var(--card);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+.callout-title {
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Relevance badges */
+.rel { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; font-weight: 600; text-transform: uppercase; }
+.rel-very-high { background: rgba(74,222,128,0.15); color: var(--green); }
+.rel-high { background: rgba(0,212,170,0.15); color: var(--teal); }
+.rel-medium { background: rgba(212,168,83,0.15); color: var(--gold); }
+.rel-low { background: rgba(138,143,158,0.15); color: var(--dim); }
+
+.strategy-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+.strategy-box p { margin-bottom: 0.5rem; }
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 1rem 3rem; }
+  .hero { padding: 2rem 0; }
+  table { font-size: 0.78rem; }
+  thead th, tbody td { padding: 0.5rem; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<a href="index.html" class="back-link">&larr; Back to War Room</a>
+
+<header class="hero">
+  <div class="hero-label">War Room Research</div>
+  <h1>Community &amp; Target Research Report</h1>
+  <p class="hero-description">Identifying communities, programs, influencers, and B2B targets for Call Me Maybe's marketing infiltration strategy across France and international markets.</p>
+</header>
+
+<!-- 1. French Weight Loss Communities -->
+<div class="section">
+  <h2>1. French Weight Loss Communities</h2>
+
+  <h3>Facebook Groups</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Group / Keyword</th><th>Est. Size</th><th>Activity</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>"Perte de poids motivation"</strong> (multiple groups)</td>
+          <td>50K-200K+ combined</td>
+          <td>High -- daily posts, before/after photos</td>
+          <td>Comment with value-add tips, share transformation stories, soft-pitch coaching</td>
+          <td><span class="rel rel-very-high">Very High</span> -- accountability-seeking audience</td>
+        </tr>
+        <tr>
+          <td><strong>"Regime et motivation"</strong> groups</td>
+          <td>30K-100K combined</td>
+          <td>Medium-High</td>
+          <td>Engage in threads about plateaus, motivation drops</td>
+          <td><span class="rel rel-high">High</span> -- users struggling with consistency</td>
+        </tr>
+        <tr>
+          <td><strong>"Reequilibrage alimentaire"</strong> groups</td>
+          <td>50K-150K combined</td>
+          <td>High</td>
+          <td>Share free content about habit building, avoid diet talk</td>
+          <td><span class="rel rel-very-high">Very High</span> -- aligned with CMM's non-diet approach</td>
+        </tr>
+        <tr>
+          <td><strong>"Jeune intermittent France"</strong></td>
+          <td>20K-50K</td>
+          <td>Medium</td>
+          <td>Discuss accountability and routine building</td>
+          <td><span class="rel rel-medium">Medium</span> -- specific method, but accountability-aligned</td>
+        </tr>
+        <tr>
+          <td><strong>Comme J'aime / WW alumni groups</strong></td>
+          <td>10K-30K</td>
+          <td>Medium</td>
+          <td>Target churned users frustrated with meal plans</td>
+          <td><span class="rel rel-very-high">Very High</span> -- failed dieters need coaching, not meals</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="strategy-box">
+    <p><strong>How to find them:</strong> Search Facebook for "perte de poids", "maigrir ensemble", "regime motivation", "reequilibrage alimentaire". Sort by member count. Join top 10.</p>
+    <p><strong>Strategy:</strong> Create a personal profile (founder story), contribute genuinely for 2-3 weeks before any mention of CMM. Share daily accountability tips. When asked "how do you stay motivated?" -- introduce the concept of daily phone coaching.</p>
+  </div>
+
+  <h3>Reddit (French-Language)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Subreddit</th><th>Members</th><th>Activity</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>r/france</strong></td>
+          <td>1.2M+</td>
+          <td>Very High</td>
+          <td>Participate in health/wellness threads, not direct marketing</td>
+          <td><span class="rel rel-low">Low</span> -- general, strict self-promo rules</td>
+        </tr>
+        <tr>
+          <td><strong>r/RegimeEtNutrition</strong></td>
+          <td>Small (&lt;5K)</td>
+          <td>Low</td>
+          <td>Post helpful content, build authority</td>
+          <td><span class="rel rel-medium">Medium</span> -- small but targeted</td>
+        </tr>
+        <tr>
+          <td><strong>r/conseildiet</strong></td>
+          <td>Very Small</td>
+          <td>Low-Medium</td>
+          <td>Be a helpful contributor</td>
+          <td><span class="rel rel-medium">Medium</span> -- niche diet advice</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Note:</strong> French-language Reddit weight loss communities are significantly smaller than English equivalents. Reddit is less popular in France for health topics -- forums like Doctissimo fill that niche.</p>
+
+  <h3>French Forums (Traditional)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Forum</th><th>Est. Monthly Visitors</th><th>Activity</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Doctissimo</strong> (Nutrition/Regimes)</td>
+          <td>10M+ site-wide</td>
+          <td>Medium (declining)</td>
+          <td>Forum contributions, expert-style answers</td>
+          <td><span class="rel rel-high">High</span> -- still the reference for French health questions</td>
+        </tr>
+        <tr>
+          <td><strong>Aufeminin forums</strong></td>
+          <td>5M+ site-wide</td>
+          <td>Low (declining)</td>
+          <td>Similar to Doctissimo</td>
+          <td><span class="rel rel-medium">Medium</span> -- declining but still indexed on Google</td>
+        </tr>
+        <tr>
+          <td><strong>Forum Savoir Maigrir</strong></td>
+          <td>50K+ registered</td>
+          <td>Medium</td>
+          <td>Engage with diet discussions</td>
+          <td><span class="rel rel-high">High</span> -- users actively in weight loss journey</td>
+        </tr>
+        <tr>
+          <td><strong>Club-regime.com</strong></td>
+          <td>Unknown</td>
+          <td>Medium</td>
+          <td>Free diet forum with recipes, menus</td>
+          <td><span class="rel rel-high">High</span> -- users sharing recipes and accountability</td>
+        </tr>
+        <tr>
+          <td><strong>Maigrir Ensemble</strong> (forumactif)</td>
+          <td>5K-10K</td>
+          <td>Medium</td>
+          <td>Co-dieter matching = directly relevant</td>
+          <td><span class="rel rel-very-high">Very High</span> -- users literally seeking accountability partners</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="strategy-box">
+    <p><strong>Strategy:</strong> Old-school forums still rank well on Google. Write detailed, helpful replies to threads about "comment rester motive pour maigrir" -- include a signature or mention of CMM where rules allow.</p>
+  </div>
+
+  <h3>Discord Servers</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Server</th><th>Members</th><th>Activity</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>French fitness servers</strong> (search Disboard for "fitness" + "fr")</td>
+          <td>500-5K each</td>
+          <td>Varies</td>
+          <td>Join, contribute, build relationships</td>
+          <td><span class="rel rel-medium">Medium</span> -- younger demographic, tech-savvy</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Opportunity</div>
+    <p>No major French-specific weight loss Discord servers were identified. This is an opportunity -- CMM could create its own Discord community as a free lead magnet.</p>
+  </div>
+
+  <h3>Telegram Groups</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Group</th><th>Members</th><th>Activity</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>French weight loss Telegram groups</strong></td>
+          <td>Very small, fragmented</td>
+          <td>Low</td>
+          <td>Not a priority channel</td>
+          <td><span class="rel rel-low">Low</span> -- Telegram not popular for weight loss in France</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>French Apps with Community Features</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>App</th><th>Users (France)</th><th>Community Features</th><th>Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Yuka</strong></td>
+          <td>30M+ downloads</td>
+          <td>No community, but huge brand awareness</td>
+          <td>Can't infiltrate; use as positioning reference</td>
+          <td><span class="rel rel-low">Low</span> (no community) but <span class="rel rel-high">High</span> (market signal)</td>
+        </tr>
+        <tr>
+          <td><strong>MyFitnessPal</strong></td>
+          <td>Millions (global)</td>
+          <td>Community forums, friend challenges</td>
+          <td>Engage in French-language forums</td>
+          <td><span class="rel rel-high">High</span> -- calorie counters need accountability</td>
+        </tr>
+        <tr>
+          <td><strong>FatSecret</strong></td>
+          <td>Large community</td>
+          <td>Forums where users share experiences</td>
+          <td>Active community forum engagement</td>
+          <td><span class="rel rel-very-high">Very High</span> -- social features + weight loss focus</td>
+        </tr>
+        <tr>
+          <td><strong>Croq'Kilos app</strong></td>
+          <td>100K+ subscribers</td>
+          <td>Facebook-only community with dietitians</td>
+          <td>Join the Facebook group</td>
+          <td><span class="rel rel-high">High</span> -- subscribers paying for weight loss</td>
+        </tr>
+        <tr>
+          <td><strong>Noom (France)</strong></td>
+          <td>Growing</td>
+          <td>In-app groups, AI + human coaching</td>
+          <td>Study their model (closest competitor)</td>
+          <td><span class="rel rel-very-high">Very High</span> -- direct competitor benchmark</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 2. International Communities -->
+<div class="section">
+  <h2>2. International Communities (Benchmarking)</h2>
+
+  <h3>Reddit (English)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Subreddit</th><th>Members</th><th>Activity</th><th>Key Insight for CMM</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>r/loseit</strong></td>
+          <td>4.1M</td>
+          <td>Very High -- daily check-ins, NSV posts</td>
+          <td>Gold standard for peer accountability. Top posts = personal stories</td>
+        </tr>
+        <tr>
+          <td><strong>r/intermittentfasting</strong></td>
+          <td>2M+</td>
+          <td>High</td>
+          <td>Method-specific but accountability-heavy culture</td>
+        </tr>
+        <tr>
+          <td><strong>r/CICO</strong></td>
+          <td>500K+</td>
+          <td>High</td>
+          <td>Calorie-focused, data-driven users</td>
+        </tr>
+        <tr>
+          <td><strong>r/progresspics</strong></td>
+          <td>2M+</td>
+          <td>Very High</td>
+          <td>Visual motivation. Before/after = viral content</td>
+        </tr>
+        <tr>
+          <td><strong>r/getdisciplined</strong></td>
+          <td>2M</td>
+          <td>High</td>
+          <td>Not weight-specific but accountability-obsessed</td>
+        </tr>
+        <tr>
+          <td><strong>r/1200isplenty</strong></td>
+          <td>600K+</td>
+          <td>Medium-High</td>
+          <td>Restrictive dieters, high churn potential</td>
+        </tr>
+        <tr>
+          <td><strong>r/SuperMorbidlyObese</strong></td>
+          <td>50K+</td>
+          <td>Medium</td>
+          <td>High-need users who need human support</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">Key Takeaway</div>
+    <p>The pattern is clear -- the most active posts are about accountability, motivation, and personal stories. NOT diet plans. This validates CMM's daily phone call model.</p>
+  </div>
+
+  <h3>Facebook Groups (International)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Group Type</th><th>Est. Size</th><th>Activity</th><th>Key Insight</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>"Weight Loss Accountability"</strong> groups</td>
+          <td>100K-500K combined</td>
+          <td>High</td>
+          <td>Accountability in the name = CMM's exact positioning</td>
+        </tr>
+        <tr>
+          <td><strong>GLP-1/Ozempic support</strong> groups</td>
+          <td>Rapidly growing (100K+)</td>
+          <td>Very High</td>
+          <td>New wave of users who need behavior coaching alongside medication</td>
+        </tr>
+        <tr>
+          <td><strong>"30-Day Challenge"</strong> groups</td>
+          <td>50K-200K</td>
+          <td>High bursts, then quiet</td>
+          <td>Challenge fatigue = opening for sustained daily coaching</td>
+        </tr>
+        <tr>
+          <td><strong>Fitness transformation</strong> groups</td>
+          <td>200K+</td>
+          <td>High</td>
+          <td>Aspirational content, but low on follow-through support</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Discord (International Fitness)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Server</th><th>Members</th><th>Activity</th><th>Key Insight</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FitMorii</strong></td>
+          <td>16,000+</td>
+          <td>High</td>
+          <td>Training, nutrition, food science channels</td>
+        </tr>
+        <tr>
+          <td><strong>Sets N Reps</strong></td>
+          <td>5,000+</td>
+          <td>Medium-High</td>
+          <td>Weekly challenges, 3-month challenges</td>
+        </tr>
+        <tr>
+          <td><strong>Lose It! (Discord)</strong></td>
+          <td>2,000+</td>
+          <td>Medium</td>
+          <td>Supportive, mature community</td>
+        </tr>
+        <tr>
+          <td><strong>Glow Gems</strong></td>
+          <td>Unknown</td>
+          <td>Medium</td>
+          <td>18+ weight loss and fitness support</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>Key insight from Discord research:</strong> Discord accountability structures outperform generic Facebook groups because channels are topic-organized, roles grant access based on commitment level, and asynchronous check-ins create real accountability. CMM's daily phone call is the ultimate version of this.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 3. Weight Loss Programs in France -->
+<div class="section">
+  <h2>3. Weight Loss Programs in France (Competitive Landscape)</h2>
+
+  <h3>Meal-Delivery Programs</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Program</th><th>Price</th><th>Model</th><th>Strengths</th><th>Weaknesses</th><th>CMM Opportunity</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Comme J'aime</strong></td>
+          <td>~60-90EUR/week</td>
+          <td>Pre-made meals + phone coaching</td>
+          <td>Convenience, brand awareness (heavy TV ads)</td>
+          <td>Bland food, high cost, weight regain, Trustpilot 3.9/5</td>
+          <td>Target churned users -- "you don't need meals, you need accountability"</td>
+        </tr>
+        <tr>
+          <td><strong>Dietbon</strong></td>
+          <td>~50-70EUR/week</td>
+          <td>Pre-made meals + dietitian follow-up</td>
+          <td>Better taste (Trustpilot 4.7/5), 10yr expertise</td>
+          <td>Still meal-dependent, no behavior change</td>
+          <td>Same angle -- behavior &gt; meals</td>
+        </tr>
+        <tr>
+          <td><strong>Croq'Kilos</strong></td>
+          <td>~8EUR/month subscription</td>
+          <td>Menus + shopping lists (no meals)</td>
+          <td>Cheap, accessible</td>
+          <td>No personal coaching, dietitian only via Facebook</td>
+          <td>Upsell target -- users who want more support</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Coaching Platforms</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Platform</th><th>Price</th><th>Model</th><th>Strengths</th><th>Weaknesses</th><th>CMM Opportunity</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>WW France</strong> (Weight Watchers)</td>
+          <td>~20-45EUR/month</td>
+          <td>Points system + meetings + app</td>
+          <td>Brand recognition, community meetings</td>
+          <td>Bankruptcy (Chapter 11, 2025), declining subscribers</td>
+          <td>Massive opportunity -- WW users leaving, need alternative</td>
+        </tr>
+        <tr>
+          <td><strong>LineCoaching</strong></td>
+          <td>~25-35EUR/month</td>
+          <td>Online coaching + phone/video sessions</td>
+          <td>Behavior-focused (aligned with CMM)</td>
+          <td>Less well-known, no daily contact</td>
+          <td>Direct competitor -- CMM differentiates with DAILY calls</td>
+        </tr>
+        <tr>
+          <td><strong>Noom</strong></td>
+          <td>~17EUR/month (annual)</td>
+          <td>AI + psychology-based lessons + coaching</td>
+          <td>Proven model, AI-powered</td>
+          <td>Not localized for France, cold AI feel</td>
+          <td>Study closely -- CMM = Noom with voice, warmth, daily calls</td>
+        </tr>
+        <tr>
+          <td><strong>MT7P</strong> (Coaching Perte de Poids)</td>
+          <td>50-100EUR/week</td>
+          <td>Individual coaching, 3-6 month program, 7/7 follow-up</td>
+          <td>Personalized, intensive</td>
+          <td>Expensive, not scalable</td>
+          <td>High-end positioning reference</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Nutri Sport</strong></td>
+          <td>Variable</td>
+          <td>WhatsApp-based coaching, 7/7 availability</td>
+          <td>Accessible, personal</td>
+          <td>Manual, not scalable</td>
+          <td>Validates demand for daily touchpoints</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Gym Chains</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Chain</th><th>Members (France)</th><th>Coaching Offer</th><th>Partnership Potential</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic-Fit</strong></td>
+          <td>4M+ (Europe), 300+ clubs France</td>
+          <td>Coaching sessions at 25EUR/session, nutrition programs</td>
+          <td><span class="rel rel-high">High</span> -- could integrate CMM as digital add-on</td>
+        </tr>
+        <tr>
+          <td><strong>Fitness Park</strong></td>
+          <td>Large network France</td>
+          <td>Live instructors, premium positioning</td>
+          <td><span class="rel rel-medium">Medium</span> -- more premium, smaller fit</td>
+        </tr>
+        <tr>
+          <td><strong>Keepcool</strong></td>
+          <td>Growing</td>
+          <td>Low-cost, limited coaching</td>
+          <td><span class="rel rel-medium">Medium</span> -- members need external accountability</td>
+        </tr>
+        <tr>
+          <td><strong>Neoness</strong></td>
+          <td>Paris-focused</td>
+          <td>Basic coaching</td>
+          <td><span class="rel rel-medium">Medium</span> -- urban demographic aligns</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Nutritionist Platforms</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Platform</th><th>Network Size</th><th>Model</th><th>Partnership Potential</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Madietenligne</strong></td>
+          <td>2,900+ dietitians across France</td>
+          <td>Online booking for dietitian consultations</td>
+          <td><span class="rel rel-very-high">Very High</span> -- could refer patients to CMM for daily support</td>
+        </tr>
+        <tr>
+          <td><strong>Doctolib</strong> (nutrition category)</td>
+          <td>Thousands of practitioners</td>
+          <td>Booking platform</td>
+          <td><span class="rel rel-high">High</span> -- advertising or referral partnerships</td>
+        </tr>
+        <tr>
+          <td><strong>Nutrika</strong></td>
+          <td>Growing</td>
+          <td>24/7 online nutritionist consultations</td>
+          <td><span class="rel rel-medium">Medium</span> -- potential integration partner</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 4. Instagram/TikTok Accounts -->
+<div class="section">
+  <h2>4. Instagram/TikTok Accounts (French Weight Loss)</h2>
+
+  <h3>French Fitness/Transformation Influencers</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Account</th><th>Platform</th><th>Followers</th><th>Content Type</th><th>Partnership Approach</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>@the_lyon_black</strong></td>
+          <td>Instagram</td>
+          <td>3.1M</td>
+          <td>Fitness transformations</td>
+          <td>Sponsored content, affiliate</td>
+          <td><span class="rel rel-medium">Medium</span> -- too big, expensive</td>
+        </tr>
+        <tr>
+          <td><strong>@killian___</strong> (Killian Belliard)</td>
+          <td>Instagram</td>
+          <td>482K</td>
+          <td>Personal training, Paris</td>
+          <td>Affiliate partnership, review</td>
+          <td><span class="rel rel-high">High</span> -- coaching-aligned</td>
+        </tr>
+        <tr>
+          <td><strong>@marinlle</strong> (Marine Lelelu)</td>
+          <td>Instagram</td>
+          <td>456K</td>
+          <td>Marathon, Ironman, fitness</td>
+          <td>Challenge collaboration</td>
+          <td><span class="rel rel-medium">Medium</span> -- endurance focus</td>
+        </tr>
+        <tr>
+          <td><strong>@emmafitnessgoal</strong> (Emma Filoche)</td>
+          <td>Instagram</td>
+          <td>100K-200K</td>
+          <td>Dietitian, ebooks, meal plans</td>
+          <td>Expert endorsement</td>
+          <td><span class="rel rel-very-high">Very High</span> -- professional credibility</td>
+        </tr>
+        <tr>
+          <td><strong>@ysalinebenakli</strong></td>
+          <td>Instagram</td>
+          <td>100K+</td>
+          <td>Dietitian, "Love Your Body" program</td>
+          <td>Co-branded content</td>
+          <td><span class="rel rel-very-high">Very High</span> -- reequilibrage alimentaire niche</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Batch Cooking / Meal Prep French Accounts</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Account</th><th>Platform</th><th>Followers</th><th>Content Type</th><th>CMM Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>@onmangequoi</strong></td>
+          <td>IG + TikTok</td>
+          <td>635K IG, 1.2M TikTok</td>
+          <td>"What should we eat?" meal ideas</td>
+          <td><span class="rel rel-high">High</span> -- audience cares about healthy eating</td>
+        </tr>
+        <tr>
+          <td><strong>@seizemay</strong></td>
+          <td>TikTok</td>
+          <td>1.1M</td>
+          <td>Simple, visual recipes</td>
+          <td><span class="rel rel-medium">Medium</span> -- food-focused, less weight loss</td>
+        </tr>
+        <tr>
+          <td><strong>"Foodie mom" accounts</strong></td>
+          <td>IG + TikTok</td>
+          <td>500K-640K+</td>
+          <td>Healthy + gourmet family meals</td>
+          <td><span class="rel rel-high">High</span> -- mom demographic = key CMM persona</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Micro-Influencer Targets (Higher ROI)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Profile Type</th><th>Follower Range</th><th>Why They Matter</th><th>Approach</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>French nutritionists on Instagram</strong></td>
+          <td>5K-50K</td>
+          <td>High trust, professional credibility</td>
+          <td>Free trial of CMM, ask for honest review</td>
+        </tr>
+        <tr>
+          <td><strong>"Reequilibrage alimentaire" journey accounts</strong></td>
+          <td>1K-20K</td>
+          <td>Authentic, relatable transformations</td>
+          <td>Gift CMM subscription, co-create content</td>
+        </tr>
+        <tr>
+          <td><strong>Mom fitness/wellness accounts</strong></td>
+          <td>5K-30K</td>
+          <td>Key demographic (30-45F)</td>
+          <td>Affiliate deal, "my morning routine with CMM" content</td>
+        </tr>
+        <tr>
+          <td><strong>French "before/after" transformation accounts</strong></td>
+          <td>5K-50K</td>
+          <td>Proof-based content</td>
+          <td>Testimonial partnership</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="strategy-box">
+    <p><strong>Strategy:</strong> Focus on micro-influencers (5K-50K). They have 3-5x better engagement rates than macro-influencers and their audience trusts them. Offer free 3-month CMM access in exchange for honest content.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 5. Podcasts -->
+<div class="section">
+  <h2>5. Podcasts</h2>
+
+  <h3>French Health/Wellness/Nutrition Podcasts</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Podcast</th><th>Host</th><th>Focus</th><th>Est. Listeners</th><th>Guest Pitch Angle</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Dans la Poire !</strong></td>
+          <td>Charles Brumauld (dietitian)</td>
+          <td>Psycho-nutrition, eating better</td>
+          <td>Growing</td>
+          <td>"The psychology of daily accountability in weight loss"</td>
+        </tr>
+        <tr>
+          <td><strong>Le Reequilibrage Alimentaire</strong></td>
+          <td>Mael Brossaud (sports coach)</td>
+          <td>Nutrition, weight loss, behavior</td>
+          <td>Medium</td>
+          <td>"Why daily phone calls beat diet plans"</td>
+        </tr>
+        <tr>
+          <td><strong>Savoir Manger</strong></td>
+          <td>Various</td>
+          <td>Nutrition and weight loss</td>
+          <td>Medium</td>
+          <td>"How AI coaching is changing weight loss in France"</td>
+        </tr>
+        <tr>
+          <td><strong>Sport et Nutrition Naturelle</strong></td>
+          <td>Various</td>
+          <td>Sports nutrition, SAM method</td>
+          <td>Medium</td>
+          <td>"Beyond meal plans: the accountability gap"</td>
+        </tr>
+        <tr>
+          <td><strong>La Voix de la Nutrition</strong></td>
+          <td>Julia (dietitian)</td>
+          <td>Nutrition and wellness</td>
+          <td>Growing</td>
+          <td>"Making nutrition personal with daily voice coaching"</td>
+        </tr>
+        <tr>
+          <td><strong>Sante 360</strong></td>
+          <td>Dr. Stephane Resimont</td>
+          <td>Hormonal balance, longevity, prevention</td>
+          <td>Established</td>
+          <td>"Phone-based coaching as preventive health tool"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>International Podcasts (for Benchmarking / English Content)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Podcast</th><th>Focus</th><th>Why It Matters</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>The Model Health Show</strong></td>
+          <td>Health, weight loss</td>
+          <td>Study how they discuss accountability</td>
+        </tr>
+        <tr>
+          <td><strong>Mind Pump</strong></td>
+          <td>Fitness, nutrition</td>
+          <td>Large audience, open to tech/app partnerships</td>
+        </tr>
+        <tr>
+          <td><strong>Half Size Me</strong></td>
+          <td>Weight loss maintenance</td>
+          <td>Perfect audience alignment -- maintenance = accountability</td>
+        </tr>
+        <tr>
+          <td><strong>We Only Look Thin</strong></td>
+          <td>Weight loss journey</td>
+          <td>Community-driven, relatable</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="strategy-box">
+    <p><strong>Strategy:</strong> Pitch French podcast hosts as a guest. Story angle: "I built an AI that calls you every morning to keep you accountable -- here's why it works better than any diet." Prepare a 2-minute pitch email for each host.</p>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 6. Potential B2B Targets -->
+<div class="section">
+  <h2>6. Potential B2B Targets</h2>
+
+  <h3>Corporate Wellness Programs</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Company/Type</th><th>Employee Base</th><th>Current Wellness Offering</th><th>CMM B2B Angle</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sanofi</strong> ("Take Care &amp; Bwel!")</td>
+          <td>38,000 employees in France</td>
+          <td>4-pillar program: eat better, move often, feel good, stay healthy</td>
+          <td>Integrate CMM as the "eat better" pillar tool</td>
+        </tr>
+        <tr>
+          <td><strong>Large CAC 40 companies</strong></td>
+          <td>10K-100K+ each</td>
+          <td>CSR / QVT (Qualite de Vie au Travail) budgets</td>
+          <td>White-label CMM for employee wellness</td>
+        </tr>
+        <tr>
+          <td><strong>Comites d'Entreprise</strong> (Works Councils)</td>
+          <td>Variable</td>
+          <td>Wellness perks, gym discounts</td>
+          <td>Offer CMM as a wellness benefit alongside gym passes</td>
+        </tr>
+        <tr>
+          <td><strong>Startups (tech, Paris)</strong></td>
+          <td>50-500</td>
+          <td>Modern wellness budgets, flexible</td>
+          <td>Easy early adopters, tech-savvy employees</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="highlight">
+    <p><strong>Key stat:</strong> Companies investing in QVT report up to 20% productivity gains, 50% reduction in turnover, and reduced absenteeism. This is the selling pitch for HR directors.</p>
+  </div>
+
+  <h3>Insurance Companies (Mutuelles)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Mutuelle</th><th>Members</th><th>Wellness Programs</th><th>CMM B2B Potential</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Harmonie Mutuelle</strong></td>
+          <td>5M+ members</td>
+          <td>Workplace health programs, prevention</td>
+          <td><span class="rel rel-very-high">Very High</span> -- could subsidize CMM for members</td>
+        </tr>
+        <tr>
+          <td><strong>Alan</strong></td>
+          <td>500K+ members</td>
+          <td>AI health app, prevention programs (back pain, mental health, sleep)</td>
+          <td><span class="rel rel-very-high">Very High</span> -- tech-forward, prevention-focused, startup mentality</td>
+        </tr>
+        <tr>
+          <td><strong>Malakoff Humanis</strong></td>
+          <td>10M+</td>
+          <td>Health coaching program for employees</td>
+          <td><span class="rel rel-high">High</span> -- already does coaching, CMM could be a partner tool</td>
+        </tr>
+        <tr>
+          <td><strong>AXA Mutuelle</strong></td>
+          <td>Millions</td>
+          <td>13.9M EUR prevention fund (2025-2027)</td>
+          <td><span class="rel rel-high">High</span> -- active innovation funding for health projects</td>
+        </tr>
+        <tr>
+          <td><strong>MGEN</strong></td>
+          <td>4M+</td>
+          <td>Prevention and workplace well-being focus</td>
+          <td><span class="rel rel-medium">Medium-High</span> -- strong ethics alignment</td>
+        </tr>
+        <tr>
+          <td><strong>APICIL</strong></td>
+          <td>Large</td>
+          <td>Employer well-being obligations expertise</td>
+          <td><span class="rel rel-medium">Medium</span> -- compliance-driven, less innovation-forward</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="callout-title">B2B Strategy</div>
+    <p>Mutuelles are the golden B2B channel. Pitch: "Reduce your members' obesity-related healthcare costs by offering daily AI coaching. We measured X% improvement in Y." Need clinical/pilot data first.</p>
+  </div>
+
+  <h3>Gym Chains (Partnership)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Chain</th><th>Clubs in France</th><th>Partnership Model</th><th>CMM Fit</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Basic-Fit</strong></td>
+          <td>300+</td>
+          <td>Digital add-on to membership, kiosk promotion</td>
+          <td><span class="rel rel-very-high">Very High</span> -- 4M members, needs digital coaching layer</td>
+        </tr>
+        <tr>
+          <td><strong>Fitness Park</strong></td>
+          <td>200+</td>
+          <td>Premium coaching add-on</td>
+          <td><span class="rel rel-high">High</span> -- premium members more likely to pay</td>
+        </tr>
+        <tr>
+          <td><strong>Keepcool</strong></td>
+          <td>100+</td>
+          <td>Low-cost gym, members need external support</td>
+          <td><span class="rel rel-medium">Medium</span> -- price-sensitive audience</td>
+        </tr>
+        <tr>
+          <td><strong>L'Appart Fitness</strong></td>
+          <td>100+</td>
+          <td>Mid-range, coaching-oriented</td>
+          <td><span class="rel rel-high">High</span> -- coaching is already part of their DNA</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Nutritionist Networks</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Network</th><th>Size</th><th>Model</th><th>CMM Opportunity</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Madietenligne</strong></td>
+          <td>2,900+ dietitians</td>
+          <td>Online booking platform</td>
+          <td><span class="rel rel-very-high">Top Priority</span> -- refer patients to CMM between sessions</td>
+        </tr>
+        <tr>
+          <td><strong>Individual dietitians/nutritionists</strong></td>
+          <td>10,000+ in France</td>
+          <td>Private practice</td>
+          <td>Affiliate program -- 20-30% commission per referral</td>
+        </tr>
+        <tr>
+          <td><strong>Doctolib</strong> (nutrition practitioners)</td>
+          <td>Thousands</td>
+          <td>Booking platform</td>
+          <td>Advertising, sponsored placement</td>
+        </tr>
+        <tr>
+          <td><strong>Pharmacy networks</strong></td>
+          <td>22,000+ pharmacies in France</td>
+          <td>Nutrition advice at counter</td>
+          <td>In-pharmacy promotion, QR codes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Priority Action Matrix -->
+<div class="section">
+  <h2>Priority Action Matrix</h2>
+
+  <h3>Tier 1 -- Start Immediately (Week 1-4)</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Action</th><th>Channel</th><th>Expected Impact</th><th>Effort</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Join top 10 French Facebook weight loss groups</strong></td>
+          <td>Facebook</td>
+          <td>Build presence, soft leads</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td><strong>Create founder story content for Reddit r/loseit</strong></td>
+          <td>Reddit</td>
+          <td>Brand awareness, community feedback</td>
+          <td>Low</td>
+        </tr>
+        <tr>
+          <td><strong>Pitch 3 French nutrition podcasts</strong></td>
+          <td>Podcasts</td>
+          <td>Credibility, reach 10K-50K listeners</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Contact 10 micro-influencers (5K-50K)</strong></td>
+          <td>Instagram/TikTok</td>
+          <td>5-10 content pieces, authentic endorsement</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Create CMM Discord server (free community)</strong></td>
+          <td>Discord</td>
+          <td>Lead magnet, engagement funnel</td>
+          <td>Medium</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tier 2 -- Month 2-3</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Action</th><th>Channel</th><th>Expected Impact</th><th>Effort</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Engage on Doctissimo + Savoir Maigrir forums</strong></td>
+          <td>Forums</td>
+          <td>SEO-friendly, long-tail traffic</td>
+          <td>Low-Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Partner with 2-3 dietitians on Madietenligne</strong></td>
+          <td>B2B</td>
+          <td>Direct referrals, professional credibility</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Run Facebook ads targeting WW France churned users</strong></td>
+          <td>Facebook Ads</td>
+          <td>High-intent audience, low CPL</td>
+          <td>Medium</td>
+        </tr>
+        <tr>
+          <td><strong>Approach Alan (mutuelle) for pilot partnership</strong></td>
+          <td>B2B</td>
+          <td>Potential for subsidized user acquisition</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td><strong>Target "Comme J'aime" dissatisfied users (Trustpilot 3.9)</strong></td>
+          <td>Multiple</td>
+          <td>Convert frustrated dieters</td>
+          <td>Medium</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Tier 3 -- Month 3-6</h3>
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr><th>Action</th><th>Channel</th><th>Expected Impact</th><th>Effort</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Pitch Basic-Fit partnership (digital coaching add-on)</strong></td>
+          <td>B2B</td>
+          <td>Access to 300+ gym locations, 4M members</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td><strong>Apply to AXA prevention innovation fund</strong></td>
+          <td>B2B</td>
+          <td>13.9M EUR fund, credibility boost</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td><strong>Launch corporate wellness pilot (1-2 startups)</strong></td>
+          <td>B2B</td>
+          <td>Case study for enterprise sales</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td><strong>Build pharmacy promotion program</strong></td>
+          <td>B2B</td>
+          <td>Physical distribution channel</td>
+          <td>High</td>
+        </tr>
+        <tr>
+          <td><strong>Create white-label offering for mutuelles</strong></td>
+          <td>B2B</td>
+          <td>Scalable B2B revenue stream</td>
+          <td>Very High</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- Key Insights -->
+<div class="section">
+  <h2>Key Insights for CMM Positioning</h2>
+
+  <div class="card">
+    <h4>1. WW France is collapsing</h4>
+    <p>Chapter 11 bankruptcy, declining subscribers. Massive pool of orphaned users seeking alternatives. CMM should explicitly position against WW: "No points. No meetings. Just a daily call."</p>
+  </div>
+
+  <div class="card">
+    <h4>2. Meal-delivery fatigue</h4>
+    <p>Comme J'aime (3.9/5 Trustpilot), Dietbon users eventually churn because meals don't change behavior. CMM's pitch: "The meal plan isn't the problem. Your habits are."</p>
+  </div>
+
+  <div class="card">
+    <h4>3. The accountability gap</h4>
+    <p>Every community (Reddit, Facebook, Discord) is essentially people trying to hold themselves accountable through text posts. CMM fills this with a real human/AI voice call daily.</p>
+  </div>
+
+  <div class="card">
+    <h4>4. Noom is the closest competitor</h4>
+    <p>But Noom is text-based, not localized for France, and lacks the warmth of a daily phone call. CMM = Noom + voice + French-first.</p>
+  </div>
+
+  <div class="card">
+    <h4>5. Mutuelles are the B2B goldmine</h4>
+    <p>French insurance companies are legally and financially incentivized to invest in preventive health. CMM can reduce obesity-related costs. Alan is the ideal first partner (tech-forward, startup culture).</p>
+  </div>
+
+  <div class="card">
+    <h4>6. Micro-influencers > Macro</h4>
+    <p>10 French nutritionists with 10K followers each will outperform one celebrity partnership. Focus on authentic, professional voices.</p>
+  </div>
+
+  <div class="card">
+    <h4>7. French forums still matter</h4>
+    <p>Unlike the US where Reddit dominates, France still uses Doctissimo and traditional forums. These pages rank well on Google and drive long-tail organic traffic.</p>
+  </div>
+</div>
+
+<div class="footer-note">
+  Research compiled February 2026. Community sizes and activity levels are approximate and subject to change. Strategy recommendations should be adapted based on actual engagement results.
+</div>
+
+</div>
+
+</body>
+</html>

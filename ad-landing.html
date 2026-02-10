@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Me Maybe — Perds du poids avec un coach IA qui t'appelle</title>
+    <meta name="description" content="Un coach IA t'appelle chaque jour pour te motiver. -8kg en 3 semaines. Essai gratuit.">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Facebook Pixel placeholder -->
+    <!-- Google Analytics placeholder -->
+    <style>
+        :root {
+            --bg-deep: #08090c;
+            --bg-surface: #0e1015;
+            --bg-card: #151820;
+            --accent-primary: #22c55e;
+            --accent-gold: #D4A853;
+            --accent-orange: #F47D31;
+            --accent-teal: #00d4aa;
+            --text-primary: #eceae7;
+            --text-secondary: #9ca3af;
+            --text-muted: #4e5263;
+            --border: #1e2130;
+            --gradient-cta: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            --gradient-gold: linear-gradient(135deg, #D4A853 0%, #F47D31 100%);
+            --glow-green: rgba(34, 197, 94, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Noise texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* URGENCY BAR */
+        .urgency-bar {
+            background: var(--gradient-gold);
+            color: #000;
+            text-align: center;
+            padding: 12px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .urgency-bar span {
+            background: rgba(0,0,0,0.2);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        /* HERO */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--accent-primary);
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.2); }
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        h1 .highlight {
+            background: var(--gradient-cta);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* CTA BUTTON */
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--gradient-cta);
+            color: #000;
+            font-size: 18px;
+            font-weight: 700;
+            padding: 18px 40px;
+            border-radius: 12px;
+            text-decoration: none;
+            width: 100%;
+            max-width: 400px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px var(--glow-green);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px var(--glow-green);
+        }
+
+        .cta-subtext {
+            display: block;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* SOCIAL PROOF */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+        }
+
+        .avatars {
+            display: flex;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid var(--bg-deep);
+            margin-left: -10px;
+            background: var(--bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .avatar:first-child { margin-left: 0; }
+
+        .proof-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .proof-text strong {
+            color: var(--accent-primary);
+        }
+
+        /* VIDEO/PHONE MOCKUP */
+        .demo-section {
+            padding: 40px 0;
+        }
+
+        .phone-container {
+            position: relative;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .phone-mockup {
+            background: var(--bg-surface);
+            border-radius: 36px;
+            border: 3px solid #2a2a35;
+            padding: 12px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+        }
+
+        .phone-screen {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: 40px 20px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .caller-avatar {
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-cta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: ring 2s infinite;
+        }
+
+        @keyframes ring {
+            0%, 100% { box-shadow: 0 0 0 0 var(--glow-green); }
+            50% { box-shadow: 0 0 0 20px transparent; }
+        }
+
+        .caller-info {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .caller-name {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .caller-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .call-buttons {
+            display: flex;
+            gap: 40px;
+        }
+
+        .call-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .call-btn.decline { background: #ef4444; }
+        .call-btn.accept {
+            background: var(--accent-primary);
+            animation: pulse-btn 2s infinite;
+        }
+
+        @keyframes pulse-btn {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* PROBLEM/SOLUTION */
+        .problems {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .problem-list {
+            list-style: none;
+        }
+
+        .problem-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .problem-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .problem-text strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .problem-text span {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 60px 0;
+        }
+
+        .testimonial-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .testimonial-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .testimonial-info span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-result {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-primary);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* PRICING */
+        .pricing {
+            padding: 60px 0;
+        }
+
+        .price-card {
+            background: var(--bg-surface);
+            border: 2px solid var(--accent-primary);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-card::before {
+            content: 'POPULAIRE';
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: var(--gradient-cta);
+            color: #000;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 40px;
+            transform: rotate(45deg);
+        }
+
+        .price-name {
+            font-size: 14px;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .price-amount {
+            font-family: 'Sora', sans-serif;
+            font-size: 56px;
+            font-weight: 800;
+        }
+
+        .price-amount span {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .price-description {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .price-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .price-features li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .price-features li::before {
+            content: '✓';
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        /* GUARANTEE */
+        .guarantee {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .guarantee-badge {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            padding: 24px 32px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .guarantee-icon {
+            font-size: 48px;
+        }
+
+        .guarantee-text {
+            font-weight: 600;
+        }
+
+        .guarantee-subtext {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* FAQ */
+        .faq {
+            padding: 60px 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .faq-question::before {
+            content: '?';
+            width: 24px;
+            height: 24px;
+            background: var(--accent-primary);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .faq-answer {
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding-left: 36px;
+        }
+
+        /* FINAL CTA */
+        .final-cta {
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 300px;
+            background: radial-gradient(circle, var(--glow-green) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .final-cta h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .final-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        /* TRUST BADGES */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .trust-badge span {
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        /* MOBILE */
+        @media (max-width: 640px) {
+            h1 { font-size: 32px; }
+            .section-title { font-size: 24px; }
+            .price-amount { font-size: 48px; }
+            .final-cta h2 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- URGENCY BAR -->
+    <div class="urgency-bar">
+        🔥 Offre de lancement : 7 jours gratuits <span id="countdown">02:47:33</span>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                +2,847 personnes inscrites ce mois
+            </div>
+
+            <h1>Perds du poids avec un coach IA qui <span class="highlight">t'appelle vraiment</span></h1>
+
+            <p class="hero-subtitle">Chaque matin, ton téléphone sonne. C'est ton coach. 5 minutes pour te motiver, suivre tes progrès, et te garder sur la bonne voie.</p>
+
+            <a href="#pricing" class="cta-primary">
+                Reçois ton premier appel gratuit
+                <span>→</span>
+            </a>
+            <span class="cta-subtext">Pas de carte bancaire requise • Annule quand tu veux</span>
+
+            <div class="social-proof">
+                <div class="avatars">
+                    <div class="avatar">SL</div>
+                    <div class="avatar">TM</div>
+                    <div class="avatar">AK</div>
+                    <div class="avatar">+</div>
+                </div>
+                <p class="proof-text"><strong>847 personnes</strong> ont perdu du poids ce mois</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHONE DEMO -->
+    <section class="demo-section">
+        <div class="container">
+            <div class="phone-container">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="caller-avatar">🏃</div>
+                        <div class="caller-info">
+                            <div class="caller-name">Coach Luna</div>
+                            <div class="caller-label">Appel entrant...</div>
+                        </div>
+                        <div class="call-buttons">
+                            <button class="call-btn decline">✕</button>
+                            <button class="call-btn accept">📞</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMS -->
+    <section class="problems">
+        <div class="container">
+            <h2 class="section-title">Pourquoi les régimes échouent</h2>
+            <ul class="problem-list">
+                <li class="problem-item">
+                    <span class="problem-icon">📱</span>
+                    <div class="problem-text">
+                        <strong>Les applis sont ignorées</strong>
+                        <span>95% des notifications fitness sont swipées en 3 secondes</span>
+                    </div>
+                </li>
+                <li class="problem-item">
+                    <span class="problem-icon">😴</span>
+                    <div class="problem-text">
+                        <strong>La motivation disparaît</strong>
+                        <span>80% des résolutions abandonnées avant février</span>
+                    </div>
+                </li>
+                <li class="problem-item">
+                    <span class="problem-icon">💸</span>
+                    <div class="problem-text">
+                        <strong>Les coachs coûtent cher</strong>
+                        <span>Un coach personnel = 200-500€/mois minimum</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Résultats réels</h2>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">SL</div>
+                    <div class="testimonial-info">
+                        <h4>Sophie L.</h4>
+                        <span>Marketing Manager, Paris</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Les appels quotidiens ont tout changé. J'ai perdu 8 kg en 3 semaines parce que je ne pouvais pas mentir à mon coach quand il m'appelait chaque matin."</p>
+                <div class="testimonial-result">📉 -8 kg en 21 jours</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">TM</div>
+                    <div class="testimonial-info">
+                        <h4>Thomas M.</h4>
+                        <span>Développeur, Lyon</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"J'ai essayé toutes les applis fitness. C'est la seule chose que je ne peux pas ignorer. Quand le téléphone sonne, tu décroches."</p>
+                <div class="testimonial-result">🔥 Streak de 45 jours</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-avatar">AK</div>
+                    <div class="testimonial-info">
+                        <h4>Amira K.</h4>
+                        <span>Freelance, Marseille</span>
+                    </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Coach Luna a l'air tellement réelle. Elle se souvient de ce que j'ai dit hier, me demande comment se sont passés mes repas."</p>
+                <div class="testimonial-result">☀️ Routine matinale créée</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Commence aujourd'hui</h2>
+
+            <div class="price-card">
+                <div class="price-name">Pro</div>
+                <div class="price-amount">9,90€ <span>/mois</span></div>
+                <p class="price-description">Moins cher qu'un café par jour</p>
+
+                <ul class="price-features">
+                    <li>Appel quotidien personnalisé</li>
+                    <li>WhatsApp illimité 24/7</li>
+                    <li>Tous les coachs disponibles</li>
+                    <li>Dashboard de suivi complet</li>
+                    <li>Objectifs illimités</li>
+                    <li>7 jours d'essai gratuit</li>
+                </ul>
+
+                <a href="#" class="cta-primary">
+                    Essayer 7 jours gratuit
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-badge">
+                <span class="guarantee-icon">🛡️</span>
+                <div class="guarantee-text">Garantie satisfait ou remboursé</div>
+                <div class="guarantee-subtext">Annule en 1 clic • Pas de questions • Données supprimées sous 30 jours</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Questions fréquentes</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">C'est vraiment un appel téléphonique ?</div>
+                <div class="faq-answer">Oui ! Ton téléphone sonne vraiment. C'est une voix IA ultra-réaliste qui te parle et t'écoute. Impossible à ignorer comme une notification.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Et si je ne réponds pas ?</div>
+                <div class="faq-answer">Le coach réessaie 10 minutes plus tard, puis t'envoie un SMS de motivation. Tu ne peux pas te cacher !</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Je peux choisir l'heure de l'appel ?</div>
+                <div class="faq-answer">Absolument. Tu définis l'heure exacte qui te convient. Tu peux la changer quand tu veux.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Mes données sont-elles protégées ?</div>
+                <div class="faq-answer">100% RGPD compliant. Chiffrement de bout en bout. Tes données sont supprimées sous 30 jours après annulation.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Prêt à transformer ta vie ?</h2>
+            <p>Rejoins les 2,847 personnes qui ont déjà commencé</p>
+            <a href="#pricing" class="cta-primary">
+                Reçois ton premier appel gratuit
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- TRUST BADGES -->
+    <div class="trust-badges">
+        <div class="trust-badge"><span>🔒</span> RGPD Compliant</div>
+        <div class="trust-badge"><span>🛡️</span> Données chiffrées</div>
+        <div class="trust-badge"><span>✕</span> Annulation 1 clic</div>
+        <div class="trust-badge"><span>💳</span> Paiement sécurisé</div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Call Me Maybe · <a href="#">Confidentialité</a> · <a href="#">CGV</a> · <a href="#">Support</a></p>
+    </footer>
+
+    <!-- COUNTDOWN SCRIPT -->
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const midnight = new Date();
+            midnight.setHours(23, 59, 59, 999);
+            const diff = midnight - now;
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent =
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>

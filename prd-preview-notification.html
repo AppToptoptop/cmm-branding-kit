@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRD — Preview Notification | Call Me Maybe</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0d10;--card:#131620;--border:#1e2235;--text:#eceae7;--dim:#8b8fa0;--muted:#555a6e;--gold:#D4A853;--orange:#F47D31;--green:#4ade80;--teal:#00d4aa;--red:#ff4d6a;--blue:#4da6ff;--purple:#b388ff;--cyan:#22d3ee;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(12,13,16,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0.6rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.topbar a{color:var(--dim);text-decoration:none;font-size:0.8rem;font-weight:500;transition:color 0.2s;}
+.topbar a:hover{color:var(--text);}
+.topbar .logo{font-family:'Sora',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);letter-spacing:-0.5px;}
+.topbar .logo em{font-style:normal;color:var(--gold);}
+
+.wrap{max-width:860px;margin:0 auto;padding:5rem 1.5rem 3rem;position:relative;z-index:1;}
+
+/* Header */
+.prd-header{padding-bottom:2rem;border-bottom:1px solid var(--border);margin-bottom:2.5rem;}
+.prd-badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--teal);letter-spacing:2px;text-transform:uppercase;border:1px solid rgba(0,212,170,0.25);padding:0.3rem 1rem;border-radius:100px;background:rgba(0,212,170,0.06);margin-bottom:1rem;}
+.prd-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite;}
+.prd-header h1{font-family:'Sora',sans-serif;font-size:clamp(1.8rem,4vw,2.5rem);font-weight:800;letter-spacing:-2px;line-height:1.15;margin-bottom:0.5rem;}
+.prd-header h1 em{font-style:normal;color:var(--teal);}
+.prd-header .subtitle{color:var(--dim);font-size:1rem;max-width:600px;margin-bottom:1.5rem;}
+
+.meta-row{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.meta-item{display:flex;flex-direction:column;gap:2px;}
+.meta-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
+.meta-val{font-size:0.85rem;font-weight:600;}
+.meta-val.priority{color:var(--red);}
+.meta-val.owner{color:var(--teal);}
+.meta-val.status{color:var(--gold);}
+
+/* Sections */
+.section{margin-bottom:2.5rem;}
+.section-num{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:0.4rem;}
+.section h2{font-family:'Sora',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
+.section h3{font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin:1.2rem 0 0.5rem;color:var(--gold);}
+.section p{font-size:0.88rem;color:var(--dim);margin-bottom:0.8rem;}
+.section ul{list-style:none;padding:0;margin:0 0 1rem;}
+.section li{font-size:0.85rem;color:var(--dim);line-height:1.7;padding:0.15rem 0 0.15rem 1.2rem;position:relative;}
+.section li::before{content:'';position:absolute;left:0;top:0.7rem;width:5px;height:5px;border-radius:50%;background:var(--teal);}
+.section li strong{color:var(--text);font-weight:600;}
+
+/* Cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem 1.4rem;margin-bottom:1rem;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.card.teal::before{background:var(--teal);}
+.card.orange::before{background:var(--orange);}
+.card.gold::before{background:var(--gold);}
+.card.red::before{background:var(--red);}
+.card.green::before{background:var(--green);}
+.card.blue::before{background:var(--blue);}
+.card.purple::before{background:var(--purple);}
+.card-label{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:0.5rem;}
+.card h4{font-family:'Sora',sans-serif;font-size:0.95rem;font-weight:700;margin-bottom:0.4rem;}
+
+/* User Story */
+.user-story{background:rgba(0,212,170,0.04);border:1px solid rgba(0,212,170,0.15);border-radius:10px;padding:1rem 1.2rem;margin-bottom:0.8rem;font-size:0.85rem;color:var(--dim);}
+.user-story strong{color:var(--teal);}
+.user-story em{font-style:normal;color:var(--text);}
+
+/* Code / API */
+.code-block{background:#0a0b0e;border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin:0.8rem 0 1rem;overflow-x:auto;}
+.code-block pre{font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--dim);line-height:1.8;white-space:pre;margin:0;}
+.code-block .comment{color:var(--muted);}
+.code-block .key{color:var(--teal);}
+.code-block .val{color:var(--gold);}
+.code-block .type{color:var(--purple);}
+.code-block .method{color:var(--orange);}
+.code-block .endpoint{color:var(--cyan);}
+
+/* Flow */
+.flow{display:flex;flex-direction:column;gap:0;margin:1rem 0;}
+.flow-step{display:flex;align-items:flex-start;gap:1rem;position:relative;padding-bottom:1.2rem;}
+.flow-step:not(:last-child)::after{content:'';position:absolute;left:15px;top:32px;bottom:0;width:2px;background:var(--border);}
+.flow-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Sora',sans-serif;font-size:0.75rem;font-weight:800;flex-shrink:0;z-index:1;}
+.flow-num.teal{background:rgba(0,212,170,0.15);color:var(--teal);}
+.flow-num.orange{background:rgba(244,125,49,0.15);color:var(--orange);}
+.flow-num.gold{background:rgba(212,168,83,0.15);color:var(--gold);}
+.flow-num.green{background:rgba(74,222,128,0.15);color:var(--green);}
+.flow-num.red{background:rgba(255,77,106,0.15);color:var(--red);}
+.flow-num.blue{background:rgba(77,166,255,0.15);color:var(--blue);}
+.flow-content{flex:1;}
+.flow-content .title{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;margin-bottom:0.2rem;}
+.flow-content .desc{font-size:0.8rem;color:var(--dim);}
+
+/* Table */
+.spec-table{width:100%;border-collapse:collapse;margin:0.8rem 0 1rem;font-size:0.8rem;}
+.spec-table th{font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;text-align:left;padding:0.6rem 0.8rem;border-bottom:2px solid var(--border);font-weight:600;}
+.spec-table td{padding:0.6rem 0.8rem;border-bottom:1px solid rgba(30,34,53,0.5);color:var(--dim);vertical-align:top;}
+.spec-table tr:hover td{background:rgba(255,255,255,0.01);}
+.spec-table code{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--teal);background:rgba(0,212,170,0.08);padding:1px 6px;border-radius:4px;}
+
+/* Notification mockup */
+.notif-mock{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:16px;padding:1rem 1.2rem;margin:1rem 0;max-width:380px;display:flex;gap:0.8rem;align-items:flex-start;box-shadow:0 8px 32px rgba(0,0,0,0.3);}
+.notif-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--teal),var(--green));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.notif-body{flex:1;}
+.notif-app{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.15rem;}
+.notif-title{font-size:0.85rem;font-weight:700;margin-bottom:0.1rem;}
+.notif-text{font-size:0.78rem;color:var(--dim);line-height:1.4;}
+.notif-time{font-size:0.65rem;color:var(--muted);margin-top:0.3rem;}
+
+/* Acceptance */
+.ac-item{display:flex;align-items:flex-start;gap:0.6rem;padding:0.4rem 0;font-size:0.83rem;color:var(--dim);}
+.ac-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;}
+.ac-item strong{color:var(--text);}
+
+/* Priority tag */
+.tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;border-radius:4px;font-weight:600;}
+.tag.p0{background:rgba(255,77,106,0.12);color:var(--red);border:1px solid rgba(255,77,106,0.25);}
+.tag.p1{background:rgba(244,125,49,0.12);color:var(--orange);border:1px solid rgba(244,125,49,0.25);}
+.tag.p2{background:rgba(212,168,83,0.12);color:var(--gold);border:1px solid rgba(212,168,83,0.25);}
+.tag.must{background:rgba(0,212,170,0.12);color:var(--teal);border:1px solid rgba(0,212,170,0.25);}
+
+/* Print */
+@media print{
+body{background:#fff;color:#111;}
+body::before,.topbar{display:none;}
+.wrap{padding-top:1rem;}
+.card{border-color:#ddd;background:#f9f9f9;}
+.card::before{display:none;}
+.code-block{background:#f5f5f5;border-color:#ddd;}
+.code-block pre{color:#333;}
+}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.section{animation:fadeUp 0.5s ease both;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="logo">Call Me <em>Maybe</em></a>
+  <div style="display:flex;gap:1rem;align-items:center;">
+    <a href="javascript:window.print()" style="color:var(--gold);">&#128424; Print</a>
+    <a href="index.html">&larr; War Room</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="prd-header">
+  <div class="prd-badge"><span class="dot"></span> Product Requirements Document</div>
+  <h1>Preview <em>Notification</em></h1>
+  <p class="subtitle">Send push/SMS 5 minutes before the AI coaching call so users expect it, answer it, and look forward to it. Transform interruption into anticipated event.</p>
+
+  <div class="meta-row">
+    <div class="meta-item"><div class="meta-label">Priority</div><div class="meta-val priority">P0 &mdash; Critical</div></div>
+    <div class="meta-item"><div class="meta-label">Owner</div><div class="meta-val owner">Ata (Backend)</div></div>
+    <div class="meta-item"><div class="meta-label">Status</div><div class="meta-val status">Spec Ready</div></div>
+    <div class="meta-item"><div class="meta-label">Sprint</div><div class="meta-val">MVP</div></div>
+    <div class="meta-item"><div class="meta-label">Est. Effort</div><div class="meta-val">3&ndash;5 days</div></div>
+  </div>
+</div>
+
+<!-- 1. WHY THIS MATTERS -->
+<div class="section">
+  <div class="section-num">01 &mdash; Context</div>
+  <h2>Why This Feature is Critical</h2>
+
+  <div class="card teal">
+    <div class="card-label">Core Problem</div>
+    <h4>80% of people don't answer calls from unknown numbers</h4>
+    <p>Our entire product depends on users answering the daily AI call. Without a preview notification, most calls go to voicemail = zero engagement = churn.</p>
+  </div>
+
+  <div class="card green">
+    <div class="card-label">Expected Impact</div>
+    <h4>Answer rate: 20% &rarr; 70&ndash;90%</h4>
+    <ul>
+      <li><strong>Branded caller ID alone</strong> = +56% answer rate (Hiya data)</li>
+      <li><strong>Preview notification + saved contact + scheduled time</strong> = estimated 70&ndash;90% answer rate</li>
+      <li><strong>Streak system tied to calls</strong> = 5x retention (Duolingo benchmark)</li>
+      <li><strong>Accountability = 2.7x</strong> more effective than encouragement alone</li>
+    </ul>
+  </div>
+
+  <p>This is a <span class="tag p0">P0</span> feature because without it, the call channel &mdash; our core differentiator &mdash; doesn't work.</p>
+</div>
+
+<!-- 2. USER STORIES -->
+<div class="section">
+  <div class="section-num">02 &mdash; User Stories</div>
+  <h2>User Stories</h2>
+
+  <div class="user-story">
+    <strong>As a</strong> user with a scheduled daily call,<br>
+    <strong>I want to</strong> receive a push notification 5 min before my call,<br>
+    <strong>So that</strong> I know it's coming and I answer it instead of ignoring it.
+  </div>
+
+  <div class="user-story">
+    <strong>As a</strong> user who missed the push notification,<br>
+    <strong>I want to</strong> receive an SMS fallback 5 min before,<br>
+    <strong>So that</strong> I still know the call is coming even if push is off.
+  </div>
+
+  <div class="user-story">
+    <strong>As a</strong> user,<br>
+    <strong>I want to</strong> see today's check-in topic in the notification,<br>
+    <strong>So that</strong> I can mentally prepare and the call feels <em>personal, not random</em>.
+  </div>
+
+  <div class="user-story">
+    <strong>As a</strong> user whose coach name is "Max",<br>
+    <strong>I want to</strong> see "Coach Max is calling in 5 min!" (not a generic message),<br>
+    <strong>So that</strong> it feels like a real person checking in on me.
+  </div>
+</div>
+
+<!-- 3. NOTIFICATION DESIGN -->
+<div class="section">
+  <div class="section-num">03 &mdash; Notification Design</div>
+  <h2>What the User Sees</h2>
+
+  <h3>Push Notification Mockup</h3>
+
+  <div class="notif-mock">
+    <div class="notif-icon">&#128170;</div>
+    <div class="notif-body">
+      <div class="notif-app">Call Me Maybe</div>
+      <div class="notif-title">Coach Max is calling in 5 min! &#128293;</div>
+      <div class="notif-text">Today: your fitness goal check-in. How's your streak going?</div>
+      <div class="notif-time">now</div>
+    </div>
+  </div>
+
+  <div class="notif-mock">
+    <div class="notif-icon">&#127793;</div>
+    <div class="notif-body">
+      <div class="notif-app">Call Me Maybe</div>
+      <div class="notif-title">Dr. Luna calls in 5 min &#127769;</div>
+      <div class="notif-text">Day 14 of your streak! Today: weekly weigh-in &amp; meal review.</div>
+      <div class="notif-time">now</div>
+    </div>
+  </div>
+
+  <div class="notif-mock">
+    <div class="notif-icon">&#128226;</div>
+    <div class="notif-body">
+      <div class="notif-app">Call Me Maybe</div>
+      <div class="notif-title">Mama Rosa appelle dans 5 min! &#10084;&#65039;</div>
+      <div class="notif-text">Jour 7 &mdash; une semaine compl&egrave;te! On fait le point ensemble.</div>
+      <div class="notif-time">now</div>
+    </div>
+  </div>
+
+  <h3>Notification Content Rules</h3>
+  <table class="spec-table">
+    <thead><tr><th>Field</th><th>Content</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td><code>title</code></td><td><strong>{coach_name}</strong> is calling in 5 min! {emoji}</td><td><code>user.coach_persona</code></td></tr>
+      <tr><td><code>body</code></td><td>Day {streak_count}: {today_topic}. {contextual_line}</td><td><code>call_schedule.topic</code> + <code>user.streak</code></td></tr>
+      <tr><td><code>emoji</code></td><td>Rotates: &#128170; &#128293; &#127793; &#11088; &#127942;</td><td>Based on streak milestone</td></tr>
+      <tr><td><code>language</code></td><td>Match user's <code>locale</code> (en/fr)</td><td><code>user.locale</code></td></tr>
+      <tr><td><code>deep_link</code></td><td>Opens app to "incoming call" screen</td><td>Fixed route</td></tr>
+    </tbody>
+  </table>
+
+  <h3>SMS Fallback Message</h3>
+  <div class="code-block"><pre><span class="comment">// EN</span>
+<span class="val">"Coach Max is calling you in 5 min! 💪 Day 12 — fitness check-in. Make sure to answer!"</span>
+
+<span class="comment">// FR</span>
+<span class="val">"Coach Max t'appelle dans 5 min ! 💪 Jour 12 — point fitness. Décroche !"</span></pre></div>
+  <p>SMS must be &le; 160 chars to avoid multi-part charges. The template above is ~95 chars.</p>
+</div>
+
+<!-- 4. NOTIFICATION FLOW -->
+<div class="section">
+  <div class="section-num">04 &mdash; System Flow</div>
+  <h2>How It Works (End-to-End)</h2>
+
+  <div class="flow">
+    <div class="flow-step">
+      <div class="flow-num teal">1</div>
+      <div class="flow-content">
+        <div class="title">Call Scheduler creates job</div>
+        <div class="desc">When user sets their call time (e.g. 7:00 AM), the scheduler creates two jobs: <code>preview_notification</code> at T-5min (6:55 AM) and <code>initiate_call</code> at T (7:00 AM).</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num orange">2</div>
+      <div class="flow-content">
+        <div class="title">T-5 min: Notification Service triggers</div>
+        <div class="desc">Worker picks up the <code>preview_notification</code> job. Fetches user's coach persona, streak count, today's topic, locale, and notification preferences.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num gold">3</div>
+      <div class="flow-content">
+        <div class="title">Build notification payload</div>
+        <div class="desc">Template engine fills in the message: coach name, streak day, topic, emoji. Two payloads are built: push (rich) and SMS (plain, &le;160 chars).</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num green">4</div>
+      <div class="flow-content">
+        <div class="title">Send via preferred channel</div>
+        <div class="desc"><strong>Path A &mdash; Push:</strong> If user has a valid FCM/APNs token &rarr; send push notification via Firebase Cloud Messaging.<br>
+        <strong>Path B &mdash; SMS:</strong> If no push token OR user opted for SMS &rarr; send via Twilio.<br>
+        <strong>Path C &mdash; Both:</strong> If user has push + opted into SMS backup &rarr; send push first, SMS only if push delivery fails within 30s.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num blue">5</div>
+      <div class="flow-content">
+        <div class="title">Log delivery status</div>
+        <div class="desc">Store delivery receipt in <code>notification_logs</code>: sent, delivered, failed, opened. Track for analytics and retry logic.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-num red">6</div>
+      <div class="flow-content">
+        <div class="title">T-0: Call initiates</div>
+        <div class="desc">5 min later, the <code>initiate_call</code> job fires. Twilio/Vapi makes the AI call. The user already expects it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 5. THREE DELIVERY PATHS -->
+<div class="section">
+  <div class="section-num">05 &mdash; Delivery Paths</div>
+  <h2>The 3 Notification Paths</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;">
+
+    <div class="card teal">
+      <div class="card-label">Path A</div>
+      <h4>&#128244; Push Notification Only</h4>
+      <p><strong>When:</strong> User has valid FCM/APNs token + notifications enabled</p>
+      <p><strong>Cost:</strong> Free (Firebase)</p>
+      <p><strong>Pros:</strong> Rich content, deep link, instant, free</p>
+      <p><strong>Cons:</strong> User can disable, not guaranteed delivery on Android (Doze mode)</p>
+      <p><strong>Default for:</strong> All users with the app installed</p>
+    </div>
+
+    <div class="card orange">
+      <div class="card-label">Path B</div>
+      <h4>&#128172; SMS Only</h4>
+      <p><strong>When:</strong> No push token (no app installed, web-only user, or push disabled)</p>
+      <p><strong>Cost:</strong> ~$0.0075/SMS (Twilio, US) / ~&euro;0.065/SMS (France)</p>
+      <p><strong>Pros:</strong> Works on any phone, no app needed, high delivery rate</p>
+      <p><strong>Cons:</strong> Cost per message, no deep link, 160 char limit</p>
+      <p><strong>Default for:</strong> Pre-app users, SMS-preference users</p>
+    </div>
+
+    <div class="card gold">
+      <div class="card-label">Path C</div>
+      <h4>&#128276; Push + SMS Fallback</h4>
+      <p><strong>When:</strong> User opts into "never miss a notification" setting</p>
+      <p><strong>Cost:</strong> Free if push succeeds, $0.0075 if SMS needed</p>
+      <p><strong>Logic:</strong> Send push &rarr; wait 30s for delivery receipt &rarr; if no receipt, fire SMS</p>
+      <p><strong>Pros:</strong> Highest reliability</p>
+      <p><strong>Default for:</strong> Premium tier users</p>
+    </div>
+  </div>
+
+  <h3>Path Selection Logic</h3>
+  <div class="code-block"><pre><span class="key">def</span> <span class="method">select_notification_path</span>(user):
+    <span class="key">if</span> user.notification_pref == <span class="val">"sms_only"</span>:
+        <span class="key">return</span> <span class="val">PathB_SMS</span>
+
+    <span class="key">if</span> user.notification_pref == <span class="val">"push_and_sms"</span>:
+        <span class="key">return</span> <span class="val">PathC_PushWithFallback</span>
+
+    <span class="key">if</span> user.fcm_token <span class="key">and</span> user.push_enabled:
+        <span class="key">return</span> <span class="val">PathA_Push</span>
+
+    <span class="key">if</span> user.phone_number:
+        <span class="key">return</span> <span class="val">PathB_SMS</span>
+
+    <span class="comment"># no push token, no phone = can't notify</span>
+    log.warning(<span class="val">f"No notification channel for user {user.id}"</span>)
+    <span class="key">return</span> <span class="val">None</span></pre></div>
+</div>
+
+<!-- 6. DATA MODEL -->
+<div class="section">
+  <div class="section-num">06 &mdash; Data Model</div>
+  <h2>Database Schema</h2>
+
+  <h3>New table: <code>notification_logs</code></h3>
+  <div class="code-block"><pre><span class="type">CREATE TABLE</span> notification_logs (
+    <span class="key">id</span>            <span class="type">UUID</span> PRIMARY KEY DEFAULT gen_random_uuid(),
+    <span class="key">user_id</span>       <span class="type">UUID</span> NOT NULL REFERENCES users(id),
+    <span class="key">call_id</span>       <span class="type">UUID</span> REFERENCES scheduled_calls(id),
+    <span class="key">type</span>          <span class="type">VARCHAR(20)</span> NOT NULL,  <span class="comment">-- 'preview_push', 'preview_sms', 'fallback_sms'</span>
+    <span class="key">channel</span>       <span class="type">VARCHAR(10)</span> NOT NULL,  <span class="comment">-- 'push', 'sms'</span>
+    <span class="key">status</span>        <span class="type">VARCHAR(20)</span> NOT NULL,  <span class="comment">-- 'queued','sent','delivered','failed','opened'</span>
+    <span class="key">title</span>         <span class="type">TEXT</span>,
+    <span class="key">body</span>          <span class="type">TEXT</span>,
+    <span class="key">provider_id</span>   <span class="type">VARCHAR(100)</span>,          <span class="comment">-- FCM message_id or Twilio SID</span>
+    <span class="key">error_msg</span>     <span class="type">TEXT</span>,
+    <span class="key">sent_at</span>       <span class="type">TIMESTAMPTZ</span>,
+    <span class="key">delivered_at</span>  <span class="type">TIMESTAMPTZ</span>,
+    <span class="key">opened_at</span>    <span class="type">TIMESTAMPTZ</span>,
+    <span class="key">created_at</span>    <span class="type">TIMESTAMPTZ</span> DEFAULT now()
+);
+
+<span class="type">CREATE INDEX</span> idx_notif_user ON notification_logs(user_id, created_at DESC);
+<span class="type">CREATE INDEX</span> idx_notif_call ON notification_logs(call_id);</pre></div>
+
+  <h3>Columns to add to <code>users</code> table</h3>
+  <table class="spec-table">
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>fcm_token</code></td><td><code>TEXT</code></td><td>Firebase Cloud Messaging device token</td></tr>
+      <tr><td><code>push_enabled</code></td><td><code>BOOLEAN</code></td><td>Whether push is enabled on device</td></tr>
+      <tr><td><code>notification_pref</code></td><td><code>VARCHAR(20)</code></td><td><code>'push_only'</code> | <code>'sms_only'</code> | <code>'push_and_sms'</code></td></tr>
+      <tr><td><code>notification_lead_min</code></td><td><code>INTEGER</code></td><td>Minutes before call to notify (default: 5)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Columns to add to <code>scheduled_calls</code> table</h3>
+  <table class="spec-table">
+    <thead><tr><th>Column</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>preview_sent</code></td><td><code>BOOLEAN</code></td><td>Was preview notification sent for this call?</td></tr>
+      <tr><td><code>preview_sent_at</code></td><td><code>TIMESTAMPTZ</code></td><td>When the preview was sent</td></tr>
+      <tr><td><code>topic</code></td><td><code>VARCHAR(100)</code></td><td>Today's check-in topic (for notification body)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 7. API ENDPOINTS -->
+<div class="section">
+  <div class="section-num">07 &mdash; API Endpoints</div>
+  <h2>API Endpoints</h2>
+
+  <div class="card blue">
+    <div class="card-label">Endpoint 1</div>
+    <h4><span class="tag must">POST</span> &nbsp; <code>/api/v1/notifications/register-device</code></h4>
+    <p>Called by mobile app on login/startup to register the FCM/APNs token.</p>
+    <div class="code-block"><pre><span class="comment">// Request body</span>
+{
+  <span class="key">"fcm_token"</span>: <span class="val">"dGhpcyBpcyBhIHRva2Vu..."</span>,
+  <span class="key">"platform"</span>: <span class="val">"ios"</span> | <span class="val">"android"</span>,
+  <span class="key">"push_enabled"</span>: <span class="val">true</span>
+}
+
+<span class="comment">// Response: 200 OK</span>
+{ <span class="key">"status"</span>: <span class="val">"registered"</span> }</pre></div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-label">Endpoint 2</div>
+    <h4><span class="tag must">PUT</span> &nbsp; <code>/api/v1/users/notification-preferences</code></h4>
+    <p>User updates their notification preference (push, SMS, both).</p>
+    <div class="code-block"><pre><span class="comment">// Request body</span>
+{
+  <span class="key">"notification_pref"</span>: <span class="val">"push_and_sms"</span>,
+  <span class="key">"notification_lead_min"</span>: <span class="val">5</span>
+}
+
+<span class="comment">// Response: 200 OK</span>
+{ <span class="key">"status"</span>: <span class="val">"updated"</span> }</pre></div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-label">Endpoint 3</div>
+    <h4><span class="tag must">GET</span> &nbsp; <code>/api/v1/notifications/history</code></h4>
+    <p>Get notification history for a user (for debugging and analytics).</p>
+    <div class="code-block"><pre><span class="comment">// Query params: ?limit=20&offset=0</span>
+
+<span class="comment">// Response: 200 OK</span>
+{
+  <span class="key">"notifications"</span>: [
+    {
+      <span class="key">"id"</span>: <span class="val">"uuid"</span>,
+      <span class="key">"type"</span>: <span class="val">"preview_push"</span>,
+      <span class="key">"status"</span>: <span class="val">"delivered"</span>,
+      <span class="key">"title"</span>: <span class="val">"Coach Max is calling in 5 min!"</span>,
+      <span class="key">"sent_at"</span>: <span class="val">"2026-03-15T06:55:00Z"</span>,
+      <span class="key">"delivered_at"</span>: <span class="val">"2026-03-15T06:55:02Z"</span>
+    }
+  ]
+}</pre></div>
+  </div>
+
+  <div class="card blue">
+    <div class="card-label">Internal / Worker</div>
+    <h4><span class="tag p0">WORKER</span> &nbsp; <code>send_preview_notification(call_id)</code></h4>
+    <p>Background worker function triggered by the job scheduler at T-5min. This is the core function that handles everything.</p>
+    <div class="code-block"><pre><span class="key">async def</span> <span class="method">send_preview_notification</span>(call_id: UUID):
+    call = <span class="key">await</span> get_scheduled_call(call_id)
+    user = <span class="key">await</span> get_user(call.user_id)
+    coach = get_coach_persona(user.coach_persona_id)
+
+    <span class="comment"># build message</span>
+    title, body = build_preview_message(
+        coach_name=coach.name,
+        streak_day=user.current_streak,
+        topic=call.topic,
+        locale=user.locale
+    )
+
+    <span class="comment"># select path and send</span>
+    path = select_notification_path(user)
+
+    <span class="key">if</span> path == PathA_Push:
+        result = <span class="key">await</span> send_push(user.fcm_token, title, body)
+
+    <span class="key">elif</span> path == PathB_SMS:
+        sms_body = build_sms_message(coach.name, user.current_streak, call.topic, user.locale)
+        result = <span class="key">await</span> send_sms(user.phone_number, sms_body)
+
+    <span class="key">elif</span> path == PathC_PushWithFallback:
+        result = <span class="key">await</span> send_push(user.fcm_token, title, body)
+        <span class="key">if not</span> result.delivered_within(seconds=30):
+            sms_body = build_sms_message(coach.name, user.current_streak, call.topic, user.locale)
+            result = <span class="key">await</span> send_sms(user.phone_number, sms_body)
+
+    <span class="comment"># log it</span>
+    <span class="key">await</span> log_notification(user.id, call.id, path, result)
+
+    <span class="comment"># mark call as preview-sent</span>
+    <span class="key">await</span> update_call(call.id, preview_sent=True, preview_sent_at=now())</pre></div>
+  </div>
+</div>
+
+<!-- 8. NOTIFICATION TEMPLATES -->
+<div class="section">
+  <div class="section-num">08 &mdash; Templates</div>
+  <h2>Message Templates (i18n)</h2>
+
+  <table class="spec-table">
+    <thead><tr><th>Key</th><th>EN</th><th>FR</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>preview.title</code></td>
+        <td>Coach {name} is calling in {min} min! {emoji}</td>
+        <td>Coach {name} t'appelle dans {min} min ! {emoji}</td>
+      </tr>
+      <tr>
+        <td><code>preview.body.default</code></td>
+        <td>Day {streak}: {topic}.</td>
+        <td>Jour {streak} : {topic}.</td>
+      </tr>
+      <tr>
+        <td><code>preview.body.milestone_7</code></td>
+        <td>Day 7 &mdash; one full week! Let's celebrate.</td>
+        <td>Jour 7 &mdash; une semaine compl&egrave;te ! On f&ecirc;te &ccedil;a.</td>
+      </tr>
+      <tr>
+        <td><code>preview.body.milestone_21</code></td>
+        <td>DAY 21! You made it. Final check-in. &#127942;</td>
+        <td>JOUR 21 ! Tu l'as fait. Dernier point. &#127942;</td>
+      </tr>
+      <tr>
+        <td><code>preview.sms</code></td>
+        <td>Coach {name} calling in {min} min! {emoji} Day {streak} &mdash; {topic}. Answer!</td>
+        <td>Coach {name} t'appelle dans {min} min ! {emoji} Jour {streak} &mdash; {topic}. D&eacute;croche !</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Topic Examples</h3>
+  <table class="spec-table">
+    <thead><tr><th>Topic Key</th><th>EN</th><th>FR</th></tr></thead>
+    <tbody>
+      <tr><td><code>fitness_checkin</code></td><td>your fitness goal check-in</td><td>point objectif fitness</td></tr>
+      <tr><td><code>weekly_weighin</code></td><td>weekly weigh-in &amp; meal review</td><td>pes&eacute;e &amp; bilan repas de la semaine</td></tr>
+      <tr><td><code>mood_check</code></td><td>mood &amp; energy check</td><td>point humeur &amp; &eacute;nergie</td></tr>
+      <tr><td><code>meal_review</code></td><td>yesterday's meals review</td><td>bilan repas d'hier</td></tr>
+      <tr><td><code>exercise_plan</code></td><td>today's exercise plan</td><td>planning sport du jour</td></tr>
+      <tr><td><code>streak_celebrate</code></td><td>streak celebration!</td><td>f&ecirc;te du streak !</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 9. EDGE CASES -->
+<div class="section">
+  <div class="section-num">09 &mdash; Edge Cases</div>
+  <h2>Edge Cases &amp; Error Handling</h2>
+
+  <table class="spec-table">
+    <thead><tr><th>Scenario</th><th>Behavior</th><th>Priority</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>User changes call time after notification is scheduled</strong></td>
+        <td>Cancel old <code>preview_notification</code> job, create new one at new T-5min</td>
+        <td><span class="tag p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>User cancels today's call</strong></td>
+        <td>Cancel both <code>preview_notification</code> and <code>initiate_call</code> jobs</td>
+        <td><span class="tag p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>FCM token is expired/invalid</strong></td>
+        <td>Push fails &rarr; auto-fallback to SMS if phone number exists. Mark <code>push_enabled = false</code>. On next app open, re-register token.</td>
+        <td><span class="tag p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>SMS delivery fails</strong></td>
+        <td>Log error. Do NOT retry (call is in 5 min, no time). The call still happens regardless.</td>
+        <td><span class="tag p1">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>User is in Do Not Disturb mode</strong></td>
+        <td>Nothing we can do. Push will be queued by OS. SMS may get through depending on DND settings. Recommend users add app to DND exceptions in onboarding.</td>
+        <td><span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td><strong>User has no push token AND no phone number</strong></td>
+        <td>Log warning. No notification sent. The call still happens &mdash; user just won't get the preview.</td>
+        <td><span class="tag p1">P1</span></td>
+      </tr>
+      <tr>
+        <td><strong>Timezone mismatch</strong></td>
+        <td>All times stored as UTC. Convert to user's <code>timezone</code> for display. Scheduler uses UTC internally.</td>
+        <td><span class="tag p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>User in different timezone than usual (traveling)</strong></td>
+        <td>V1: use stored timezone. V2: detect via IP/device and ask "Are you in a different timezone?"</td>
+        <td><span class="tag p2">P2</span></td>
+      </tr>
+      <tr>
+        <td><strong>Notification job runs but call is already done (race condition)</strong></td>
+        <td>Check <code>scheduled_calls.status</code> before sending. If status != <code>'pending'</code>, skip.</td>
+        <td><span class="tag p0">P0</span></td>
+      </tr>
+      <tr>
+        <td><strong>iOS 18+ Live Activities</strong></td>
+        <td>V2 feature: show a countdown Live Activity widget on lock screen. Out of scope for MVP.</td>
+        <td><span class="tag p2">P2</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 10. ACCEPTANCE CRITERIA -->
+<div class="section">
+  <div class="section-num">10 &mdash; Acceptance Criteria</div>
+  <h2>Definition of Done</h2>
+
+  <div class="card green">
+    <div class="card-label">Must pass all</div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Push notification</strong> arrives on iOS and Android device exactly 5 min before the scheduled call time (&plusmn;30s tolerance)</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Notification title</strong> contains the user's coach persona name (not generic)</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Notification body</strong> contains the current streak day count and today's topic</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>SMS fallback</strong> fires within 30s if push delivery fails (Path C)</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>SMS message</strong> is &le; 160 characters</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>French locale</strong> users receive French text, English locale receives English</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Rescheduling</strong> a call cancels the old preview job and creates a new one</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Canceling</strong> a call cancels the preview notification job</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>notification_logs</strong> table records every notification with correct status</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>No duplicate notifications</strong> &mdash; if preview already sent for a call_id, do not resend</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Tapping the notification</strong> opens the app to the "incoming call" or "call prep" screen</div></div>
+
+    <div class="ac-item"><div class="ac-check"></div><div><strong>Unit tests</strong> cover all 3 paths + edge cases (expired token, no phone, cancel, reschedule)</div></div>
+  </div>
+</div>
+
+<!-- 11. GANTT CHART -->
+<div class="section">
+  <div class="section-num">11 &mdash; Timeline</div>
+  <h2>Implementation Gantt &mdash; February 2026</h2>
+
+  <style>
+  .gantt{margin:1.2rem 0 1.5rem;overflow-x:auto;}
+  .gantt-table{width:100%;border-collapse:collapse;min-width:700px;}
+  .gantt-table th{font-family:'JetBrains Mono',monospace;font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;padding:0.5rem 0.4rem;text-align:center;border-bottom:2px solid var(--border);font-weight:600;}
+  .gantt-table th:first-child{text-align:left;width:220px;}
+  .gantt-table td{padding:0.35rem 0.4rem;border-bottom:1px solid rgba(30,34,53,0.3);vertical-align:middle;position:relative;}
+  .gantt-table td:first-child{font-size:0.8rem;color:var(--dim);padding-left:0.6rem;}
+  .gantt-table td:first-child strong{color:var(--text);font-weight:600;}
+  .gantt-row-header td{border-bottom:2px solid var(--border);padding-top:0.8rem;}
+  .gantt-row-header td:first-child{font-family:'Sora',sans-serif;font-size:0.85rem;font-weight:700;color:var(--text);}
+  .gantt-bar{height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:0.6rem;font-weight:600;letter-spacing:0.5px;color:#fff;}
+  .gantt-bar.teal{background:linear-gradient(135deg,rgba(0,212,170,0.7),rgba(0,212,170,0.4));}
+  .gantt-bar.orange{background:linear-gradient(135deg,rgba(244,125,49,0.7),rgba(244,125,49,0.4));}
+  .gantt-bar.gold{background:linear-gradient(135deg,rgba(212,168,83,0.7),rgba(212,168,83,0.4));}
+  .gantt-bar.green{background:linear-gradient(135deg,rgba(74,222,128,0.7),rgba(74,222,128,0.4));}
+  .gantt-bar.red{background:linear-gradient(135deg,rgba(255,77,106,0.7),rgba(255,77,106,0.4));}
+  .gantt-bar.blue{background:linear-gradient(135deg,rgba(77,166,255,0.7),rgba(77,166,255,0.4));}
+  .gantt-bar.purple{background:linear-gradient(135deg,rgba(179,136,255,0.7),rgba(179,136,255,0.4));}
+  .gantt-week{font-family:'JetBrains Mono',monospace;font-size:0.55rem;color:var(--muted);display:block;margin-top:1px;}
+  .gantt-legend{display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:1rem;padding:0.8rem 1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;}
+  .gantt-legend-item{display:flex;align-items:center;gap:6px;font-size:0.72rem;color:var(--dim);}
+  .gantt-legend-dot{width:10px;height:10px;border-radius:3px;}
+  </style>
+
+  <div class="gantt">
+    <table class="gantt-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>W1<span class="gantt-week">Feb 10-14</span></th>
+          <th>W2<span class="gantt-week">Feb 17-21</span></th>
+          <th>W3<span class="gantt-week">Feb 24-28</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Phase 1 -->
+        <tr class="gantt-row-header"><td colspan="4"><span style="color:var(--teal);">&#9654;</span> Phase 1 &mdash; Foundation &amp; Path A (Push)</td></tr>
+        <tr>
+          <td><strong>DB schema</strong> &mdash; tables + migrations</td>
+          <td><div class="gantt-bar teal">2d</div></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Job scheduler</strong> &mdash; T-5min queue</td>
+          <td><div class="gantt-bar teal">2d</div></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Firebase setup</strong> &mdash; FCM + APNs</td>
+          <td><div class="gantt-bar blue">1d</div></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Path A</strong> &mdash; Push notification send</td>
+          <td></td>
+          <td><div class="gantt-bar teal">2d</div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Device registration</strong> &mdash; API endpoint</td>
+          <td><div class="gantt-bar blue">1d</div></td>
+          <td></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 2 -->
+        <tr class="gantt-row-header"><td colspan="4"><span style="color:var(--orange);">&#9654;</span> Phase 2 &mdash; Path B (SMS) &amp; Templates</td></tr>
+        <tr>
+          <td><strong>Path B</strong> &mdash; SMS via Twilio</td>
+          <td></td>
+          <td><div class="gantt-bar orange">2d</div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Message templates</strong> &mdash; i18n EN/FR</td>
+          <td></td>
+          <td><div class="gantt-bar gold">1d</div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><strong>Notification prefs</strong> &mdash; API + UI</td>
+          <td></td>
+          <td><div class="gantt-bar orange">2d</div></td>
+          <td></td>
+        </tr>
+
+        <!-- Phase 3 -->
+        <tr class="gantt-row-header"><td colspan="4"><span style="color:var(--gold);">&#9654;</span> Phase 3 &mdash; Path C (Fallback) &amp; Ship</td></tr>
+        <tr>
+          <td><strong>Path C</strong> &mdash; Push + SMS fallback logic</td>
+          <td></td>
+          <td></td>
+          <td><div class="gantt-bar gold">2d</div></td>
+        </tr>
+        <tr>
+          <td><strong>Edge cases</strong> &mdash; reschedule, cancel, expired token</td>
+          <td></td>
+          <td></td>
+          <td><div class="gantt-bar red">2d</div></td>
+        </tr>
+        <tr>
+          <td><strong>Unit tests</strong> &mdash; 3 paths + edge cases</td>
+          <td></td>
+          <td></td>
+          <td><div class="gantt-bar green">2d</div></td>
+        </tr>
+        <tr>
+          <td><strong>QA &amp; Deploy</strong> &mdash; staging &rarr; prod</td>
+          <td></td>
+          <td></td>
+          <td><div class="gantt-bar purple">1d</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="gantt-legend">
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--teal);"></div> Core infra &amp; Path A</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--orange);"></div> Path B (SMS)</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--gold);"></div> Path C (Fallback)</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--blue);"></div> Setup &amp; APIs</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--red);"></div> Edge cases</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--green);"></div> Tests</div>
+    <div class="gantt-legend-item"><div class="gantt-legend-dot" style="background:var(--purple);"></div> Deploy</div>
+  </div>
+
+  <div class="card teal" style="margin-top:1rem;">
+    <div class="card-label">Summary</div>
+    <h4>3 weeks &mdash; Feb 10 &rarr; Feb 28</h4>
+    <ul>
+      <li><strong>Week 1 (Feb 10-14):</strong> DB schema, job scheduler, Firebase setup, device registration API</li>
+      <li><strong>Week 2 (Feb 17-21):</strong> Path A (push), Path B (SMS), message templates, notification prefs</li>
+      <li><strong>Week 3 (Feb 24-28):</strong> Path C (fallback), edge cases, unit tests, QA &amp; deploy to prod</li>
+    </ul>
+  </div>
+</div>
+
+<!-- 12. DEPENDENCIES -->
+<div class="section">
+  <div class="section-num">12 &mdash; Dependencies</div>
+  <h2>External Dependencies</h2>
+
+  <table class="spec-table">
+    <thead><tr><th>Service</th><th>Purpose</th><th>Cost</th><th>Setup</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Firebase Cloud Messaging</strong></td>
+        <td>Push notifications (iOS + Android)</td>
+        <td>Free (unlimited)</td>
+        <td>Firebase project + APNs key (iOS) + FCM server key</td>
+      </tr>
+      <tr>
+        <td><strong>Twilio SMS</strong></td>
+        <td>SMS fallback notifications</td>
+        <td>~$0.0075/SMS (US), ~&euro;0.065/SMS (FR)</td>
+        <td>Already needed for calls. Same account, add SMS capability.</td>
+      </tr>
+      <tr>
+        <td><strong>Job Scheduler</strong></td>
+        <td>Schedule notification jobs at T-5min</td>
+        <td>N/A (infra)</td>
+        <td>Celery Beat, Bull, or pg_cron. Must support: create, cancel, reschedule.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Blocked by</h3>
+  <ul>
+    <li><strong>Call Scheduling system</strong> &mdash; must exist first so we can hook the preview job to it</li>
+    <li><strong>User onboarding flow</strong> &mdash; must collect <code>notification_pref</code> and push permissions</li>
+    <li><strong>Coach persona system</strong> &mdash; must be able to fetch coach name for notification</li>
+  </ul>
+
+  <h3>Blocks</h3>
+  <ul>
+    <li><strong>Streak gamification</strong> &mdash; streak day count is shown in the notification</li>
+    <li><strong>Call answer rate analytics</strong> &mdash; needs notification data to measure impact</li>
+  </ul>
+</div>
+
+<!-- 13. METRICS -->
+<div class="section">
+  <div class="section-num">13 &mdash; Success Metrics</div>
+  <h2>How We Measure Success</h2>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;">
+    <div class="card teal">
+      <div class="card-label">Primary KPI</div>
+      <h4>Call Answer Rate</h4>
+      <p><strong>Baseline:</strong> ~20% (no preview)<br><strong>Target:</strong> &ge;70% (with preview)<br><strong>How:</strong> <code>answered_calls / total_calls</code></p>
+    </div>
+    <div class="card orange">
+      <div class="card-label">Secondary</div>
+      <h4>Notification Open Rate</h4>
+      <p><strong>Target:</strong> &ge;60%<br><strong>How:</strong> <code>opened / delivered</code> from notification_logs</p>
+    </div>
+    <div class="card gold">
+      <div class="card-label">Secondary</div>
+      <h4>Push Delivery Rate</h4>
+      <p><strong>Target:</strong> &ge;95%<br><strong>How:</strong> <code>delivered / sent</code> for push channel</p>
+    </div>
+    <div class="card green">
+      <div class="card-label">Guardrail</div>
+      <h4>SMS Fallback Rate</h4>
+      <p><strong>Target:</strong> &le;15%<br><strong>How:</strong> <code>fallback_sms / total_previews</code> (cost control)</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:2rem 0;border-top:1px solid var(--border);margin-top:2rem;color:var(--muted);font-size:0.8rem;">
+  <p>Call Me Maybe &copy; 2026 &mdash; PRD by Aaron for Ata</p>
+  <p style="margin-top:0.3rem;"><a href="index.html" style="color:var(--dim);text-decoration:none;">War Room</a> &middot; <a href="tech-spec.html" style="color:var(--dim);text-decoration:none;">Tech Spec</a></p>
+</div>
+
+</div>
+</body>
+</html>
