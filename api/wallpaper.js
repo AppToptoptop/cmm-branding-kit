@@ -68,9 +68,19 @@ export default async function handler(req) {
   const s = width / 1170;
   const isMilestone = milestones.has(day);
 
-  const fontData = await fetch(
-    'https://github.com/google/fonts/raw/main/ofl/sora/Sora%5Bwght%5D.ttf'
-  ).then(r => r.arrayBuffer());
+  let fontData;
+  try {
+    const fontRes = await fetch(
+      'https://cdn.jsdelivr.net/npm/@fontsource/sora@5.1.0/files/sora-latin-700-normal.woff'
+    );
+    if (fontRes.ok) fontData = await fontRes.arrayBuffer();
+  } catch (_) {}
+  if (!fontData) {
+    const fallbackRes = await fetch(
+      'https://cdn.jsdelivr.net/npm/@fontsource/inter@5.1.0/files/inter-latin-700-normal.woff'
+    );
+    fontData = await fallbackRes.arrayBuffer();
+  }
 
   const quoteLines = q.quote;
   const childElements = [];
@@ -231,9 +241,7 @@ export default async function handler(req) {
     width,
     height,
     fonts: [
-      { name: 'Sora', data: fontData, style: 'normal', weight: 400 },
       { name: 'Sora', data: fontData, style: 'normal', weight: 700 },
-      { name: 'Sora', data: fontData, style: 'normal', weight: 900 },
     ],
     headers: {
       'Cache-Control': 'public, max-age=86400, s-maxage=86400',
