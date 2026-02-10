@@ -238,7 +238,11 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 .footer-links { display: flex; gap: 1.5rem; }
 .footer-links a { font-size: 0.8rem; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--gray-600); }
-.sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-top: 1px solid var(--gray-200); padding: 0.75rem 2rem; z-index: 99; }
+.sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-top: 1px solid var(--gray-200); padding: 0.75rem 2rem; z-index: 99; transform: translateY(100%); opacity: 0; transition: transform 0.4s ease, opacity 0.3s ease; }
+.sticky-bar.visible { transform: translateY(0); opacity: 1; }
+.lang-toggle { display: flex; background: var(--gray-100); border-radius: 8px; padding: 2px; gap: 2px; }
+.lang-btn { padding: 0.3rem 0.55rem; border-radius: 6px; border: none; font-size: 0.72rem; font-weight: 700; cursor: pointer; background: transparent; color: var(--gray-400); font-family: inherit; transition: all 0.2s; letter-spacing: 0.5px; }
+.lang-btn.active { background: white; color: var(--gray-900); box-shadow: var(--shadow-sm); }
 .sticky-bar-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; width: 100%; }
 .sticky-bar-left { display: flex; align-items: center; gap: 0.75rem; }
 .sticky-avatars { display: flex; }
@@ -402,14 +406,18 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       <div class="nav-logo-text">Call Me <span>Maybe</span></div>
     </a>
     <div class="nav-links">
-      <a href="#features">Fonctionnalit&eacute;s</a>
-      <a href="#how-it-works">Comment &ccedil;a marche</a>
-      <a href="#testimonials">T&eacute;moignages</a>
-      <a href="#pricing">Tarifs</a>
+      <a href="#features" data-t="na.1">Fonctionnalit&eacute;s</a>
+      <a href="#how-it-works" data-t="na.2">Comment &ccedil;a marche</a>
+      <a href="#testimonials" data-t="na.3">T&eacute;moignages</a>
+      <a href="#pricing" data-t="na.4">Tarifs</a>
     </div>
     <div class="nav-cta">
-      <a href="#" class="btn-outline">Connexion</a>
-      <a href="#" class="btn-primary">Commencer</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#" class="btn-outline" data-t="na.login">Connexion</a>
+      <a href="#start" class="btn-primary" data-t="na.cta">Commencer</a>
     </div>
   </div>
 </nav>
@@ -419,28 +427,28 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
   <div class="hero-inner">
     <div>
       <div class="hero-pills">
-        <div class="hero-pill active"><span class="badge pop">Populaire</span> PERTE DE POIDS</div>
-        <div class="hero-pill outline"><span class="badge new">Nouveau</span> FITNESS</div>
-        <div class="hero-pill outline">MINDSET</div>
+        <div class="hero-pill active" data-t="he.p1"><span class="badge pop">Populaire</span> PERTE DE POIDS</div>
+        <div class="hero-pill outline" data-t="he.p2"><span class="badge new">Nouveau</span> FITNESS</div>
+        <div class="hero-pill outline" data-t="he.p3">MINDSET</div>
       </div>
-      <h1>Ton coach IA qui <span class="highlight">t'appelle</span> vraiment</h1>
-      <p class="hero-sub">Un partenaire IA qui t'appelle chaque jour par t&eacute;l&eacute;phone. 5 minutes par jour. Une vraie voix qui te garde sur la bonne voie.</p>
+      <h1 data-t="he.h1">Ton coach IA qui <span class="highlight">t'appelle</span> vraiment</h1>
+      <p class="hero-sub" data-t="he.sub">Un partenaire IA qui t'appelle chaque jour par t&eacute;l&eacute;phone. 5 minutes par jour. Une vraie voix qui te garde sur la bonne voie.</p>
       <div class="hero-buttons">
-        <a href="#start" class="btn-primary btn-lg">Commence maintenant</a>
-        <a href="#how-it-works" class="btn-outline btn-lg">Comment &ccedil;a marche</a>
+        <a href="#start" class="btn-primary btn-lg" data-t="he.cta1">Commence maintenant</a>
+        <a href="#how-it-works" class="btn-outline btn-lg" data-t="he.cta2">Comment &ccedil;a marche</a>
       </div>
       <div class="hero-proof">
         <div class="hero-proof-item">
           <div class="hero-proof-icon green">&#128222;</div>
-          <div class="hero-proof-text"><strong>Appels vocaux</strong>Check-ins quotidiens</div>
+          <div class="hero-proof-text" data-t="he.pr1"><strong>Appels vocaux</strong>Check-ins quotidiens</div>
         </div>
         <div class="hero-proof-item">
           <div class="hero-proof-icon green">&#128170;</div>
-          <div class="hero-proof-text"><strong>Streaks de 21 jours</strong>Cr&eacute;e des habitudes durables</div>
+          <div class="hero-proof-text" data-t="he.pr2"><strong>Streaks de 21 jours</strong>Cr&eacute;e des habitudes durables</div>
         </div>
         <div class="hero-proof-item">
           <div class="hero-proof-icon green">&#128200;</div>
-          <div class="hero-proof-text"><strong>Suivi des progr&egrave;s</strong>Visualise ta progression</div>
+          <div class="hero-proof-text" data-t="he.pr3"><strong>Suivi des progr&egrave;s</strong>Visualise ta progression</div>
         </div>
       </div>
     </div>
@@ -448,25 +456,25 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
     <div class="hero-visual">
       <div class="hero-live">
         <span class="dot"></span>
-        <span class="label">En direct</span>
-        <span class="text">Alma a appel&eacute; quelqu'un il y a 3 min</span>
+        <span class="label" data-t="he.live">En direct</span>
+        <span class="text" data-t="he.livetxt">Alma a appel&eacute; quelqu'un il y a 3 min</span>
       </div>
       <div class="hero-chat">
         <div class="hero-chat-header">
           <div class="hero-chat-avatar">&#128170;</div>
           <div>
             <div class="hero-chat-name">Coach Alma</div>
-            <div class="hero-chat-status">En ligne</div>
+            <div class="hero-chat-status" data-t="he.status">En ligne</div>
           </div>
         </div>
         <div class="hero-chat-body">
-          <div class="chat-msg coach">Salut ! O&ugrave; en es-tu avec ton objectif course ? J'ai vu que t'as s&eacute;ch&eacute; hier.<div class="time">8h24</div></div>
-          <div class="chat-msg user">J'ai eu une journ&eacute;e charg&eacute;e. Je compte y aller ce soir !<div class="time">8h30</div></div>
-          <div class="chat-msg coach">Parfait ! Je t'appelle &agrave; 18h pour confirmer. Deal ? &#128170;<div class="time">8h31</div></div>
+          <div class="chat-msg coach" data-t="he.m1">Salut ! O&ugrave; en es-tu avec ton objectif course ? J'ai vu que t'as s&eacute;ch&eacute; hier.<div class="time">8h24</div></div>
+          <div class="chat-msg user" data-t="he.m2">J'ai eu une journ&eacute;e charg&eacute;e. Je compte y aller ce soir !<div class="time">8h30</div></div>
+          <div class="chat-msg coach" data-t="he.m3">Parfait ! Je t'appelle &agrave; 18h pour confirmer. Deal ? &#128170;<div class="time">8h31</div></div>
         </div>
       </div>
       <div class="hero-call">
-        <div class="hero-call-label">Appel entrant</div>
+        <div class="hero-call-label" data-t="he.call">Appel entrant</div>
         <div class="hero-call-name">Coach Alma &#128170;</div>
         <div class="hero-call-buttons">
           <button class="call-btn decline">&#128532;</button>
@@ -481,9 +489,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section bg-gray" id="start">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Commence maintenant</div>
-      <h2>Choisis ta voie.<br><span class="green">On fait le reste.</span></h2>
-      <p>D&eacute;finis ton objectif, d&eacute;fie un ami, ou re&ccedil;ois un appel de notre coach IA d&egrave;s maintenant.</p>
+      <div class="section-label" data-t="st.label">Commence maintenant</div>
+      <h2 data-t="st.title">Choisis ta voie.<br><span class="green">On fait le reste.</span></h2>
+      <p data-t="st.sub">D&eacute;finis ton objectif, d&eacute;fie un ami, ou re&ccedil;ois un appel de notre coach IA d&egrave;s maintenant.</p>
     </div>
 
     <div class="start-grid">
@@ -491,37 +499,37 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       <!-- COL 1: OBJECTIF -->
       <div class="start-card" id="cardGoal">
         <div class="start-icon">&#9878;&#65039;</div>
-        <h3>D&eacute;finis ton objectif</h3>
-        <p>Choisis ce que tu veux accomplir et combien. On adapte le programme.</p>
+        <h3 data-t="st.g.t">D&eacute;finis ton objectif</h3>
+        <p data-t="st.g.d">Choisis ce que tu veux accomplir et combien. On adapte le programme.</p>
 
         <div class="goal-toggle" id="goalToggle">
-          <button class="goal-btn active" data-goal="weight" onclick="setGoal('weight',this)">Perdre du poids</button>
-          <button class="goal-btn" data-goal="muscle" onclick="setGoal('muscle',this)">Gagner du muscle</button>
+          <button class="goal-btn active" data-goal="weight" onclick="setGoal('weight',this)" data-t="st.g.b1">Perdre du poids</button>
+          <button class="goal-btn" data-goal="muscle" onclick="setGoal('muscle',this)" data-t="st.g.b2">Gagner du muscle</button>
         </div>
 
         <div class="goal-slider-area">
           <div class="goal-value"><span id="goalValue">10</span> <small>kg</small></div>
-          <div class="goal-label-txt" id="goalLabel">&agrave; perdre en 3 mois</div>
+          <div class="goal-label-txt" id="goalLabel" data-t="st.g.lbl">&agrave; perdre en 3 mois</div>
           <input type="range" min="3" max="40" value="10" class="goal-range" id="goalRange" oninput="updateGoal(this.value)">
           <div class="goal-range-labels"><span>3 kg</span><span>40 kg</span></div>
         </div>
 
-        <button class="start-cta" onclick="startJourney('goal')">C'est parti &rarr;</button>
+        <button class="start-cta" onclick="startJourney('goal')" data-t="st.g.cta">C'est parti &rarr;</button>
       </div>
 
       <!-- COL 2: CHALLENGE AMI -->
       <div class="start-card feat" id="cardChallenge">
         <div class="start-icon">&#129309;</div>
-        <h3>D&eacute;fie un ami</h3>
-        <p>Lance un challenge avec un ami. Le premier qui abandonne perd. Motivation &times;2.</p>
+        <h3 data-t="st.c.t">D&eacute;fie un ami</h3>
+        <p data-t="st.c.d">Lance un challenge avec un ami. Le premier qui abandonne perd. Motivation &times;2.</p>
 
         <div style="flex:1;">
-          <input type="text" placeholder="Ton pr&eacute;nom" class="start-input" id="myName">
-          <input type="text" placeholder="Pr&eacute;nom de ton ami(e)" class="start-input" id="friendName">
+          <input type="text" placeholder="Ton pr&eacute;nom" class="start-input" id="myName" data-tp="st.c.ph1">
+          <input type="text" placeholder="Pr&eacute;nom de ton ami(e)" class="start-input" id="friendName" data-tp="st.c.ph2">
 
           <div class="challenge-type" id="challengeType">
-            <button class="challenge-btn active" onclick="setChallengeType('weight',this)">&#9878;&#65039; Perte de poids</button>
-            <button class="challenge-btn" onclick="setChallengeType('muscle',this)">&#128170; Fitness</button>
+            <button class="challenge-btn active" onclick="setChallengeType('weight',this)" data-t="st.c.b1">&#9878;&#65039; Perte de poids</button>
+            <button class="challenge-btn" onclick="setChallengeType('muscle',this)" data-t="st.c.b2">&#128170; Fitness</button>
           </div>
 
           <div class="goal-slider-area" style="margin-bottom:0.75rem;">
@@ -531,35 +539,35 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
           </div>
         </div>
 
-        <button class="start-cta primary" onclick="startJourney('challenge')">Envoyer l'invitation &rarr;</button>
+        <button class="start-cta primary" onclick="startJourney('challenge')" data-t="st.c.cta">Envoyer l'invitation &rarr;</button>
       </div>
 
       <!-- COL 3: APPEL IA -->
       <div class="start-card" id="cardCall">
         <div class="start-icon">&#128222;</div>
-        <h3>Re&ccedil;ois un appel</h3>
-        <p>Notre coach IA t'appelle dans les 5 minutes pour lancer ton programme personnalis&eacute;.</p>
+        <h3 data-t="st.a.t">Re&ccedil;ois un appel</h3>
+        <p data-t="st.a.d">Notre coach IA t'appelle dans les 5 minutes pour lancer ton programme personnalis&eacute;.</p>
 
         <div class="coach-select" id="coachSelect">
           <div class="coach-option active" onclick="selectCoach('alma',this)">
             <div class="coach-avatar">&#128105;</div>
             <div class="coach-info">
               <strong>Alma</strong>
-              <span>Bienveillante &amp; motivante</span>
+              <span data-t="st.a.alma">Bienveillante &amp; motivante</span>
             </div>
           </div>
           <div class="coach-option" onclick="selectCoach('marco',this)">
             <div class="coach-avatar">&#128104;</div>
             <div class="coach-info">
               <strong>Marco</strong>
-              <span>Direct &amp; efficace</span>
+              <span data-t="st.a.marco">Direct &amp; efficace</span>
             </div>
           </div>
         </div>
 
         <input type="tel" placeholder="+33 6 XX XX XX XX" class="start-input phone" id="phoneInput">
 
-        <button class="start-cta" onclick="startJourney('call')">Appelle-moi &rarr;</button>
+        <button class="start-cta" onclick="startJourney('call')" data-t="st.a.cta">Appelle-moi &rarr;</button>
       </div>
 
     </div>
@@ -567,18 +575,18 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
     <!-- SIGNUP OVERLAY -->
     <div class="signup-overlay" id="signupOverlay">
       <div id="signupForm">
-        <h3>Plus qu'une &eacute;tape &#127881;</h3>
-        <p>Entre ton email pour cr&eacute;er ton compte et sauvegarder tes pr&eacute;f&eacute;rences.</p>
+        <h3 data-t="st.su.t">Plus qu'une &eacute;tape &#127881;</h3>
+        <p data-t="st.su.d">Entre ton email pour cr&eacute;er ton compte et sauvegarder tes pr&eacute;f&eacute;rences.</p>
         <div class="summary" id="signupSummary"></div>
         <div class="signup-row">
           <input type="email" placeholder="ton@email.com" id="signupEmail">
-          <button onclick="submitSignup()">Cr&eacute;er mon compte</button>
+          <button onclick="submitSignup()" data-t="st.su.btn">Cr&eacute;er mon compte</button>
         </div>
       </div>
       <div class="signup-success" id="signupSuccess">
         <div class="check-big">&#10003;</div>
-        <h3>C'est fait !</h3>
-        <p id="successMsg">On t'envoie un email de confirmation. Pr&eacute;pare-toi pour ton premier appel.</p>
+        <h3 data-t="st.su.ok">C'est fait !</h3>
+        <p id="successMsg" data-t="st.su.msg">On t'envoie un email de confirmation. Pr&eacute;pare-toi pour ton premier appel.</p>
       </div>
     </div>
 
@@ -589,34 +597,34 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section" id="features">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Fonctionnalit&eacute;s</div>
-      <h2>Arr&ecirc;te d'&eacute;chouer seul.<br><span class="green">Passe enfin &agrave; l'action.</span></h2>
-      <p>Un coach IA qui s'int&egrave;gre naturellement dans ta vie avec des outils con&ccedil;us pour un vrai changement.</p>
+      <div class="section-label" data-t="fe.label">Fonctionnalit&eacute;s</div>
+      <h2 data-t="fe.title">Arr&ecirc;te d'&eacute;chouer seul.<br><span class="green">Passe enfin &agrave; l'action.</span></h2>
+      <p data-t="fe.sub">Un coach IA qui s'int&egrave;gre naturellement dans ta vie avec des outils con&ccedil;us pour un vrai changement.</p>
     </div>
 
     <!-- Feature 1: Appels -->
     <div class="feature-row">
       <div class="feature">
         <div class="feature-icon green">&#128222;</div>
-        <h3>Appels quotidiens</h3>
-        <p>De vrais appels t&eacute;l&eacute;phoniques &agrave; l'heure que tu choisis. Pas une notification qu'on swipe &mdash; une conversation qui t'engage.</p>
+        <h3 data-t="fe.1.t">Appels quotidiens</h3>
+        <p data-t="fe.1.d">De vrais appels t&eacute;l&eacute;phoniques &agrave; l'heure que tu choisis. Pas une notification qu'on swipe &mdash; une conversation qui t'engage.</p>
         <div class="feature-checks">
-          <div class="feature-check"><span class="check">&#10003;</span> Choisis l'heure de ton appel</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Voix IA personnalis&eacute;e qui conna&icirc;t tes objectifs</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Notification 5 min avant pour te pr&eacute;parer</div>
+          <div class="feature-check" data-t="fe.1.c1"><span class="check">&#10003;</span> Choisis l'heure de ton appel</div>
+          <div class="feature-check" data-t="fe.1.c2"><span class="check">&#10003;</span> Voix IA personnalis&eacute;e qui conna&icirc;t tes objectifs</div>
+          <div class="feature-check" data-t="fe.1.c3"><span class="check">&#10003;</span> Notification 5 min avant pour te pr&eacute;parer</div>
         </div>
       </div>
       <div class="feature-phone">
         <h4>Coach Alma</h4>
-        <div class="sub">Appel entrant</div>
+        <div class="sub" data-t="fe.1.sub">Appel entrant</div>
         <div class="feature-phone-btns">
           <div class="phone-btn">
             <div class="phone-btn-circle red">&#128532;</div>
-            <span class="phone-btn-label">Refuser</span>
+            <span class="phone-btn-label" data-t="fe.1.dec">Refuser</span>
           </div>
           <div class="phone-btn">
             <div class="phone-btn-circle green">&#128222;</div>
-            <span class="phone-btn-label">R&eacute;pondre</span>
+            <span class="phone-btn-label" data-t="fe.1.ans">R&eacute;pondre</span>
           </div>
         </div>
       </div>
@@ -626,12 +634,12 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
     <div class="feature-row reverse">
       <div class="feature">
         <div class="feature-icon orange">&#128172;</div>
-        <h3>SMS &amp; notifications</h3>
-        <p>Des check-ins quotidiens et de la motivation envoy&eacute;s directement sur ton t&eacute;l&eacute;phone. Rapide, personnel, impossible &agrave; ignorer.</p>
+        <h3 data-t="fe.2.t">SMS &amp; notifications</h3>
+        <p data-t="fe.2.d">Des check-ins quotidiens et de la motivation envoy&eacute;s directement sur ton t&eacute;l&eacute;phone. Rapide, personnel, impossible &agrave; ignorer.</p>
         <div class="feature-checks">
-          <div class="feature-check"><span class="check">&#10003;</span> 3 check-ins par jour pour te garder motiv&eacute;</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Messages personnalis&eacute;s bas&eacute;s sur ton streak</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Conversations naturelles comme un vrai coach</div>
+          <div class="feature-check" data-t="fe.2.c1"><span class="check">&#10003;</span> 3 check-ins par jour pour te garder motiv&eacute;</div>
+          <div class="feature-check" data-t="fe.2.c2"><span class="check">&#10003;</span> Messages personnalis&eacute;s bas&eacute;s sur ton streak</div>
+          <div class="feature-check" data-t="fe.2.c3"><span class="check">&#10003;</span> Conversations naturelles comme un vrai coach</div>
         </div>
       </div>
       <div class="wa-mock">
@@ -640,9 +648,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
           <span class="wa-mock-name">Coach Alma</span>
         </div>
         <div class="wa-mock-body">
-          <div class="wa-msg in">Bonjour ! Comment tu te sens par rapport &agrave; ton objectif sport aujourd'hui ? &#9728;&#65039;<div class="ts">8h24</div></div>
-          <div class="wa-msg out">Un peu fatigu&eacute; mais je compte aller &agrave; la salle cet apr&egrave;s-midi !<div class="ts">8h30</div></div>
-          <div class="wa-msg in">C'est l'esprit ! Jour 14 de ton streak &#128293; Je te recontacte &agrave; 15h pour v&eacute;rifier.<div class="ts">8h31</div></div>
+          <div class="wa-msg in" data-t="fe.2.m1">Bonjour ! Comment tu te sens par rapport &agrave; ton objectif sport aujourd'hui ? &#9728;&#65039;<div class="ts">8h24</div></div>
+          <div class="wa-msg out" data-t="fe.2.m2">Un peu fatigu&eacute; mais je compte aller &agrave; la salle cet apr&egrave;s-midi !<div class="ts">8h30</div></div>
+          <div class="wa-msg in" data-t="fe.2.m3">C'est l'esprit ! Jour 14 de ton streak &#128293; Je te recontacte &agrave; 15h pour v&eacute;rifier.<div class="ts">8h31</div></div>
         </div>
       </div>
     </div>
@@ -651,45 +659,45 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
     <div class="feature-row">
       <div class="feature">
         <div class="feature-icon blue">&#128200;</div>
-        <h3>Suivi des accomplissements</h3>
-        <p>Chaque accomplissement est automatiquement enregistr&eacute; pour visualiser ta progression. Regarde ton streak de 21 jours grandir.</p>
+        <h3 data-t="fe.3.t">Suivi des accomplissements</h3>
+        <p data-t="fe.3.d">Chaque accomplissement est automatiquement enregistr&eacute; pour visualiser ta progression. Regarde ton streak de 21 jours grandir.</p>
         <div class="feature-checks">
-          <div class="feature-check"><span class="check">&#10003;</span> Enregistrement automatique des &eacute;tapes cl&eacute;s</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Timeline visuelle pour c&eacute;l&eacute;brer tes victoires</div>
-          <div class="feature-check"><span class="check">&#10003;</span> Fonds d'&eacute;cran streak de 21 jours &agrave; partager</div>
+          <div class="feature-check" data-t="fe.3.c1"><span class="check">&#10003;</span> Enregistrement automatique des &eacute;tapes cl&eacute;s</div>
+          <div class="feature-check" data-t="fe.3.c2"><span class="check">&#10003;</span> Timeline visuelle pour c&eacute;l&eacute;brer tes victoires</div>
+          <div class="feature-check" data-t="fe.3.c3"><span class="check">&#10003;</span> Fonds d'&eacute;cran streak de 21 jours &agrave; partager</div>
         </div>
       </div>
       <div class="achievement-mock">
         <div class="achievement-header">
           <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
-          <span class="title">Tableau de bord Call Me Maybe</span>
+          <span class="title" data-t="fe.3.dash">Tableau de bord Call Me Maybe</span>
         </div>
         <div class="achievement-body">
           <div class="achievement-stats">
-            <div class="achievement-stat"><div class="num">14</div><div class="label">jours de streak</div></div>
-            <div class="achievement-stat"><div class="num">10</div><div class="label">appels compl&eacute;t&eacute;s</div></div>
-            <div class="achievement-stat"><div class="num">Bon</div><div class="label">assiduit&eacute;</div></div>
+            <div class="achievement-stat"><div class="num">14</div><div class="label" data-t="fe.3.s1">jours de streak</div></div>
+            <div class="achievement-stat"><div class="num">10</div><div class="label" data-t="fe.3.s2">appels compl&eacute;t&eacute;s</div></div>
+            <div class="achievement-stat"><div class="num" data-t="fe.3.s3v">Bon</div><div class="label" data-t="fe.3.s3">assiduit&eacute;</div></div>
           </div>
           <div class="achievement-items">
             <div class="achievement-item">
               <div class="icon">&#127942;</div>
               <div class="meta">
-                <div class="date">10 f&eacute;v. <span class="tag">&Eacute;tape cl&eacute;</span></div>
-                <h5>2 semaines de streak ! &Agrave; mi-chemin des 21 jours</h5>
+                <div class="date" data-t="fe.3.a1d">10 f&eacute;v. <span class="tag">&Eacute;tape cl&eacute;</span></div>
+                <h5 data-t="fe.3.a1">2 semaines de streak ! &Agrave; mi-chemin des 21 jours</h5>
               </div>
             </div>
             <div class="achievement-item">
               <div class="icon">&#128170;</div>
               <div class="meta">
-                <div class="date">7 f&eacute;v. <span class="tag">Objectif atteint</span></div>
-                <h5>Poids cible de la semaine atteint</h5>
+                <div class="date" data-t="fe.3.a2d">7 f&eacute;v. <span class="tag">Objectif atteint</span></div>
+                <h5 data-t="fe.3.a2">Poids cible de la semaine atteint</h5>
               </div>
             </div>
             <div class="achievement-item">
               <div class="icon">&#11088;</div>
               <div class="meta">
-                <div class="date">3 f&eacute;v. <span class="tag">Perc&eacute;e</span></div>
-                <h5>Premi&egrave;re semaine compl&egrave;te d'appels quotidiens</h5>
+                <div class="date" data-t="fe.3.a3d">3 f&eacute;v. <span class="tag">Perc&eacute;e</span></div>
+                <h5 data-t="fe.3.a3">Premi&egrave;re semaine compl&egrave;te d'appels quotidiens</h5>
               </div>
             </div>
           </div>
@@ -703,25 +711,25 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section bg-gray">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Le probl&egrave;me</div>
-      <h2>Pourquoi la plupart des gens <span class="green">&eacute;chouent seuls</span></h2>
-      <p>La motivation s'&eacute;puise. Les applis sont ignor&eacute;es. Les partenaires de responsabilit&eacute; annulent. Tu m&eacute;rites mieux.</p>
+      <div class="section-label" data-t="pr.label">Le probl&egrave;me</div>
+      <h2 data-t="pr.title">Pourquoi la plupart des gens <span class="green">&eacute;chouent seuls</span></h2>
+      <p data-t="pr.sub">La motivation s'&eacute;puise. Les applis sont ignor&eacute;es. Les partenaires de responsabilit&eacute; annulent. Tu m&eacute;rites mieux.</p>
     </div>
     <div class="problem-grid">
       <div class="problem-card">
         <div class="problem-x">&times;</div>
-        <h4>Les applis sont ignor&eacute;es</h4>
-        <p>95 % des notifications d'applis fitness sont ignor&eacute;es en quelques secondes. Il te faut quelque chose d'impossible &agrave; ignorer &mdash; un appel t&eacute;l&eacute;phonique.</p>
+        <h4 data-t="pr.1.t">Les applis sont ignor&eacute;es</h4>
+        <p data-t="pr.1.d">95 % des notifications d'applis fitness sont ignor&eacute;es en quelques secondes. Il te faut quelque chose d'impossible &agrave; ignorer &mdash; un appel t&eacute;l&eacute;phonique.</p>
       </div>
       <div class="problem-card">
         <div class="problem-x">&times;</div>
-        <h4>La motivation s'&eacute;puise</h4>
-        <p>Les &eacute;tudes montrent que la motivation chute d&egrave;s le 7e jour. Sans responsabilit&eacute; externe, 80 % des r&eacute;solutions &eacute;chouent avant f&eacute;vrier.</p>
+        <h4 data-t="pr.2.t">La motivation s'&eacute;puise</h4>
+        <p data-t="pr.2.d">Les &eacute;tudes montrent que la motivation chute d&egrave;s le 7e jour. Sans responsabilit&eacute; externe, 80 % des r&eacute;solutions &eacute;chouent avant f&eacute;vrier.</p>
       </div>
       <div class="problem-card">
         <div class="problem-x">&times;</div>
-        <h4>Les coachs co&ucirc;tent 200&euro;+/mois</h4>
-        <p>Un vrai coach personnel co&ucirc;te 200 &agrave; 500&euro;/mois. La plupart des gens ne peuvent pas se permettre un suivi quotidien.</p>
+        <h4 data-t="pr.3.t">Les coachs co&ucirc;tent 200&euro;+/mois</h4>
+        <p data-t="pr.3.d">Un vrai coach personnel co&ucirc;te 200 &agrave; 500&euro;/mois. La plupart des gens ne peuvent pas se permettre un suivi quotidien.</p>
       </div>
     </div>
   </div>
@@ -731,30 +739,30 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section" id="how-it-works">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Comment &ccedil;a marche</div>
-      <h2>D&eacute;marre en <span class="green">moins de 2 minutes</span></h2>
-      <p>Un processus simple et puissant con&ccedil;u pour te garder responsable et t'aider &agrave; atteindre tes objectifs.</p>
+      <div class="section-label" data-t="hw.label">Comment &ccedil;a marche</div>
+      <h2 data-t="hw.title">D&eacute;marre en <span class="green">moins de 2 minutes</span></h2>
+      <p data-t="hw.sub">Un processus simple et puissant con&ccedil;u pour te garder responsable et t'aider &agrave; atteindre tes objectifs.</p>
     </div>
     <div class="steps">
       <div class="step">
         <div class="step-num">1</div>
-        <h4>D&eacute;finis ton objectif</h4>
-        <p>Dis-nous ce que tu veux accomplir &mdash; perte de poids, fitness, habitudes. Choisis l'heure de ton appel quotidien.</p>
+        <h4 data-t="hw.1.t">D&eacute;finis ton objectif</h4>
+        <p data-t="hw.1.d">Dis-nous ce que tu veux accomplir &mdash; perte de poids, fitness, habitudes. Choisis l'heure de ton appel quotidien.</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <h4>Choisis ton coach</h4>
-        <p>S&eacute;lectionne un persona IA qui te correspond. Coaching dur ? Encouragements doux ? C'est toi qui d&eacute;cides.</p>
+        <h4 data-t="hw.2.t">Choisis ton coach</h4>
+        <p data-t="hw.2.d">S&eacute;lectionne un persona IA qui te correspond. Coaching dur ? Encouragements doux ? C'est toi qui d&eacute;cides.</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <h4>Re&ccedil;ois tes appels</h4>
-        <p>Ton coach t'appelle chaque jour &agrave; l'heure choisie. 5 minutes de check-in. Vraie voix. Vraie responsabilit&eacute;.</p>
+        <h4 data-t="hw.3.t">Re&ccedil;ois tes appels</h4>
+        <p data-t="hw.3.d">Ton coach t'appelle chaque jour &agrave; l'heure choisie. 5 minutes de check-in. Vraie voix. Vraie responsabilit&eacute;.</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
-        <h4>Construis ton streak</h4>
-        <p>Suis ton streak de 21 jours. C&eacute;l&egrave;bre tes &eacute;tapes. B&acirc;tis les habitudes qui transforment ta vie.</p>
+        <h4 data-t="hw.4.t">Construis ton streak</h4>
+        <p data-t="hw.4.d">Suis ton streak de 21 jours. C&eacute;l&egrave;bre tes &eacute;tapes. B&acirc;tis les habitudes qui transforment ta vie.</p>
       </div>
     </div>
   </div>
@@ -764,57 +772,57 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section bg-gray">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Cas d'usage</div>
-      <h2>Comment les gens utilisent <span class="green">Call Me Maybe</span></h2>
-      <p>D&eacute;couvre comment notre coach IA s'adapte &agrave; diff&eacute;rents objectifs et modes de vie.</p>
+      <div class="section-label" data-t="uc.label">Cas d'usage</div>
+      <h2 data-t="uc.title">Comment les gens utilisent <span class="green">Call Me Maybe</span></h2>
+      <p data-t="uc.sub">D&eacute;couvre comment notre coach IA s'adapte &agrave; diff&eacute;rents objectifs et modes de vie.</p>
     </div>
     <div class="usecases">
       <div class="usecase">
         <div class="usecase-img g1">&#127947;&#65039;</div>
         <div class="usecase-body">
-          <h4>Suivi perte de poids</h4>
-          <p>Rappels de pes&eacute;e quotidiens, suivi des repas et appels de motivation pour rester sur ton plan nutritionnel.</p>
-          <span class="for">Objectif minceur</span>
+          <h4 data-t="uc.1.t">Suivi perte de poids</h4>
+          <p data-t="uc.1.d">Rappels de pes&eacute;e quotidiens, suivi des repas et appels de motivation pour rester sur ton plan nutritionnel.</p>
+          <span class="for" data-t="uc.1.f">Objectif minceur</span>
         </div>
       </div>
       <div class="usecase">
         <div class="usecase-img g2">&#9728;&#65039;</div>
         <div class="usecase-body">
-          <h4>Appel r&eacute;veil du matin</h4>
-          <p>Remplace tes alarmes ennuyeuses par un appel motivant qui te donne l'&eacute;nergie de bien commencer la journ&eacute;e.</p>
-          <span class="for">Gros dormeurs &amp; pros</span>
+          <h4 data-t="uc.2.t">Appel r&eacute;veil du matin</h4>
+          <p data-t="uc.2.d">Remplace tes alarmes ennuyeuses par un appel motivant qui te donne l'&eacute;nergie de bien commencer la journ&eacute;e.</p>
+          <span class="for" data-t="uc.2.f">Gros dormeurs &amp; pros</span>
         </div>
       </div>
       <div class="usecase">
         <div class="usecase-img g3">&#128170;</div>
         <div class="usecase-body">
-          <h4>Responsabilit&eacute; fitness</h4>
-          <p>Appels avant l'entra&icirc;nement et check-ins apr&egrave;s pour suivre ta r&eacute;gularit&eacute; sportive.</p>
-          <span class="for">Sportifs &amp; coureurs</span>
+          <h4 data-t="uc.3.t">Responsabilit&eacute; fitness</h4>
+          <p data-t="uc.3.d">Appels avant l'entra&icirc;nement et check-ins apr&egrave;s pour suivre ta r&eacute;gularit&eacute; sportive.</p>
+          <span class="for" data-t="uc.3.f">Sportifs &amp; coureurs</span>
         </div>
       </div>
       <div class="usecase">
         <div class="usecase-img g4">&#129504;</div>
         <div class="usecase-body">
-          <h4>TDAH &amp; procrastination</h4>
-          <p>Rappels quotidiens structur&eacute;s pour construire des routines et vaincre les distractions.</p>
-          <span class="for">Personnes avec TDAH</span>
+          <h4 data-t="uc.4.t">TDAH &amp; procrastination</h4>
+          <p data-t="uc.4.d">Rappels quotidiens structur&eacute;s pour construire des routines et vaincre les distractions.</p>
+          <span class="for" data-t="uc.4.f">Personnes avec TDAH</span>
         </div>
       </div>
       <div class="usecase">
         <div class="usecase-img g5">&#128218;</div>
         <div class="usecase-body">
-          <h4>&Eacute;tudes &amp; r&eacute;visions</h4>
-          <p>Check-ins quotidiens et appels de suivi pour rester sur tes plannings de r&eacute;vision.</p>
-          <span class="for">&Eacute;tudiants</span>
+          <h4 data-t="uc.5.t">&Eacute;tudes &amp; r&eacute;visions</h4>
+          <p data-t="uc.5.d">Check-ins quotidiens et appels de suivi pour rester sur tes plannings de r&eacute;vision.</p>
+          <span class="for" data-t="uc.5.f">&Eacute;tudiants</span>
         </div>
       </div>
       <div class="usecase">
         <div class="usecase-img g6">&#127769;</div>
         <div class="usecase-body">
-          <h4>Bilan du soir</h4>
-          <p>Termine ta journ&eacute;e par un appel pour faire le point sur tes accomplissements et pr&eacute;parer demain.</p>
-          <span class="for">D&eacute;veloppement personnel</span>
+          <h4 data-t="uc.6.t">Bilan du soir</h4>
+          <p data-t="uc.6.d">Termine ta journ&eacute;e par un appel pour faire le point sur tes accomplissements et pr&eacute;parer demain.</p>
+          <span class="for" data-t="uc.6.f">D&eacute;veloppement personnel</span>
         </div>
       </div>
     </div>
@@ -825,44 +833,44 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section" id="testimonials">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">T&eacute;moignages</div>
-      <h2>Ce que nos utilisateurs <span class="green">en disent</span></h2>
-      <p>Des histoires vraies de personnes qui transforment leur vie avec Call Me Maybe.</p>
+      <div class="section-label" data-t="te.label">T&eacute;moignages</div>
+      <h2 data-t="te.title">Ce que nos utilisateurs <span class="green">en disent</span></h2>
+      <p data-t="te.sub">Des histoires vraies de personnes qui transforment leur vie avec Call Me Maybe.</p>
     </div>
     <div class="testimonials">
       <div class="testimonial">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>&laquo;&nbsp;Les appels quotidiens ont tout chang&eacute;. J'ai perdu 8 kg en 3 semaines parce que je ne pouvais pas mentir &agrave; mon coach quand il m'appelait chaque matin.&nbsp;&raquo;</p>
+        <p data-t="te.1.q">&laquo;&nbsp;Les appels quotidiens ont tout chang&eacute;. J'ai perdu 8 kg en 3 semaines parce que je ne pouvais pas mentir &agrave; mon coach quand il m'appelait chaque matin.&nbsp;&raquo;</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar a">SL</div>
           <div>
             <div class="testimonial-name">Sophie L.</div>
-            <div class="testimonial-role">Responsable marketing, Paris</div>
-            <div class="testimonial-badge">-8 kg en 21 jours</div>
+            <div class="testimonial-role" data-t="te.1.role">Responsable marketing, Paris</div>
+            <div class="testimonial-badge" data-t="te.1.badge">-8 kg en 21 jours</div>
           </div>
         </div>
       </div>
       <div class="testimonial">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>&laquo;&nbsp;J'ai essay&eacute; toutes les applis fitness. C'est la seule chose que je ne peux pas swiper. Quand le t&eacute;l&eacute;phone sonne, tu d&eacute;croches. C'est &ccedil;a la diff&eacute;rence.&nbsp;&raquo;</p>
+        <p data-t="te.2.q">&laquo;&nbsp;J'ai essay&eacute; toutes les applis fitness. C'est la seule chose que je ne peux pas swiper. Quand le t&eacute;l&eacute;phone sonne, tu d&eacute;croches. C'est &ccedil;a la diff&eacute;rence.&nbsp;&raquo;</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar b">TM</div>
           <div>
             <div class="testimonial-name">Thomas M.</div>
-            <div class="testimonial-role">D&eacute;veloppeur, Lyon</div>
-            <div class="testimonial-badge">Streak de 21 jours termin&eacute;</div>
+            <div class="testimonial-role" data-t="te.2.role">D&eacute;veloppeur, Lyon</div>
+            <div class="testimonial-badge" data-t="te.2.badge">Streak de 21 jours termin&eacute;</div>
           </div>
         </div>
       </div>
       <div class="testimonial">
         <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p>&laquo;&nbsp;Coach Luna a l'air tellement r&eacute;elle. Elle se souvient de ce que j'ai dit hier, me demande comment se sont pass&eacute;s mes repas et c&eacute;l&egrave;bre sinc&egrave;rement mes victoires.&nbsp;&raquo;</p>
+        <p data-t="te.3.q">&laquo;&nbsp;Coach Alma a l'air tellement r&eacute;elle. Elle se souvient de ce que j'ai dit hier, me demande comment se sont pass&eacute;s mes repas et c&eacute;l&egrave;bre sinc&egrave;rement mes victoires.&nbsp;&raquo;</p>
         <div class="testimonial-author">
           <div class="testimonial-avatar c">AK</div>
           <div>
             <div class="testimonial-name">Amira K.</div>
-            <div class="testimonial-role">Freelance, Marseille</div>
-            <div class="testimonial-badge">Routine matinale cr&eacute;&eacute;e</div>
+            <div class="testimonial-role" data-t="te.3.role">Freelance, Marseille</div>
+            <div class="testimonial-badge" data-t="te.3.badge">Routine matinale cr&eacute;&eacute;e</div>
           </div>
         </div>
       </div>
@@ -874,48 +882,48 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <section class="section bg-gray" id="pricing">
   <div class="section-inner">
     <div class="section-header">
-      <div class="section-label">Tarifs</div>
-      <h2>Simple et <span class="green">transparent</span></h2>
-      <p>Commence gratuitement. Passe au niveau sup&eacute;rieur quand tu es pr&ecirc;t.</p>
+      <div class="section-label" data-t="pc.label">Tarifs</div>
+      <h2 data-t="pc.title">Simple et <span class="green">transparent</span></h2>
+      <p data-t="pc.sub">Commence gratuitement. Passe au niveau sup&eacute;rieur quand tu es pr&ecirc;t.</p>
     </div>
     <div class="pricing-grid">
       <div class="price-card">
-        <div class="price-name">D&eacute;couverte</div>
-        <div class="price-amount">Gratuit</div>
-        <div class="price-period">Essai de 3 jours</div>
+        <div class="price-name" data-t="pc.1.name">D&eacute;couverte</div>
+        <div class="price-amount" data-t="pc.1.price">Gratuit</div>
+        <div class="price-period" data-t="pc.1.per">Essai de 3 jours</div>
         <ul class="price-features">
-          <li>1 appel IA par jour</li>
-          <li>1 persona de coach</li>
-          <li>Suivi de streak basique</li>
-          <li>Notifications SMS</li>
+          <li data-t="pc.1.f1">1 appel IA par jour</li>
+          <li data-t="pc.1.f2">1 persona de coach</li>
+          <li data-t="pc.1.f3">Suivi de streak basique</li>
+          <li data-t="pc.1.f4">Notifications SMS</li>
         </ul>
-        <button class="price-btn outline">Essayer gratuitement</button>
+        <button class="price-btn outline" data-t="pc.1.btn">Essayer gratuitement</button>
       </div>
       <div class="price-card featured">
         <div class="price-name">Pro</div>
         <div class="price-amount">9,90&euro;</div>
-        <div class="price-period">par mois</div>
+        <div class="price-period" data-t="pc.2.per">par mois</div>
         <ul class="price-features">
-          <li>Appels quotidiens illimit&eacute;s</li>
-          <li>Tous les personas de coach</li>
-          <li>Tableau de bord streak complet</li>
-          <li>Notifications push + SMS</li>
-          <li>Horaire d'appel personnalis&eacute;</li>
-          <li>Qualit&eacute; vocale prioritaire</li>
+          <li data-t="pc.2.f1">Appels quotidiens illimit&eacute;s</li>
+          <li data-t="pc.2.f2">Tous les personas de coach</li>
+          <li data-t="pc.2.f3">Tableau de bord streak complet</li>
+          <li data-t="pc.2.f4">Notifications push + SMS</li>
+          <li data-t="pc.2.f5">Horaire d'appel personnalis&eacute;</li>
+          <li data-t="pc.2.f6">Qualit&eacute; vocale prioritaire</li>
         </ul>
-        <button class="price-btn primary">Commencer</button>
+        <button class="price-btn primary" data-t="pc.2.btn">Commencer</button>
       </div>
       <div class="price-card">
         <div class="price-name">Duo</div>
         <div class="price-amount">14,90&euro;</div>
-        <div class="price-period">par mois, 2 utilisateurs</div>
+        <div class="price-period" data-t="pc.3.per">par mois, 2 utilisateurs</div>
         <ul class="price-features">
-          <li>Tout ce qui est dans Pro</li>
-          <li>2 comptes utilisateurs</li>
-          <li>Streaks &amp; d&eacute;fis partag&eacute;s</li>
-          <li>Mode couple / binôme</li>
+          <li data-t="pc.3.f1">Tout ce qui est dans Pro</li>
+          <li data-t="pc.3.f2">2 comptes utilisateurs</li>
+          <li data-t="pc.3.f3">Streaks &amp; d&eacute;fis partag&eacute;s</li>
+          <li data-t="pc.3.f4">Mode couple / bin&ocirc;me</li>
         </ul>
-        <button class="price-btn outline">Choisir Duo</button>
+        <button class="price-btn outline" data-t="pc.3.btn">Choisir Duo</button>
       </div>
     </div>
   </div>
@@ -926,33 +934,33 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
   <div class="section-inner">
     <div class="section-header">
       <div class="section-label">FAQ</div>
-      <h2>Questions <span class="green">fr&eacute;quentes</span></h2>
-      <p>Tout ce que tu dois savoir sur Call Me Maybe.</p>
+      <h2 data-t="fq.title">Questions <span class="green">fr&eacute;quentes</span></h2>
+      <p data-t="fq.sub">Tout ce que tu dois savoir sur Call Me Maybe.</p>
     </div>
     <div class="faq-list">
       <div class="faq-item open">
-        <button class="faq-q">Comment l'IA m'appelle concr&egrave;tement ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">On utilise une IA vocale avanc&eacute;e pour passer un vrai appel t&eacute;l&eacute;phonique &agrave; ton num&eacute;ro &agrave; l'heure pr&eacute;vue. La voix est naturelle, elle se souvient de tes objectifs et adapte la conversation &agrave; ta progression. Pas besoin de t&eacute;l&eacute;charger d'appli &mdash; &ccedil;a appelle ton num&eacute;ro directement.</div></div>
+        <button class="faq-q"><span data-t="fq.1.q">Comment l'IA m'appelle concr&egrave;tement ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.1.a">On utilise une IA vocale avanc&eacute;e pour passer un vrai appel t&eacute;l&eacute;phonique &agrave; ton num&eacute;ro &agrave; l'heure pr&eacute;vue. La voix est naturelle, elle se souvient de tes objectifs et adapte la conversation &agrave; ta progression. Pas besoin de t&eacute;l&eacute;charger d'appli &mdash; &ccedil;a appelle ton num&eacute;ro directement.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Et si je rate un appel ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Ton coach essaie une fois. Si tu ne r&eacute;ponds pas, tu re&ccedil;ois un SMS de suivi. Ton streak est pr&eacute;serv&eacute; si tu r&eacute;ponds au SMS dans les 2 heures. On sait que la vie est parfois impr&eacute;visible !</div></div>
+        <button class="faq-q"><span data-t="fq.2.q">Et si je rate un appel ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.2.a">Ton coach essaie une fois. Si tu ne r&eacute;ponds pas, tu re&ccedil;ois un SMS de suivi. Ton streak est pr&eacute;serv&eacute; si tu r&eacute;ponds au SMS dans les 2 heures. On sait que la vie est parfois impr&eacute;visible !</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Je peux choisir l'heure de l'appel ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Absolument. Tu choisis ton heure d'appel quotidien lors de la configuration. L&egrave;ve-t&ocirc;t ? 7h. Couche-tard ? 21h. Tu peux modifier ton planning &agrave; tout moment depuis le tableau de bord.</div></div>
+        <button class="faq-q"><span data-t="fq.3.q">Je peux choisir l'heure de l'appel ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.3.a">Absolument. Tu choisis ton heure d'appel quotidien lors de la configuration. L&egrave;ve-t&ocirc;t ? 7h. Couche-tard ? 21h. Tu peux modifier ton planning &agrave; tout moment depuis le tableau de bord.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Mes donn&eacute;es sont-elles prot&eacute;g&eacute;es ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui. Toutes les conversations sont chiffr&eacute;es de bout en bout. On ne partage jamais tes donn&eacute;es avec des tiers. Tes donn&eacute;es de sant&eacute; et de fitness t'appartiennent. On est conforme au RGPD et &agrave; la l&eacute;gislation fran&ccedil;aise.</div></div>
+        <button class="faq-q"><span data-t="fq.4.q">Mes donn&eacute;es sont-elles prot&eacute;g&eacute;es ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.4.a">Oui. Toutes les conversations sont chiffr&eacute;es de bout en bout. On ne partage jamais tes donn&eacute;es avec des tiers. Tes donn&eacute;es de sant&eacute; et de fitness t'appartiennent. On est conforme au RGPD et &agrave; la l&eacute;gislation fran&ccedil;aise.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">Je peux r&eacute;silier &agrave; tout moment ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">Oui. R&eacute;siliation en un clic depuis ton tableau de bord. Pas de frais cach&eacute;s, pas d'engagement, pas de questions. Tes donn&eacute;es sont supprim&eacute;es sous 30 jours apr&egrave;s r&eacute;siliation.</div></div>
+        <button class="faq-q"><span data-t="fq.5.q">Je peux r&eacute;silier &agrave; tout moment ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.5.a">Oui. R&eacute;siliation en un clic depuis ton tableau de bord. Pas de frais cach&eacute;s, pas d'engagement, pas de questions. Tes donn&eacute;es sont supprim&eacute;es sous 30 jours apr&egrave;s r&eacute;siliation.</div></div>
       </div>
       <div class="faq-item">
-        <button class="faq-q">&Ccedil;a fonctionne en dehors de la France ? <span class="arrow">&#9662;</span></button>
-        <div class="faq-a"><div class="faq-a-inner">On lance d'abord en France, avec le fran&ccedil;ais et l'anglais. L'expansion internationale est pr&eacute;vue pour le T3 2026. Inscris-toi &agrave; la liste d'attente pour &ecirc;tre pr&eacute;venu quand on arrive dans ton pays.</div></div>
+        <button class="faq-q"><span data-t="fq.6.q">&Ccedil;a fonctionne en dehors de la France ?</span> <span class="arrow">&#9662;</span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-t="fq.6.a">On lance d'abord en France, avec le fran&ccedil;ais et l'anglais. L'expansion internationale est pr&eacute;vue pour le T3 2026. Inscris-toi &agrave; la liste d'attente pour &ecirc;tre pr&eacute;venu quand on arrive dans ton pays.</div></div>
       </div>
     </div>
   </div>
@@ -961,24 +969,24 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 <!-- CTA FINAL -->
 <section class="section bg-dark">
   <div class="section-inner final-cta">
-    <h2>Imagine atteindre<br><span class="green">chacun de tes objectifs</span></h2>
-    <p>Rejoins ceux qui transforment d&eacute;j&agrave; leur vie avec un coach IA qui les appelle vraiment.</p>
-    <a href="#start" class="btn-primary btn-lg" style="font-size:1.05rem;padding:1rem 2.5rem;">Commence maintenant</a>
+    <h2 data-t="ct.title">Imagine atteindre<br><span class="green">chacun de tes objectifs</span></h2>
+    <p data-t="ct.sub">Rejoins ceux qui transforment d&eacute;j&agrave; leur vie avec un coach IA qui les appelle vraiment.</p>
+    <a href="#start" class="btn-primary btn-lg" style="font-size:1.05rem;padding:1rem 2.5rem;" data-t="ct.btn">Commence maintenant</a>
     <div class="final-features">
       <div class="final-feature">
         <div class="icon">&#128222;</div>
-        <h4>Vrais appels</h4>
-        <p>Pas une notif. Une vraie conversation vocale.</p>
+        <h4 data-t="ct.1.t">Vrais appels</h4>
+        <p data-t="ct.1.d">Pas une notif. Une vraie conversation vocale.</p>
       </div>
       <div class="final-feature">
         <div class="icon">&#128170;</div>
-        <h4>Streaks de 21 jours</h4>
-        <p>Construis des habitudes durables en 3 semaines.</p>
+        <h4 data-t="ct.2.t">Streaks de 21 jours</h4>
+        <p data-t="ct.2.d">Construis des habitudes durables en 3 semaines.</p>
       </div>
       <div class="final-feature">
         <div class="icon">&#128274;</div>
-        <h4>Conforme RGPD</h4>
-        <p>Tes donn&eacute;es sont priv&eacute;es, chiffr&eacute;es et &agrave; toi.</p>
+        <h4 data-t="ct.3.t">Conforme RGPD</h4>
+        <p data-t="ct.3.d">Tes donn&eacute;es sont priv&eacute;es, chiffr&eacute;es et &agrave; toi.</p>
       </div>
     </div>
   </div>
@@ -989,12 +997,12 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
   <div class="footer-inner">
     <div class="footer-left">
       <div class="footer-logo">CM</div>
-      <span class="footer-copy">&copy; 2026 Call Me Maybe. Tous droits r&eacute;serv&eacute;s.</span>
+      <span class="footer-copy" data-t="fo.copy">&copy; 2026 Call Me Maybe. Tous droits r&eacute;serv&eacute;s.</span>
     </div>
     <div class="footer-links">
-      <a href="#">Confidentialit&eacute;</a>
-      <a href="#">CGU</a>
-      <a href="#">Support</a>
+      <a href="#" data-t="fo.1">Confidentialit&eacute;</a>
+      <a href="#" data-t="fo.2">CGU</a>
+      <a href="#" data-t="fo.3">Support</a>
     </div>
   </div>
 </footer>
@@ -1008,9 +1016,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
         <span class="av b">TM</span>
         <span class="av c">AK</span>
       </div>
-      <span class="sticky-bar-text">Rejoins <span class="hl">des centaines</span> de personnes motiv&eacute;es</span>
+      <span class="sticky-bar-text" data-t="sb.txt">Rejoins <span class="hl">des centaines</span> de personnes motiv&eacute;es</span>
     </div>
-    <a href="#start" class="btn-primary">Commence maintenant</a>
+    <a href="#start" class="btn-primary" data-t="sb.cta">Pr&eacute;pare ton objectif</a>
   </div>
 </div>
 
@@ -1025,6 +1033,196 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 });
 
+// STICKY BAR — show on scroll
+window.addEventListener('scroll', () => {
+  const bar = document.querySelector('.sticky-bar');
+  if (window.scrollY > 500) bar.classList.add('visible');
+  else bar.classList.remove('visible');
+});
+
+// i18n SYSTEM
+let currentLang = 'fr';
+const frTexts = {};
+const frPlaceholders = {};
+
+// capture all FR text on load
+document.querySelectorAll('[data-t]').forEach(el => { frTexts[el.dataset.t] = el.innerHTML; });
+document.querySelectorAll('[data-tp]').forEach(el => { frPlaceholders[el.dataset.tp] = el.placeholder; });
+
+const enTexts = {
+  // Nav
+  'na.1':'Features','na.2':'How it works','na.3':'Testimonials','na.4':'Pricing',
+  'na.login':'Login','na.cta':'Get started',
+  // Hero
+  'he.p1':'<span class="badge pop">Popular</span> WEIGHT LOSS',
+  'he.p2':'<span class="badge new">New</span> FITNESS','he.p3':'MINDSET',
+  'he.h1':'Your AI coach that actually <span class="highlight">calls you</span>',
+  'he.sub':'An AI partner that calls you every day by phone. 5 minutes a day. A real voice that keeps you on track.',
+  'he.cta1':'Start now','he.cta2':'How it works',
+  'he.pr1':'<strong>Voice calls</strong>Daily check-ins',
+  'he.pr2':'<strong>21-day streaks</strong>Build lasting habits',
+  'he.pr3':'<strong>Progress tracking</strong>Visualize your progress',
+  'he.live':'Live','he.livetxt':'Alma called someone 3 min ago',
+  'he.status':'Online',
+  'he.m1':'Hey! How\'s your running goal? I noticed you skipped yesterday.<div class="time">8:24am</div>',
+  'he.m2':'Had a busy day. Planning to go tonight!<div class="time">8:30am</div>',
+  'he.m3':'Perfect! I\'ll call you at 6pm to confirm. Deal? \ud83d\udcaa<div class="time">8:31am</div>',
+  'he.call':'Incoming call',
+  // Start
+  'st.label':'Start now',
+  'st.title':'Choose your path.<br><span class="green">We handle the rest.</span>',
+  'st.sub':'Set your goal, challenge a friend, or get a call from our AI coach right now.',
+  'st.g.t':'Set your goal','st.g.d':'Choose what you want to achieve and how much. We adapt the program.',
+  'st.g.b1':'Lose weight','st.g.b2':'Build muscle',
+  'st.g.lbl':'to lose in 3 months','st.g.cta':'Let\'s go \u2192',
+  'st.c.t':'Challenge a friend','st.c.d':'Start a challenge with a friend. First one to quit loses. Motivation \u00d72.',
+  'st.c.b1':'\u2696\ufe0f Weight loss','st.c.b2':'\ud83d\udcaa Fitness',
+  'st.c.cta':'Send invitation \u2192',
+  'st.a.t':'Get a call','st.a.d':'Our AI coach calls you within 5 minutes to start your personalized program.',
+  'st.a.alma':'Warm & motivating','st.a.marco':'Direct & effective',
+  'st.a.cta':'Call me \u2192',
+  'st.su.t':'One more step \ud83c\udf89','st.su.d':'Enter your email to create your account and save your preferences.',
+  'st.su.btn':'Create my account','st.su.ok':'You\'re all set!',
+  'st.su.msg':'We\'re sending you a confirmation email. Get ready for your first call.',
+  // Features
+  'fe.label':'Features',
+  'fe.title':'Stop failing alone.<br><span class="green">Take action now.</span>',
+  'fe.sub':'An AI coach that naturally fits into your life with tools designed for real change.',
+  'fe.1.t':'Daily calls',
+  'fe.1.d':'Real phone calls at the time you choose. Not a notification you swipe \u2014 a conversation that engages you.',
+  'fe.1.c1':'<span class="check">\u2713</span> Choose your call time',
+  'fe.1.c2':'<span class="check">\u2713</span> Personalized AI voice that knows your goals',
+  'fe.1.c3':'<span class="check">\u2713</span> 5-minute heads-up notification',
+  'fe.1.sub':'Incoming call','fe.1.dec':'Decline','fe.1.ans':'Answer',
+  'fe.2.t':'SMS & notifications',
+  'fe.2.d':'Daily check-ins and motivation sent directly to your phone. Quick, personal, impossible to ignore.',
+  'fe.2.c1':'<span class="check">\u2713</span> 3 daily check-ins to keep you motivated',
+  'fe.2.c2':'<span class="check">\u2713</span> Personalized messages based on your streak',
+  'fe.2.c3':'<span class="check">\u2713</span> Natural conversations like a real coach',
+  'fe.2.m1':'Good morning! How do you feel about your workout goal today? \u2600\ufe0f<div class="ts">8:24am</div>',
+  'fe.2.m2':'A bit tired but planning to hit the gym this afternoon!<div class="ts">8:30am</div>',
+  'fe.2.m3':'That\'s the spirit! Day 14 of your streak \ud83d\udd25 I\'ll check back at 3pm.<div class="ts">8:31am</div>',
+  'fe.3.t':'Achievement tracking',
+  'fe.3.d':'Every achievement is automatically logged to visualize your progress. Watch your 21-day streak grow.',
+  'fe.3.c1':'<span class="check">\u2713</span> Automatic milestone logging',
+  'fe.3.c2':'<span class="check">\u2713</span> Visual timeline to celebrate your wins',
+  'fe.3.c3':'<span class="check">\u2713</span> 21-day streak wallpapers to share',
+  'fe.3.dash':'Call Me Maybe Dashboard',
+  'fe.3.s1':'streak days','fe.3.s2':'calls completed','fe.3.s3v':'Good','fe.3.s3':'consistency',
+  'fe.3.a1d':'Feb 10 <span class="tag">Milestone</span>','fe.3.a1':'2-week streak! Halfway to 21 days',
+  'fe.3.a2d':'Feb 7 <span class="tag">Goal reached</span>','fe.3.a2':'Weekly target weight hit',
+  'fe.3.a3d':'Feb 3 <span class="tag">Breakthrough</span>','fe.3.a3':'First full week of daily calls',
+  // Problem
+  'pr.label':'The problem',
+  'pr.title':'Why most people <span class="green">fail alone</span>',
+  'pr.sub':'Motivation fades. Apps are ignored. Accountability partners cancel. You deserve better.',
+  'pr.1.t':'Apps are ignored',
+  'pr.1.d':'95% of fitness app notifications are ignored within seconds. You need something impossible to ignore \u2014 a phone call.',
+  'pr.2.t':'Motivation fades',
+  'pr.2.d':'Studies show motivation drops by day 7. Without external accountability, 80% of resolutions fail before February.',
+  'pr.3.t':'Coaches cost \u20ac200+/month',
+  'pr.3.d':'A real personal coach costs \u20ac200-500/month. Most people can\'t afford daily support.',
+  // How it works
+  'hw.label':'How it works',
+  'hw.title':'Get started in <span class="green">under 2 minutes</span>',
+  'hw.sub':'A simple and powerful process designed to keep you accountable and help you reach your goals.',
+  'hw.1.t':'Set your goal','hw.1.d':'Tell us what you want to achieve \u2014 weight loss, fitness, habits. Choose your daily call time.',
+  'hw.2.t':'Choose your coach','hw.2.d':'Select an AI persona that matches you. Tough coaching? Gentle encouragement? You decide.',
+  'hw.3.t':'Get your calls','hw.3.d':'Your coach calls you every day at your chosen time. 5-minute check-in. Real voice. Real accountability.',
+  'hw.4.t':'Build your streak','hw.4.d':'Track your 21-day streak. Celebrate your milestones. Build the habits that transform your life.',
+  // Use cases
+  'uc.label':'Use cases',
+  'uc.title':'How people use <span class="green">Call Me Maybe</span>',
+  'uc.sub':'Discover how our AI coach adapts to different goals and lifestyles.',
+  'uc.1.t':'Weight loss tracking','uc.1.d':'Daily weigh-in reminders, meal tracking, and motivation calls to stay on your nutrition plan.','uc.1.f':'Weight loss goal',
+  'uc.2.t':'Morning wake-up call','uc.2.d':'Replace your boring alarms with a motivating call that gives you the energy to start your day right.','uc.2.f':'Heavy sleepers & pros',
+  'uc.3.t':'Fitness accountability','uc.3.d':'Pre-workout calls and post-session check-ins to track your training consistency.','uc.3.f':'Athletes & runners',
+  'uc.4.t':'ADHD & procrastination','uc.4.d':'Daily structured reminders to build routines and beat distractions.','uc.4.f':'People with ADHD',
+  'uc.5.t':'Studies & revision','uc.5.d':'Daily check-ins and follow-up calls to stay on top of your revision schedules.','uc.5.f':'Students',
+  'uc.6.t':'Evening review','uc.6.d':'End your day with a call to review your accomplishments and prepare for tomorrow.','uc.6.f':'Personal growth',
+  // Testimonials
+  'te.label':'Testimonials',
+  'te.title':'What our users <span class="green">say</span>',
+  'te.sub':'Real stories from people transforming their lives with Call Me Maybe.',
+  'te.1.q':'\u00ab\u00a0The daily calls changed everything. I lost 8 kg in 3 weeks because I couldn\'t lie to my coach when they called me every morning.\u00a0\u00bb',
+  'te.1.role':'Marketing Manager, Paris','te.1.badge':'-8 kg in 21 days',
+  'te.2.q':'\u00ab\u00a0I\'ve tried every fitness app. This is the only thing I can\'t swipe away. When the phone rings, you pick up. That\'s the difference.\u00a0\u00bb',
+  'te.2.role':'Developer, Lyon','te.2.badge':'21-day streak completed',
+  'te.3.q':'\u00ab\u00a0Coach Alma feels so real. She remembers what I said yesterday, asks how my meals went, and genuinely celebrates my wins.\u00a0\u00bb',
+  'te.3.role':'Freelancer, Marseille','te.3.badge':'Morning routine established',
+  // Pricing
+  'pc.label':'Pricing','pc.title':'Simple and <span class="green">transparent</span>',
+  'pc.sub':'Start free. Upgrade when you\'re ready.',
+  'pc.1.name':'Starter','pc.1.price':'Free','pc.1.per':'3-day trial',
+  'pc.1.f1':'1 AI call per day','pc.1.f2':'1 coach persona','pc.1.f3':'Basic streak tracking','pc.1.f4':'SMS notifications',
+  'pc.1.btn':'Try for free',
+  'pc.2.per':'per month',
+  'pc.2.f1':'Unlimited daily calls','pc.2.f2':'All coach personas','pc.2.f3':'Full streak dashboard',
+  'pc.2.f4':'Push + SMS notifications','pc.2.f5':'Custom call schedule','pc.2.f6':'Priority voice quality',
+  'pc.2.btn':'Get started',
+  'pc.3.per':'per month, 2 users',
+  'pc.3.f1':'Everything in Pro','pc.3.f2':'2 user accounts','pc.3.f3':'Shared streaks & challenges','pc.3.f4':'Couple / buddy mode',
+  'pc.3.btn':'Choose Duo',
+  // FAQ
+  'fq.title':'Frequently <span class="green">asked questions</span>',
+  'fq.sub':'Everything you need to know about Call Me Maybe.',
+  'fq.1.q':'How does the AI actually call me?',
+  'fq.1.a':'We use advanced voice AI to make a real phone call to your number at the scheduled time. The voice is natural, remembers your goals, and adapts to your progress. No app download needed \u2014 it calls your number directly.',
+  'fq.2.q':'What if I miss a call?',
+  'fq.2.a':'Your coach tries once. If you don\'t answer, you\'ll get a follow-up SMS. Your streak is preserved if you reply within 2 hours. We know life can be unpredictable!',
+  'fq.3.q':'Can I choose the call time?',
+  'fq.3.a':'Absolutely. You choose your daily call time during setup. Early bird? 7am. Night owl? 9pm. You can change your schedule anytime from your dashboard.',
+  'fq.4.q':'Is my data protected?',
+  'fq.4.a':'Yes. All conversations are end-to-end encrypted. We never share your data with third parties. Your health and fitness data belongs to you. We\'re fully GDPR compliant.',
+  'fq.5.q':'Can I cancel anytime?',
+  'fq.5.a':'Yes. One-click cancellation from your dashboard. No hidden fees, no commitment, no questions asked. Your data is deleted within 30 days.',
+  'fq.6.q':'Does it work outside France?',
+  'fq.6.a':'We\'re launching first in France, with French and English. International expansion is planned for Q3 2026. Join the waitlist to be notified when we arrive in your country.',
+  // CTA
+  'ct.title':'Imagine reaching<br><span class="green">every single goal</span>',
+  'ct.sub':'Join those already transforming their lives with an AI coach that actually calls them.',
+  'ct.btn':'Start now',
+  'ct.1.t':'Real calls','ct.1.d':'Not a notification. A real voice conversation.',
+  'ct.2.t':'21-day streaks','ct.2.d':'Build lasting habits in 3 weeks.',
+  'ct.3.t':'GDPR compliant','ct.3.d':'Your data is private, encrypted, and yours.',
+  // Footer
+  'fo.copy':'\u00a9 2026 Call Me Maybe. All rights reserved.',
+  'fo.1':'Privacy','fo.2':'Terms','fo.3':'Support',
+  // Sticky bar
+  'sb.txt':'Join <span class="hl">hundreds</span> of motivated people',
+  'sb.cta':'Set your goal'
+};
+
+const enPlaceholders = {
+  'st.c.ph1':'Your first name','st.c.ph2':'Your friend\'s name'
+};
+
+function t(fr, en) { return currentLang === 'en' ? en : fr; }
+
+function setLang(lang) {
+  currentLang = lang;
+  const texts = lang === 'en' ? enTexts : frTexts;
+  const phs = lang === 'en' ? enPlaceholders : frPlaceholders;
+  document.querySelectorAll('[data-t]').forEach(el => {
+    const key = el.dataset.t;
+    if (texts[key]) el.innerHTML = texts[key];
+  });
+  document.querySelectorAll('[data-tp]').forEach(el => {
+    const key = el.dataset.tp;
+    if (phs[key]) el.placeholder = phs[key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const activeBtn = document.querySelector('.lang-btn[data-lang="'+lang+'"]');
+  if (activeBtn) activeBtn.classList.add('active');
+  document.documentElement.lang = lang;
+  document.title = lang === 'en'
+    ? 'Call Me Maybe \u2014 Your AI coach that calls you every day'
+    : 'Call Me Maybe \u2014 Ton coach IA qui t\'appelle chaque jour';
+  // re-apply dynamic UI state
+  setGoal(currentGoalType, document.querySelector('#goalToggle .goal-btn.active'));
+  localStorage.setItem('cmm_lang', lang);
+}
+
 // START SECTION
 let currentGoalType = 'weight';
 let currentChallengeType = 'weight';
@@ -1034,15 +1232,12 @@ let userData = {};
 function setGoal(type, btn) {
   currentGoalType = type;
   document.querySelectorAll('#goalToggle .goal-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  if (btn) btn.classList.add('active');
   const label = document.getElementById('goalLabel');
-  const val = document.getElementById('goalValue');
   if (type === 'weight') {
-    label.textContent = '\u00e0 perdre en 3 mois';
-    val.parentElement.querySelector('small').textContent = 'kg';
+    label.textContent = t('\u00e0 perdre en 3 mois', 'to lose in 3 months');
   } else {
-    label.textContent = 'de muscle \u00e0 gagner';
-    val.parentElement.querySelector('small').textContent = 'kg';
+    label.textContent = t('de muscle \u00e0 gagner', 'of muscle to gain');
   }
 }
 
@@ -1066,21 +1261,22 @@ function startJourney(path) {
 
   if (path === 'goal') {
     const kg = document.getElementById('goalRange').value;
-    const action = currentGoalType === 'weight' ? 'Perdre' : 'Gagner';
+    const action = currentGoalType === 'weight' ? t('Perdre','Lose') : t('Gagner','Gain');
+    const prog = t('Programme personnalis\u00e9','Personalized program');
     userData = { path: 'goal', type: currentGoalType, kg: kg };
-    summary.innerHTML = '\u2728 ' + action + ' ' + kg + ' kg \u2014 Programme personnalis\u00e9';
+    summary.innerHTML = '\u2728 ' + action + ' ' + kg + ' kg \u2014 ' + prog;
   } else if (path === 'challenge') {
-    const myName = document.getElementById('myName').value || 'Toi';
-    const friendName = document.getElementById('friendName').value || 'Ton ami(e)';
+    const myName = document.getElementById('myName').value || t('Toi','You');
+    const friendName = document.getElementById('friendName').value || t('Ton ami(e)','Your friend');
     const kg = document.getElementById('challengeRange').value;
-    const type = currentChallengeType === 'weight' ? 'perte de poids' : 'fitness';
+    const type = currentChallengeType === 'weight' ? t('perte de poids','weight loss') : 'fitness';
     userData = { path: 'challenge', myName, friendName, type: currentChallengeType, kg };
     summary.innerHTML = '\ud83e\udd1d ' + myName + ' vs ' + friendName + ' \u2014 Challenge ' + type + ' (' + kg + ' kg)';
   } else if (path === 'call') {
     const phone = document.getElementById('phoneInput').value;
     const coachName = selectedCoach === 'alma' ? 'Alma' : 'Marco';
     userData = { path: 'call', coach: selectedCoach, phone: phone };
-    summary.innerHTML = '\ud83d\udcde ' + coachName + ' t\'appelle dans 5 min';
+    summary.innerHTML = '\ud83d\udcde ' + coachName + ' ' + t("t'appelle dans 5 min","calls you in 5 min");
     if (!phone || phone.length < 8) {
       document.getElementById('phoneInput').style.borderColor = '#ef4444';
       document.getElementById('phoneInput').focus();
@@ -1100,31 +1296,29 @@ function submitSignup() {
   }
   userData.email = email;
 
-  // store in localStorage for now
   const leads = JSON.parse(localStorage.getItem('cmm_leads') || '[]');
   leads.push({ ...userData, timestamp: new Date().toISOString() });
   localStorage.setItem('cmm_leads', JSON.stringify(leads));
 
-  // show success
   document.getElementById('signupForm').style.display = 'none';
   const success = document.getElementById('signupSuccess');
   success.style.display = 'block';
 
   if (userData.path === 'call') {
-    document.getElementById('successMsg').textContent = (userData.coach === 'alma' ? 'Alma' : 'Marco') + ' va t\'appeler dans quelques minutes. Garde ton t\u00e9l\u00e9phone pr\u00e8s de toi !';
+    document.getElementById('successMsg').textContent = coachName(userData.coach) + ' ' + t("va t'appeler dans quelques minutes. Garde ton t\u00e9l\u00e9phone pr\u00e8s de toi !","will call you in a few minutes. Keep your phone nearby!");
   } else if (userData.path === 'challenge') {
-    document.getElementById('successMsg').textContent = 'On envoie l\'invitation \u00e0 ' + (userData.friendName || 'ton ami(e)') + '. Pr\u00e9parez-vous au challenge !';
+    const friend = userData.friendName || t('ton ami(e)','your friend');
+    document.getElementById('successMsg').textContent = t("On envoie l'invitation \u00e0 " + friend + ". Pr\u00e9parez-vous au challenge !","Sending the invitation to " + friend + ". Get ready for the challenge!");
   } else {
-    document.getElementById('successMsg').textContent = 'Ton programme personnalis\u00e9 est en route. Check ton email !';
+    document.getElementById('successMsg').textContent = t("Ton programme personnalis\u00e9 est en route. Check ton email !","Your personalized program is on the way. Check your email!");
   }
 }
 
-// nav links update
-document.querySelectorAll('.btn-primary').forEach(btn => {
-  if (btn.textContent.includes('premier appel') || btn.textContent.includes('Commencer')) {
-    btn.setAttribute('href', '#start');
-  }
-});
+function coachName(c) { return c === 'alma' ? 'Alma' : 'Marco'; }
+
+// restore saved language
+const savedLang = localStorage.getItem('cmm_lang');
+if (savedLang === 'en') setLang('en');
 </script>
 
 </body>
