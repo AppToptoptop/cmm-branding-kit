@@ -252,6 +252,129 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes ring { 0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); } 70% { box-shadow: 0 0 0 12px rgba(34,197,94,0); } 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); } }
+@keyframes slideUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+/* START SECTION */
+.start-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.start-card {
+  background: white; border: 1px solid var(--gray-200); border-radius: 20px;
+  padding: 2rem; position: relative; transition: all 0.3s;
+  display: flex; flex-direction: column;
+}
+.start-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+.start-card.feat { border: 2px solid var(--green); box-shadow: var(--shadow-lg); }
+.start-card.feat::before {
+  content: 'POPULAIRE'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--green); color: white; font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 1px; padding: 0.3rem 1rem; border-radius: 100px; white-space: nowrap;
+}
+.start-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+.start-card h3 { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.3px; margin-bottom: 0.5rem; }
+.start-card > p { font-size: 0.85rem; color: var(--gray-500); line-height: 1.6; margin-bottom: 1rem; }
+
+.goal-toggle {
+  display: flex; background: var(--gray-100); border-radius: 10px; padding: 3px; margin-bottom: 1.25rem;
+}
+.goal-btn {
+  flex: 1; padding: 0.55rem 0.5rem; border: none; border-radius: 8px; font-size: 0.82rem;
+  font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent;
+  color: var(--gray-500); font-family: inherit;
+}
+.goal-btn.active { background: white; color: var(--gray-900); box-shadow: var(--shadow-sm); }
+
+.goal-slider-area { text-align: center; margin-bottom: 1.25rem; }
+.goal-value {
+  font-size: 2.5rem; font-weight: 900; letter-spacing: -2px; color: var(--green);
+  margin-bottom: 0.5rem; line-height: 1;
+}
+.goal-value small { font-size: 1rem; font-weight: 600; color: var(--gray-400); }
+.goal-label-txt { font-size: 0.78rem; color: var(--gray-400); margin-bottom: 0.75rem; }
+.goal-range {
+  -webkit-appearance: none; width: 100%; height: 6px; border-radius: 3px;
+  background: var(--gray-200); outline: none;
+}
+.goal-range::-webkit-slider-thumb {
+  -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--green); cursor: pointer; box-shadow: 0 2px 8px rgba(34,197,94,0.3);
+  border: 3px solid white;
+}
+.goal-range-labels { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--gray-400); margin-top: 4px; }
+
+.start-input {
+  width: 100%; padding: 0.7rem 1rem; border: 1px solid var(--gray-200); border-radius: 10px;
+  font-size: 0.88rem; font-family: inherit; color: var(--gray-900); background: var(--gray-50);
+  transition: border-color 0.2s; margin-bottom: 0.6rem;
+}
+.start-input:focus { outline: none; border-color: var(--green); background: white; }
+.start-input.phone { font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; text-align: center; }
+
+.challenge-type { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+.challenge-btn {
+  flex: 1; padding: 0.5rem; border: 1px solid var(--gray-200); border-radius: 8px;
+  font-size: 0.78rem; font-weight: 600; cursor: pointer; background: white;
+  color: var(--gray-500); transition: all 0.2s; font-family: inherit;
+}
+.challenge-btn.active { border-color: var(--green); color: var(--green-dark); background: var(--green-50); }
+
+.coach-select { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.coach-option {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem;
+  border: 1px solid var(--gray-200); border-radius: 12px; cursor: pointer; transition: all 0.2s;
+}
+.coach-option:hover { border-color: var(--gray-300); }
+.coach-option.active { border-color: var(--green); background: var(--green-50); }
+.coach-avatar {
+  width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 1.2rem; background: var(--gray-100);
+}
+.coach-option.active .coach-avatar { background: var(--green-100); }
+.coach-info strong { display: block; font-size: 0.88rem; color: var(--gray-900); }
+.coach-info span { font-size: 0.75rem; color: var(--gray-400); }
+
+.start-cta {
+  width: 100%; padding: 0.8rem; border-radius: 12px; font-weight: 700; font-size: 0.92rem;
+  border: 1px solid var(--gray-300); background: white; color: var(--gray-700);
+  cursor: pointer; transition: all 0.2s; font-family: inherit; margin-top: auto;
+}
+.start-cta:hover { border-color: var(--green); color: var(--green-dark); }
+.start-cta.primary { background: var(--green); color: white; border: none; }
+.start-cta.primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+.signup-overlay {
+  display: none; margin-top: 2rem; background: var(--gray-900); border-radius: 20px;
+  padding: 2.5rem; text-align: center; animation: slideUp 0.4s ease;
+}
+.signup-overlay.show { display: block; }
+.signup-overlay h3 { color: white; font-size: 1.3rem; font-weight: 800; margin-bottom: 0.5rem; }
+.signup-overlay p { color: var(--gray-400); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.signup-overlay .summary {
+  display: inline-block; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 10px; padding: 0.6rem 1.2rem; color: var(--green-light); font-size: 0.85rem;
+  font-weight: 600; margin-bottom: 1.5rem;
+}
+.signup-row { display: flex; gap: 0.5rem; max-width: 500px; margin: 0 auto; }
+.signup-row input {
+  flex: 1; padding: 0.85rem 1.2rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06); color: white; font-size: 0.95rem; font-family: inherit;
+}
+.signup-row input::placeholder { color: var(--gray-500); }
+.signup-row input:focus { outline: none; border-color: var(--green); }
+.signup-row button {
+  padding: 0.85rem 1.5rem; border-radius: 12px; background: var(--green); color: white;
+  font-weight: 700; font-size: 0.9rem; border: none; cursor: pointer; white-space: nowrap;
+  font-family: inherit; transition: all 0.2s;
+}
+.signup-row button:hover { background: var(--green-dark); }
+.signup-success {
+  display: none; padding: 2rem; text-align: center;
+}
+.signup-success .check-big {
+  width: 60px; height: 60px; border-radius: 50%; background: var(--green); color: white;
+  display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+  margin: 0 auto 1rem; font-weight: 800;
+}
+.signup-success h3 { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
+.signup-success p { color: var(--gray-400); font-size: 0.88rem; }
 @media (max-width: 768px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-sub { margin: 0 auto 2rem; }
@@ -260,7 +383,8 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
   .hero-visual { display: none; }
   .nav-links { display: none; }
   .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; }
-  .problem-grid, .steps, .usecases, .testimonials { grid-template-columns: 1fr; }
+  .start-grid, .problem-grid, .steps, .usecases, .testimonials { grid-template-columns: 1fr; }
+  .signup-row { flex-direction: column; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
   .price-card.featured { transform: none; }
   .final-features { flex-direction: column; align-items: center; }
@@ -302,7 +426,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       <h1>Ton coach IA qui <span class="highlight">t'appelle</span> vraiment</h1>
       <p class="hero-sub">Un partenaire IA qui t'appelle chaque jour par t&eacute;l&eacute;phone. 5 minutes par jour. Une vraie voix qui te garde sur la bonne voie.</p>
       <div class="hero-buttons">
-        <a href="#" class="btn-primary btn-lg">Re&ccedil;ois ton premier appel</a>
+        <a href="#start" class="btn-primary btn-lg">Commence maintenant</a>
         <a href="#how-it-works" class="btn-outline btn-lg">Comment &ccedil;a marche</a>
       </div>
       <div class="hero-proof">
@@ -325,13 +449,13 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       <div class="hero-live">
         <span class="dot"></span>
         <span class="label">En direct</span>
-        <span class="text">Coach Max a appel&eacute; quelqu'un il y a 3 min</span>
+        <span class="text">Alma a appel&eacute; quelqu'un il y a 3 min</span>
       </div>
       <div class="hero-chat">
         <div class="hero-chat-header">
           <div class="hero-chat-avatar">&#128170;</div>
           <div>
-            <div class="hero-chat-name">Coach Max</div>
+            <div class="hero-chat-name">Coach Alma</div>
             <div class="hero-chat-status">En ligne</div>
           </div>
         </div>
@@ -343,13 +467,121 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       </div>
       <div class="hero-call">
         <div class="hero-call-label">Appel entrant</div>
-        <div class="hero-call-name">Coach Max &#128170;</div>
+        <div class="hero-call-name">Coach Alma &#128170;</div>
         <div class="hero-call-buttons">
           <button class="call-btn decline">&#128532;</button>
           <button class="call-btn answer">&#128222;</button>
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- COMMENCER -->
+<section class="section bg-gray" id="start">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-label">Commence maintenant</div>
+      <h2>Choisis ta voie.<br><span class="green">On fait le reste.</span></h2>
+      <p>D&eacute;finis ton objectif, d&eacute;fie un ami, ou re&ccedil;ois un appel de notre coach IA d&egrave;s maintenant.</p>
+    </div>
+
+    <div class="start-grid">
+
+      <!-- COL 1: OBJECTIF -->
+      <div class="start-card" id="cardGoal">
+        <div class="start-icon">&#9878;&#65039;</div>
+        <h3>D&eacute;finis ton objectif</h3>
+        <p>Choisis ce que tu veux accomplir et combien. On adapte le programme.</p>
+
+        <div class="goal-toggle" id="goalToggle">
+          <button class="goal-btn active" data-goal="weight" onclick="setGoal('weight',this)">Perdre du poids</button>
+          <button class="goal-btn" data-goal="muscle" onclick="setGoal('muscle',this)">Gagner du muscle</button>
+        </div>
+
+        <div class="goal-slider-area">
+          <div class="goal-value"><span id="goalValue">10</span> <small>kg</small></div>
+          <div class="goal-label-txt" id="goalLabel">&agrave; perdre en 3 mois</div>
+          <input type="range" min="3" max="40" value="10" class="goal-range" id="goalRange" oninput="updateGoal(this.value)">
+          <div class="goal-range-labels"><span>3 kg</span><span>40 kg</span></div>
+        </div>
+
+        <button class="start-cta" onclick="startJourney('goal')">C'est parti &rarr;</button>
+      </div>
+
+      <!-- COL 2: CHALLENGE AMI -->
+      <div class="start-card feat" id="cardChallenge">
+        <div class="start-icon">&#129309;</div>
+        <h3>D&eacute;fie un ami</h3>
+        <p>Lance un challenge avec un ami. Le premier qui abandonne perd. Motivation &times;2.</p>
+
+        <div style="flex:1;">
+          <input type="text" placeholder="Ton pr&eacute;nom" class="start-input" id="myName">
+          <input type="text" placeholder="Pr&eacute;nom de ton ami(e)" class="start-input" id="friendName">
+
+          <div class="challenge-type" id="challengeType">
+            <button class="challenge-btn active" onclick="setChallengeType('weight',this)">&#9878;&#65039; Perte de poids</button>
+            <button class="challenge-btn" onclick="setChallengeType('muscle',this)">&#128170; Fitness</button>
+          </div>
+
+          <div class="goal-slider-area" style="margin-bottom:0.75rem;">
+            <div style="font-size:1.5rem;font-weight:900;color:var(--green);margin-bottom:0.25rem;"><span id="challengeGoal">10</span> <small style="font-size:0.8rem;font-weight:600;color:var(--gray-400);">kg chacun</small></div>
+            <input type="range" min="3" max="30" value="10" class="goal-range" id="challengeRange" oninput="document.getElementById('challengeGoal').textContent=this.value">
+            <div class="goal-range-labels"><span>3 kg</span><span>30 kg</span></div>
+          </div>
+        </div>
+
+        <button class="start-cta primary" onclick="startJourney('challenge')">Envoyer l'invitation &rarr;</button>
+      </div>
+
+      <!-- COL 3: APPEL IA -->
+      <div class="start-card" id="cardCall">
+        <div class="start-icon">&#128222;</div>
+        <h3>Re&ccedil;ois un appel</h3>
+        <p>Notre coach IA t'appelle dans les 5 minutes pour lancer ton programme personnalis&eacute;.</p>
+
+        <div class="coach-select" id="coachSelect">
+          <div class="coach-option active" onclick="selectCoach('alma',this)">
+            <div class="coach-avatar">&#128105;</div>
+            <div class="coach-info">
+              <strong>Alma</strong>
+              <span>Bienveillante &amp; motivante</span>
+            </div>
+          </div>
+          <div class="coach-option" onclick="selectCoach('marco',this)">
+            <div class="coach-avatar">&#128104;</div>
+            <div class="coach-info">
+              <strong>Marco</strong>
+              <span>Direct &amp; efficace</span>
+            </div>
+          </div>
+        </div>
+
+        <input type="tel" placeholder="+33 6 XX XX XX XX" class="start-input phone" id="phoneInput">
+
+        <button class="start-cta" onclick="startJourney('call')">Appelle-moi &rarr;</button>
+      </div>
+
+    </div>
+
+    <!-- SIGNUP OVERLAY -->
+    <div class="signup-overlay" id="signupOverlay">
+      <div id="signupForm">
+        <h3>Plus qu'une &eacute;tape &#127881;</h3>
+        <p>Entre ton email pour cr&eacute;er ton compte et sauvegarder tes pr&eacute;f&eacute;rences.</p>
+        <div class="summary" id="signupSummary"></div>
+        <div class="signup-row">
+          <input type="email" placeholder="ton@email.com" id="signupEmail">
+          <button onclick="submitSignup()">Cr&eacute;er mon compte</button>
+        </div>
+      </div>
+      <div class="signup-success" id="signupSuccess">
+        <div class="check-big">&#10003;</div>
+        <h3>C'est fait !</h3>
+        <p id="successMsg">On t'envoie un email de confirmation. Pr&eacute;pare-toi pour ton premier appel.</p>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -375,7 +607,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
         </div>
       </div>
       <div class="feature-phone">
-        <h4>Coach Max</h4>
+        <h4>Coach Alma</h4>
         <div class="sub">Appel entrant</div>
         <div class="feature-phone-btns">
           <div class="phone-btn">
@@ -405,7 +637,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       <div class="wa-mock">
         <div class="wa-mock-header">
           <div class="wa-mock-avatar">&#128170;</div>
-          <span class="wa-mock-name">Coach Max</span>
+          <span class="wa-mock-name">Coach Alma</span>
         </div>
         <div class="wa-mock-body">
           <div class="wa-msg in">Bonjour ! Comment tu te sens par rapport &agrave; ton objectif sport aujourd'hui ? &#9728;&#65039;<div class="ts">8h24</div></div>
@@ -731,7 +963,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
   <div class="section-inner final-cta">
     <h2>Imagine atteindre<br><span class="green">chacun de tes objectifs</span></h2>
     <p>Rejoins ceux qui transforment d&eacute;j&agrave; leur vie avec un coach IA qui les appelle vraiment.</p>
-    <a href="#" class="btn-primary btn-lg" style="font-size:1.05rem;padding:1rem 2.5rem;">Re&ccedil;ois ton premier appel</a>
+    <a href="#start" class="btn-primary btn-lg" style="font-size:1.05rem;padding:1rem 2.5rem;">Commence maintenant</a>
     <div class="final-features">
       <div class="final-feature">
         <div class="icon">&#128222;</div>
@@ -778,11 +1010,12 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
       </div>
       <span class="sticky-bar-text">Rejoins <span class="hl">des centaines</span> de personnes motiv&eacute;es</span>
     </div>
-    <a href="#" class="btn-primary">Re&ccedil;ois ton premier appel</a>
+    <a href="#start" class="btn-primary">Commence maintenant</a>
   </div>
 </div>
 
 <script>
+// FAQ
 document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
@@ -790,6 +1023,107 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
     if (!wasOpen) item.classList.add('open');
   });
+});
+
+// START SECTION
+let currentGoalType = 'weight';
+let currentChallengeType = 'weight';
+let selectedCoach = 'alma';
+let userData = {};
+
+function setGoal(type, btn) {
+  currentGoalType = type;
+  document.querySelectorAll('#goalToggle .goal-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const label = document.getElementById('goalLabel');
+  const val = document.getElementById('goalValue');
+  if (type === 'weight') {
+    label.textContent = '\u00e0 perdre en 3 mois';
+    val.parentElement.querySelector('small').textContent = 'kg';
+  } else {
+    label.textContent = 'de muscle \u00e0 gagner';
+    val.parentElement.querySelector('small').textContent = 'kg';
+  }
+}
+
+function updateGoal(v) { document.getElementById('goalValue').textContent = v; }
+
+function setChallengeType(type, btn) {
+  currentChallengeType = type;
+  document.querySelectorAll('#challengeType .challenge-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectCoach(coach, el) {
+  selectedCoach = coach;
+  document.querySelectorAll('#coachSelect .coach-option').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function startJourney(path) {
+  const overlay = document.getElementById('signupOverlay');
+  const summary = document.getElementById('signupSummary');
+
+  if (path === 'goal') {
+    const kg = document.getElementById('goalRange').value;
+    const action = currentGoalType === 'weight' ? 'Perdre' : 'Gagner';
+    userData = { path: 'goal', type: currentGoalType, kg: kg };
+    summary.innerHTML = '\u2728 ' + action + ' ' + kg + ' kg \u2014 Programme personnalis\u00e9';
+  } else if (path === 'challenge') {
+    const myName = document.getElementById('myName').value || 'Toi';
+    const friendName = document.getElementById('friendName').value || 'Ton ami(e)';
+    const kg = document.getElementById('challengeRange').value;
+    const type = currentChallengeType === 'weight' ? 'perte de poids' : 'fitness';
+    userData = { path: 'challenge', myName, friendName, type: currentChallengeType, kg };
+    summary.innerHTML = '\ud83e\udd1d ' + myName + ' vs ' + friendName + ' \u2014 Challenge ' + type + ' (' + kg + ' kg)';
+  } else if (path === 'call') {
+    const phone = document.getElementById('phoneInput').value;
+    const coachName = selectedCoach === 'alma' ? 'Alma' : 'Marco';
+    userData = { path: 'call', coach: selectedCoach, phone: phone };
+    summary.innerHTML = '\ud83d\udcde ' + coachName + ' t\'appelle dans 5 min';
+    if (!phone || phone.length < 8) {
+      document.getElementById('phoneInput').style.borderColor = '#ef4444';
+      document.getElementById('phoneInput').focus();
+      return;
+    }
+  }
+
+  overlay.classList.add('show');
+  overlay.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function submitSignup() {
+  const email = document.getElementById('signupEmail').value;
+  if (!email || !email.includes('@')) {
+    document.getElementById('signupEmail').style.borderColor = '#ef4444';
+    return;
+  }
+  userData.email = email;
+
+  // store in localStorage for now
+  const leads = JSON.parse(localStorage.getItem('cmm_leads') || '[]');
+  leads.push({ ...userData, timestamp: new Date().toISOString() });
+  localStorage.setItem('cmm_leads', JSON.stringify(leads));
+
+  // show success
+  document.getElementById('signupForm').style.display = 'none';
+  const success = document.getElementById('signupSuccess');
+  success.style.display = 'block';
+
+  if (userData.path === 'call') {
+    document.getElementById('successMsg').textContent = (userData.coach === 'alma' ? 'Alma' : 'Marco') + ' va t\'appeler dans quelques minutes. Garde ton t\u00e9l\u00e9phone pr\u00e8s de toi !';
+  } else if (userData.path === 'challenge') {
+    document.getElementById('successMsg').textContent = 'On envoie l\'invitation \u00e0 ' + (userData.friendName || 'ton ami(e)') + '. Pr\u00e9parez-vous au challenge !';
+  } else {
+    document.getElementById('successMsg').textContent = 'Ton programme personnalis\u00e9 est en route. Check ton email !';
+  }
+}
+
+// nav links update
+document.querySelectorAll('.btn-primary').forEach(btn => {
+  if (btn.textContent.includes('premier appel') || btn.textContent.includes('Commencer')) {
+    btn.setAttribute('href', '#start');
+  }
 });
 </script>
 
