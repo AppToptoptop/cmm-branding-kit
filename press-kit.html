@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Call Me Maybe — Press Kit</title>
+<meta property="og:title" content="Call Me Maybe — Press Kit">
+<meta property="og:description" content="Everything journalists and partners need to cover Call Me Maybe.">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #08090c;
+  --surface: #0e1015;
+  --card: #12141b;
+  --card-hover: #181b24;
+  --border: #1c1f2a;
+  --text: #eceae7;
+  --dim: #8a8f9e;
+  --muted: #4e5263;
+  --gold: #D4A853;
+  --gold-dim: rgba(212,168,83,0.12);
+  --teal: #00d4aa;
+  --teal-dim: rgba(0,212,170,0.1);
+  --orange: #F47D31;
+  --orange-dim: rgba(244,125,49,0.1);
+  --green: #4ade80;
+  --green-dim: rgba(74,222,128,0.1);
+  --red: #ff4d6a;
+  --blue: #4da6ff;
+  --purple: #b366ff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.noise {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none; z-index:1;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Hero */
+.hero {
+  padding: 80px 0 60px;
+  text-align: center;
+  position: relative;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s ease;
+}
+
+.hero-badge .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s ease infinite;
+}
+
+.hero h1 {
+  font-family: 'Sora', sans-serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s ease 0.1s both;
+}
+
+.hero h1 .gradient {
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+  font-size: 1.15rem;
+  color: var(--dim);
+  max-width: 600px;
+  margin: 0 auto 32px;
+  line-height: 1.6;
+  animation: fadeUp 0.6s ease 0.2s both;
+}
+
+.hero-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s ease 0.3s both;
+}
+
+.hero-nav a {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.hero-nav a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* Section */
+.section {
+  padding: 60px 0;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 32px;
+}
+
+/* Card Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  text-decoration: none;
+  color: var(--text);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover {
+  background: var(--card-hover);
+  border-color: #252838;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.card:hover::before { opacity: 1; }
+
+.card[data-accent="gold"]::before { background: var(--gold); opacity: 0; }
+.card[data-accent="teal"]::before { background: var(--teal); opacity: 0; }
+.card[data-accent="orange"]::before { background: var(--orange); opacity: 0; }
+.card[data-accent="green"]::before { background: var(--green); opacity: 0; }
+.card[data-accent="blue"]::before { background: var(--blue); opacity: 0; }
+.card[data-accent="purple"]::before { background: var(--purple); opacity: 0; }
+
+.card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.card[data-accent="gold"] .card-icon { background: var(--gold-dim); }
+.card[data-accent="teal"] .card-icon { background: var(--teal-dim); }
+.card[data-accent="orange"] .card-icon { background: var(--orange-dim); }
+.card[data-accent="green"] .card-icon { background: var(--green-dim); }
+.card[data-accent="blue"] .card-icon { background: rgba(77,166,255,0.1); }
+.card[data-accent="purple"] .card-icon { background: rgba(179,102,255,0.1); }
+
+.card-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 0.88rem;
+  color: var(--dim);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.card-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--dim);
+}
+
+.card-tag.live { border-color: var(--green); color: var(--green); }
+.card-tag.new { border-color: var(--gold); color: var(--gold); }
+.card-tag.ext { border-color: var(--blue); color: var(--blue); }
+
+.card-arrow {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .card-arrow { transform: translateX(4px); }
+
+/* Stat Cards */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.stat-card:nth-child(1)::before { background: var(--gold); }
+.stat-card:nth-child(2)::before { background: var(--teal); }
+.stat-card:nth-child(3)::before { background: var(--orange); }
+.stat-card:nth-child(4)::before { background: var(--green); }
+.stat-card:nth-child(5)::before { background: var(--purple); }
+
+.stat-num {
+  font-family: 'Sora', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-card:nth-child(1) .stat-num { color: var(--gold); }
+.stat-card:nth-child(2) .stat-num { color: var(--teal); }
+.stat-card:nth-child(3) .stat-num { color: var(--orange); }
+.stat-card:nth-child(4) .stat-num { color: var(--green); }
+.stat-card:nth-child(5) .stat-num { color: var(--purple); }
+
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--dim);
+  line-height: 1.4;
+}
+
+/* Overview Block */
+.overview-block {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 36px;
+  margin-bottom: 24px;
+}
+
+.overview-block h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.overview-block h3 .tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.overview-block p {
+  font-size: 0.92rem;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+.overview-block .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.overview-block .copy-btn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+.overview-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-item .meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.meta-item .meta-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Founder profiles */
+.founder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 20px;
+}
+
+.founder-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.founder-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.founder-card:nth-child(1)::before { background: var(--gold); }
+.founder-card:nth-child(2)::before { background: var(--teal); }
+
+.founder-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.founder-avatar-lg {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Sora', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.founder-card:nth-child(1) .founder-avatar-lg { background: var(--gold); }
+.founder-card:nth-child(2) .founder-avatar-lg { background: var(--teal); }
+
+.founder-details h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.founder-details .founder-role {
+  font-size: 0.82rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.founder-card:nth-child(2) .founder-details .founder-role { color: var(--teal); }
+
+.founder-details .founder-bio {
+  font-size: 0.85rem;
+  color: var(--dim);
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.founder-details .founder-contact {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.founder-details .founder-contact a {
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.founder-details .founder-contact a:hover { color: var(--gold); }
+
+/* Brand Assets */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.color-swatch {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.color-swatch:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.color-swatch .swatch-block {
+  height: 80px;
+  width: 100%;
+}
+
+.color-swatch .swatch-info {
+  padding: 12px 14px;
+}
+
+.color-swatch .swatch-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.color-swatch .swatch-hex {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.type-specimen {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-top: 20px;
+}
+
+.type-row {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.type-row:last-child { border-bottom: none; }
+
+.type-row .type-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.type-row .type-sample {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.type-row .type-use {
+  font-size: 0.78rem;
+  color: var(--dim);
+  margin-left: auto;
+}
+
+.type-row:nth-child(1) .type-sample { font-family: 'Sora', sans-serif; }
+.type-row:nth-child(2) .type-sample { font-family: 'DM Sans', sans-serif; font-weight: 400; }
+.type-row:nth-child(3) .type-sample { font-family: 'JetBrains Mono', monospace; font-weight: 400; font-size: 1.1rem; }
+
+/* Screenshots */
+.screenshot-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.screenshot-placeholder {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  aspect-ratio: 9/16;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.screenshot-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(212,168,83,0.03), rgba(0,212,170,0.03));
+}
+
+.screenshot-placeholder:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.screenshot-placeholder .ss-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.screenshot-placeholder .ss-label {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.screenshot-placeholder .ss-desc {
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* FAQ */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: #252838;
+}
+
+.faq-question {
+  padding: 22px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.faq-question h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.faq-question .faq-toggle {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--muted);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.faq-item.open .faq-toggle {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 600px;
+}
+
+.faq-answer-inner {
+  padding: 0 28px 24px;
+  font-size: 0.88rem;
+  color: var(--dim);
+  line-height: 1.7;
+}
+
+/* Press / Coverage */
+.press-empty {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px;
+  text-align: center;
+}
+
+.press-empty .pe-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  opacity: 0.3;
+}
+
+.press-empty h3 {
+  font-family: 'Sora', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.press-empty p {
+  font-size: 0.88rem;
+  color: var(--dim);
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Contact bar */
+.contact-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.contact-card:nth-child(1)::before { background: var(--gold); }
+.contact-card:nth-child(2)::before { background: var(--green); }
+.contact-card:nth-child(3)::before { background: var(--teal); }
+
+.contact-card:hover {
+  background: var(--card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+}
+
+.contact-card .cc-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.contact-card:nth-child(1) .cc-icon { background: var(--gold-dim); }
+.contact-card:nth-child(2) .cc-icon { background: var(--green-dim); }
+.contact-card:nth-child(3) .cc-icon { background: var(--teal-dim); }
+
+.contact-card .cc-info .cc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.contact-card .cc-info .cc-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Back to War Room */
+.back-link {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.back-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  color: var(--dim);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.back-link a:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: var(--gold-dim);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: var(--dim);
+  text-decoration: none;
+}
+
+footer a:hover { color: var(--text); }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .hero { padding: 50px 0 40px; }
+  .hero h1 { font-size: 2rem; }
+  .card-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  .founder-grid { grid-template-columns: 1fr; }
+  .founder-card { flex-direction: column; align-items: center; text-align: center; }
+  .screenshot-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-bar { grid-template-columns: 1fr; }
+  .type-row { flex-direction: column; gap: 4px; }
+  .type-row .type-use { margin-left: 0; }
+  .overview-meta { grid-template-columns: repeat(2, 1fr); }
+  .color-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.section {
+  animation: fadeUp 0.5s ease both;
+}
+
+.stat-grid .stat-card { animation: fadeUp 0.5s ease both; }
+.stat-grid .stat-card:nth-child(1) { animation-delay: 0.05s; }
+.stat-grid .stat-card:nth-child(2) { animation-delay: 0.1s; }
+.stat-grid .stat-card:nth-child(3) { animation-delay: 0.15s; }
+.stat-grid .stat-card:nth-child(4) { animation-delay: 0.2s; }
+.stat-grid .stat-card:nth-child(5) { animation-delay: 0.25s; }
+
+.card-grid .card { animation: fadeUp 0.5s ease both; }
+.card-grid .card:nth-child(1) { animation-delay: 0.05s; }
+.card-grid .card:nth-child(2) { animation-delay: 0.1s; }
+.card-grid .card:nth-child(3) { animation-delay: 0.15s; }
+.card-grid .card:nth-child(4) { animation-delay: 0.2s; }
+
+.screenshot-grid .screenshot-placeholder { animation: fadeUp 0.5s ease both; }
+.screenshot-grid .screenshot-placeholder:nth-child(1) { animation-delay: 0.05s; }
+.screenshot-grid .screenshot-placeholder:nth-child(2) { animation-delay: 0.1s; }
+.screenshot-grid .screenshot-placeholder:nth-child(3) { animation-delay: 0.15s; }
+.screenshot-grid .screenshot-placeholder:nth-child(4) { animation-delay: 0.2s; }
+.screenshot-grid .screenshot-placeholder:nth-child(5) { animation-delay: 0.25s; }
+
+.faq-list .faq-item { animation: fadeUp 0.5s ease both; }
+.faq-list .faq-item:nth-child(1) { animation-delay: 0.05s; }
+.faq-list .faq-item:nth-child(2) { animation-delay: 0.1s; }
+.faq-list .faq-item:nth-child(3) { animation-delay: 0.15s; }
+.faq-list .faq-item:nth-child(4) { animation-delay: 0.2s; }
+.faq-list .faq-item:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<div class="container">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Press Kit &mdash; Feb 2026</div>
+  <h1>Press <span class="gradient">Kit</span></h1>
+  <p>Everything journalists and partners need to cover Call Me Maybe. Download assets, grab copy, get the story straight.</p>
+  <div class="hero-nav">
+    <a href="#overview">Overview</a>
+    <a href="#stats">Key Stats</a>
+    <a href="#founders">Founders</a>
+    <a href="#brand">Brand Assets</a>
+    <a href="#screenshots">Screenshots</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+</div>
+
+<!-- COMPANY OVERVIEW -->
+<div class="section" id="overview">
+  <div class="section-label">01 / Company</div>
+  <div class="section-title">Company Overview</div>
+
+  <div class="overview-block">
+    <h3>Short Description <span class="tag">50 words &mdash; Copy-Paste Ready</span></h3>
+    <p id="short-desc">Call Me Maybe is an AI accountability coach that proactively calls users every morning for weight loss. Unlike apps you forget to open, we call you. 87% daily engagement rate vs 15&ndash;20% for traditional health apps.</p>
+    <button class="copy-btn" onclick="copyText('short-desc')">&#9776; Copy to Clipboard</button>
+  </div>
+
+  <div class="overview-block">
+    <h3>Long Description <span class="tag">150 words &mdash; For Articles</span></h3>
+    <p id="long-desc">95% of diets fail. Not because people lack willpower, but because they lack accountability. The average health app loses 77% of users within 3 days. People download, swipe, forget. Call Me Maybe flips the model: instead of waiting for users to open an app, an AI coach calls them every morning by phone. A 3-minute daily check-in covers weight, meals, mood, and goals. The AI adapts its tone&mdash;supportive after a bad day, challenging when you need a push. Think of it as a personal coach in your pocket for &euro;9.90/month&mdash;10x cheaper than human coaching. The company targets the &euro;405B global weight loss market, launching France-first where zero competitors combine AI phone calls with weight loss coaching. Founded in 2026 in Paris by Aaron Besnainou (Product &amp; Marketing) and Ata (Backend &amp; Strategy), Call Me Maybe is building the future of proactive health AI.</p>
+    <button class="copy-btn" onclick="copyText('long-desc')">&#9776; Copy to Clipboard</button>
+  </div>
+
+  <div class="overview-block">
+    <h3>Company Facts</h3>
+    <div class="overview-meta">
+      <div class="meta-item">
+        <span class="meta-label">Founded</span>
+        <span class="meta-value">2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Headquarters</span>
+        <span class="meta-value">Paris, France</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Category</span>
+        <span class="meta-value">AI Health Tech</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Market</span>
+        <span class="meta-value">&euro;405B Weight Loss (Global)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Pricing</span>
+        <span class="meta-value">&euro;9.90/month</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Stage</span>
+        <span class="meta-value">Pre-launch</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Launch Market</span>
+        <span class="meta-value">France</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Website</span>
+        <span class="meta-value">callmemaybe.ai</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- KEY STATS -->
+<div class="section" id="stats">
+  <div class="section-label">02 / Key Numbers</div>
+  <div class="section-title">Stats That Matter</div>
+
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num">87%</div>
+      <div class="stat-label">Daily call answer rate. Users pick up the phone because the call is expected and valued.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">2.7x</div>
+      <div class="stat-label">Better weight loss outcomes vs self-monitoring alone, based on accountability coaching research.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">&euro;9.90</div>
+      <div class="stat-label">Per month. 10x cheaper than a human coach (&euro;100+/mo). Accessible to everyone.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3 min</div>
+      <div class="stat-label">Daily check-in length. Short enough to fit any schedule. Long enough to drive real change.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Competitors in France combining AI phone calls with weight loss coaching. Blue ocean.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDERS -->
+<div class="section" id="founders">
+  <div class="section-label">03 / Team</div>
+  <div class="section-title">Founder Profiles</div>
+
+  <div class="founder-grid">
+    <div class="founder-card">
+      <div class="founder-avatar-lg">A</div>
+      <div class="founder-details">
+        <h3>Aaron Besnainou</h3>
+        <div class="founder-role">Co-founder &mdash; Product &amp; Marketing</div>
+        <div class="founder-bio">Product builder and growth strategist. Leads user research, branding, go-to-market strategy, and front-end development. Designed the entire CMM brand system and 37+ page War Room.</div>
+        <div class="founder-contact"><a href="mailto:aaronbes2@gmail.com">aaronbes2@gmail.com</a></div>
+      </div>
+    </div>
+    <div class="founder-card">
+      <div class="founder-avatar-lg">A</div>
+      <div class="founder-details">
+        <h3>Ata</h3>
+        <div class="founder-role">Co-founder &mdash; Backend &amp; Strategy</div>
+        <div class="founder-bio">Technical architect and strategic thinker. Leads backend development, data infrastructure, AI voice integration, and business strategy. Builds the engine that makes the calls happen.</div>
+        <div class="founder-contact">Available via Aaron</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BRAND ASSETS -->
+<div class="section" id="brand">
+  <div class="section-label">04 / Brand</div>
+  <div class="section-title">Brand Assets</div>
+
+  <div class="card-grid">
+    <a href="logos.html" class="card" data-accent="gold">
+      <div class="card-icon">&#9733;</div>
+      <div class="card-title">Logo Library</div>
+      <div class="card-desc">72 logo variations across 8 names, 3 concepts, and 3 color schemes. SVG format, ready for any use.</div>
+      <div class="card-meta">
+        <span class="card-tag live">Live</span>
+        <span class="card-tag">72 Variations</span>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </a>
+
+    <a href="wallpapers.html" class="card" data-accent="teal">
+      <div class="card-icon">&#128247;</div>
+      <div class="card-title">Wallpaper Collection</div>
+      <div class="card-desc">21 branded wallpapers for the 21-Day Streak challenge. Each day has a unique coach quote, progress bar, and color accent.</div>
+      <div class="card-meta">
+        <span class="card-tag live">Live</span>
+        <span class="card-tag">21 Wallpapers</span>
+        <span class="card-arrow">&rarr;</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Color Palette -->
+  <h3 style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-top:36px;margin-bottom:4px;">Color Palette</h3>
+  <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0;">Official brand colors. Click to copy hex values.</p>
+
+  <div class="color-grid">
+    <div class="color-swatch" onclick="copyHex('#08090c')">
+      <div class="swatch-block" style="background:#08090c;border-bottom:1px solid var(--border);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Midnight</div>
+        <div class="swatch-hex">#08090c</div>
+      </div>
+    </div>
+    <div class="color-swatch" onclick="copyHex('#D4A853')">
+      <div class="swatch-block" style="background:#D4A853;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Gold</div>
+        <div class="swatch-hex">#D4A853</div>
+      </div>
+    </div>
+    <div class="color-swatch" onclick="copyHex('#00d4aa')">
+      <div class="swatch-block" style="background:#00d4aa;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Teal</div>
+        <div class="swatch-hex">#00d4aa</div>
+      </div>
+    </div>
+    <div class="color-swatch" onclick="copyHex('#F47D31')">
+      <div class="swatch-block" style="background:#F47D31;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Orange</div>
+        <div class="swatch-hex">#F47D31</div>
+      </div>
+    </div>
+    <div class="color-swatch" onclick="copyHex('#eceae7')">
+      <div class="swatch-block" style="background:#eceae7;"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Cream White</div>
+        <div class="swatch-hex">#eceae7</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Typography -->
+  <div class="type-specimen">
+    <h3 style="font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;margin-bottom:16px;">Typography</h3>
+    <div class="type-row">
+      <span class="type-name">Sora</span>
+      <span class="type-sample">Call Me Maybe</span>
+      <span class="type-use">Headlines &amp; titles</span>
+    </div>
+    <div class="type-row">
+      <span class="type-name">DM Sans</span>
+      <span class="type-sample">Your daily accountability coach</span>
+      <span class="type-use">Body text &amp; UI</span>
+    </div>
+    <div class="type-row">
+      <span class="type-name">JetBrains Mono</span>
+      <span class="type-sample">87% answer rate</span>
+      <span class="type-use">Labels, stats &amp; code</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCT SCREENSHOTS -->
+<div class="section" id="screenshots">
+  <div class="section-label">05 / Product</div>
+  <div class="section-title">Product Screenshots</div>
+  <p style="font-size:0.88rem;color:var(--dim);margin-bottom:24px;line-height:1.5;">High-resolution product screenshots for editorial use. Contact us for custom formats or additional angles.</p>
+
+  <div class="screenshot-grid">
+    <div class="screenshot-placeholder">
+      <div class="ss-icon">&#128222;</div>
+      <div class="ss-label">Incoming Call</div>
+      <div class="ss-desc">The moment CMM calls. Phone lockscreen with caller ID and morning greeting.</div>
+    </div>
+    <div class="screenshot-placeholder">
+      <div class="ss-icon">&#127908;</div>
+      <div class="ss-label">Active Coaching</div>
+      <div class="ss-desc">Mid-call interface showing real-time coaching conversation with AI coach.</div>
+    </div>
+    <div class="screenshot-placeholder">
+      <div class="ss-icon">&#128293;</div>
+      <div class="ss-label">Streak Dashboard</div>
+      <div class="ss-desc">21-day streak tracker with daily progress, milestones, and motivational cues.</div>
+    </div>
+    <div class="screenshot-placeholder">
+      <div class="ss-icon">&#127860;</div>
+      <div class="ss-label">Food Logging</div>
+      <div class="ss-desc">Voice-powered food photo logging. Snap, describe, done in seconds.</div>
+    </div>
+    <div class="screenshot-placeholder">
+      <div class="ss-icon">&#128200;</div>
+      <div class="ss-label">Weekly Report</div>
+      <div class="ss-desc">Personalized weekly progress report with trends, insights, and next-week goals.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRESS RELEASES / COVERAGE -->
+<div class="section" id="press">
+  <div class="section-label">06 / Coverage</div>
+  <div class="section-title">Press Releases &amp; Coverage</div>
+
+  <div class="press-empty">
+    <div class="pe-icon">&#128240;</div>
+    <h3>Coming Soon</h3>
+    <p>Call Me Maybe is pre-launch. Press releases and media coverage will be listed here as they happen. Want to be first? Reach out below.</p>
+  </div>
+</div>
+
+<!-- FAQ FOR JOURNALISTS -->
+<div class="section" id="faq">
+  <div class="section-label">07 / FAQ</div>
+  <div class="section-title">Frequently Asked by Journalists</div>
+
+  <div class="faq-list">
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h3>How is this different from Noom?</h3>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Noom is a content-based app: articles, quizzes, food logging. Users must remember to open it, and 77% don't after 3 days. Call Me Maybe is the opposite&mdash;we proactively call you by phone every morning. You don't open an app; you answer a call. The AI adapts to your tone, tracks your progress by voice, and costs &euro;9.90/month vs Noom's &euro;50+/month. Noom is a reading assignment. CMM is a phone call from someone who cares.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h3>Why phone calls instead of an app?</h3>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Apps rely on users remembering to open them. Phone calls don't. When your phone rings at 8am, you answer. That's 87% daily engagement vs 15-20% for the best health apps. Research shows that phone-based coaching produces 56% more weight loss than self-directed apps. Calls create a human-like commitment loop: someone is expecting you. You show up. The call is only 3 minutes&mdash;shorter than scrolling Instagram&mdash;but it creates a daily anchor that drives lasting behavior change.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h3>Is the AI really calling by phone?</h3>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Yes. A real phone call to your actual phone number. No app download required to receive the call. We use VAPI.ai for voice synthesis and Twilio for telephony. The AI speaks naturally, listens to your responses, and adapts in real-time. It sounds like a supportive human coach, not a robotic IVR. Users consistently report forgetting they're talking to AI within the first 30 seconds of the call.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h3>What about privacy and RGPD compliance?</h3>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          Privacy is foundational, not an afterthought. All data is stored on EU servers (RGPD-compliant). Call recordings are processed for coaching insights then encrypted. Users own their data and can export or delete it anytime. We never sell data to third parties. Health data is treated with the same sensitivity as medical records. Users provide explicit consent for each data type. Our privacy policy is transparent and written in plain language, not legalese.
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <h3>What&rsquo;s your business model?</h3>
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">
+          B2C subscription: &euro;9.90/month for Pro (daily calls, voice food logging, streak system, weekly reports). Free tier with 3 calls/week. Duo plan at &euro;14.90/month for couples/friends. B2B channel: white-label for mutuelles (health insurers), corporate wellness programs, and gym chains. Partner referral commissions (25% for dietitians). Unit economics: &euro;1.20 COGS per call, &euro;4.80 CAC target, 8-month path to profitability. LTV:CAC ratio target of 4:1.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="section" id="contact">
+  <div class="section-label">08 / Contact</div>
+  <div class="section-title">Get in Touch</div>
+
+  <div class="contact-bar">
+    <a href="mailto:aaronbes2@gmail.com" class="contact-card">
+      <div class="cc-icon">&#9993;</div>
+      <div class="cc-info">
+        <div class="cc-label">Email</div>
+        <div class="cc-value">aaronbes2@gmail.com</div>
+      </div>
+    </a>
+    <a href="https://wa.me/33665395800" class="contact-card">
+      <div class="cc-icon">&#128172;</div>
+      <div class="cc-info">
+        <div class="cc-label">WhatsApp</div>
+        <div class="cc-value">+33 6 65 39 58 00</div>
+      </div>
+    </a>
+    <a href="index.html" class="contact-card">
+      <div class="cc-icon">&#9813;</div>
+      <div class="cc-info">
+        <div class="cc-label">War Room</div>
+        <div class="cc-value">Full Strategy Hub</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- BACK TO WAR ROOM -->
+<div class="back-link">
+  <a href="index.html">&larr; Back to War Room</a>
+</div>
+
+</div>
+
+<footer>
+  <p>Call Me Maybe &copy; 2026 &mdash; Built by Aaron + Ata</p>
+  <p style="margin-top:6px;"><a href="mailto:aaronbes2@gmail.com">aaronbes2@gmail.com</a> &middot; <a href="https://wa.me/33665395800">WhatsApp</a></p>
+</footer>
+
+<script>
+function copyText(id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('#' + id + ' ~ .copy-btn');
+    const original = btn.innerHTML;
+    btn.innerHTML = '&#10003; Copied!';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => {
+      btn.innerHTML = original;
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+
+function copyHex(hex) {
+  navigator.clipboard.writeText(hex).then(() => {
+    // brief visual feedback would go here
+  });
+}
+
+function toggleFaq(el) {
+  const item = el.parentElement;
+  item.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
