@@ -54,11 +54,12 @@ export default async function handler(req) {
     const s = width / 1170;
     const fire = milestones.has(day);
 
-    // fetch font
-    const fontData = await fetch(FONT_URL).then(r => {
-      if (!r.ok) throw new Error('Font fetch failed: ' + r.status);
-      return r.arrayBuffer();
-    });
+    // fetch font - if it fails, proceed without custom font
+    let fontData = null;
+    try {
+      const r = await fetch(FONT_URL);
+      if (r.ok) fontData = await r.arrayBuffer();
+    } catch (_) {}
 
     const kids = [
       // branding
@@ -105,16 +106,19 @@ export default async function handler(req) {
       },
     };
 
-    return new ImageResponse(root, {
+    const opts = {
       width,
       height,
-      fonts: [
+      headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
+    };
+    if (fontData) {
+      opts.fonts = [
         { name: 'Sora', data: fontData, weight: 400 },
         { name: 'Sora', data: fontData, weight: 700 },
         { name: 'Sora', data: fontData, weight: 900 },
-      ],
-      headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
-    });
+      ];
+    }
+    return new ImageResponse(root, opts);
 
   } catch (e) {
     return new Response(JSON.stringify({ error: e.message, stack: e.stack }), {
