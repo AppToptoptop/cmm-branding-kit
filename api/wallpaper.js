@@ -45,6 +45,7 @@ function h(type, style, ...children) {
 }
 
 export default async function handler(req) {
+  try {
   const url = new URL(req.url);
   let day = parseInt(url.searchParams.get('day') || '0');
   const start = url.searchParams.get('start');
@@ -238,4 +239,11 @@ export default async function handler(req) {
       'Cache-Control': 'public, max-age=86400, s-maxage=86400',
     },
   });
+
+  } catch (e) {
+    return new Response(JSON.stringify({ error: e.message, stack: e.stack }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 }
