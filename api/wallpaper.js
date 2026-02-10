@@ -2,7 +2,9 @@ import { ImageResponse } from '@vercel/og';
 
 export const config = { runtime: 'edge' };
 
-const FONT_URL = 'https://raw.githubusercontent.com/google/fonts/main/ofl/sora/Sora%5Bwght%5D.ttf';
+// static weight URLs from Google Fonts API (Satori can't use variable fonts)
+const FONT_BOLD = 'https://fonts.gstatic.com/s/sora/v17/xMQOuFFYT72X5wkB_18qmnndmSe1mX-K.ttf';
+const FONT_EXTRABOLD = 'https://fonts.gstatic.com/s/sora/v17/xMQOuFFYT72X5wkB_18qmnndmSfSmX-K.ttf';
 
 const quotes = [
   { coach: "Coach Max", quote: ["Day 1. No excuses.", "Let's go."], color: "#F47D31" },
@@ -53,16 +55,22 @@ export default async function handler(req) {
   const s = width / 1170;
   const fire = milestones.has(day);
 
-  // fetch font
-  let fontData = null;
+  // fetch static font files in parallel
+  const fonts = [];
   try {
-    const r = await fetch(FONT_URL);
-    if (r.ok) fontData = await r.arrayBuffer();
+    const [boldRes, extraBoldRes] = await Promise.all([
+      fetch(FONT_BOLD),
+      fetch(FONT_EXTRABOLD),
+    ]);
+    if (boldRes.ok) fonts.push({ name: 'Sora', data: await boldRes.arrayBuffer(), weight: 700 });
+    if (extraBoldRes.ok) fonts.push({ name: 'Sora', data: await extraBoldRes.arrayBuffer(), weight: 900 });
   } catch (_) {}
+
+  const hasFonts = fonts.length > 0;
 
   const kids = [
     // branding
-    el('div', { marginTop: Math.round(height * 0.1), color: 'rgba(255,255,255,0.25)', fontSize: Math.round(28 * s) }, 'Call Me Maybe'),
+    el('div', { marginTop: Math.round(height * 0.1), color: 'rgba(255,255,255,0.25)', fontSize: Math.round(28 * s), fontWeight: 700 }, 'Call Me Maybe'),
     // DAY label
     el('div', { color: 'rgba(255,255,255,0.4)', fontSize: Math.round(36 * s), fontWeight: 700, letterSpacing: Math.round(12 * s), marginTop: Math.round(height * 0.06) }, 'D A Y'),
     // number
@@ -72,12 +80,12 @@ export default async function handler(req) {
       el('div', { width: `${pct}%`, height: '100%', background: q.color, borderRadius: 4 })
     ),
     // progress text
-    el('div', { color: 'rgba(255,255,255,0.3)', fontSize: Math.round(22 * s), fontWeight: 600, marginTop: Math.round(12 * s) }, `${day} / 21`),
+    el('div', { color: 'rgba(255,255,255,0.3)', fontSize: Math.round(22 * s), fontWeight: 700, marginTop: Math.round(12 * s) }, `${day} / 21`),
   ];
 
   // milestone marker
   if (fire) {
-    kids.push(el('div', { color: q.color, fontSize: Math.round(36 * s), marginTop: Math.round(15 * s), letterSpacing: Math.round(8 * s) }, '\u2726 \u2726 \u2726'));
+    kids.push(el('div', { color: q.color, fontSize: Math.round(28 * s), marginTop: Math.round(15 * s), letterSpacing: Math.round(6 * s) }, '/// MILESTONE ///'));
   }
 
   // quote lines
@@ -87,18 +95,17 @@ export default async function handler(req) {
   }
 
   // coach
-  kids.push(el('div', { color: q.color, fontSize: Math.round(26 * s), fontWeight: 600, marginTop: Math.round(25 * s) }, `\u2014 ${q.coach}`));
+  kids.push(el('div', { color: q.color, fontSize: Math.round(26 * s), fontWeight: 700, marginTop: Math.round(25 * s) }, `\u2014 ${q.coach}`));
 
   // hashtag
-  kids.push(el('div', { marginTop: 'auto', marginBottom: Math.round(height * 0.08), color: 'rgba(255,255,255,0.12)', fontSize: Math.round(20 * s), fontWeight: 600 }, '#CallMeMaybe21'));
+  kids.push(el('div', { marginTop: 'auto', marginBottom: Math.round(height * 0.08), color: 'rgba(255,255,255,0.12)', fontSize: Math.round(20 * s), fontWeight: 700 }, '#CallMeMaybe21'));
 
-  // only set fontFamily if font was loaded successfully
   const rootStyle = {
     width: '100%', height: '100%',
     display: 'flex', flexDirection: 'column', alignItems: 'center',
     background: 'linear-gradient(180deg, #0a0b0e 0%, #0f1118 40%, #0a0b0e 100%)',
   };
-  if (fontData) rootStyle.fontFamily = 'Sora';
+  if (hasFonts) rootStyle.fontFamily = 'Sora';
 
   const root = {
     type: 'div',
@@ -110,13 +117,7 @@ export default async function handler(req) {
     height,
     headers: { 'Cache-Control': 'public, max-age=86400, s-maxage=86400' },
   };
-  if (fontData) {
-    opts.fonts = [
-      { name: 'Sora', data: fontData, weight: 400 },
-      { name: 'Sora', data: fontData, weight: 700 },
-      { name: 'Sora', data: fontData, weight: 900 },
-    ];
-  }
+  if (hasFonts) opts.fonts = fonts;
 
   return new ImageResponse(root, opts);
 }
