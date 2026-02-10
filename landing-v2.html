@@ -379,20 +379,151 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
 }
 .signup-success h3 { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
 .signup-success p { color: var(--gray-400); font-size: 0.88rem; }
+/* MOBILE HERO VISUAL — shown on phones instead of full desktop visual */
+.hero-mobile-visual {
+  display: none;
+  margin: 2rem auto 0;
+  max-width: 320px;
+}
+.hero-mobile-call {
+  background: var(--gray-900);
+  border-radius: 20px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  position: relative;
+  overflow: hidden;
+}
+.hero-mobile-call::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--green-light));
+}
+.hero-mobile-call .label {
+  color: var(--gray-400);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+}
+.hero-mobile-call .name {
+  color: white;
+  font-weight: 800;
+  font-size: 1.15rem;
+  margin-bottom: 0.15rem;
+}
+.hero-mobile-call .sub {
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+.hero-mobile-call .btns {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+}
+.hero-mobile-call .btn-c {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: none;
+}
+.hero-mobile-call .btn-c.no { background: var(--red); }
+.hero-mobile-call .btn-c.yes { background: var(--green); animation: ring 1.5s infinite; }
+.hero-mobile-streak {
+  display: flex;
+  justify-content: center;
+  gap: clamp(4px, 1.5vw, 6px);
+  margin-top: 1rem;
+}
+.hero-mobile-streak .d {
+  width: clamp(28px, 8vw, 36px);
+  height: clamp(28px, 8vw, 36px);
+  border-radius: clamp(6px, 1.5vw, 10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: clamp(0.55rem, 2vw, 0.7rem);
+}
+.hero-mobile-streak .d.on {
+  background: var(--green);
+  color: white;
+}
+.hero-mobile-streak .d.now {
+  background: var(--green-dark);
+  color: white;
+  box-shadow: 0 0 0 2px var(--green-200);
+  animation: pulseD 2s infinite;
+}
+.hero-mobile-streak .d.off {
+  background: var(--gray-100);
+  color: var(--gray-400);
+  border: 1px solid var(--gray-200);
+}
+.hero-mobile-streak .d .dl {
+  font-size: clamp(0.35rem, 1vw, 0.42rem);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  opacity: 0.7;
+  font-weight: 600;
+}
+@keyframes pulseD { 0%,100% { box-shadow: 0 0 0 2px var(--green-200); } 50% { box-shadow: 0 0 0 5px rgba(34,197,94,0.15); } }
+
 @media (max-width: 768px) {
   .hero-inner { grid-template-columns: 1fr; text-align: center; }
   .hero-sub { margin: 0 auto 2rem; }
   .hero-buttons { justify-content: center; }
-  .hero-proof { justify-content: center; }
+  .hero-proof { justify-content: center; flex-wrap: wrap; gap: 1.5rem; }
   .hero-visual { display: none; }
+  .hero-mobile-visual { display: block; }
   .nav-links { display: none; }
   .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+  .feature-phone, .wa-mock, .achievement-mock { max-width: 380px; margin: 0 auto; }
   .start-grid, .problem-grid, .steps, .usecases, .testimonials { grid-template-columns: 1fr; }
   .signup-row { flex-direction: column; }
   .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
   .price-card.featured { transform: none; }
   .final-features { flex-direction: column; align-items: center; }
   .footer-inner { flex-direction: column; text-align: center; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .section { padding: 3.5rem 1.5rem; }
+  .hero-pills { justify-content: center; }
+  .hero h1 { font-size: clamp(1.8rem, 7vw, 2.4rem); }
+  .section-header h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
+  .sticky-bar-inner { gap: 0.5rem; }
+  .sticky-bar-text { font-size: 0.75rem; }
+}
+/* iPhone SE / small phones */
+@media (max-width: 375px) {
+  .hero { padding: 5.5rem 1.25rem 2.5rem; }
+  .section { padding: 3rem 1.25rem; }
+  .hero-proof { gap: 1rem; }
+  .hero-proof-item { gap: 6px; }
+  .hero-proof-text strong { font-size: 0.78rem; }
+  .hero-proof-text { font-size: 0.72rem; }
+  .hero-buttons { flex-direction: column; align-items: center; }
+  .hero-buttons .btn-lg { width: 100%; justify-content: center; }
+  .feature-phone { padding: 1.5rem; }
+  .phone-btn-circle { width: 48px; height: 48px; font-size: 1.1rem; }
+  .start-card { padding: 1.5rem; }
+  .steps { gap: 1rem; }
+  .step { padding: 1.5rem 1.25rem; }
+  .problem-card { padding: 1.5rem; }
+}
+/* Extra small (iPhone SE 1st gen / very small) */
+@media (max-width: 320px) {
+  .hero h1 { font-size: 1.5rem; letter-spacing: -1px; }
+  .hero-sub { font-size: 0.95rem; }
+  .hero-mobile-streak .d { width: 24px; height: 24px; }
+  .btn-primary.btn-lg { padding: 0.75rem 1.5rem; font-size: 0.9rem; }
 }
 </style>
 </head>
@@ -480,6 +611,28 @@ body { font-family: 'Inter', -apple-system, sans-serif; color: var(--gray-900); 
           <button class="call-btn decline">&#128532;</button>
           <button class="call-btn answer">&#128222;</button>
         </div>
+      </div>
+    </div>
+
+    <!-- MOBILE HERO VISUAL (hidden on desktop, shown on phones) -->
+    <div class="hero-mobile-visual">
+      <div class="hero-mobile-call">
+        <div class="label" data-t="he.mob.lbl">Appel entrant</div>
+        <div class="name">Coach Alma &#128170;</div>
+        <div class="sub" data-t="he.mob.sub">Call Me Maybe</div>
+        <div class="btns">
+          <div class="btn-c no">&#128532;</div>
+          <div class="btn-c yes">&#128222;</div>
+        </div>
+      </div>
+      <div class="hero-mobile-streak">
+        <div class="d on"><div class="dl">Day</div>1</div>
+        <div class="d on"><div class="dl">Day</div>2</div>
+        <div class="d on"><div class="dl">Day</div>3</div>
+        <div class="d now"><div class="dl">Day</div>4</div>
+        <div class="d off"><div class="dl">Day</div>5</div>
+        <div class="d off"><div class="dl">Day</div>6</div>
+        <div class="d off"><div class="dl">Day</div>7</div>
       </div>
     </div>
   </div>
@@ -1062,6 +1215,7 @@ const enTexts = {
   'he.pr1':'<strong>Voice calls</strong>Daily check-ins',
   'he.pr2':'<strong>21-day streaks</strong>Build lasting habits',
   'he.pr3':'<strong>Progress tracking</strong>Visualize your progress',
+  'he.mob.lbl':'Incoming Call','he.mob.sub':'Call Me Maybe',
   'he.live':'Live','he.livetxt':'Alma called someone 3 min ago',
   'he.status':'Online',
   'he.m1':'Hey! How\'s your running goal? I noticed you skipped yesterday.<div class="time">8:24am</div>',
