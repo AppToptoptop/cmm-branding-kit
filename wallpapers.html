@@ -68,6 +68,9 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 .footer a{color:var(--dim);text-decoration:none;}
 .footer a:hover{color:var(--text);}
 
+select.action-btn{background-color:var(--card);color:var(--dim);cursor:pointer;}
+select.action-btn option{background:var(--card);color:var(--text);padding:0.3rem;}
+
 @media(max-width:600px){
 .hero{padding:5rem 0 1.5rem;}
 .wall-grid{grid-template-columns:repeat(3,1fr);gap:0.5rem;}
@@ -93,6 +96,16 @@ body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xm
 </div>
 
 <div class="actions">
+  <select id="deviceSelect" class="action-btn" style="appearance:none;-webkit-appearance:none;padding-right:2rem;background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22%3E%3Cpath fill=%22%238b8fa0%22 d=%22M6 8L0 0h12z%22/%3E%3C/svg%3E');background-repeat:no-repeat;background-position:right 0.8rem center;min-width:180px;text-align:left;">
+    <option value="1170x2532">iPhone 14 / 15</option>
+    <option value="1179x2556">iPhone 14/15 Pro</option>
+    <option value="1284x2778">iPhone 14/15 Plus</option>
+    <option value="1290x2796">iPhone 14/15 Pro Max</option>
+    <option value="1206x2622">iPhone 16 Pro</option>
+    <option value="1320x2868">iPhone 16 Pro Max</option>
+    <option value="1080x2340">iPhone 13 mini</option>
+    <option value="750x1334">iPhone SE</option>
+  </select>
   <button class="action-btn primary" onclick="downloadAll()">&#11015; Download All 21</button>
   <button class="action-btn" onclick="document.getElementById('setup').scrollIntoView({behavior:'smooth'})">&#9881; Setup Guide</button>
 </div>
@@ -257,15 +270,24 @@ const quotes = [
 // progress milestones
 const milestones = [1, 3, 7, 10, 14, 21];
 
+function getSelectedResolution() {
+  const sel = document.getElementById('deviceSelect');
+  const [w, h] = sel.value.split('x').map(Number);
+  return { w, h };
+}
+
 function drawWallpaper(canvas, day, forDownload) {
-  const w = forDownload ? 1170 : 180;
-  const h = forDownload ? 2532 : 390;
-  const s = forDownload ? 1 : 180/1170;
+  const res = getSelectedResolution();
+  const w = forDownload ? res.w : 180;
+  const h = forDownload ? res.h : 390;
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   const q = quotes[day - 1];
   const progress = day / 21;
+
+  // scale factor relative to reference 1170px design
+  const fs = w / 1170;
 
   // background gradient
   const grad = ctx.createLinearGradient(0, 0, 0, h);
@@ -285,14 +307,13 @@ function drawWallpaper(canvas, day, forDownload) {
   // noise-like grain (subtle dots)
   if (forDownload) {
     ctx.fillStyle = 'rgba(255,255,255,0.008)';
-    for (let i = 0; i < 3000; i++) {
+    const grainCount = Math.round(3000 * (w * h) / (1170 * 2532));
+    for (let i = 0; i < grainCount; i++) {
       const x = Math.random() * w;
       const y = Math.random() * h;
       ctx.fillRect(x, y, 1, 1);
     }
   }
-
-  const fs = forDownload ? 1 : s;
 
   // top area — time placeholder region (leave space for iOS clock)
   // small branding at top
